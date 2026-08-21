@@ -76,17 +76,25 @@ Fonts API — no external requests at runtime.
 
 ## Deploying
 
-Cloudflare Pages, building from `main`:
+Cloudflare Pages project **`jacobhite-com`** → https://jacobhite-com.pages.dev
 
-| Setting | Value |
-| --- | --- |
-| Framework preset | Astro |
-| Build command | `pnpm build` |
-| Output directory | `dist` |
-| Node version | `22` |
+It is a **direct-upload** project, not Git-connected — the Cloudflare CLI can
+only create the former, and `wrangler` has no command for custom domains at all.
+So Cloudflare does not build on push by itself; `.github/workflows/deploy.yml`
+does it instead: build on the runner, upload with `wrangler pages deploy`.
+Pushes to `main` publish. Pull requests build but never deploy, so a broken
+build is caught before merge.
 
-`public/_headers` sets the security headers and immutable caching for hashed
-assets; Cloudflare Pages picks it up automatically.
+Repo secrets it needs (already set): `CLOUDFLARE_API_TOKEN` (Pages: Edit) and
+`CLOUDFLARE_ACCOUNT_ID`.
+
+To publish by hand from a laptop:
+
+```bash
+pnpm deploy      # astro build && wrangler pages deploy dist
+```
+
+That needs `~/.jacobhite.env` loaded — see `.envrc.example`.
 
 ## What still needs doing
 
