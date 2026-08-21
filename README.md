@@ -90,5 +90,10 @@ assets; Cloudflare Pages picks it up automatically.
 
 ## What still needs doing
 
-See `docs/CONTENT-INVENTORY.md` for the migration's open items, and
-`src/data/nav.ts` for the contact address that is not set yet.
+See `docs/CONTENT-INVENTORY.md` for the migration's open items.
+
+**Before launch:** `jacob@jacobhite.com` is published across the site (footer on
+every page, plus the coaching CTA) but inbound routing for the domain is not set
+up yet — mail to it currently bounces. Set up forwarding at the registrar, or
+change `siteMeta.email` in `src/data/nav.ts`. Setting it to `null` degrades every
+contact control to an honest "coming soon" note rather than a dead link.

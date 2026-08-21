@@ -52,9 +52,9 @@ export const siteMeta = {
   repo: 'https://github.com/jrhite/jacobhite.com',
 
   /**
-   * TODO: set a real contact address before launch. Everything that renders a
-   * "get in touch" control checks this first, so the site has no dead CTAs
-   * while it is empty.
+   * On the domain rather than a personal Gmail. Requires inbound routing to be
+   * live at the registrar before launch — until then mail to it bounces.
+   * Everything that renders a "get in touch" control reads this one value.
    */
-  email: null as string | null,
+  email: 'jacob@jacobhite.com' as string | null,
 };

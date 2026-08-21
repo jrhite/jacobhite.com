@@ -9,6 +9,13 @@ const year = new Date().getFullYear();
     <div class="footer__about">
       <p class="footer__name">{siteMeta.name}</p>
       <p class="muted">{siteMeta.tagline}</p>
+      {
+        siteMeta.email && (
+          <p class="footer__email">
+            <a href={`mailto:${siteMeta.email}`}>{siteMeta.email}</a>
+          </p>
+        )
+      }
     </div>
 
     <nav class="footer__nav" aria-label="Footer">
@@ -48,6 +55,16 @@ const year = new Date().getFullYear();
     font-family: var(--f-display);
     font-weight: 700;
     font-size: var(--t-lg);
+  }
+
+  .footer__email {
+    margin-top: var(--s-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+  }
+
+  .footer__email a {
+    text-decoration-color: var(--border-strong);
   }
 
   .footer__nav ul {
