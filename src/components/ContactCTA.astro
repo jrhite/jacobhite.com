@@ -1,0 +1,102 @@
+---
+import { siteMeta } from '../data/nav';
+
+interface Props {
+  heading: string;
+  body: string;
+}
+
+const { heading, body } = Astro.props;
+
+/**
+ * There is no contact address set yet (see siteMeta.email). Rather than shipping
+ * a button that goes nowhere, the CTA degrades to an honest note until one exists.
+ */
+const email = siteMeta.email;
+---
+
+<section class="section page">
+  <div class="cta">
+    <div class="cta__text">
+      <h2>{heading}</h2>
+      <p class="muted">{body}</p>
+    </div>
+
+    {
+      email ? (
+        <a class="cta__btn" href={`mailto:${email}`}>
+          Email me →
+        </a>
+      ) : (
+        <p class="cta__pending">
+          <span class="cta__pending-key">Contact details coming</span>
+          An address for this goes here once it's set up.
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-5);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    background: var(--accent-soft);
+  }
+
+  .cta__text {
+    max-width: 40rem;
+  }
+
+  .cta h2 {
+    font-size: var(--t-xl);
+    margin-bottom: var(--s-2);
+  }
+
+  .cta__btn {
+    display: inline-block;
+    padding: 0.72em 1.35em;
+    border-radius: var(--r-full);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1px solid var(--btn-bg);
+    font-weight: 700;
+    font-size: var(--t-sm);
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      transform var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease);
+  }
+
+  .cta__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: var(--btn-fg);
+  }
+
+  .cta__pending {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-muted);
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--r-md);
+    padding: var(--s-3) var(--s-4);
+    max-width: 20rem;
+  }
+
+  .cta__pending-key {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--text-faint);
+    margin-bottom: var(--s-1);
+  }
+</style>

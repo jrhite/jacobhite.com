@@ -1,0 +1,129 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import StatusPill from '../../components/StatusPill.astro';
+
+const entries = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
+
+const groups = ['Coursework', 'Modules', 'M.Ed. Pathways'] as const;
+
+const counts = {
+  total: entries.length,
+  done: entries.filter((e) => e.data.status === 'complete').length,
+};
+---
+
+<BaseLayout
+  title="Moreland E-Portfolio"
+  description="My teacher-certification e-portfolio for Moreland University's TEACH-NOW program, carried over page for page from the original site."
+>
+  <PageHeader
+    eyebrow="Coursework"
+    title="Moreland E-Portfolio"
+    lede="My teacher-certification portfolio for Moreland University's TEACH-NOW program. Everything here came over from the original site page for page — including the parts I haven't written yet."
+  />
+
+  <section class="section page">
+    <p class="counter">
+      <strong>{counts.done}</strong> of <strong>{counts.total}</strong> pages written.
+      The rest are still placeholders, same as they were.
+    </p>
+
+    {
+      groups.map((group) => {
+        const inGroup = entries.filter((e) => e.data.group === group);
+        if (!inGroup.length) return null;
+        return (
+          <div class="group">
+            <h2>{group}</h2>
+            <ul class="entries">
+              {inGroup.map((entry) => (
+                <li class="entry reveal">
+                  <a href={`/portfolio/${entry.id}`}>
+                    <span class="entry__head">
+                      <span class="entry__title">{entry.data.navLabel}</span>
+                      <StatusPill status={entry.data.status} />
+                    </span>
+                    {entry.data.subtitle && <span class="entry__sub muted">{entry.data.subtitle}</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .counter {
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+    padding: var(--s-3) var(--s-4);
+    border-left: 3px solid var(--accent-bright);
+    background: var(--accent-soft);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    max-width: var(--measure);
+  }
+
+  .counter strong {
+    color: var(--text);
+  }
+
+  .group {
+    margin-top: var(--s-7);
+  }
+
+  .group h2 {
+    font-size: var(--t-xl);
+    padding-bottom: var(--s-3);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .entries {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-4) 0 0;
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  }
+
+  .entry a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    height: 100%;
+    padding: var(--s-4);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: var(--bg-raised);
+    text-decoration: none;
+    transition:
+      border-color var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+
+  .entry a:hover {
+    border-color: var(--accent-bright);
+    transform: translateY(-2px);
+  }
+
+  .entry__head {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    justify-content: space-between;
+  }
+
+  .entry__title {
+    font-weight: 700;
+  }
+
+  .entry__sub {
+    font-size: var(--t-sm);
+  }
+</style>

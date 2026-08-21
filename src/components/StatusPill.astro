@@ -1,0 +1,47 @@
+---
+interface Props {
+  status: 'complete' | 'placeholder' | 'needs-file';
+}
+
+const { status } = Astro.props;
+
+const label = {
+  complete: 'Written',
+  placeholder: 'Placeholder',
+  'needs-file': 'Needs a file',
+}[status];
+---
+
+<span class:list={['pill', `pill--${status}`]}>{label}</span>
+
+<style>
+  .pill {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0.15em 0.6em;
+    border-radius: var(--r-full);
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .pill--complete {
+    background: var(--accent-2-soft);
+    color: var(--accent-2);
+    border-color: color-mix(in oklab, var(--accent-2) 30%, transparent);
+  }
+
+  .pill--placeholder {
+    background: var(--bg-sunken);
+    color: var(--text-faint);
+    border-color: var(--border);
+  }
+
+  .pill--needs-file {
+    background: color-mix(in oklab, var(--accent-3) 14%, transparent);
+    color: var(--accent-3);
+    border-color: color-mix(in oklab, var(--accent-3) 34%, transparent);
+  }
+</style>

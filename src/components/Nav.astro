@@ -1,0 +1,230 @@
+---
+import { navItems, siteMeta } from '../data/nav';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => path === href || path.startsWith(href + '/');
+---
+
+<header class="nav">
+  <div class="page nav__inner">
+    <a class="brand" href="/" aria-label={`${siteMeta.name} — home`}>
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="1" y="1" width="30" height="30" rx="8" fill="var(--accent-bright)"></rect>
+          <path
+            d="M11 9v10.5a3.5 3.5 0 0 1-6.2 2.2"
+            stroke="var(--ink-950)"
+            stroke-width="2.6"
+            stroke-linecap="round"
+            transform="translate(3 1)"></path>
+          <path d="M20 9v14M20 16h7M27 9v14" stroke="var(--ink-950)" stroke-width="2.6" stroke-linecap="round"
+          ></path>
+        </svg>
+      </span>
+      <span class="brand__name">{siteMeta.name}</span>
+    </a>
+
+    <nav aria-label="Main">
+      <ul class="nav__list">
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+      <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2" fill="currentColor"></circle>
+        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"
+          ></path>
+        </g>
+      </svg>
+      <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z"
+          fill="currentColor"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--s-5);
+    min-height: 4.25rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    text-decoration: none;
+    font-family: var(--f-display);
+    font-weight: 900;
+    font-size: var(--t-lg);
+    letter-spacing: -0.02em;
+    margin-right: auto;
+  }
+
+  .brand__mark svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .brand:hover .brand__mark svg {
+    transform: rotate(-4deg) scale(1.05);
+  }
+
+  .brand__mark svg {
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 1.75rem);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav__list a {
+    text-decoration: none;
+    font-size: var(--t-sm);
+    font-weight: 600;
+    color: var(--text-muted);
+    padding-block: var(--s-2);
+    position: relative;
+  }
+
+  .nav__list a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent-bright);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .nav__list a:hover,
+  .nav__list a[aria-current='page'] {
+    color: var(--text);
+  }
+
+  .nav__list a:hover::after,
+  .nav__list a[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: var(--r-full);
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--text-muted);
+    transition:
+      color var(--dur-fast) var(--ease),
+      border-color var(--dur-fast) var(--ease);
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--border-strong);
+  }
+
+  .theme-toggle svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    grid-area: 1 / 1;
+  }
+
+  /* Show the icon for the theme you'd switch TO. */
+  .theme-toggle__sun {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .theme-toggle__sun {
+    display: block;
+  }
+
+  :global(:root[data-theme='dark']) .theme-toggle__moon {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .theme-toggle__sun {
+      display: block;
+    }
+    :global(:root:not([data-theme='light'])) .theme-toggle__moon {
+      display: none;
+    }
+  }
+
+  @media (max-width: 46rem) {
+    .brand__name {
+      font-size: var(--t-base);
+    }
+
+    .nav__inner {
+      flex-wrap: wrap;
+      gap: var(--s-3);
+      padding-block: var(--s-3);
+    }
+
+    .nav__list {
+      order: 3;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: var(--s-1);
+    }
+
+    .nav__list::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+
+  toggle?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const current = root.dataset.theme ?? (systemDark ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      /* private mode — the choice just won't persist */
+    }
+  });
+</script>

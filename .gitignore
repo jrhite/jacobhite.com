@@ -1,0 +1,22 @@
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+public/fonts/
+
+# logs
+*-debug.log*
+
+# environment variables
+.env
+.env.production
+*.local
+
+# tooling / editors
+.wrangler/
+.DS_Store
+.idea/

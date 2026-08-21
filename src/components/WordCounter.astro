@@ -1,0 +1,223 @@
+---
+/**
+ * Lesson 04, live. An object used as a counter — the moment students stop
+ * thinking of objects as "records" and start thinking of them as lookup tables.
+ */
+const sample = `The best way to learn to program is to write programs.
+Not to read about writing programs. Not to watch someone write programs.
+To write them, badly, and then to write them again.`;
+---
+
+<div class="wc" data-wc>
+  <label class="field">
+    <span class="field__label">Paste any text</span>
+    <textarea data-wc-input rows="4" spellcheck="false">{sample}</textarea>
+  </label>
+
+  <div class="wc__stats">
+    <div class="stat"><span data-wc-total>0</span><small>words</small></div>
+    <div class="stat"><span data-wc-unique>0</span><small>unique</small></div>
+    <div class="stat"><span data-wc-longest>—</span><small>longest</small></div>
+  </div>
+
+  <ol class="wc__chart" data-wc-chart></ol>
+
+  <details class="wc__code">
+    <summary>The eight lines doing the work</summary>
+    <pre><code>function countWords(text) &#123;
+  const counts = &#123;&#125;;
+  const words = text.toLowerCase().replace(/[^a-z\s]/g, "").split(/\s+/);
+
+  for (const word of words) &#123;
+    if (word) counts[word] = (counts[word] || 0) + 1;
+  &#125;
+  return counts;
+&#125;</code></pre>
+  </details>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-wc]');
+
+  if (root) {
+    const input = root.querySelector<HTMLTextAreaElement>('[data-wc-input]')!;
+    const chart = root.querySelector<HTMLElement>('[data-wc-chart]')!;
+    const totalEl = root.querySelector<HTMLElement>('[data-wc-total]')!;
+    const uniqueEl = root.querySelector<HTMLElement>('[data-wc-unique]')!;
+    const longestEl = root.querySelector<HTMLElement>('[data-wc-longest]')!;
+
+    function countWords(text: string): Record<string, number> {
+      const counts: Record<string, number> = {};
+      const words = text
+        .toLowerCase()
+        .replace(/[^a-z\s]/g, '')
+        .split(/\s+/);
+
+      for (const word of words) {
+        if (word) counts[word] = (counts[word] || 0) + 1;
+      }
+      return counts;
+    }
+
+    function render() {
+      const counts = countWords(input.value);
+      const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+      const total = entries.reduce((sum, [, n]) => sum + n, 0);
+      const max = entries[0]?.[1] ?? 1;
+
+      totalEl.textContent = String(total);
+      uniqueEl.textContent = String(entries.length);
+      longestEl.textContent =
+        entries.map(([w]) => w).sort((a, b) => b.length - a.length)[0] ?? '—';
+
+      chart.replaceChildren(
+        ...entries.slice(0, 10).map(([word, n]) => {
+          const li = document.createElement('li');
+          li.className = 'bar';
+
+          const label = document.createElement('span');
+          label.className = 'bar__word';
+          label.textContent = word;
+
+          const track = document.createElement('span');
+          track.className = 'bar__track';
+          const fill = document.createElement('span');
+          fill.className = 'bar__fill';
+          fill.style.width = `${(n / max) * 100}%`;
+          track.append(fill);
+
+          const num = document.createElement('span');
+          num.className = 'bar__n';
+          num.textContent = String(n);
+
+          li.append(label, track, num);
+          return li;
+        }),
+      );
+    }
+
+    input.addEventListener('input', render);
+    render();
+  }
+</script>
+
+<style>
+  .wc {
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .field__label {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 0.8em 0.9em;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-strong);
+    background: var(--bg);
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+    resize: vertical;
+  }
+
+  .wc__stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-3);
+  }
+
+  .stat {
+    text-align: center;
+    padding: var(--s-3);
+    border-radius: var(--r-md);
+    background: var(--bg-sunken);
+  }
+
+  .stat span {
+    display: block;
+    font-family: var(--f-display);
+    font-size: var(--t-xl);
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .stat small {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+  }
+
+  .wc__chart {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .wc__chart :global(.bar) {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr) 2rem;
+    align-items: center;
+    gap: var(--s-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+  }
+
+  .wc__chart :global(.bar__word) {
+    text-align: right;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .wc__chart :global(.bar__track) {
+    height: 1.1rem;
+    background: var(--bg-sunken);
+    border-radius: var(--r-full);
+    overflow: hidden;
+  }
+
+  .wc__chart :global(.bar__fill) {
+    display: block;
+    height: 100%;
+    border-radius: var(--r-full);
+    background: linear-gradient(90deg, var(--accent-2), var(--accent-bright));
+    transition: width var(--dur) var(--ease);
+  }
+
+  .wc__chart :global(.bar__n) {
+    font-weight: 700;
+  }
+
+  .wc__code summary {
+    cursor: pointer;
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  .wc__code summary:hover {
+    color: var(--accent);
+  }
+
+  .wc__code pre {
+    margin-top: var(--s-3);
+  }
+</style>

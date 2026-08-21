@@ -1,0 +1,217 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import selfie from '../assets/original/office-selfie.png';
+import teaching from '../assets/original/teaching-se-asia.jpg';
+
+/**
+ * The five paragraphs below are the bio from the original Google Site home page,
+ * carried over intact. The only edit is a missing word: the original read
+ * "working as a software ever since". See docs/CONTENT-INVENTORY.md.
+ */
+const bio = [
+  'I lived in many states growing up, but call Colorado my home state.',
+  'I graduated from UC, Boulder in 1999 and got my BS in Computer Science and have been working as a software engineer ever since.',
+  "I'm an avid traveller and made my way to SE Asia in 2011 where I have spent the majority of my time during the past 15 years.",
+  'I earned my CELTA English Teaching Certification in Chiang Mai, Thailand and have done some volunteer teaching, but am ready to take teaching to the next level.',
+  "At this point in my career I'd like to pivot from coding to teaching Computer Science at international schools in SE Asia and am excited about gaining these teaching skills with the Moreland University program!",
+];
+
+const timeline = [
+  {
+    when: 'Growing up',
+    what: 'Many states, one home',
+    detail: 'Moved around a lot as a kid. Colorado is the one that stuck.',
+  },
+  {
+    when: '1999',
+    what: 'BS Computer Science, CU Boulder',
+    detail: 'The formal part of the education.',
+  },
+  {
+    when: '1999 — today',
+    what: 'Software engineer',
+    detail: 'Twenty-five years of shipping things, and of learning what actually breaks in production.',
+  },
+  {
+    when: '2011',
+    what: 'Moved to South East Asia',
+    detail: 'Where most of the last fifteen years have been spent.',
+  },
+  {
+    when: 'Chiang Mai',
+    what: 'CELTA certification',
+    detail: 'English teaching certification, plus volunteer teaching — the first real evidence that this was the direction.',
+  },
+  {
+    when: 'Now',
+    what: 'Moreland University, TEACH-NOW',
+    detail: 'Teacher certification, and the pivot from writing code to teaching computer science at international schools.',
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="Colorado, CU Boulder, twenty-five years of software engineering, fifteen years in South East Asia, and a deliberate pivot into teaching computer science."
+>
+  <PageHeader
+    eyebrow="About"
+    title="The long way round to a classroom"
+    lede="Nobody sets out at twenty-two to become a teacher at fifty. Here is how it actually happened."
+  />
+
+  <section class="section page">
+    <div class="about">
+      <div class="about__bio prose">
+        {bio.map((para) => <p>{para}</p>)}
+      </div>
+
+      <div class="about__photos">
+        <figure>
+          <Image
+            src={teaching}
+            alt="A room of children seated on the floor of a wooden schoolhouse in South East Asia, with two adults teaching at the front."
+            widths={[400, 800]}
+            sizes="(min-width: 60rem) 24rem, 92vw"
+          />
+          <figcaption>Volunteer teaching in South East Asia.</figcaption>
+        </figure>
+        <figure>
+          <Image
+            src={selfie}
+            alt="Three people grinning with their arms in the air in an open-plan office."
+            widths={[400, 800]}
+            sizes="(min-width: 60rem) 24rem, 92vw"
+          />
+          <figcaption>The other half of the story: twenty-five years of this.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page">
+    <p class="eyebrow">The route</p>
+    <h2 class="section__title">One thing after another</h2>
+
+    <ol class="timeline">
+      {
+        timeline.map((item) => (
+          <li class="timeline__item reveal">
+            <div class="timeline__when">{item.when}</div>
+            <div class="timeline__body">
+              <h3>{item.what}</h3>
+              <p class="muted">{item.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>
+
+<style>
+  .about {
+    display: grid;
+    gap: var(--s-7);
+  }
+
+  @media (min-width: 60rem) {
+    .about {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--s-8);
+      align-items: start;
+    }
+  }
+
+  .about__bio p {
+    font-size: var(--t-lg);
+    line-height: 1.55;
+  }
+
+  .about__bio p:first-child::first-letter {
+    font-family: var(--f-display);
+    font-size: 3.2em;
+    font-weight: 900;
+    float: left;
+    line-height: 0.82;
+    padding-right: 0.08em;
+    color: var(--accent);
+  }
+
+  .about__photos {
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .about__photos figure {
+    margin: 0;
+  }
+
+  .about__photos img {
+    width: 100%;
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .about__photos figcaption {
+    margin-top: var(--s-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-faint);
+  }
+
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-6) 0 0;
+    max-width: 52rem;
+  }
+
+  .timeline__item {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-5) 0 var(--s-5) var(--s-6);
+    border-left: 2px solid var(--border);
+    position: relative;
+  }
+
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: calc(var(--s-5) + 0.5em);
+    width: 12px;
+    height: 12px;
+    border-radius: var(--r-full);
+    background: var(--bg);
+    border: 2px solid var(--accent-bright);
+  }
+
+  .timeline__item:last-child {
+    border-left-color: transparent;
+  }
+
+  .timeline__when {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    font-weight: 700;
+  }
+
+  .timeline__body h3 {
+    font-size: var(--t-lg);
+    margin-bottom: var(--s-2);
+  }
+
+  @media (min-width: 44rem) {
+    .timeline__item {
+      grid-template-columns: 9rem minmax(0, 1fr);
+      gap: var(--s-5);
+      align-items: baseline;
+    }
+  }
+</style>

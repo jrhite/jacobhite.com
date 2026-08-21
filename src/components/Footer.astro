@@ -1,0 +1,87 @@
+---
+import { navItems, siteMeta } from '../data/nav';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="page footer__inner">
+    <div class="footer__about">
+      <p class="footer__name">{siteMeta.name}</p>
+      <p class="muted">{siteMeta.tagline}</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer">
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <p class="footer__meta muted">
+      © {year} {siteMeta.name}. Built in the open —
+      <a href="https://github.com/jrhite/jacobhite.com">source on GitHub</a>.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    background: var(--bg-sunken);
+    padding-block: var(--s-7);
+    font-size: var(--t-sm);
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .footer__name {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: var(--t-lg);
+  }
+
+  .footer__nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-5);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer__nav a {
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .footer__nav a:hover {
+    text-decoration: underline;
+  }
+
+  .footer__meta {
+    font-size: var(--t-xs);
+  }
+
+  @media (min-width: 46rem) {
+    .footer__inner {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+
+    .footer__meta {
+      grid-column: 1 / -1;
+      padding-top: var(--s-4);
+      border-top: 1px solid var(--border);
+    }
+  }
+</style>

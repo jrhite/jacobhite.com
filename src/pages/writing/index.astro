@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const posts = (await getCollection('writing')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
+---
+
+<BaseLayout
+  title="Writing"
+  description="Notes on teaching software engineering when the code is cheap and the judgement is not."
+>
+  <PageHeader
+    eyebrow="Writing"
+    title="Notes from the pivot"
+    lede="Mostly about what changes in a computer science classroom when a machine can write the code, and what stubbornly does not."
+  />
+
+  <section class="section page">
+    <ul class="posts">
+      {
+        posts.map((post) => (
+          <li class="post reveal">
+            <a href={`/writing/${post.id}`}>
+              <p class="post__meta">
+                <time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time>
+                <span aria-hidden="true">·</span>
+                <span>{post.data.readingTime} min read</span>
+              </p>
+              <h2>{post.data.title}</h2>
+              {post.data.subtitle && <p class="post__sub">{post.data.subtitle}</p>}
+              <p class="muted">{post.data.description}</p>
+              <span class="post__go" aria-hidden="true">
+                Read →
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-5);
+    max-width: 52rem;
+  }
+
+  .post a {
+    display: block;
+    padding: var(--s-6);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition:
+      transform var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .post a:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-bright);
+  }
+
+  .post__meta {
+    display: flex;
+    gap: var(--s-2);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: var(--s-3);
+  }
+
+  .post h2 {
+    font-size: var(--t-2xl);
+  }
+
+  .post__sub {
+    font-size: var(--t-lg);
+    color: var(--accent);
+    font-family: var(--f-display);
+    font-style: italic;
+    margin-block: var(--s-2) var(--s-3);
+    line-height: 1.25;
+  }
+
+  .post__go {
+    display: inline-block;
+    margin-top: var(--s-4);
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+    font-weight: 700;
+    color: var(--accent);
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .post a:hover .post__go {
+    transform: translateX(4px);
+  }
+</style>

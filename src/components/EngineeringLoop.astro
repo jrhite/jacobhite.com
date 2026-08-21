@@ -1,0 +1,380 @@
+---
+/**
+ * The AI-assisted engineering loop, as a thing you can poke at.
+ *
+ * Nine stages around a ring. Pick one and the middle explains what the student
+ * actually does there, and what I'm grading. It advances on its own until you
+ * touch it, then it gets out of the way and lets you drive.
+ */
+
+const stages = [
+  {
+    id: 'observe',
+    label: 'Observe a problem',
+    short: 'Observe',
+    body: 'Start with something that actually annoys somebody. Not "build a to-do app" — "my roommate keeps forgetting bin night."',
+    graded: 'Can you describe the problem without describing a solution?',
+  },
+  {
+    id: 'specify',
+    label: 'Write a precise specification',
+    short: 'Specify',
+    body: 'Users, constraints, edge cases, success criteria. This is the whole ballgame. Prompt cleverness is not a skill; requirements engineering is.',
+    graded: 'The quality of the requirements.',
+  },
+  {
+    id: 'design',
+    label: 'Design the data and user flow',
+    short: 'Design',
+    body: 'Draw the entities and the screens before a single table exists. An ER diagram on paper beats a schema you did not choose.',
+    graded: 'Does the data model survive contact with the edge cases?',
+  },
+  {
+    id: 'implement',
+    label: 'Ask AI to implement a small slice',
+    short: 'Implement',
+    body: 'One slice. Not the app. A slice small enough that you can still tell whether it is right.',
+    graded: 'Was the scope small enough to verify?',
+  },
+  {
+    id: 'explain',
+    label: 'Read and explain the code',
+    short: 'Explain',
+    body: 'Line by line, out loud, to me. If you cannot explain it, you do not own it — and you certainly cannot debug it at 2am.',
+    graded: 'Ability to explain generated code.',
+  },
+  {
+    id: 'test',
+    label: 'Test the behaviour',
+    short: 'Test',
+    body: 'Happy path, invalid input, permissions, mobile, and a regression test for the bug you just fixed. Then challenge the tests the AI wrote — they tend to confirm the implementation rather than test the requirement.',
+    graded: 'Test coverage, and test quality — which are not the same thing.',
+  },
+  {
+    id: 'review',
+    label: 'Review security and maintainability',
+    short: 'Review',
+    body: 'Secrets, dependencies, authorization, logging, and what data the model is being handed. Then be the malicious user for five minutes.',
+    graded: 'Security awareness as a design constraint, not a final lecture.',
+  },
+  {
+    id: 'deploy',
+    label: 'Deploy and observe',
+    short: 'Deploy',
+    body: 'Who is it for? What happens under load? What persists? How do you roll back? Deploy is not a button, it is a responsibility.',
+    graded: 'Checkpoint and version discipline.',
+  },
+  {
+    id: 'learn',
+    label: 'Learn from real users',
+    short: 'Learn',
+    body: 'Real people, real feedback, then a written postmortem. The final assessment is a product with users, not a zip file that works on my laptop.',
+    graded: 'The engineering postmortem.',
+  },
+];
+
+const R = 148;
+const CX = 200;
+const CY = 200;
+
+const points = stages.map((stage, i) => {
+  // Start at 12 o'clock and go clockwise.
+  const angle = (i / stages.length) * Math.PI * 2 - Math.PI / 2;
+  return {
+    ...stage,
+    x: CX + R * Math.cos(angle),
+    y: CY + R * Math.sin(angle),
+    // Labels push outward from the centre.
+    lx: CX + (R + 34) * Math.cos(angle),
+    ly: CY + (R + 34) * Math.sin(angle),
+    anchor: Math.abs(Math.cos(angle)) < 0.25 ? 'middle' : Math.cos(angle) > 0 ? 'start' : 'end',
+  };
+});
+---
+
+<figure class="loop" data-loop>
+  <div class="loop__diagram">
+    <svg viewBox="0 0 400 400" role="img" aria-label="The AI-assisted engineering loop: nine stages in a cycle.">
+      <circle cx={CX} cy={CY} r={R} class="loop__ring"></circle>
+
+      <!-- The arrowhead that shows which way the loop turns. -->
+      <path
+        d="M 200 44 l -7 -9 l 14 0 z"
+        class="loop__arrow"
+        transform="rotate(14 200 200)"></path>
+
+      {
+        points.map((p, i) => (
+          <g class="loop__node" data-index={i}>
+            <circle cx={p.x} cy={p.y} r="15" class="loop__halo" />
+            <circle cx={p.x} cy={p.y} r="9" class="loop__dot" />
+            <text x={p.x} y={p.y + 3.5} class="loop__num">
+              {i + 1}
+            </text>
+            <text x={p.lx} y={p.ly + 4} text-anchor={p.anchor} class="loop__label">
+              {p.short}
+            </text>
+          </g>
+        ))
+      }
+    </svg>
+  </div>
+
+  <figcaption class="loop__panel">
+    <p class="eyebrow" data-loop-step>Stage 1 of 9</p>
+    <h3 data-loop-title>{stages[0].label}</h3>
+    <p data-loop-body>{stages[0].body}</p>
+    <p class="loop__graded">
+      <span class="loop__graded-key">Graded on</span>
+      <span data-loop-graded>{stages[0].graded}</span>
+    </p>
+
+    <div class="loop__controls" role="tablist" aria-label="Loop stages">
+      {
+        stages.map((stage, i) => (
+          <button
+            type="button"
+            role="tab"
+            class="loop__tab"
+            data-loop-tab={i}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            title={stage.label}
+          >
+            <span class="visually-hidden">{stage.label}</span>
+          </button>
+        ))
+      }
+    </div>
+  </figcaption>
+
+  <script is:inline define:vars={{ stages }}>
+    (() => {
+      const root = document.querySelector('[data-loop]');
+      if (!root) return;
+
+      const stepEl = root.querySelector('[data-loop-step]');
+      const titleEl = root.querySelector('[data-loop-title]');
+      const bodyEl = root.querySelector('[data-loop-body]');
+      const gradedEl = root.querySelector('[data-loop-graded]');
+      const nodes = [...root.querySelectorAll('.loop__node')];
+      const tabs = [...root.querySelectorAll('[data-loop-tab]')];
+
+      let active = 0;
+      let timer = null;
+
+      function show(i) {
+        active = (i + stages.length) % stages.length;
+        const s = stages[active];
+
+        stepEl.textContent = `Stage ${active + 1} of ${stages.length}`;
+        titleEl.textContent = s.label;
+        bodyEl.textContent = s.body;
+        gradedEl.textContent = s.graded;
+
+        nodes.forEach((n, j) => n.classList.toggle('is-active', j === active));
+        tabs.forEach((t, j) => t.setAttribute('aria-selected', j === active ? 'true' : 'false'));
+      }
+
+      function stop() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      // Clicking anywhere in the diagram or on a tab takes over from the auto-advance.
+      nodes.forEach((node, i) => {
+        node.addEventListener('click', () => {
+          stop();
+          show(i);
+        });
+      });
+
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => {
+          stop();
+          show(i);
+        });
+        tab.addEventListener('keydown', (e) => {
+          if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+          e.preventDefault();
+          stop();
+          const next = (i + (e.key === 'ArrowRight' ? 1 : -1) + stages.length) % stages.length;
+          show(next);
+          tabs[next].focus();
+        });
+      });
+
+      show(0);
+
+      const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!still) {
+        // Only start cycling once it is actually on screen.
+        const io = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting && !timer) {
+              timer = setInterval(() => show(active + 1), 4200);
+            } else if (!entry.isIntersecting) {
+              stop();
+            }
+          }
+        });
+        io.observe(root);
+      }
+    })();
+  </script>
+</figure>
+
+<style>
+  .loop {
+    display: grid;
+    gap: var(--s-6);
+    align-items: center;
+    margin: 0;
+  }
+
+  @media (min-width: 56rem) {
+    .loop {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--s-7);
+    }
+  }
+
+  .loop__diagram svg {
+    width: 100%;
+    max-width: 30rem;
+    margin-inline: auto;
+    overflow: visible;
+  }
+
+  .loop__ring {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 2;
+    stroke-dasharray: 5 7;
+  }
+
+  .loop__arrow {
+    fill: var(--border-strong);
+  }
+
+  .loop__node {
+    cursor: pointer;
+  }
+
+  .loop__halo {
+    fill: var(--accent-bright);
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+
+  .loop__node.is-active .loop__halo {
+    opacity: 0.28;
+    transform: scale(1.5);
+  }
+
+  .loop__dot {
+    fill: var(--bg-raised);
+    stroke: var(--border-strong);
+    stroke-width: 2;
+    transition:
+      fill var(--dur) var(--ease),
+      stroke var(--dur) var(--ease);
+  }
+
+  .loop__node:hover .loop__dot {
+    stroke: var(--accent);
+  }
+
+  .loop__node.is-active .loop__dot {
+    fill: var(--accent-bright);
+    stroke: var(--accent);
+  }
+
+  .loop__num {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-anchor: middle;
+    fill: var(--text-muted);
+    pointer-events: none;
+    transition: fill var(--dur) var(--ease);
+  }
+
+  .loop__node.is-active .loop__num {
+    fill: var(--ink-950);
+  }
+
+  .loop__label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    fill: var(--text-faint);
+    pointer-events: none;
+    transition: fill var(--dur) var(--ease);
+  }
+
+  .loop__node.is-active .loop__label {
+    fill: var(--text);
+    font-weight: 700;
+  }
+
+  .loop__panel {
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    box-shadow: var(--shadow-sm);
+    min-height: 20rem;
+  }
+
+  .loop__panel h3 {
+    margin-block: var(--s-2) var(--s-3);
+  }
+
+  .loop__graded {
+    margin-top: var(--s-4);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--border);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  .loop__graded-key {
+    display: block;
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: var(--s-1);
+  }
+
+  .loop__controls {
+    display: flex;
+    gap: var(--s-2);
+    margin-top: var(--s-5);
+  }
+
+  .loop__tab {
+    flex: 1;
+    height: 4px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-full);
+    background: var(--border);
+    transition: background var(--dur) var(--ease);
+  }
+
+  .loop__tab:hover {
+    background: var(--border-strong);
+  }
+
+  .loop__tab[aria-selected='true'] {
+    background: var(--accent-bright);
+  }
+</style>

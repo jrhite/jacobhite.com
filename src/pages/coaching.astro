@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+
+const services = [
+  {
+    id: 'mock-interviews',
+    kicker: 'Mock interviews',
+    title: "The pressure is the point",
+    body: "A real interview, run at real pace, by someone who has sat on the other side of the table for two decades. Coding, or system design, or behavioural — your call.",
+    detail: [
+      'A recorded, timed round with a genuine problem — no toy questions.',
+      'I interrupt, I push back, and I ask the follow-up you were hoping to avoid.',
+      'Then we stop, and I tell you exactly what I would have written on the feedback form.',
+      'We re-run the moment it went wrong until the answer is yours, not mine.',
+    ],
+  },
+  {
+    id: 'systems-design',
+    kicker: 'Systems design',
+    title: 'Designs that survive the second question',
+    body: 'Most people can draw the boxes. Fewer can defend them when I ask what happens at ten times the traffic, or when the third box is down.',
+    detail: [
+      'Start from the requirements, not the architecture diagram — most designs fail here.',
+      'Capacity, consistency, failure modes, and the trade-off you are actually making.',
+      'What breaks first, how you would know, and what you would do at 3am.',
+      'How to say "I do not know, here is how I would find out" and have it land well.',
+    ],
+  },
+  {
+    id: 'role-play',
+    kicker: 'Senior-engineer role-play',
+    title: "I'll be the engineer you have to lead",
+    body: 'For new managers and new tech leads. I play a senior engineer on your team — the skeptical one, the checked-out one, the brilliant one who will not write tests — and you have to actually handle it.',
+    detail: [
+      'You run the one-on-one, the design review, or the difficult conversation. I stay in character.',
+      'Scenarios drawn from what actually happens: a missed deadline, a rejected design, a quiet resignation risk.',
+      'We break character to debrief, then run it again with what you learned.',
+      'No slide deck about "radical candour." You practise the sentence until you can say it.',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Coaching"
+  description="Mock interviews, systems design practice, and senior-engineer role-play for engineers preparing to interview or stepping into leadership."
+>
+  <PageHeader
+    eyebrow="Coaching"
+    title="Practice, with someone who has been on the other side"
+    lede="Twenty-five years of writing software, reviewing designs, and interviewing engineers. Three ways to borrow that before you need it for real."
+  />
+
+  <section class="section page">
+    <div class="services">
+      {
+        services.map((s, i) => (
+          <article class="service reveal" id={s.id}>
+            <div class="service__head">
+              <span class="service__index" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <p class="eyebrow">{s.kicker}</p>
+                <h2>{s.title}</h2>
+              </div>
+            </div>
+            <p class="service__body lede">{s.body}</p>
+            <ul class="service__detail">
+              {s.detail.map((d) => (
+                <li>{d}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section page">
+    <blockquote class="pull">
+      <p>
+        Nobody has ever gotten better at a hard conversation by reading about hard conversations.
+      </p>
+    </blockquote>
+  </section>
+
+  <ContactCTA
+    heading="Want to run one?"
+    body="Tell me which of the three, and where you are in the process. If it is an interview, tell me the company and the round — the preparation is different for each."
+  />
+</BaseLayout>
+
+<style>
+  .services {
+    display: grid;
+    gap: var(--s-8);
+  }
+
+  .service {
+    scroll-margin-top: 6rem;
+    padding-bottom: var(--s-7);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .service:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .service__head {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-5);
+  }
+
+  .service__index {
+    font-family: var(--f-display);
+    font-size: var(--t-3xl);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--accent-bright);
+    opacity: 0.55;
+  }
+
+  .service h2 {
+    font-size: var(--t-2xl);
+    margin-top: var(--s-2);
+  }
+
+  .service__body {
+    margin-top: var(--s-4);
+    max-width: var(--measure);
+  }
+
+  .service__detail {
+    margin-top: var(--s-5);
+    padding-left: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--s-3);
+    max-width: 54rem;
+  }
+
+  .service__detail li {
+    position: relative;
+    padding-left: var(--s-6);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  .service__detail li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-2);
+    font-weight: 700;
+  }
+
+  .pull {
+    margin: 0 auto;
+    max-width: 44rem;
+    text-align: center;
+  }
+
+  .pull p {
+    font-family: var(--f-display);
+    font-size: var(--t-2xl);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+</style>

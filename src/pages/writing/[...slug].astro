@@ -1,0 +1,208 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('writing');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const { title, subtitle, description, pubDate, readingTime } = post.data;
+
+const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
+
+// Only the section headings — the h3s would make the contents longer than the article.
+const toc = headings.filter((h) => h.depth === 2);
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="article">
+    <header class="article__header">
+      <div class="page">
+        <p class="article__meta">
+          <time datetime={pubDate.toISOString()}>{fmt.format(pubDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingTime} min read</span>
+        </p>
+        <h1>{title}</h1>
+        {subtitle && <p class="article__sub">{subtitle}</p>}
+      </div>
+    </header>
+
+    <div class="page article__grid">
+      {
+        toc.length > 1 && (
+          <nav class="toc" aria-label="Contents">
+            <p class="toc__title">Contents</p>
+            <ol>
+              {toc.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`}>{h.text}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )
+      }
+
+      <div class="article__body">
+        <Content />
+      </div>
+    </div>
+
+    <footer class="page article__footer">
+      <a href="/writing">← All writing</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .article__header {
+    padding-block: clamp(2.5rem, 7vw, 5rem);
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(50rem 26rem at 10% -30%, var(--accent-soft), transparent 62%);
+  }
+
+  .article__meta {
+    display: flex;
+    gap: var(--s-2);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: var(--s-4);
+  }
+
+  .article__header h1 {
+    font-size: var(--t-3xl);
+    max-width: 20ch;
+  }
+
+  .article__sub {
+    margin-top: var(--s-4);
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: var(--t-lg);
+    color: var(--accent);
+    max-width: 46ch;
+    line-height: 1.3;
+  }
+
+  .article__grid {
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+    display: grid;
+    gap: var(--s-7);
+  }
+
+  @media (min-width: 68rem) {
+    .article__grid {
+      grid-template-columns: 15rem minmax(0, 1fr);
+      gap: var(--s-8);
+      align-items: start;
+    }
+  }
+
+  /* ---- table of contents ---- */
+
+  .toc {
+    font-size: var(--t-sm);
+  }
+
+  @media (min-width: 68rem) {
+    .toc {
+      position: sticky;
+      top: 6rem;
+      max-height: calc(100dvh - 8rem);
+      overflow-y: auto;
+    }
+  }
+
+  .toc__title {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 700;
+    margin-bottom: var(--s-3);
+  }
+
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-2);
+    border-left: 1px solid var(--border);
+  }
+
+  .toc a {
+    display: block;
+    padding: var(--s-1) var(--s-4);
+    text-decoration: none;
+    color: var(--text-muted);
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+  }
+
+  .toc a:hover {
+    color: var(--accent);
+    border-left-color: var(--accent-bright);
+  }
+
+  /* ---- article body ---- */
+
+  .article__body {
+    max-width: var(--measure);
+  }
+
+  .article__body > :global(* + *) {
+    margin-top: var(--s-4);
+  }
+
+  .article__body :global(h2) {
+    font-size: var(--t-2xl);
+    margin-top: var(--s-8);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--border);
+    scroll-margin-top: 6rem;
+  }
+
+  .article__body :global(h3) {
+    margin-top: var(--s-7);
+    scroll-margin-top: 6rem;
+  }
+
+  .article__body :global(ul),
+  .article__body :global(ol) {
+    padding-left: 1.3em;
+  }
+
+  .article__body :global(li + li) {
+    margin-top: var(--s-2);
+  }
+
+  .article__body :global(blockquote) {
+    margin: var(--s-6) 0;
+    padding: var(--s-5);
+    border-left: 4px solid var(--accent-bright);
+    background: var(--accent-soft);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    font-family: var(--f-display);
+    font-size: var(--t-lg);
+    line-height: 1.4;
+  }
+
+  .article__body :global(pre) {
+    margin-block: var(--s-5);
+  }
+
+  .article__footer {
+    padding-bottom: var(--s-8);
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+  }
+</style>

@@ -1,0 +1,39 @@
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+
+/**
+ * The Moreland e-portfolio, carried over page for page from the original
+ * Google Site. `status` is deliberate: a page that was a bare heading over
+ * there is still visibly unfinished over here, rather than quietly padded out.
+ *
+ * See docs/CONTENT-INVENTORY.md for the parity contract.
+ */
+const portfolio = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/portfolio' }),
+  schema: z.object({
+    title: z.string(),
+    navLabel: z.string(),
+    subtitle: z.string().optional(),
+    group: z.enum(['Coursework', 'Modules', 'M.Ed. Pathways']),
+    order: z.number(),
+    status: z.enum(['complete', 'placeholder', 'needs-file']),
+    /** Path on the original Google Site, for the record. */
+    sourcePath: z.string(),
+  }),
+});
+
+const writing = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/writing' }),
+  schema: z.object({
+    title: z.string(),
+    subtitle: z.string().optional(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    /** Rough minutes, for the "how long is this" question everyone has. */
+    readingTime: z.number(),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { portfolio, writing };

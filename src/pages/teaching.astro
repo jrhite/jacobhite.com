@@ -1,0 +1,442 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+/** Merrill's First Principles, as I actually run them. From my clinical practice write-up. */
+const principles = [
+  {
+    n: '01',
+    name: 'Task-centered',
+    body: 'The entire curriculum is one artifact: a real application the student builds up step by step. No concept is ever taught "for later." Each one is introduced the moment the app needs it, and the task grows in complexity.',
+  },
+  {
+    n: '02',
+    name: 'Activation',
+    body: 'Every lesson opens with a warm-up that reviews the previous session by doing — not by me recapping it.',
+  },
+  {
+    n: '03',
+    name: 'Demonstration',
+    body: 'I introduce and play with the new tool using example data, while the student watches.',
+  },
+  {
+    n: '04',
+    name: 'Application',
+    body: 'The student practises a similar task while I watch. They type every line — never paste — and I coach by question, not by answer.',
+  },
+  {
+    n: '05',
+    name: 'Integration',
+    body: 'The student uses the app as their real to-do list, and keeps a running list of its annoyances and the features they wish it had. Those lists become the next lessons, which they now drive.',
+  },
+];
+
+const journal = [
+  'What did I ask for?',
+  'What did the AI change?',
+  'What did I verify myself?',
+  'What could be wrong?',
+  'Why did I accept or reject the change?',
+];
+
+const graded = [
+  'The quality of their requirements',
+  'Their ability to explain generated code',
+  'Test coverage, and test quality',
+  'Debugging method',
+  'Architectural trade-offs',
+  'Security awareness',
+  'Git and checkpoint discipline',
+  'Quality of user feedback',
+  'Their final engineering postmortem',
+];
+
+const weeks = [
+  { w: '1', t: 'A small logic exercise', d: 'Command line. Variables, input, a decision.' },
+  { w: '2', t: 'A browser interface', d: 'The thing becomes visible, and other people can use it.' },
+  { w: '3', t: 'Persistent data', d: 'It survives a refresh. Suddenly the data model matters.' },
+  { w: '4', t: 'Authentication and permissions', d: 'Who are you, and what are you allowed to do? Two different questions.' },
+  { w: '5', t: 'External API integration', d: 'Rate limits, webhooks, data mapping, and failure handling — the glue work.' },
+  { w: '6', t: 'Testing and observability', d: '"The code runs" is not "the feature works" is not "the UX is right."' },
+  { w: '7', t: 'Deployment and user feedback', d: 'Real users. Real traffic. A rollback plan.' },
+  { w: '8', t: 'Refactoring and postmortem', d: 'What we would do differently, written down.' },
+];
+---
+
+<BaseLayout
+  title="Teaching"
+  description="How I teach programming: one real application built line by line, Merrill's First Principles of Instruction, and a curriculum where AI writes code but the student owns every decision."
+>
+  <PageHeader
+    eyebrow="Teaching"
+    title="One app. Built line by line. Never pasted."
+    lede="The whole curriculum is a single artifact the student builds from nothing. Every concept arrives the moment the app needs it — and they type every character themselves."
+  />
+
+  <section class="section page">
+    <div class="lead-grid">
+      <div class="prose">
+        <h2>Why one app, and not twelve exercises</h2>
+        <p>
+          A folder of disconnected exercises teaches you that programming is a series of puzzles
+          somebody else already solved. Building one real thing over a term teaches you the actual
+          job: deciding what it should do, discovering you were wrong, and changing it.
+        </p>
+        <p>
+          So the "curriculum" is a to-do list web application. It starts as a variable and a print
+          statement. By the end it has a database, accounts, tests, and real users — and at no point
+          did the student learn something whose purpose was "you'll need this later."
+        </p>
+        <p>
+          The last principle is the one that matters most: they use the app as their <em>real</em>
+          to-do list, and keep a list of everything that annoys them about it. That list becomes the
+          syllabus, and now they're the one setting it.
+        </p>
+      </div>
+
+      <aside class="callout">
+        <p class="eyebrow">The rule that surprises people</p>
+        <p class="callout__big">The student types every line. Never pastes.</p>
+        <p class="muted">
+          Including — especially — the lines the AI wrote. Retyping is slow, and slow is the point:
+          it's the only moment where you're forced to read what you're about to own.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section page">
+    <p class="eyebrow">The framework</p>
+    <h2 class="section__title">Merrill's First Principles, in practice</h2>
+    <p class="lede prose">
+      My clinical practice is built on Merrill's First Principles of Instruction. Here is what each
+      one actually looks like on a Tuesday.
+    </p>
+
+    <ol class="principles">
+      {
+        principles.map((p) => (
+          <li class="principle reveal">
+            <span class="principle__n" aria-hidden="true">
+              {p.n}
+            </span>
+            <h3>{p.name}</h3>
+            <p class="muted">{p.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p class="refs muted">
+      Merrill, M. D. (2002). First principles of instruction. <em>Educational Technology Research
+      and Development, 50</em>(3), 43–59.
+      <a href="https://doi.org/10.1007/BF02505024">https://doi.org/10.1007/BF02505024</a><br />
+      Merrill, M. D. (2013). <em>First principles of instruction: Identifying and designing
+      effective, efficient, and engaging instruction.</em> Pfeiffer.
+    </p>
+  </section>
+
+  <section class="section ladder-section">
+    <div class="page">
+      <p class="eyebrow">The shape of a term</p>
+      <h2 class="section__title">Eight weeks, one thing, getting harder</h2>
+      <p class="lede prose">
+        Each week the app gains a capability, and the student gains the concern that comes with it.
+        The final assessment is a product with users — not a zip file that only runs on my laptop.
+      </p>
+
+      <ol class="ladder">
+        {
+          weeks.map((week) => (
+            <li class="rung reveal">
+              <span class="rung__w">Week {week.w}</span>
+              <span class="rung__t">{week.t}</span>
+              <span class="rung__d muted">{week.d}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section page">
+    <div class="two-up">
+      <div>
+        <p class="eyebrow">Evidence of judgement</p>
+        <h2 class="section__title">The engineering journal</h2>
+        <p class="prose muted">
+          Every significant AI-assisted change gets five sentences. Not to create paperwork — to
+          create a trail showing that a person, not a model, made the call.
+        </p>
+        <ol class="journal">
+          {journal.map((q) => <li>{q}</li>)}
+        </ol>
+      </div>
+
+      <div>
+        <p class="eyebrow">Assessment</p>
+        <h2 class="section__title">What I actually grade</h2>
+        <p class="prose muted">
+          Notice what isn't on this list: how much code you produced. In a world where code is cheap,
+          grading volume grades the wrong thing.
+        </p>
+        <ul class="graded">
+          {graded.map((g) => <li>{g}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page">
+    <div class="cta-band">
+      <div>
+        <h2>Want to see it rather than read about it?</h2>
+        <p class="muted">
+          The playground has live, working versions of the lessons — the same ones my students build.
+        </p>
+      </div>
+      <a class="btn btn--primary" href="/playground">Open the playground →</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lead-grid {
+    display: grid;
+    gap: var(--s-6);
+  }
+
+  @media (min-width: 60rem) {
+    .lead-grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: var(--s-8);
+      align-items: start;
+    }
+  }
+
+  .callout {
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent-bright);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    padding: var(--s-5);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .callout__big {
+    font-family: var(--f-display);
+    font-size: var(--t-xl);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-block: var(--s-3);
+  }
+
+  .section__title {
+    margin-block: var(--s-3) var(--s-4);
+  }
+
+  /* ---- principles ---- */
+
+  .principles {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-6) 0 0;
+    display: grid;
+    gap: var(--s-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+
+  .principle {
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .principle__n {
+    position: absolute;
+    top: -0.15em;
+    right: 0.1em;
+    font-family: var(--f-display);
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--accent-soft);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .principle h3 {
+    font-size: var(--t-lg);
+    margin-bottom: var(--s-3);
+    position: relative;
+  }
+
+  .refs {
+    margin-top: var(--s-6);
+    font-size: var(--t-sm);
+    max-width: var(--measure);
+    line-height: 1.7;
+  }
+
+  /* ---- ladder ---- */
+
+  .ladder-section {
+    background: var(--bg-sunken);
+    border-block: 1px solid var(--border);
+  }
+
+  .ladder {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-6) 0 0;
+    display: grid;
+    gap: 2px;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .rung {
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-4) var(--s-5);
+    background: var(--bg-raised);
+    transition: background var(--dur) var(--ease);
+  }
+
+  .rung:hover {
+    background: var(--accent-soft);
+  }
+
+  @media (min-width: 48rem) {
+    .rung {
+      grid-template-columns: 6rem minmax(0, 14rem) minmax(0, 1fr);
+      gap: var(--s-5);
+      align-items: baseline;
+    }
+  }
+
+  .rung__w {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    font-weight: 700;
+  }
+
+  .rung__t {
+    font-weight: 700;
+  }
+
+  .rung__d {
+    font-size: var(--t-sm);
+  }
+
+  /* ---- two-up ---- */
+
+  .two-up {
+    display: grid;
+    gap: var(--s-8);
+  }
+
+  @media (min-width: 56rem) {
+    .two-up {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .journal,
+  .graded {
+    margin-top: var(--s-5);
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .journal {
+    counter-reset: j;
+  }
+
+  .journal li {
+    counter-increment: j;
+    position: relative;
+    padding: var(--s-3) 0 var(--s-3) var(--s-6);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+  }
+
+  .journal li::before {
+    content: counter(j);
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .graded li {
+    position: relative;
+    padding: var(--s-2) 0 var(--s-2) var(--s-5);
+    font-size: var(--t-sm);
+  }
+
+  .graded li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-2);
+    font-weight: 700;
+  }
+
+  /* ---- cta ---- */
+
+  .cta-band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-5);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: var(--r-lg);
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+  }
+
+  .cta-band h2 {
+    font-size: var(--t-xl);
+    margin-bottom: var(--s-2);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.72em 1.35em;
+    border-radius: var(--r-full);
+    border: 1px solid var(--border-strong);
+    background: var(--bg-raised);
+    font-weight: 700;
+    font-size: var(--t-sm);
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      transform var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease);
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn--primary {
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border-color: var(--btn-bg);
+  }
+
+  .btn--primary:hover {
+    color: var(--btn-fg);
+  }
+</style>

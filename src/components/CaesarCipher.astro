@@ -1,0 +1,229 @@
+---
+/**
+ * Lesson 02, live. The thing students always get wrong is wraparound:
+ * x → a, y → b, z → c. So the alphabet strip shows the wrap happening.
+ */
+const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+---
+
+<div class="caesar" data-caesar>
+  <div class="caesar__controls">
+    <label class="field">
+      <span class="field__label">Your message</span>
+      <input type="text" data-caesar-input value="attack at dawn" maxlength="60" spellcheck="false" />
+    </label>
+
+    <label class="field">
+      <span class="field__label">
+        Shift <output data-caesar-shift-out>3</output>
+      </span>
+      <input type="range" min="0" max="25" value="3" data-caesar-shift />
+    </label>
+  </div>
+
+  <div class="caesar__out">
+    <span class="caesar__out-key">Encrypted</span>
+    <output data-caesar-output>dwwdfn dw gdzq</output>
+  </div>
+
+  <div class="caesar__strip" aria-hidden="true">
+    {
+      alphabet.map((letter, i) => (
+        <div class="cell" data-cell={i}>
+          <span class="cell__from">{letter}</span>
+          <span class="cell__arrow">↓</span>
+          <span class="cell__to" data-cell-to>
+            {letter}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="caesar__math">
+    <code data-caesar-math>(0 + 3) % 26 = 3 → 'a' becomes 'd'</code>
+  </p>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-caesar]');
+
+  if (root) {
+    const input = root.querySelector<HTMLInputElement>('[data-caesar-input]')!;
+    const shift = root.querySelector<HTMLInputElement>('[data-caesar-shift]')!;
+    const shiftOut = root.querySelector<HTMLOutputElement>('[data-caesar-shift-out]')!;
+    const output = root.querySelector<HTMLOutputElement>('[data-caesar-output]')!;
+    const math = root.querySelector<HTMLElement>('[data-caesar-math]')!;
+    const cells = [...root.querySelectorAll<HTMLElement>('[data-cell]')];
+
+    const A = 'a'.charCodeAt(0);
+
+    /** The whole lesson, in five lines. */
+    function encrypt(text: string, by: number) {
+      let out = '';
+      for (const ch of text.toLowerCase()) {
+        const code = ch.charCodeAt(0);
+        if (code >= A && code <= A + 25) {
+          out += String.fromCharCode(((code - A + by) % 26) + A);
+        } else {
+          out += ch;
+        }
+      }
+      return out;
+    }
+
+    function render() {
+      const by = Number(shift.value);
+      shiftOut.textContent = String(by);
+      output.textContent = encrypt(input.value, by) || ' ';
+
+      cells.forEach((cell, i) => {
+        const to = (i + by) % 26;
+        cell.querySelector('[data-cell-to]')!.textContent = String.fromCharCode(65 + to);
+        // Flag the letters that wrapped past Z — the bit that trips everyone up.
+        cell.classList.toggle('is-wrapped', i + by > 25);
+      });
+
+      // Show the arithmetic for the first letter of the message.
+      const first = input.value.toLowerCase().match(/[a-z]/)?.[0] ?? 'a';
+      const from = first.charCodeAt(0) - A;
+      const to = (from + by) % 26;
+      math.textContent = `(${from} + ${by}) % 26 = ${to}  →  '${first}' becomes '${String.fromCharCode(
+        to + A,
+      )}'`;
+    }
+
+    input.addEventListener('input', render);
+    shift.addEventListener('input', render);
+    render();
+  }
+</script>
+
+<style>
+  .caesar {
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .caesar__controls {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  @media (min-width: 40rem) {
+    .caesar__controls {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: var(--s-5);
+      align-items: end;
+    }
+  }
+
+  .field {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .field__label {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  .field__label output {
+    color: var(--accent);
+  }
+
+  .field input[type='text'] {
+    padding: 0.7em 0.9em;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-strong);
+    background: var(--bg);
+    font-family: var(--f-mono);
+  }
+
+  .field input[type='range'] {
+    accent-color: var(--accent-bright);
+    width: 100%;
+    height: 2.2em;
+  }
+
+  .caesar__out {
+    padding: var(--s-4);
+    border-radius: var(--r-md);
+    background: var(--bg-invert);
+    color: var(--text-invert);
+    font-family: var(--f-mono);
+    overflow-x: auto;
+  }
+
+  .caesar__out-key {
+    display: block;
+    font-size: var(--t-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: var(--s-2);
+  }
+
+  .caesar__out output {
+    font-size: var(--t-lg);
+    white-space: pre;
+  }
+
+  .caesar__strip {
+    display: grid;
+    grid-template-columns: repeat(13, minmax(0, 1fr));
+    gap: 3px;
+  }
+
+  @media (min-width: 52rem) {
+    .caesar__strip {
+      grid-template-columns: repeat(26, minmax(0, 1fr));
+    }
+  }
+
+  .cell {
+    display: grid;
+    justify-items: center;
+    gap: 1px;
+    padding: var(--s-2) 0;
+    border-radius: var(--r-sm);
+    background: var(--bg-sunken);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+
+  .cell__from {
+    color: var(--text-faint);
+  }
+
+  .cell__arrow {
+    color: var(--border-strong);
+    font-size: 0.6rem;
+  }
+
+  .cell__to {
+    font-weight: 700;
+  }
+
+  .cell.is-wrapped {
+    background: color-mix(in oklab, var(--accent-3) 16%, transparent);
+  }
+
+  .cell.is-wrapped .cell__to {
+    color: var(--accent-3);
+  }
+
+  .caesar__math {
+    font-size: var(--t-sm);
+  }
+
+  .caesar__math code {
+    background: var(--accent-soft);
+    border-color: var(--accent-bright);
+  }
+</style>

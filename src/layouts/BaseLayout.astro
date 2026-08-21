@@ -1,0 +1,90 @@
+---
+import { Font } from 'astro:assets';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Optional OG image path relative to the site root, e.g. /images/og-teaching.png */
+  ogImage?: string;
+}
+
+const { title, description, ogImage = '/images/og-default.png' } = Astro.props;
+
+const siteName = 'Jacob Hite';
+const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogUrl = new URL(ogImage, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" preload />
+    <Font cssVariable="--font-mono" />
+
+    <!-- Set the theme before first paint so there is no flash of the wrong one. -->
+    <script is:inline>
+      (function () {
+        document.documentElement.classList.add('js');
+        try {
+          var saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.dataset.theme = saved;
+          }
+        } catch (e) {
+          /* private mode — fall through to the system preference */
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Reveal-on-scroll, opt-out respected by the CSS above.
+      const targets = document.querySelectorAll('.reveal');
+      if (targets.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px', threshold: 0.08 },
+        );
+        targets.forEach((t) => io.observe(t));
+      } else {
+        targets.forEach((t) => t.classList.add('is-visible'));
+      }
+    </script>
+  </body>
+</html>

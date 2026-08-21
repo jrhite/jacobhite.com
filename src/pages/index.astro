@@ -1,0 +1,401 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EngineeringLoop from '../components/EngineeringLoop.astro';
+import { navItems } from '../data/nav';
+import teaching from '../assets/original/teaching-se-asia.jpg';
+
+const facts = [
+  { value: '1999', label: 'BS Computer Science, CU Boulder' },
+  { value: '25 yrs', label: 'shipping software for a living' },
+  { value: '2011', label: 'moved to South East Asia' },
+  { value: 'CELTA', label: 'certified in Chiang Mai, Thailand' },
+];
+
+const offerings = [
+  {
+    kicker: 'For students',
+    title: 'Computer science, grades 9–12',
+    body: 'One real application, built from nothing across a term. Every concept arrives the moment the app needs it — never "for later."',
+    href: '/teaching',
+  },
+  {
+    kicker: 'For career changers',
+    title: 'Programming for adults',
+    body: 'You have a job, a life, and forty spare minutes. We use them on the thing you actually want to exist, and you type every line yourself.',
+    href: '/teaching',
+  },
+  {
+    kicker: 'For engineers and new managers',
+    title: 'Interviews, systems design, role-play',
+    body: 'Mock interviews with real pressure, systems design that survives follow-up questions, and me playing the senior engineer you have to lead.',
+    href: '/coaching',
+  },
+];
+---
+
+<BaseLayout
+  title="Jacob Hite"
+  description="Software engineer turned computer science teacher. I teach CS to grades 9–12 and to adults changing careers, and I coach engineers through interviews, systems design, and the jump to leadership."
+>
+  <section class="hero">
+    <div class="page hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Engineer → Teacher</p>
+        <h1>
+          Twenty-five years building software.<br />
+          Now I teach how it's <mark>actually</mark> made.
+        </h1>
+        <p class="lede">
+          Computer science for grades 9–12 and for adults changing careers. Mock interviews,
+          systems design, and senior-engineer role-play for engineers stepping up.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="/teaching">How I teach</a>
+          <a class="btn" href="/playground">Try a lesson →</a>
+        </div>
+      </div>
+
+      <figure class="hero__figure">
+        <Image
+          src={teaching}
+          alt="Jacob teaching a room of children seated on the floor of a wooden schoolhouse in South East Asia."
+          widths={[420, 800, 1200]}
+          sizes="(min-width: 60rem) 32rem, 92vw"
+          loading="eager"
+        />
+        <figcaption>Volunteer teaching, South East Asia.</figcaption>
+      </figure>
+    </div>
+
+    <div class="page">
+      <dl class="facts">
+        {
+          facts.map((f) => (
+            <div class="fact">
+              <dt>{f.value}</dt>
+              <dd>{f.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section page">
+    <p class="eyebrow">What I do</p>
+    <h2 class="section__title">Three rooms, one idea</h2>
+    <p class="lede prose">
+      Whichever room I'm in, the job is the same: get you from "I have no idea how this works" to
+      "I built that, and I can tell you exactly why it works."
+    </p>
+
+    <ul class="offerings">
+      {
+        offerings.map((o) => (
+          <li class="offering reveal">
+            <a href={o.href}>
+              <p class="offering__kicker">{o.kicker}</p>
+              <h3>{o.title}</h3>
+              <p class="muted">{o.body}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section loop-section">
+    <div class="page">
+      <p class="eyebrow">The method</p>
+      <h2 class="section__title">AI can write the code. It cannot own the decision.</h2>
+      <p class="lede prose">
+        So we don't teach students to "code with AI." We teach them to direct, inspect, test, and
+        improve software that AI helped produce. This is the loop every project runs — click a
+        stage.
+      </p>
+
+      <div class="loop-wrap reveal">
+        <EngineeringLoop />
+      </div>
+    </div>
+  </section>
+
+  <section class="section page">
+    <blockquote class="pull">
+      <p>
+        AI may write code, but students must own the specification, verification, explanation, and
+        release decision.
+      </p>
+      <footer>The one rule I won't bend</footer>
+    </blockquote>
+  </section>
+
+  <section class="section page">
+    <p class="eyebrow">Everything else</p>
+    <h2 class="section__title">Have a look around</h2>
+    <ul class="cards">
+      {
+        navItems.map((item) => (
+          <li class="card reveal">
+            <a href={item.href}>
+              <h3>{item.label}</h3>
+              <p class="muted">{item.blurb}</p>
+              <span class="card__go" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- hero ---- */
+
+  .hero {
+    padding-block: clamp(2.5rem, 8vw, 6rem) 0;
+    background:
+      radial-gradient(58rem 30rem at 6% -14%, var(--accent-soft), transparent 62%),
+      radial-gradient(46rem 28rem at 100% 0%, var(--accent-2-soft), transparent 66%);
+  }
+
+  .hero__grid {
+    display: grid;
+    gap: var(--s-6);
+    align-items: center;
+  }
+
+  @media (min-width: 60rem) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--s-7);
+    }
+  }
+
+  .hero__text > * + * {
+    margin-top: var(--s-5);
+  }
+
+  /* The hero column is roughly half the page, so the global h1 size is too big here. */
+  .hero h1 {
+    font-size: clamp(2.4rem, 1.5rem + 3.1vw, 4rem);
+  }
+
+  .hero h1 mark {
+    background: none;
+    color: inherit;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  /* The highlighter stroke under "actually" */
+  .hero h1 mark::after {
+    content: '';
+    position: absolute;
+    left: -0.06em;
+    right: -0.06em;
+    bottom: 0.12em;
+    height: 0.26em;
+    background: var(--accent-bright);
+    opacity: 0.5;
+    border-radius: 0.2em;
+    z-index: -1;
+    transform: rotate(-0.6deg);
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.72em 1.35em;
+    border-radius: var(--r-full);
+    border: 1px solid var(--border-strong);
+    background: var(--bg-raised);
+    font-weight: 700;
+    font-size: var(--t-sm);
+    text-decoration: none;
+    transition:
+      transform var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease),
+      background var(--dur) var(--ease);
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn--primary {
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border-color: var(--btn-bg);
+  }
+
+  .btn--primary:hover {
+    color: var(--btn-fg);
+  }
+
+  .hero__figure {
+    margin: 0;
+  }
+
+  .hero__figure img {
+    width: 100%;
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-lg);
+    transform: rotate(1.1deg);
+  }
+
+  .hero__figure figcaption {
+    margin-top: var(--s-4);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-faint);
+    text-align: center;
+  }
+
+  /* ---- facts ---- */
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: var(--s-4);
+    margin: clamp(2.5rem, 6vw, 4.5rem) 0 0;
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--border);
+  }
+
+  .fact dt {
+    font-family: var(--f-display);
+    font-size: var(--t-2xl);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .fact dd {
+    margin: var(--s-2) 0 0;
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  /* ---- sections ---- */
+
+  .section__title {
+    margin-block: var(--s-3) var(--s-4);
+  }
+
+  .offerings,
+  .cards {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-6) 0 0;
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .offerings {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .offering a,
+  .card a {
+    display: block;
+    height: 100%;
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition:
+      transform var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .offering a:hover,
+  .card a:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-bright);
+  }
+
+  .offering__kicker {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    font-weight: 700;
+    margin-bottom: var(--s-3);
+  }
+
+  .offering h3,
+  .card h3 {
+    margin-bottom: var(--s-3);
+  }
+
+  .card__go {
+    display: inline-block;
+    margin-top: var(--s-3);
+    color: var(--accent);
+    font-weight: 700;
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .card a:hover .card__go {
+    transform: translateX(4px);
+  }
+
+  /* ---- loop ---- */
+
+  .loop-section {
+    background: var(--bg-sunken);
+    border-block: 1px solid var(--border);
+  }
+
+  .loop-wrap {
+    margin-top: var(--s-7);
+  }
+
+  /* ---- pull quote ---- */
+
+  .pull {
+    margin: 0;
+    max-width: 46rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .pull p {
+    font-family: var(--f-display);
+    font-size: var(--t-2xl);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .pull footer {
+    margin-top: var(--s-4);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+</style>
