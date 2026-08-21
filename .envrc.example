@@ -1,0 +1,16 @@
+# direnv config for this repo. This file is the TRACKED template; direnv itself
+# reads `.envrc`, which is gitignored — so a fresh clone must run:
+#   cp .envrc.example .envrc && direnv allow
+#
+# Secrets live in ~/.jacobhite.env, outside the repo. This file therefore holds
+# no values, which is what makes it safe to track. That file is deliberately
+# separate from ~/.owlonit.env: two unrelated projects, and a token that only
+# needs to reach one of them has no business being loaded in the other's shell.
+#
+# watch_file registers the secrets file as a dependency so direnv reloads when
+# it changes. A plain `source` does NOT: direnv caches the exported environment
+# and only re-evaluates when a WATCHED file's mtime moves, so without this line
+# an edit to ~/.jacobhite.env stays invisible until .envrc itself is touched.
+# That exact gap silently swallowed a rotated OAuth secret on the owlonit repo.
+watch_file "$HOME/.jacobhite.env"
+source ~/.jacobhite.env

@@ -20,3 +20,6 @@ public/fonts/
 .wrangler/
 .DS_Store
 .idea/
+
+# direnv (secrets live in ~/.jacobhite.env)
+.envrc
