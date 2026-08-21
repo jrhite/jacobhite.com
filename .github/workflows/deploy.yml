@@ -1,0 +1,50 @@
+name: Deploy
+
+# The Pages project is direct-upload rather than Git-connected, so Cloudflare
+# does not build on push by itself. This workflow is what restores that: build
+# here, upload the result. Same outcome, one more moving part.
+#
+# Requires a repository secret CLOUDFLARE_API_TOKEN with:
+#   Account → Cloudflare Pages → Edit
+# and CLOUDFLARE_ACCOUNT_ID (not secret, but kept alongside it).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      # Only production pushes publish. A PR gets built (so a broken build is
+      # caught before merge) but never deployed.
+      - name: Deploy to Cloudflare Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name jacobhite-com --branch main
