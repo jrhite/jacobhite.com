@@ -52,9 +52,9 @@ export const siteMeta = {
   repo: 'https://github.com/jrhite/jacobhite.com',
 
   /**
-   * On the domain rather than a personal Gmail. Requires inbound routing to be
-   * live at the registrar before launch — until then mail to it bounces.
-   * Everything that renders a "get in touch" control reads this one value.
+   * Forwarded to a personal inbox by Cloudflare Email Routing. Everything that
+   * renders a "get in touch" control reads this one value; set it to null and
+   * they all degrade to an honest "coming soon" note rather than a dead link.
    */
-  email: 'jacob@jacobhite.com' as string | null,
+  email: 'hi@jacobhite.com' as string | null,
 };
