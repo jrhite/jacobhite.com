@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import ContactCTA from '../components/ContactCTA.astro';
 import MerrillCycle from '../components/MerrillCycle.astro';
 
 /** Merrill's First Principles, as I actually run them. From my clinical practice write-up. */
@@ -238,6 +239,10 @@ const weeks = [
       <a class="btn btn--primary" href="/playground">Open the playground →</a>
     </div>
   </section>
+  <ContactCTA
+    heading="Ready to see it up close?"
+    body="Whether it's a student, a school, or your own return to code — tell me what you want to build and I'll tell you how I'd teach it."
+  />
 </BaseLayout>
 
 <style>

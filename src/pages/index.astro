@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EngineeringLoop from '../components/EngineeringLoop.astro';
-import { navItems } from '../data/nav';
+import { navItems, siteMeta } from '../data/nav';
 import teaching from '../assets/original/teaching-se-asia.jpg';
 
 const facts = [
@@ -50,9 +50,22 @@ const offerings = [
           Computer science for grades 9–12 and for professionals. Teaching, system design,
           mock interviews, and mentoring engineers and engineering managers.
         </p>
+        <p class="hero__tagline">{siteMeta.tagline}</p>
+
         <div class="hero__cta">
           <a class="btn btn--primary" href="/teaching">How I teach</a>
           <a class="btn" href="/playground">Try a lesson →</a>
+          {
+            siteMeta.email && (
+              <a class="btn btn--mail" href={`mailto:${siteMeta.email}`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+                  <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8" />
+                  <path d="m3.5 6.5 8.5 6.5 8.5-6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+                {siteMeta.email}
+              </a>
+            )
+          }
         </div>
       </div>
 
@@ -155,6 +168,19 @@ const offerings = [
 <style>
   /* ---- hero ---- */
 
+  /* The one-line "who is this" — the credential the rest of the page assumes
+     you already have. It was only in the footer. */
+  .hero__tagline {
+    margin-top: var(--s-5);
+    padding-left: var(--s-4);
+    border-left: 3px solid var(--accent-bright);
+    font-family: var(--f-display);
+    font-size: var(--t-lg);
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
   .hero {
     padding-block: clamp(2.5rem, 8vw, 6rem) 0;
     background:
@@ -240,6 +266,20 @@ const offerings = [
 
   .btn--primary:hover {
     color: var(--btn-fg);
+  }
+
+  .btn--mail {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    white-space: nowrap;
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+  }
+
+  .btn--mail svg {
+    width: 1.05rem;
+    height: 1.05rem;
   }
 
   .hero__figure {

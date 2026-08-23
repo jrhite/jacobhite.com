@@ -48,6 +48,23 @@ const currentHref = navItems
       </ul>
     </nav>
 
+    {
+      siteMeta.email && (
+        <a
+          class="nav__contact"
+          href={`mailto:${siteMeta.email}`}
+          aria-label={`Email ${siteMeta.email}`}
+          title={`Email ${siteMeta.email}`}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+            <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8" />
+            <path d="m3.5 6.5 8.5 6.5 8.5-6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <span class="nav__contact-text">{siteMeta.email}</span>
+        </a>
+      )
+    }
+
     <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
       <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="4.2" fill="currentColor"></circle>
@@ -110,7 +127,7 @@ const currentHref = navItems
   .nav__list {
     display: flex;
     align-items: center;
-    gap: clamp(0.75rem, 2vw, 1.75rem);
+    gap: clamp(0.7rem, 1.7vw, 1.4rem);
     list-style: none;
     padding: 0;
     margin: 0;
@@ -149,6 +166,38 @@ const currentHref = navItems
   .nav__list a:hover::after,
   .nav__list a[aria-current='page']::after {
     transform: scaleX(1);
+  }
+
+  /* Contact belongs on every page, not only at the bottom of it. */
+  .nav__contact {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-1) var(--s-3);
+    border-radius: var(--r-full);
+    border: 1px solid var(--accent-bright);
+    background: var(--accent-soft);
+    color: var(--text);
+    text-decoration: none;
+    /* Trimmed deliberately: with the address spelled out, the row needs almost
+       exactly the 1104px `.page` allows, and anything looser wraps the brand. */
+    font-size: var(--t-xs);
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+      background var(--dur-fast) var(--ease),
+      border-color var(--dur-fast) var(--ease);
+  }
+
+  .nav__contact:hover {
+    background: var(--accent-bright);
+    color: var(--ink-950);
+  }
+
+  .nav__contact svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    flex: none;
   }
 
   .theme-toggle {
@@ -200,6 +249,18 @@ const currentHref = navItems
 
   /* One line only while the full row genuinely fits — it measures ~63rem with
      every label on it. Below that the links drop to their own scrolling row. */
+  /* The address is long; below this the icon carries it and `aria-label`
+     keeps the accessible name intact. */
+  @media (max-width: 34rem) {
+    .nav__contact-text {
+      display: none;
+    }
+
+    .nav__contact {
+      padding: var(--s-2);
+    }
+  }
+
   @media (max-width: 64rem) {
     .brand__name {
       font-size: var(--t-base);

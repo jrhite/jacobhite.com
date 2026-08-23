@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import ContactCTA from '../components/ContactCTA.astro';
 import selfie from '../assets/original/office-selfie.png';
 import teaching from '../assets/original/teaching-se-asia.jpg';
 
@@ -109,6 +110,10 @@ const timeline = [
       }
     </ol>
   </section>
+  <ContactCTA
+    heading="Say hello"
+    body="The fastest way to reach me is email. Questions about lessons, coaching, or the curriculum all land in the same inbox."
+  />
 </BaseLayout>
 
 <style>
