@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SuperMarioEffect from '../components/SuperMarioEffect.astro';
+import RespawnScene from '../components/RespawnScene.astro';
 import CaesarCipher from '../components/CaesarCipher.astro';
 import WordCounter from '../components/WordCounter.astro';
 ---
@@ -26,6 +27,7 @@ import WordCounter from '../components/WordCounter.astro';
           start of the level. Here's the same puzzle under two different framings — pick one, play
           it, and notice how you feel about guessing.
         </p>
+        <RespawnScene />
       </header>
       <div class="toy__body">
         <SuperMarioEffect />
@@ -88,6 +90,11 @@ import WordCounter from '../components/WordCounter.astro';
   .toy:last-of-type {
     border-bottom: 0;
     margin-bottom: 0;
+  }
+
+  .toy__head :global(.respawn) {
+    margin-top: var(--s-5);
+    max-width: 34rem;
   }
 
   .toy__head h2 {
