@@ -53,21 +53,6 @@ const code = [
   <div class="rg__play">
     <div class="rg__stage" data-rg-stage>
       <svg viewBox="0 0 320 160" shape-rendering="crispEdges" aria-hidden="true">
-        <!-- Coin popping out of the question block. -->
-        <g class="coin">
-          <rect x="94" y="20" width="12" height="12"></rect>
-          <rect x="90" y="24" width="20" height="4"></rect>
-        </g>
-
-        <!-- The question block: the thing worth guessing at. -->
-        <g class="block">
-          <rect x="88" y="44" width="24" height="24"></rect>
-          <rect x="96" y="50" width="8" height="4" class="glyph"></rect>
-          <rect x="104" y="54" width="4" height="4" class="glyph"></rect>
-          <rect x="100" y="56" width="4" height="4" class="glyph"></rect>
-          <rect x="100" y="62" width="4" height="4" class="glyph"></rect>
-        </g>
-
         <!-- Ground, with the pit the whole lesson is about. -->
         <g class="ground">
           <rect x="0" y="96" width="144" height="24"></rect>
@@ -279,15 +264,6 @@ const code = [
 
   /* ---- pixel art ---- */
 
-  .coin rect {
-    fill: var(--accent);
-  }
-  .block rect {
-    fill: var(--accent-bright);
-  }
-  .block .glyph {
-    fill: var(--ink-950);
-  }
   .cap {
     fill: var(--accent);
   }

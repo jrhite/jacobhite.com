@@ -27,6 +27,14 @@ import WordCounter from '../components/WordCounter.astro';
           start of the level. Jump this one and miss it a few times on purpose — the code beside it
           is the whole rule, and you'll notice what isn't in there.
         </p>
+        <p class="credit">
+          The Super Mario Effect is Mark Rober's, named and demonstrated in his 2018 TEDxPenn talk{' '}
+          <a
+            href="https://www.ted.com/talks/mark_rober_the_super_mario_effect_tricking_your_brain_into_learning_more"
+            rel="noopener">The Super Mario Effect: tricking your brain into learning more</a
+          >. The idea, the coding challenge and the numbers below are his; the toys on this page are
+          my own restaging of them for a classroom.
+        </p>
       </header>
       <div class="toy__body">
         <RespawnGame />
@@ -106,6 +114,15 @@ import WordCounter from '../components/WordCounter.astro';
   .toy__head h2 {
     font-size: var(--t-2xl);
     margin-block: var(--s-2) var(--s-4);
+  }
+
+  /* Attribution, not body copy — present and readable, but it shouldn't
+     compete with the lede it sits under. */
+  .credit {
+    max-width: var(--measure);
+    margin-top: var(--s-4);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
   }
 
   .toy__step {
