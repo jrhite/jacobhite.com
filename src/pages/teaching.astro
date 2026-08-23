@@ -239,17 +239,62 @@ const weeks = [
 
   /* ---- principles ---- */
 
+  /* Six columns so a card can span two and the short last row can sit on the
+     half-column offsets — five cards otherwise leave the bottom two shoved
+     against the left edge under a full row of three. */
   .principles {
     list-style: none;
     padding: 0;
     margin: var(--s-6) 0 0;
     display: grid;
     gap: var(--s-4);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .principle {
+    grid-column: span 2;
+  }
+
+  .principle:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .principle:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+
+  @media (max-width: 62rem) {
+    .principles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .principle,
+    .principle:nth-child(4) {
+      grid-column: auto;
+    }
+
+    /* Odd one out on a two-up grid — centre it rather than leave a gap. */
+    .principle:nth-child(5) {
+      grid-column: 1 / -1;
+      max-width: calc(50% - (var(--s-4) / 2));
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .principles {
+      grid-template-columns: 1fr;
+    }
+
+    .principle:nth-child(5) {
+      grid-column: auto;
+      max-width: none;
+    }
   }
 
   .principle {
     padding: var(--s-5);
+    min-width: 0;
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
     background: var(--bg-raised);
