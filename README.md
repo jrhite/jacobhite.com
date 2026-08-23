@@ -105,3 +105,12 @@ coaching CTA) and forwards to a personal inbox via Cloudflare Email Routing.
 It comes from `siteMeta.email` in `src/data/nav.ts` — setting that to `null`
 degrades every contact control to an honest "coming soon" note rather than
 leaving a dead link.
+
+`jacob@jacobhite.com`, the address published before 34a6f4b, forwards to the
+same inbox via a second routing rule, so anyone still holding the old address
+is not bounced. Neither address has a mailbox behind it — both are forwards.
+
+Do NOT test either address by mailing it from the destination inbox. The
+forward lands back where it started, and Gmail silently discards an inbound
+message whose `Message-ID` it already has in Sent, so a working forward looks
+exactly like a lost one. Send from some other address instead.
