@@ -12,7 +12,7 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Fraunces',
+      name: 'Literata',
       cssVariable: '--font-display',
       weights: [400, 600, 700, 900],
       styles: ['normal', 'italic'],
