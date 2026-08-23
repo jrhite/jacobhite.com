@@ -414,6 +414,7 @@ const code = [
   const root = document.querySelector<HTMLElement>('[data-rg]');
 
   if (root) {
+    const stage = root.querySelector<HTMLElement>('[data-rg-stage]')!;
     const svgPlayer = root.querySelector<SVGGElement>('[data-rg-player]')!;
     const banner = root.querySelector<HTMLElement>('[data-rg-banner]')!;
     const status = root.querySelector<HTMLElement>('[data-rg-status]')!;
@@ -608,26 +609,63 @@ const code = [
     for (const b of jumpBtns) b.addEventListener('click', onJump);
     resetBtn.addEventListener('click', reset);
 
-    // Space and ArrowUp, but only once the game has been looked at — a page-wide
-    // key grab would eat Space for anyone trying to scroll past it.
-    root.addEventListener('keydown', (e) => {
-      if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Spacebar') {
-        e.preventDefault();
-        onJump();
-      }
+    /**
+     * How much of the game is on screen. Space is only taken when the game is
+     * most of what you're looking at.
+     *
+     * The listener has to be on the document: `root` is a div, so it never
+     * receives a key press unless focus already sits on a control inside it,
+     * and from a cold load focus is on the body — which is why "press Space"
+     * used to scroll the page instead of starting the game.
+     *
+     * Taking Space page-wide would be worse, though: it's Page Down for anyone
+     * reading by keyboard. Gating on 60% visibility splits it — scrolling past
+     * keeps Space, and once the game fills the screen Space plays it.
+     */
+    /** Fraction of the picture currently on screen, measured when asked rather
+     *  than cached from the observer — the observer's first delivery is async,
+     *  and a gate that silently fails closed until it arrives would drop the
+     *  very first Space press, which is the one being complained about. */
+    const visibleFraction = () => {
+      const r = stage.getBoundingClientRect();
+      if (r.height <= 0) return 0;
+      const shown = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      return Math.max(0, Math.min(shown / r.height, 1));
+    };
+
+    const typingInto = (el: Element | null) =>
+      !!el &&
+      (el.matches('input, textarea, select') || !!el.closest('[contenteditable]:not([contenteditable="false"])'));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== ' ' && e.key !== 'Spacebar' && e.key !== 'ArrowUp') return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (typingInto(document.activeElement)) return;
+
+      // A focused control inside the game counts however little is on screen —
+      // the reader has clearly chosen it. Otherwise it has to dominate the view.
+      const engaged = root.contains(document.activeElement) || visibleFraction() >= 0.6;
+      if (!engaged || finished) return;
+
+      e.preventDefault();
+      onJump();
     });
 
     // Stop the loop when it scrolls away; nothing is worth a background rAF.
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && running) {
+      (entries) => {
+        const ratio = entries[entries.length - 1].intersectionRatio;
+        if (ratio < 0.2 && running) {
           stop();
           say('Paused. Press <kbd>Space</kbd>, or tap the picture, to pick it up again.');
         }
       },
-      { threshold: 0.2 },
+      { threshold: [0, 0.2, 0.6, 0.9] },
     );
-    io.observe(root);
+    // The picture, not the whole component: stacked on a narrow screen the
+    // component is far taller than the viewport, so its ratio could never
+    // reach 0.6 and Space would never engage.
+    io.observe(stage);
 
     draw();
   }
