@@ -190,7 +190,7 @@ const code = [
 
   /* A full-bleed target so tapping the picture is jumping, which is what
      everyone tries first. The visible button stays for keyboard and for
-     anyone who'd rather press a labelled control. */
+     anyone who'd rather press a labeled control. */
   .rg__hit {
     position: absolute;
     inset: 0;
@@ -354,7 +354,7 @@ const code = [
     border-radius: var(--r-lg);
     /* The global `pre` is an inverted card — light-on-dark and dark-on-light.
        This panel sits on the page's own surface instead so the highlight
-       colours read against it, which means restating the text colour too:
+       colors read against it, which means restating the text color too:
        inheriting the inverted one would paint dark text on a dark panel. */
     background: var(--bg-sunken);
     color: var(--text);
@@ -384,7 +384,7 @@ const code = [
     color: var(--text);
   }
 
-  /* Falling is the moment worth noticing, so it gets its own colour rather
+  /* Falling is the moment worth noticing, so it gets its own color rather
      than sharing one with the ordinary every-frame lines. */
   .rg__line.is-active[data-on='fall'],
   .rg__line.is-active[data-on='respawn'] {
@@ -492,8 +492,8 @@ const code = [
     };
 
     const overPit = () => {
-      const centre = player.x + 20;
-      return centre > PIT_FROM && centre < PIT_TO;
+      const center = player.x + 20;
+      return center > PIT_FROM && center < PIT_TO;
     };
 
     const stop = () => {
@@ -528,7 +528,7 @@ const code = [
     };
 
     const tick = (now: number) => {
-      // Normalised to 60fps so the physics match the constants on the right,
+      // Normalized to 60fps so the physics match the constants on the right,
       // and clamped so a backgrounded tab doesn't teleport the player.
       // Clamped at both ends: the ceiling stops a backgrounded tab teleporting
       // the player, and the floor stops a non-monotonic clock running it backwards.

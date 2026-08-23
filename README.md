@@ -62,13 +62,13 @@ Drop a markdown file in `src/content/writing/`. Frontmatter: `title`, optional
 
 ## Design system
 
-Everything lives in `src/styles/global.css` as custom properties — colour ramps,
+Everything lives in `src/styles/global.css` as custom properties — color ramps,
 a fluid type scale, spacing, shape, elevation, motion. Components use those
-tokens and never hard-code a colour.
+tokens and never hard-code a color.
 
 Three theme states are handled: light (bare `:root`), system dark
 (`@media (prefers-color-scheme: dark)` guarded with `:root:not([data-theme='light'])`),
-and explicit dark (`:root[data-theme='dark']`). **Any new colour must be defined
+and explicit dark (`:root[data-theme='dark']`). **Any new color must be defined
 in all three**, or the theme toggle will half-work.
 
 Fonts are Fraunces / Inter / JetBrains Mono, self-hosted at build time by Astro's

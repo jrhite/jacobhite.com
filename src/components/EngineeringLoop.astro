@@ -45,7 +45,7 @@ const stages = [
   },
   {
     id: 'test',
-    label: 'Test the behaviour',
+    label: 'Test the behavior',
     short: 'Test',
     body: 'Happy path, invalid input, permissions, mobile, and a regression test for the bug you just fixed. Then challenge the tests the AI wrote — they tend to confirm the implementation rather than test the requirement.',
     graded: 'Test coverage, and test quality — which are not the same thing.',
@@ -84,7 +84,7 @@ const points = stages.map((stage, i) => {
     ...stage,
     x: CX + R * Math.cos(angle),
     y: CY + R * Math.sin(angle),
-    // Labels push outward from the centre.
+    // Labels push outward from the center.
     lx: CX + (R + 34) * Math.cos(angle),
     ly: CY + (R + 34) * Math.sin(angle),
     anchor: Math.abs(Math.cos(angle)) < 0.25 ? 'middle' : Math.cos(angle) > 0 ? 'start' : 'end',

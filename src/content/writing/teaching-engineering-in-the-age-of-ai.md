@@ -53,7 +53,7 @@ just "undo."
 Students can ask Agent to explain unfamiliar code line by line, identify hidden
 assumptions, find duplicated logic, propose smaller functions, review error
 handling, generate a threat model, compare two architectural approaches, write tests
-before changing behaviour, and explain *why* a bug occurs rather than merely
+before changing behavior, and explain *why* a bug occurs rather than merely
 patching it.
 
 Require a short engineering journal for every major AI change:
@@ -157,7 +157,7 @@ practice tracker, a local community reporting app, a flashcard app using the pho
 camera, a collaborative event check-in app.
 
 Students learn that mobile software introduces new concerns: unreliable networks,
-permissions, touch interfaces, device sizes, offline behaviour, and privacy.
+permissions, touch interfaces, device sizes, offline behavior, and privacy.
 
 ### 10. Teach AI engineering by building AI products
 
@@ -171,7 +171,7 @@ conventional CRUD app.
 
 But the curriculum should cover the engineering *around* the model: prompt and
 context design, structured outputs, evaluation datasets, hallucination handling, cost
-and latency, data privacy, prompt injection, human review, fallback behaviour, and
+and latency, data privacy, prompt injection, human review, fallback behavior, and
 model substitution.
 
 A strong assignment: **build the same feature with two models, create an evaluation
@@ -221,7 +221,7 @@ Custom Instructions apply workspace-wide guidance to the agent.
 An instructor could create a course-specific skill that tells Agent to follow the
 course's code style, prefer readable beginner-friendly abstractions, explain changes
 before implementing them, never silently change the database schema, add tests for
-every new behaviour, flag security risks, ask students to make design decisions
+every new behavior, flag security risks, ask students to make design decisions
 themselves, and give hints instead of complete solutions.
 
 This is powerful because you can standardize the learning environment without making
