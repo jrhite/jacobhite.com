@@ -34,6 +34,16 @@ export const navItems: NavItem[] = [
     blurb: 'Notes on teaching software engineering in the age of AI.',
   },
   {
+    /**
+     * Deliberately a second door onto a portfolio page: clinical practice is
+     * the part people ask to see, so it gets a top-level entry as well as its
+     * place in `/portfolio`. Both links point at the same URL.
+     */
+    label: 'Clinical Practice',
+    href: '/portfolio/clinical-practice',
+    blurb: "Merrill's first principles, applied to teaching programming — one real app, built step by step.",
+  },
+  {
     label: 'Portfolio',
     href: '/portfolio',
     blurb: 'My Moreland TEACH-NOW teacher-certification e-portfolio.',

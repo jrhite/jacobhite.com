@@ -2,7 +2,17 @@
 import { navItems, siteMeta } from '../data/nav';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isCurrent = (href: string) => path === href || path.startsWith(href + '/');
+const matches = (href: string) => path === href || path.startsWith(href + '/');
+
+/**
+ * Only the most specific match gets `aria-current`. Clinical Practice lives
+ * under `/portfolio`, so without this both it and Portfolio would claim to be
+ * the current page — and "current" only means one thing to a screen reader.
+ */
+const currentHref = navItems
+  .map((item) => item.href)
+  .filter(matches)
+  .sort((a, b) => b.length - a.length)[0];
 ---
 
 <header class="nav">
@@ -24,12 +34,12 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
       <span class="brand__name">{siteMeta.name}</span>
     </a>
 
-    <nav aria-label="Main">
+    <nav class="nav__menu" aria-label="Main">
       <ul class="nav__list">
         {
           navItems.map((item) => (
             <li>
-              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+              <a href={item.href} aria-current={item.href === currentHref ? 'page' : undefined}>
                 {item.label}
               </a>
             </li>
@@ -113,6 +123,8 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
     color: var(--text-muted);
     padding-block: var(--s-2);
     position: relative;
+    /* Two-word labels break the row's rhythm if they wrap — they scroll instead. */
+    white-space: nowrap;
   }
 
   .nav__list a::after {
@@ -186,9 +198,12 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
     }
   }
 
-  @media (max-width: 46rem) {
+  /* One line only while the full row genuinely fits — it measures ~63rem with
+     every label on it. Below that the links drop to their own scrolling row. */
+  @media (max-width: 64rem) {
     .brand__name {
       font-size: var(--t-base);
+      white-space: nowrap;
     }
 
     .nav__inner {
@@ -197,7 +212,10 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
       padding-block: var(--s-3);
     }
 
-    .nav__list {
+    /* The flex child here is the <nav>, not the <ul> inside it — putting the
+       full-width drop on the list leaves the theme toggle stranded on a row
+       of its own. */
+    .nav__menu {
       order: 3;
       width: 100%;
       overflow-x: auto;
@@ -205,7 +223,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
       padding-bottom: var(--s-1);
     }
 
-    .nav__list::-webkit-scrollbar {
+    .nav__menu::-webkit-scrollbar {
       display: none;
     }
   }
