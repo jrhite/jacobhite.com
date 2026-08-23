@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import StatusPill from '../../components/StatusPill.astro';
+import ImageLightbox from '../../components/ImageLightbox.astro';
 
 export async function getStaticPaths() {
   const entries = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
@@ -79,6 +80,8 @@ const { title, subtitle, status, group, sourcePath } = entry.data;
 
     <p class="back"><a href="/portfolio">All portfolio pages</a></p>
   </article>
+
+  <ImageLightbox />
 </BaseLayout>
 
 <style>
@@ -120,6 +123,26 @@ const { title, subtitle, status, group, sourcePath } = entry.data;
 
   .prose :global(blockquote p + p) {
     margin-top: var(--s-3);
+  }
+
+  /* Diagrams come with a white background baked in, so give them a paper card
+     to sit on rather than letting them glare out of a dark page. */
+  /* `:has(img)`, not `:has(> img)` — the lightbox wraps each image in a button,
+     so it stops being a direct child once the script has run. */
+  .prose :global(p:has(img)) {
+    margin-inline: auto;
+    padding: clamp(0.75rem, 3vw, 1.5rem);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .prose :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--r-sm);
   }
 
   .prose :global(ul) {

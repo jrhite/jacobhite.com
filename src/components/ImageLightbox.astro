@@ -1,0 +1,342 @@
+---
+/**
+ * Tap-to-enlarge for images inside `.prose`.
+ *
+ * Diagrams come in far wider than the measure they're rendered at, so on a
+ * phone the labels inside them are unreadable. Fitting the image to the
+ * viewport doesn't fix that — a 1360px-wide landscape diagram fitted to a
+ * 375px portrait screen is barely larger than it was on the page. So the
+ * viewer has two states: fit first, then actual size in a pannable stage,
+ * which is the state that actually makes the text legible.
+ *
+ * Progressive enhancement: with no JS the images render exactly as before.
+ * The zoom affordance is added by the script, so it never promises behaviour
+ * that isn't there.
+ */
+---
+
+<dialog class="lightbox" aria-label="Enlarged image">
+  <button class="lightbox__close" type="button" aria-label="Close enlarged image">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M6 6l12 12M18 6L6 18"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <div class="lightbox__stage">
+    <button class="lightbox__zoom" type="button">
+      <img class="lightbox__img" alt="" />
+    </button>
+  </div>
+
+  <p class="lightbox__hint" aria-hidden="true"></p>
+</dialog>
+
+<style is:global>
+  /* ---- the affordance on the page ---- */
+
+  .zoomable {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    position: relative;
+    cursor: zoom-in;
+    border-radius: var(--r-sm);
+  }
+
+  .zoomable__badge {
+    position: absolute;
+    right: var(--s-3);
+    bottom: var(--s-3);
+    display: grid;
+    place-items: center;
+    gap: var(--s-2);
+    grid-auto-flow: column;
+    padding: var(--s-2) var(--s-3);
+    border-radius: var(--r-full);
+    /* The diagrams sit on white in both themes, so this badge is keyed to the
+       image behind it rather than to the page. */
+    background: rgb(12 21 35 / 0.72);
+    color: #fff;
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(0.25rem);
+    transition:
+      opacity var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+
+  .zoomable__badge svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .zoomable:hover .zoomable__badge,
+  .zoomable:focus-visible .zoomable__badge {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Touch has no hover to reveal it, so it just stays put. */
+  @media (hover: none) {
+    .zoomable__badge {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Where it's permanently visible over a small image, the word costs more
+     than it explains — the magnifier carries it, and the button keeps its label. */
+  @media (max-width: 30rem) {
+    .zoomable__badge span {
+      display: none;
+    }
+
+    .zoomable__badge {
+      padding: var(--s-2);
+    }
+  }
+
+  /* ---- the viewer ---- */
+
+  .lightbox {
+    /* The image is sized against these rather than against `100%`: a
+       percentage max-height would have to resolve through the zoom button,
+       whose own height is content-driven, so it never constrains anything. */
+    --lb-pad: clamp(0.75rem, 4vw, 3rem);
+    --lb-hint: 4rem;
+
+    /* Closed is the default; `open` flips it to grid below. */
+    display: none;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .lightbox[open] {
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+
+  .lightbox::backdrop {
+    background: rgb(6 11 19 / 0.86);
+    backdrop-filter: blur(6px);
+  }
+
+  .lightbox__stage {
+    grid-row: 1;
+    display: grid;
+    place-items: center;
+    overflow: auto;
+    padding: var(--lb-pad);
+    /* Momentum scrolling when panning a zoomed diagram on iOS. */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .lightbox__zoom {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+    border-radius: var(--r-md);
+  }
+
+  .lightbox__img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100dvh - var(--lb-hint) - (2 * var(--lb-pad)));
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--r-md);
+    /* Diagrams carry a white background — keep it deliberate rather than
+       letting a transparent PNG bleed into the backdrop. */
+    background: #fff;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Actual size: the stage becomes a pannable canvas. `display: block` (rather
+     than a centred grid) is deliberate — centring a child larger than its
+     scroll container clips the leading edge out of reach in several engines. */
+  .lightbox.is-zoomed .lightbox__stage {
+    display: block;
+  }
+
+  .lightbox.is-zoomed .lightbox__zoom {
+    cursor: zoom-out;
+  }
+
+  .lightbox.is-zoomed .lightbox__img {
+    max-width: none;
+    max-height: none;
+    margin-inline: auto;
+  }
+
+  .lightbox__close {
+    position: fixed;
+    top: var(--s-4);
+    right: var(--s-4);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--r-full);
+    border: 1px solid rgb(255 255 255 / 0.22);
+    background: rgb(12 21 35 / 0.72);
+    color: #fff;
+    transition:
+      background var(--dur-fast) var(--ease),
+      border-color var(--dur-fast) var(--ease);
+  }
+
+  .lightbox__close:hover {
+    background: rgb(12 21 35 / 0.92);
+    border-color: rgb(255 255 255 / 0.5);
+  }
+
+  .lightbox__close svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .lightbox__hint {
+    grid-row: 2;
+    margin: 0;
+    padding: var(--s-3) var(--s-4) calc(var(--s-4) + env(safe-area-inset-bottom));
+    text-align: center;
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: rgb(255 255 255 / 0.72);
+  }
+
+  /* The page must not scroll behind an open viewer. */
+  html.has-lightbox-open {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.lightbox');
+  const stage = dialog?.querySelector<HTMLElement>('.lightbox__stage');
+  const zoomBtn = dialog?.querySelector<HTMLButtonElement>('.lightbox__zoom');
+  const full = dialog?.querySelector<HTMLImageElement>('.lightbox__img');
+  const hint = dialog?.querySelector<HTMLElement>('.lightbox__hint');
+
+  // `<dialog>` carries the focus trap, Escape handling and top-layer stacking,
+  // so bail rather than hand-rolling a worse version of all three.
+  if (dialog && stage && zoomBtn && full && hint && typeof dialog.showModal === 'function') {
+    let lastTrigger: HTMLElement | null = null;
+
+    const BADGE = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="2"/><path d="M15.4 15.4L21 21M10.5 7.8v5.4M7.8 10.5h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+
+    const isZoomed = () => dialog.classList.contains('is-zoomed');
+
+    const setHint = () => {
+      hint.textContent = isZoomed() ? 'Tap the image to fit · Esc to close' : 'Tap the image for actual size · Esc to close';
+    };
+
+    /** Keep the point the reader aimed at under the middle of the stage. */
+    const setZoom = (on: boolean, origin?: { x: number; y: number }) => {
+      const before = full.getBoundingClientRect();
+      const relX = origin ? (origin.x - before.left) / before.width : 0.5;
+      const relY = origin ? (origin.y - before.top) / before.height : 0.5;
+
+      dialog.classList.toggle('is-zoomed', on);
+      full.style.width = on ? `${full.naturalWidth}px` : '';
+
+      if (on) {
+        stage.scrollLeft = relX * stage.scrollWidth - stage.clientWidth / 2;
+        stage.scrollTop = relY * stage.scrollHeight - stage.clientHeight / 2;
+      }
+      setHint();
+    };
+
+    const open = (source: HTMLImageElement, trigger: HTMLElement) => {
+      lastTrigger = trigger;
+      full.src = source.currentSrc || source.src;
+      full.alt = source.alt;
+      setZoom(false);
+      dialog.showModal();
+      document.documentElement.classList.add('has-lightbox-open');
+    };
+
+    /**
+     * Idempotent, and deliberately not left to the `close` event alone: that
+     * event is unreliable across engines, and if it goes missing the page is
+     * left permanently scroll-locked behind a closed dialog. So every
+     * dismissal path calls this, and `cancel`/`close` are belt and braces.
+     */
+    const teardown = () => {
+      if (!document.documentElement.classList.contains('has-lightbox-open')) return;
+      document.documentElement.classList.remove('has-lightbox-open');
+      full.removeAttribute('src');
+      lastTrigger?.focus();
+      lastTrigger = null;
+    };
+
+    const close = () => {
+      dialog.close();
+      teardown();
+    };
+
+    zoomBtn.addEventListener('click', (e) => setZoom(!isZoomed(), { x: e.clientX, y: e.clientY }));
+
+    // Clicking the surround — but not the image itself — dismisses.
+    stage.addEventListener('click', (e) => {
+      if (e.target === stage) close();
+    });
+
+    dialog.querySelector('.lightbox__close')?.addEventListener('click', close);
+
+    // Escape goes through `cancel`; the browser closes the dialog itself.
+    dialog.addEventListener('cancel', teardown);
+    dialog.addEventListener('close', teardown);
+
+    // ...but don't take that on faith. The hint promises Escape closes the
+    // viewer, so handle the key outright rather than inherit whatever the
+    // engine's native dialog dismissal happens to do.
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+      }
+    });
+
+    for (const img of document.querySelectorAll<HTMLImageElement>('.prose img')) {
+      if (img.closest('.zoomable')) continue;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'zoomable';
+      // The full alt lives on the image; the button only needs to say what it
+      // does, so a screen reader isn't read the whole diagram to reach "enlarge".
+      const short = img.alt.split('.')[0]?.trim();
+      btn.setAttribute('aria-label', short ? `Enlarge: ${short}` : 'Enlarge image');
+
+      img.replaceWith(btn);
+      btn.append(img);
+
+      const badge = document.createElement('span');
+      badge.className = 'zoomable__badge';
+      badge.setAttribute('aria-hidden', 'true');
+      badge.innerHTML = `${BADGE}<span>Enlarge</span>`;
+      btn.append(badge);
+
+      btn.addEventListener('click', () => open(img, btn));
+    }
+  }
+</script>
