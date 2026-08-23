@@ -18,6 +18,12 @@ const portfolio = defineCollection({
     group: z.enum(['Coursework', 'Modules', 'M.Ed. Pathways']),
     order: z.number(),
     status: z.enum(['complete', 'placeholder', 'needs-file']),
+    /**
+     * A drawn diagram to run above the prose. Named rather than embedded so the
+     * illustration can be built from real elements — themeable, and readable on
+     * a phone — instead of a flat export the page can only scale down.
+     */
+    diagram: z.enum(['merrill-cycle']).optional(),
     /** Path on the original Google Site, for the record. */
     sourcePath: z.string(),
   }),

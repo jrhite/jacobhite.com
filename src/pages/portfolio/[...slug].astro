@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import StatusPill from '../../components/StatusPill.astro';
 import ImageLightbox from '../../components/ImageLightbox.astro';
+import MerrillCycle from '../../components/MerrillCycle.astro';
 
 export async function getStaticPaths() {
   const entries = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
@@ -20,7 +21,7 @@ export async function getStaticPaths() {
 
 const { entry, prev, next } = Astro.props;
 const { Content } = await render(entry);
-const { title, subtitle, status, group, sourcePath } = entry.data;
+const { title, subtitle, status, group, sourcePath, diagram } = entry.data;
 ---
 
 <BaseLayout
@@ -51,9 +52,18 @@ const { title, subtitle, status, group, sourcePath } = entry.data;
           </p>
         </div>
       ) : (
-        <div class="prose">
-          <Content />
-        </div>
+        <>
+          {/* Outside `.prose` on purpose: the diagram is wider than the reading
+              measure, and centred on the page rather than on the column. */}
+          {diagram === 'merrill-cycle' && (
+            <div class="diagram">
+              <MerrillCycle />
+            </div>
+          )}
+          <div class="prose">
+            <Content />
+          </div>
+        </>
       )
     }
 
@@ -127,6 +137,12 @@ const { title, subtitle, status, group, sourcePath } = entry.data;
 
   /* Diagrams come with a white background baked in, so give them a paper card
      to sit on rather than letting them glare out of a dark page. */
+  .diagram {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--s-7);
+  }
+
   /* `:has(img)`, not `:has(> img)` — the lightbox wraps each image in a button,
      so it stops being a direct child once the script has run. */
   .prose :global(p:has(img)) {

@@ -4,10 +4,9 @@ navLabel: Clinical Practice
 group: Coursework
 order: 11
 status: complete
+diagram: merrill-cycle
 sourcePath: /clincal-practice
 ---
-
-![Diagram: Merrill's first principles in this curriculum. Task-centered — build one real app — sits at the centre of a cycle running Activation (warm-ups build on yesterday) to Demonstration (watch it work first) to Application (you type every line) to Integration (real use and reflection) and back. Below, every 50-minute lesson runs the same cycle: warm-up, live demo, you build, reflect.](../../assets/merrills-principles.jpg)
 
 My clinical practice is built on Merrill's First Principles of Instruction, applied
 to teaching programming. The whole curriculum is one artifact: a todo-list web

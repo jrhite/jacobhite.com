@@ -1,0 +1,358 @@
+---
+/**
+ * Merrill's first principles, drawn rather than photographed.
+ *
+ * This replaces a flat JPG export. A raster diagram has one background baked
+ * into it, so it can only ever suit one theme, and its labels shrink with the
+ * image until they're unreadable on a phone. Built from real elements instead,
+ * it takes the theme's own tokens, the text stays text — selectable, findable,
+ * and sized by the reader's own settings — and the layout reflows to one
+ * column rather than demanding a pinch and a squint.
+ *
+ * DOM order is the single-column reading order: hub, then the four principles
+ * in the order they run. The wide layout is placed with grid areas rather than
+ * source order, so the reflow needs no reordering and the markup stays the
+ * thing a screen reader would want to hear.
+ *
+ * The arrows are CSS rules and borders, not artwork: they stretch to whatever
+ * cell they land in, so nothing distorts as the grid reflows, and each one is
+ * pointed by the layout rather than baked facing one way.
+ */
+
+const cycle = [
+  { key: 'a', name: 'Activation', note: 'warm-ups build on yesterday' },
+  { key: 'b', name: 'Demonstration', note: 'watch it work first' },
+  { key: 'c', name: 'Application', note: 'you type every line' },
+  { key: 'd', name: 'Integration', note: 'real use and reflection' },
+];
+
+const lesson = [
+  { step: 'Warm-up', maps: 'activation' },
+  { step: 'Live demo', maps: 'demonstration' },
+  { step: 'You build', maps: 'application' },
+  { step: 'Reflect', maps: 'integration' },
+];
+---
+
+<figure class="mc">
+  <p class="mc__title">Merrill's first principles in this curriculum</p>
+
+  <div class="mc__grid">
+    <div class="mc__hub">
+      <h3>Task-centered</h3>
+      <p>build one real app</p>
+    </div>
+
+    {
+      cycle.map((c, i) => (
+        <>
+          <div class={`mc__node mc__node--${c.key}`}>
+            <h3>{c.name}</h3>
+            <p>{c.note}</p>
+          </div>
+          <span
+            class={`mc__arrow mc__arrow--${c.key}${cycle[(i + 1) % cycle.length].key}`}
+            aria-hidden="true"
+          />
+        </>
+      ))
+    }
+  </div>
+
+  <div class="mc__lesson">
+    <p class="mc__lesson-title">Every 50-minute lesson runs the same cycle</p>
+    <ol class="mc__steps">
+      {
+        lesson.map((s) => (
+          <li>
+            <span class="mc__step">{s.step}</span>
+            <span class="mc__maps">{s.maps}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <figcaption>
+    One real application at the centre, and every lesson runs the loop around it —
+    integration feeds the next activation.
+  </figcaption>
+</figure>
+
+<style>
+  .mc {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 54rem;
+    padding: clamp(1rem, 4vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .mc__title {
+    margin: 0 0 var(--s-5);
+    text-align: center;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: var(--t-lg);
+  }
+
+  /* Corners hold the four principles and the middle cell the thing they orbit;
+     the cells between them are arrows, which is why they scale with the grid. */
+  .mc__grid {
+    display: grid;
+    gap: var(--s-3);
+    /* The middle column carries the hub as well as the horizontal arrows, so it
+       needs room for the widest hub word rather than just for an arrowhead. */
+    grid-template-columns: 1fr minmax(9rem, 0.62fr) 1fr;
+    grid-template-areas:
+      'a  ab  b'
+      'da hub bc'
+      'd  cd  c';
+  }
+
+  .mc__hub {
+    grid-area: hub;
+  }
+  .mc__node--a {
+    grid-area: a;
+  }
+  .mc__node--b {
+    grid-area: b;
+  }
+  .mc__node--c {
+    grid-area: c;
+  }
+  .mc__node--d {
+    grid-area: d;
+  }
+  .mc__arrow--ab {
+    grid-area: ab;
+  }
+  .mc__arrow--bc {
+    grid-area: bc;
+  }
+  .mc__arrow--cd {
+    grid-area: cd;
+  }
+  .mc__arrow--da {
+    grid-area: da;
+  }
+
+  .mc__node,
+  .mc__hub {
+    padding: var(--s-4);
+    border-radius: var(--r-md);
+    text-align: center;
+    min-width: 0;
+  }
+
+  .mc__node {
+    border: 1px solid color-mix(in oklab, var(--accent-2) 35%, transparent);
+    background: var(--accent-2-soft);
+  }
+
+  .mc__hub {
+    border: 2px dashed color-mix(in oklab, var(--accent) 45%, transparent);
+    background: var(--accent-soft);
+  }
+
+  .mc__node h3,
+  .mc__hub h3 {
+    margin: 0;
+    font-size: var(--t-base);
+    font-weight: 700;
+  }
+
+  .mc__node h3 {
+    color: var(--accent-2);
+  }
+
+  .mc__hub h3 {
+    color: var(--accent);
+  }
+
+  .mc__node p,
+  .mc__hub p {
+    margin: var(--s-1) 0 0;
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  /* Arrows: a rule plus a border triangle. No artwork to distort. */
+  .mc__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--border-strong);
+  }
+
+  .mc__arrow::before {
+    content: '';
+    background: currentColor;
+  }
+
+  .mc__arrow::after {
+    content: '';
+    border: 6px solid transparent;
+  }
+
+  /* Horizontal pair: ab points right along the top, cd points left along the
+     bottom, so the cycle reads clockwise. */
+  .mc__arrow--ab,
+  .mc__arrow--cd {
+    flex-direction: row;
+  }
+
+  .mc__arrow--cd {
+    flex-direction: row-reverse;
+  }
+
+  .mc__arrow--ab::before,
+  .mc__arrow--cd::before {
+    flex: 1;
+    height: 2px;
+  }
+
+  .mc__arrow--ab::after {
+    border-left-color: currentColor;
+    border-right-width: 0;
+  }
+
+  .mc__arrow--cd::after {
+    border-right-color: currentColor;
+    border-left-width: 0;
+  }
+
+  /* Vertical pair: bc down the right, da back up the left. */
+  .mc__arrow--bc,
+  .mc__arrow--da {
+    flex-direction: column;
+  }
+
+  .mc__arrow--da {
+    flex-direction: column-reverse;
+  }
+
+  .mc__arrow--bc::before,
+  .mc__arrow--da::before {
+    flex: 1;
+    width: 2px;
+  }
+
+  .mc__arrow--bc::after {
+    border-top-color: currentColor;
+    border-bottom-width: 0;
+  }
+
+  .mc__arrow--da::after {
+    border-bottom-color: currentColor;
+    border-top-width: 0;
+  }
+
+  /* ---- the lesson strip ---- */
+
+  .mc__lesson {
+    margin-top: var(--s-5);
+    padding: var(--s-4);
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--r-md);
+  }
+
+  .mc__lesson-title {
+    margin: 0 0 var(--s-3);
+    text-align: center;
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  .mc__steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mc__steps li {
+    flex: 1 1 8rem;
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-3);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background: var(--bg-sunken);
+    text-align: center;
+  }
+
+  .mc__step {
+    font-weight: 700;
+    font-size: var(--t-sm);
+  }
+
+  .mc__maps {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-faint);
+  }
+
+  .mc figcaption {
+    margin-top: var(--s-4);
+    text-align: center;
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  /* One column, one direction of travel. Source order already reads correctly,
+     so the areas are simply dropped. The three arrows between the principles
+     turn to point down; `da` closes the loop back to the top, which a straight
+     line can't say once the layout is linear, so the caption carries it. */
+  @media (max-width: 44rem) {
+    .mc__grid {
+      grid-template-columns: 1fr;
+      grid-template-areas: none;
+    }
+
+    .mc__hub,
+    .mc__node--a,
+    .mc__node--b,
+    .mc__node--c,
+    .mc__node--d,
+    .mc__arrow--ab,
+    .mc__arrow--bc,
+    .mc__arrow--cd,
+    .mc__arrow--da {
+      grid-area: auto;
+    }
+
+    .mc__arrow--da {
+      display: none;
+    }
+
+    .mc__arrow--ab,
+    .mc__arrow--bc,
+    .mc__arrow--cd {
+      flex-direction: column;
+      min-height: 1.75rem;
+    }
+
+    .mc__arrow--ab::before,
+    .mc__arrow--bc::before,
+    .mc__arrow--cd::before {
+      flex: 1;
+      width: 2px;
+      height: auto;
+    }
+
+    .mc__arrow--ab::after,
+    .mc__arrow--cd::after {
+      border: 6px solid transparent;
+      border-top-color: currentColor;
+      border-bottom-width: 0;
+    }
+  }
+</style>
