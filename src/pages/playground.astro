@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SuperMarioEffect from '../components/SuperMarioEffect.astro';
-import RespawnScene from '../components/RespawnScene.astro';
+import RespawnGame from '../components/RespawnGame.astro';
 import CaesarCipher from '../components/CaesarCipher.astro';
 import WordCounter from '../components/WordCounter.astro';
 ---
@@ -24,11 +24,22 @@ import WordCounter from '../components/WordCounter.astro';
         <h2>The Super Mario Effect</h2>
         <p class="lede prose">
           Mario doesn't tell you you're a bad person when you fall in a pit. He puts you back at the
-          start of the level. Here's the same puzzle under two different framings — pick one, play
-          it, and notice how you feel about guessing.
+          start of the level. Jump this one and miss it a few times on purpose — the code beside it
+          is the whole rule, and you'll notice what isn't in there.
         </p>
-        <RespawnScene />
       </header>
+      <div class="toy__body">
+        <RespawnGame />
+      </div>
+
+      <div class="toy__step">
+        <h3>Now the same idea, wearing a lab coat</h3>
+        <p class="prose">
+          One puzzle, two framings — one charges you for a wrong guess and one doesn't. Pick either,
+          play it, and notice how you feel about guessing. The numbers come after.
+        </p>
+      </div>
+
       <div class="toy__body">
         <SuperMarioEffect />
       </div>
@@ -92,14 +103,19 @@ import WordCounter from '../components/WordCounter.astro';
     margin-bottom: 0;
   }
 
-  .toy__head :global(.respawn) {
-    margin-top: var(--s-5);
-    max-width: 34rem;
-  }
-
   .toy__head h2 {
     font-size: var(--t-2xl);
     margin-block: var(--s-2) var(--s-4);
+  }
+
+  .toy__step {
+    margin-top: var(--s-7);
+    max-width: var(--measure);
+  }
+
+  .toy__step h3 {
+    font-size: var(--t-lg);
+    margin-bottom: var(--s-2);
   }
 
   .toy__body {

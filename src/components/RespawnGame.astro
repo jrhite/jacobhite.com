@@ -1,0 +1,634 @@
+---
+/**
+ * The Super Mario Effect, playable.
+ *
+ * This was a still picture of a jump, which asked you to take the point on
+ * trust. The point is a feeling — that falling in costs you nothing but the
+ * walk back — and you can't get a feeling from a diagram. So you run it: jump
+ * the pit, miss it, and watch what happens, which is nothing except starting
+ * over.
+ *
+ * The panel beside it is the same loop written down, and it lights up the line
+ * the game is executing. Falling in highlights `attempts += 1` and `respawn()`
+ * and there is no third line, because there is no punishment to implement —
+ * which is the lesson stated in the only place a programmer really reads.
+ *
+ * Deliberately not any existing game's character or trademark.
+ */
+
+/** The loop on the right. `on` is the state key that lights each line up. */
+const code = [
+  { t: 'const GRAVITY = 0.3', dim: true },
+  { t: 'const JUMP    = -5.2', dim: true },
+  { t: 'const SPEED   =  2.0', dim: true },
+  { t: '' },
+  { t: 'function tick() {' },
+  { t: '  if (jumpPressed && player.onGround) {' },
+  { t: '    player.vy = JUMP', on: 'jump' },
+  { t: '  }' },
+  { t: '' },
+  { t: '  player.vy += GRAVITY', on: 'gravity' },
+  { t: '  player.y  += player.vy' },
+  { t: '  player.x  += SPEED', on: 'run' },
+  { t: '' },
+  { t: '  if (onSolidGround(player)) {' },
+  { t: '    player.y  = GROUND', on: 'land' },
+  { t: '    player.vy = 0' },
+  { t: '  }' },
+  { t: '' },
+  { t: '  if (player.y > PIT_BOTTOM) {' },
+  { t: '    attempts += 1', on: 'fall' },
+  { t: '    respawn(player)', on: 'respawn' },
+  { t: '    // no points lost. no lecture.', dim: true },
+  { t: '  }' },
+  { t: '' },
+  { t: '  if (player.x >= flag.x) {' },
+  { t: '    win()', on: 'win' },
+  { t: '  }' },
+  { t: '}' },
+];
+---
+
+<div class="rg" data-rg>
+  <div class="rg__play">
+    <div class="rg__stage" data-rg-stage>
+      <svg viewBox="0 0 320 160" shape-rendering="crispEdges" aria-hidden="true">
+        <!-- Coin popping out of the question block. -->
+        <g class="coin">
+          <rect x="94" y="20" width="12" height="12"></rect>
+          <rect x="90" y="24" width="20" height="4"></rect>
+        </g>
+
+        <!-- The question block: the thing worth guessing at. -->
+        <g class="block">
+          <rect x="88" y="44" width="24" height="24"></rect>
+          <rect x="96" y="50" width="8" height="4" class="glyph"></rect>
+          <rect x="104" y="54" width="4" height="4" class="glyph"></rect>
+          <rect x="100" y="56" width="4" height="4" class="glyph"></rect>
+          <rect x="100" y="62" width="4" height="4" class="glyph"></rect>
+        </g>
+
+        <!-- Ground, with the pit the whole lesson is about. -->
+        <g class="ground">
+          <rect x="0" y="96" width="144" height="24"></rect>
+          <rect x="196" y="96" width="124" height="24"></rect>
+        </g>
+        <g class="seam">
+          <rect x="32" y="96" width="2" height="24"></rect>
+          <rect x="72" y="96" width="2" height="24"></rect>
+          <rect x="112" y="96" width="2" height="24"></rect>
+          <rect x="232" y="96" width="2" height="24"></rect>
+          <rect x="272" y="96" width="2" height="24"></rect>
+        </g>
+
+        <!-- Start of the level, and the flag you were aiming at. -->
+        <g class="post">
+          <rect x="20" y="76" width="4" height="20"></rect>
+          <rect x="14" y="92" width="16" height="4"></rect>
+        </g>
+        <g class="flag" data-rg-flag>
+          <rect x="288" y="40" width="4" height="56" class="pole"></rect>
+          <rect x="292" y="44" width="20" height="14"></rect>
+        </g>
+
+        <!-- The player. Its group transform is the whole of `player.x/y`. -->
+        <g class="player" data-rg-player transform="translate(8 49)">
+          <rect x="10" y="0" width="20" height="6" class="cap"></rect>
+          <rect x="6" y="6" width="28" height="4" class="cap"></rect>
+          <rect x="10" y="10" width="20" height="8" class="skin"></rect>
+          <rect x="22" y="12" width="4" height="4" class="eye"></rect>
+          <rect x="6" y="18" width="28" height="14" class="shirt"></rect>
+          <rect x="0" y="20" width="6" height="6" class="shirt"></rect>
+          <rect x="34" y="16" width="6" height="6" class="shirt"></rect>
+          <g class="leg leg--l" data-rg-leg-l>
+            <rect x="8" y="32" width="8" height="10" class="skin"></rect>
+            <rect x="4" y="42" width="14" height="5" class="skin"></rect>
+          </g>
+          <g class="leg leg--r" data-rg-leg-r>
+            <rect x="24" y="32" width="8" height="10" class="skin"></rect>
+            <rect x="22" y="42" width="14" height="5" class="skin"></rect>
+          </g>
+        </g>
+      </svg>
+
+      <button class="rg__hit" type="button" data-rg-jump>
+        <span class="visually-hidden">Jump</span>
+      </button>
+
+      <p class="rg__banner" data-rg-banner hidden></p>
+    </div>
+
+    <div class="rg__hud">
+      <p class="rg__status" data-rg-status role="status" aria-live="polite">
+        Press <kbd>Space</kbd> to start. Then press it again to jump.
+      </p>
+      <div class="rg__meta">
+        <span><strong data-rg-attempts>0</strong> attempts</span>
+        <span class="rg__cost">points lost: <strong>0</strong></span>
+      </div>
+      <div class="rg__controls">
+        <button type="button" class="rg__btn rg__btn--go" data-rg-jump>Jump</button>
+        <button type="button" class="rg__btn" data-rg-reset>Start over</button>
+      </div>
+    </div>
+  </div>
+
+  <figure class="rg__code">
+    <figcaption>
+      <span class="eyebrow">The same thing, as code</span>
+      Every frame runs this. Watch which line lights up when you miss.
+    </figcaption>
+    <pre><code>{
+      code.map((l) => (
+        <span
+          class={`rg__line${l.dim ? ' is-dim' : ''}`}
+          data-on={l.on}
+        >{l.t || ' '}
+</span>
+      ))
+    }</code></pre>
+    <p class="rg__note">
+      There is no <code>score -= 5</code> in here. Nothing to add, and that absence is
+      the entire finding.
+    </p>
+  </figure>
+</div>
+
+<style>
+  .rg {
+    display: grid;
+    gap: var(--s-5);
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .rg {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: var(--s-6);
+    }
+  }
+
+  /* ---- the game ---- */
+
+  .rg__play {
+    min-width: 0;
+  }
+
+  .rg__stage {
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-sunken);
+    overflow: hidden;
+  }
+
+  .rg__stage svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* A full-bleed target so tapping the picture is jumping, which is what
+     everyone tries first. The visible button stays for keyboard and for
+     anyone who'd rather press a labelled control. */
+  .rg__hit {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .rg__banner {
+    position: absolute;
+    inset-inline: 0;
+    top: 12%;
+    margin: 0;
+    text-align: center;
+    font-family: var(--f-display);
+    font-weight: 900;
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    color: var(--text);
+    text-shadow: 0 2px 0 var(--bg-sunken);
+    pointer-events: none;
+  }
+
+  .rg__banner[data-tone='win'] {
+    color: var(--accent-2);
+  }
+
+  .rg__hud {
+    margin-top: var(--s-4);
+  }
+
+  .rg__status {
+    margin: 0;
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+    min-height: 2.6em;
+  }
+
+  .rg__status kbd {
+    font-family: var(--f-mono);
+    font-size: 0.9em;
+    padding: 0.1em 0.4em;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-sm);
+    background: var(--bg-raised);
+  }
+
+  .rg__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+    margin-top: var(--s-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-faint);
+  }
+
+  .rg__cost strong {
+    color: var(--accent-2);
+  }
+
+  .rg__controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    margin-top: var(--s-4);
+  }
+
+  .rg__btn {
+    padding: var(--s-2) var(--s-4);
+    border-radius: var(--r-full);
+    border: 1px solid var(--border-strong);
+    background: var(--bg-raised);
+    font-size: var(--t-sm);
+    font-weight: 600;
+  }
+
+  .rg__btn--go {
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border-color: transparent;
+  }
+
+  .rg__btn:hover {
+    border-color: var(--accent);
+  }
+
+  /* ---- pixel art ---- */
+
+  .coin rect {
+    fill: var(--accent);
+  }
+  .block rect {
+    fill: var(--accent-bright);
+  }
+  .block .glyph {
+    fill: var(--ink-950);
+  }
+  .cap {
+    fill: var(--accent);
+  }
+  .shirt {
+    fill: var(--accent-2);
+  }
+  .skin {
+    fill: var(--text);
+  }
+  .eye {
+    fill: var(--bg-sunken);
+  }
+  .ground rect {
+    fill: var(--border);
+  }
+  .seam rect,
+  .post rect,
+  .flag .pole {
+    fill: var(--border-strong);
+  }
+  .flag rect {
+    fill: var(--accent-3);
+  }
+
+  .leg {
+    transition: transform 90ms steps(1);
+  }
+
+  .player.is-airborne .leg--l {
+    transform: translateY(-3px);
+  }
+
+  .player.is-airborne .leg--r {
+    transform: translateY(2px);
+  }
+
+  .player.is-stepping .leg--l {
+    transform: translate(3px, -2px);
+  }
+
+  .player.is-stepping .leg--r {
+    transform: translate(-3px, 0);
+  }
+
+  /* ---- the code panel ---- */
+
+  .rg__code {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .rg__code figcaption {
+    display: grid;
+    gap: var(--s-1);
+    margin-bottom: var(--s-3);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  .rg__code pre {
+    margin: 0;
+    padding: var(--s-4);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    /* The global `pre` is an inverted card — light-on-dark and dark-on-light.
+       This panel sits on the page's own surface instead so the highlight
+       colours read against it, which means restating the text colour too:
+       inheriting the inverted one would paint dark text on a dark panel. */
+    background: var(--bg-sunken);
+    color: var(--text);
+    overflow-x: auto;
+    font-size: var(--t-xs);
+    line-height: 1.7;
+  }
+
+  .rg__line {
+    display: block;
+    padding-inline: var(--s-2);
+    border-radius: var(--r-sm);
+    border-left: 2px solid transparent;
+    white-space: pre;
+    transition:
+      background var(--dur-fast) var(--ease),
+      color var(--dur-fast) var(--ease);
+  }
+
+  .rg__line.is-dim {
+    color: var(--text-faint);
+  }
+
+  .rg__line.is-active {
+    background: var(--accent-soft);
+    border-left-color: var(--accent-bright);
+    color: var(--text);
+  }
+
+  /* Falling is the moment worth noticing, so it gets its own colour rather
+     than sharing one with the ordinary every-frame lines. */
+  .rg__line.is-active[data-on='fall'],
+  .rg__line.is-active[data-on='respawn'] {
+    background: color-mix(in oklab, var(--accent-3) 22%, transparent);
+    border-left-color: var(--accent-3);
+  }
+
+  .rg__line.is-active[data-on='win'] {
+    background: var(--accent-2-soft);
+    border-left-color: var(--accent-2);
+  }
+
+  .rg__note {
+    margin: var(--s-3) 0 0;
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .leg {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-rg]');
+
+  if (root) {
+    const svgPlayer = root.querySelector<SVGGElement>('[data-rg-player]')!;
+    const banner = root.querySelector<HTMLElement>('[data-rg-banner]')!;
+    const status = root.querySelector<HTMLElement>('[data-rg-status]')!;
+    const attemptsEl = root.querySelector<HTMLElement>('[data-rg-attempts]')!;
+    const resetBtn = root.querySelector<HTMLButtonElement>('[data-rg-reset]')!;
+    const jumpBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-rg-jump]')];
+    const lines = [...root.querySelectorAll<HTMLElement>('.rg__line[data-on]')];
+
+    // World constants, in the SVG's own units. The code panel quotes these.
+    const GRAVITY = 0.3;
+    const JUMP = -5.2;
+    const SPEED = 2.0;
+    const GROUND = 49; // player `y` when standing
+    const PIT_BOTTOM = 130;
+    const PIT_FROM = 144;
+    const PIT_TO = 196;
+    const FLAG_X = 276;
+    const START_X = 8;
+
+    const player = { x: START_X, y: GROUND, vy: 0, onGround: true };
+    let attempts = 0;
+    let running = false;
+    let finished = false;
+    let queuedJump = false;
+    let raf = 0;
+    let last = 0;
+    let stepPhase = 0;
+
+    const lit = new Map<string, number>();
+
+    /** The current frame's timestamp. Lighting and painting must read the same
+     *  clock, or a line's expiry is measured against a different one. */
+    let frameNow = performance.now();
+
+    /** Light a line for a moment. Cheap, and it re-arms on every hit. */
+    const light = (key: string, ms = 420) => {
+      lit.set(key, frameNow + ms);
+    };
+
+    const paintLines = (now: number) => {
+      for (const el of lines) {
+        const key = el.dataset.on!;
+        const until = lit.get(key) ?? 0;
+        el.classList.toggle('is-active', until > now);
+      }
+    };
+
+    const say = (html: string) => {
+      status.innerHTML = html;
+    };
+
+    const showBanner = (text: string, tone?: string) => {
+      banner.textContent = text;
+      banner.hidden = false;
+      if (tone) banner.dataset.tone = tone;
+      else delete banner.dataset.tone;
+    };
+
+    const hideBanner = () => {
+      banner.hidden = true;
+      delete banner.dataset.tone;
+    };
+
+    const draw = () => {
+      svgPlayer.setAttribute('transform', `translate(${player.x.toFixed(2)} ${player.y.toFixed(2)})`);
+      svgPlayer.classList.toggle('is-airborne', !player.onGround);
+      svgPlayer.classList.toggle('is-stepping', player.onGround && stepPhase > 0.5);
+    };
+
+    const respawn = () => {
+      player.x = START_X;
+      player.y = GROUND;
+      player.vy = 0;
+      player.onGround = true;
+    };
+
+    const overPit = () => {
+      const centre = player.x + 20;
+      return centre > PIT_FROM && centre < PIT_TO;
+    };
+
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+    };
+
+    const win = () => {
+      finished = true;
+      stop();
+      light('win', 4000);
+      showBanner('You got there.', 'win');
+      say(
+        `Cleared it on attempt <strong>${attempts + 1}</strong>. Nothing was deducted along the way — ` +
+          'the only thing the misses cost you was the walk back.',
+      );
+      paintLines(frameNow);
+    };
+
+    const fall = () => {
+      attempts += 1;
+      attemptsEl.textContent = String(attempts);
+      light('fall', 900);
+      light('respawn', 900);
+      showBanner('Try again');
+      say(
+        `That didn't work. Attempt <strong>${attempts}</strong> — you're back at the start, ` +
+          'with everything you had before.',
+      );
+      respawn();
+      window.setTimeout(hideBanner, 900);
+    };
+
+    const tick = (now: number) => {
+      // Normalised to 60fps so the physics match the constants on the right,
+      // and clamped so a backgrounded tab doesn't teleport the player.
+      // Clamped at both ends: the ceiling stops a backgrounded tab teleporting
+      // the player, and the floor stops a non-monotonic clock running it backwards.
+      frameNow = now;
+      const dt = Math.min(Math.max((now - last) / 16.667, 0), 3);
+      last = now;
+
+      if (queuedJump && player.onGround) {
+        player.vy = JUMP;
+        player.onGround = false;
+        light('jump');
+      }
+      queuedJump = false;
+
+      player.vy += GRAVITY * dt;
+      player.y += player.vy * dt;
+      player.x += SPEED * dt;
+      light('gravity', 120);
+      light('run', 120);
+
+      if (player.onGround || (player.vy > 0 && player.y >= GROUND && !overPit())) {
+        if (!overPit()) {
+          player.y = GROUND;
+          player.vy = 0;
+          player.onGround = true;
+          light('land', 120);
+        } else {
+          player.onGround = false;
+        }
+      }
+
+      if (player.y > PIT_BOTTOM) fall();
+
+      stepPhase = (player.x / 9) % 1;
+      draw();
+      paintLines(now);
+
+      if (player.x >= FLAG_X) {
+        win();
+        return;
+      }
+
+      if (running) raf = requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (running || finished) return;
+      running = true;
+      hideBanner();
+      say('Running. Press <kbd>Space</kbd>, or tap the picture, to jump the pit.');
+      last = performance.now();
+      raf = requestAnimationFrame(tick);
+    };
+
+    const onJump = () => {
+      if (finished) return;
+      if (!running) {
+        start();
+        return;
+      }
+      queuedJump = true;
+    };
+
+    const reset = () => {
+      stop();
+      finished = false;
+      attempts = 0;
+      attemptsEl.textContent = '0';
+      lit.clear();
+      frameNow = performance.now();
+      paintLines(frameNow);
+      respawn();
+      draw();
+      hideBanner();
+      say('Press <kbd>Space</kbd> to start. Then press it again to jump.');
+    };
+
+    for (const b of jumpBtns) b.addEventListener('click', onJump);
+    resetBtn.addEventListener('click', reset);
+
+    // Space and ArrowUp, but only once the game has been looked at — a page-wide
+    // key grab would eat Space for anyone trying to scroll past it.
+    root.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Spacebar') {
+        e.preventDefault();
+        onJump();
+      }
+    });
+
+    // Stop the loop when it scrolls away; nothing is worth a background rAF.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && running) {
+          stop();
+          say('Paused. Press <kbd>Space</kbd>, or tap the picture, to pick it up again.');
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(root);
+
+    draw();
+  }
+</script>
