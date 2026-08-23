@@ -37,7 +37,7 @@ const services = [
       'You run the one-on-one, the design review, or the difficult conversation. I stay in character.',
       'Scenarios drawn from what actually happens: a missed deadline, a rejected design, a quiet resignation risk.',
       'We break character to debrief, then run it again with what you learned.',
-      'No slide deck about "radical candour." You practice the sentence until you can say it.',
+      'No slide deck about "radical candor." You practice the sentence until you can say it.',
     ],
   },
 ];
@@ -79,7 +79,7 @@ const services = [
     </div>
   </section>
 
-  <section class="section page">
+  <section class="section page pull-section">
     <blockquote class="pull">
       <p>
         Nobody has ever gotten better at a hard conversation by reading about hard conversations.
@@ -157,6 +157,12 @@ const services = [
     left: 0;
     color: var(--accent-2);
     font-weight: 700;
+  }
+
+  /* A one-line beat between two sections, not a section in its own right —
+     full section padding on both sides plus the neighbours' left it adrift. */
+  .pull-section {
+    padding-block: clamp(1.25rem, 3vw, 2.5rem);
   }
 
   .pull {

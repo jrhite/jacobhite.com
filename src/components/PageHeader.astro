@@ -18,7 +18,7 @@ const { eyebrow, title, lede } = Astro.props;
 
 <style>
   .page-header {
-    padding-block: clamp(2.5rem, 7vw, 5rem);
+    padding-block: var(--band);
     border-bottom: 1px solid var(--border);
     background:
       radial-gradient(46rem 24rem at 8% -30%, var(--accent-soft), transparent 62%),

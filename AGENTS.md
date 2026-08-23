@@ -16,12 +16,19 @@ The ones that keep slipping through:
 | practise, practises *(verb)* | practice, practices |
 | penalised, normalised, organised | penalized, normalized, organized |
 | labelled, travelled, cancelled | labeled, traveled, canceled |
+| candour, humour, favour | candor, humor, favor |
 | grey | gray |
 | whilst, amongst | while, among |
 | licence, defence *(nouns)* | license, defense |
 
 `-ise`/`-isation` endings go to `-ize`/`-ization`. `practice` is already the
 American spelling of both the noun and the verb, so it is never `practise`.
+
+Sweep by *ending*, not by a list of words — a hand-written list missed
+"candour" the first time round. `\b[a-z]+our\b` and `\b[a-z]+is(e|ed|ing|ation)\b`
+catch the whole class; subtract the words that are correct in both
+(our, four, hour, tour, your, pour, flour, contour; wise, rise, precise,
+promise, exercise, surprise, advise, revise, concise, otherwise, likewise).
 
 Watch the false positives when sweeping for these: `programmer` contains
 "programme", and `raised`, `precise`, `promises`, `exercises`, `surprises`,
