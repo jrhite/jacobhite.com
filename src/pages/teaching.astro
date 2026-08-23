@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import MerrillCycle from '../components/MerrillCycle.astro';
 
 /** Merrill's First Principles, as I actually run them. From my clinical practice write-up. */
 const principles = [
@@ -113,6 +114,11 @@ const weeks = [
       My clinical practice is built on Merrill's First Principles of Instruction. Here is what each
       one actually looks like on a Tuesday.
     </p>
+
+    {/* The shape first, then the five cards say what each part means. */}
+    <div class="framework">
+      <MerrillCycle />
+    </div>
 
     <ol class="principles">
       {
@@ -238,6 +244,12 @@ const weeks = [
   }
 
   /* ---- principles ---- */
+
+  .framework {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--s-6);
+  }
 
   /* Six columns so a card can span two and the short last row can sit on the
      half-column offsets — five cards otherwise leave the bottom two shoved
