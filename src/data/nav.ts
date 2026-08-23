@@ -16,12 +16,12 @@ export const navItems: NavItem[] = [
   {
     label: 'Teaching',
     href: '/teaching',
-    blurb: 'How I teach programming: one real app, built line by line, never pasted.',
+    blurb: 'How I teach programming: one real app, and no line stays until the student can explain it.',
   },
   {
     label: 'Coaching',
     href: '/coaching',
-    blurb: 'Mock interviews, systems design, and senior-engineer role-play for new managers.',
+    blurb: 'Teaching, system design, mock interviews, and mentoring engineers and engineering managers.',
   },
   {
     label: 'Playground',
@@ -47,7 +47,7 @@ export const navItems: NavItem[] = [
 
 export const siteMeta = {
   name: 'Jacob Hite',
-  tagline: 'Software engineer turned computer science teacher.',
+  tagline: 'Former Amazon and Google software engineer turned software engineering teacher and coach.',
   domain: 'jacobhite.com',
   repo: 'https://github.com/jrhite/jacobhite.com',
 
