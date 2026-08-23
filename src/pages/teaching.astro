@@ -110,15 +110,16 @@ const weeks = [
   <section class="section page">
     <p class="eyebrow">The framework</p>
     <h2 class="section__title">Merrill's First Principles, in practice</h2>
+    {/* The shape first. The lede then hands off from it to the five cards,
+        which say what each part means. */}
+    <div class="framework">
+      <MerrillCycle />
+    </div>
+
     <p class="lede prose">
       My clinical practice is built on Merrill's First Principles of Instruction. Here is what each
       one actually looks like on a Tuesday.
     </p>
-
-    {/* The shape first, then the five cards say what each part means. */}
-    <div class="framework">
-      <MerrillCycle />
-    </div>
 
     <ol class="principles">
       {
@@ -249,6 +250,9 @@ const weeks = [
     display: flex;
     justify-content: center;
     margin-top: var(--s-6);
+    /* Wider than the gap below the lede, so the lede groups with the cards it
+       introduces rather than reading as a caption on the diagram. */
+    margin-bottom: var(--s-7);
   }
 
   /* Six columns so a card can span two and the short last row can sit on the
