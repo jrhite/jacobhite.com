@@ -53,14 +53,46 @@ const graded = [
 ];
 
 const weeks = [
-  { w: '1', t: 'A small logic exercise', d: 'Command line. Variables, input, a decision.' },
-  { w: '2', t: 'A browser interface', d: 'The thing becomes visible, and other people can use it.' },
-  { w: '3', t: 'Persistent data', d: 'It survives a refresh. Suddenly the data model matters.' },
-  { w: '4', t: 'Authentication and permissions', d: 'Who are you, and what are you allowed to do? Two different questions.' },
-  { w: '5', t: 'External API integration', d: 'Rate limits, webhooks, data mapping, and failure handling — the glue work.' },
-  { w: '6', t: 'Testing and observability', d: '"The code runs" is not "the feature works" is not "the UX is right."' },
-  { w: '7', t: 'Deployment and user feedback', d: 'Real users. Real traffic. A rollback plan.' },
-  { w: '8', t: 'Refactoring and postmortem', d: 'What we would do differently, written down.' },
+  {
+    w: '1',
+    t: 'Add a task, see your tasks',
+    d: 'A prompt, a list in memory, and one decision. It runs in the terminal, and it is already theirs.',
+  },
+  {
+    w: '2',
+    t: 'The list in a browser',
+    d: 'A text box, a button, and the tasks on screen. Somebody other than the author can use it now.',
+  },
+  {
+    w: '3',
+    t: 'The list survives a refresh',
+    d: 'Storage — and the moment a task stops being a string and becomes a record with an id, a title, and a done flag.',
+  },
+  {
+    w: '4',
+    t: 'Your list, not everybody\'s',
+    d: 'Accounts and permissions. Who you are and which tasks you may touch turn out to be two different questions.',
+  },
+  {
+    w: '5',
+    t: 'Due dates that reach you',
+    d: 'A calendar or notification API: rate limits, webhooks, and what the list should do when the other service is down.',
+  },
+  {
+    w: '6',
+    t: 'Proving "done" means done',
+    d: '"The code runs" is not "checking a task off works" is not "the list feels right at 7am."',
+  },
+  {
+    w: '7',
+    t: "Other people's tasks",
+    d: 'Deployed, with real users putting real errands in it — and a rollback plan for the morning it goes wrong.',
+  },
+  {
+    w: '8',
+    t: 'The annoyance list',
+    d: 'Everything about their own to-do app that irritates them becomes the refactor, and the postmortem gets written down.',
+  },
 ];
 ---
 
@@ -148,8 +180,9 @@ const weeks = [
       <p class="eyebrow">The shape of a term</p>
       <h2 class="section__title">Eight weeks, one thing, getting harder</h2>
       <p class="lede prose">
-        Each week the app gains a capability, and the student gains the concern that comes with it.
-        The final assessment is a product with users — not a zip file that only runs on my laptop.
+        Each week the to-do list gains a capability, and the student gains the concern that arrives with
+        it. The final assessment is their own app, with real users — not a zip file that only runs on
+        my laptop.
       </p>
 
       <ol class="ladder">
