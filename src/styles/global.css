@@ -336,6 +336,58 @@ hr {
   padding-block: var(--band);
 }
 
+/* ---------- Playground toys ---------- */
+
+/*
+ * Demo on the left, the editable rule on the right. Every column contributes
+ * exactly two children — a label and a body — so with subgrid both bodies start
+ * on the same row and their box tops line up however tall the labels run. Doing
+ * it structurally rather than by matching paddings is what keeps the three toys
+ * aligned with each other as their labels change.
+ */
+.toy-split {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.toy-col {
+  display: grid;
+  gap: var(--s-2);
+  align-content: start;
+  min-width: 0;
+}
+
+.toy-col__label {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.toy-col__body {
+  display: grid;
+  gap: var(--s-5);
+  align-content: start;
+  min-width: 0;
+}
+
+@media (min-width: 62rem) {
+  .toy-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    align-items: start;
+  }
+
+  @supports (grid-template-rows: subgrid) {
+    .toy-split > .toy-col {
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+    }
+  }
+}
+
 /* ---------- 5. Utilities ---------- */
 
 .eyebrow {

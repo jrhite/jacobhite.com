@@ -1,0 +1,155 @@
+---
+/**
+ * The editor chrome every playground toy shares: a titled bar with a reset,
+ * the code itself, an error line, and optional one-click variants for someone
+ * who doesn't yet know what to type.
+ *
+ * The textarea is the pristine copy — `defaultValue` never changes as the
+ * learner types, so Reset needs no second copy to keep in sync. See
+ * `src/scripts/rule-editor.ts` for the behaviour.
+ */
+interface Variant {
+  label: string;
+  hint: string;
+  src: string;
+}
+
+interface Props {
+  /** The rule itself. Keep lines under ~40 characters — these sit in a column. */
+  source: string;
+  title?: string;
+  /** Accessible name for the editing surface. */
+  label: string;
+  variants?: Variant[];
+  /** Rows for the pre-CodeMirror fallback; roughly the snippet's line count. */
+  rows?: number;
+}
+
+const { source, title = 'The rule — edit it', label, variants = [], rows = 6 } = Astro.props;
+---
+
+<div class="toy-col">
+  <span class="toy-col__label">{title}</span>
+
+  <div class="toy-col__body">
+    <div class="ed">
+      <div class="ed__frame" data-rule-frame>
+        <textarea
+          class="ed__area"
+          data-rule-source
+          spellcheck="false"
+          autocapitalize="off"
+          autocorrect="off"
+          rows={rows}
+          aria-label={label}>{source}</textarea
+        >
+      </div>
+
+      <p class="ed__msg" data-rule-msg role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="tries">
+      {
+        variants.map((v) => (
+          <button type="button" class="try" title={v.hint} data-rule-variant={v.src}>
+            {v.label}
+          </button>
+        ))
+      }
+      <button type="button" class="try try--reset" data-rule-reset>Reset</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ed {
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-md);
+    /* Not --bg-invert: that is defined to flip with the theme, which paints a
+       glaring white panel on the dark site. --bg-sunken reads as inset in both. */
+    background: var(--bg-sunken);
+    overflow: hidden;
+  }
+
+  /* CodeMirror builds its DOM at runtime, so those nodes never receive Astro's
+     scoping attribute — hence :global. Colour lives in the theme object in
+     rule-editor.ts; only the box is sized here. */
+  .ed__frame :global(.cm-editor) {
+    min-height: 9rem;
+  }
+
+  .ed__frame :global(.cm-scroller) {
+    overflow: auto;
+  }
+
+  /* `display: block` below outranks the UA's `[hidden] { display: none }`, so
+     the hidden rule has to be restated or the fallback keeps rendering
+     underneath the editor that replaced it. */
+  .ed__area[hidden] {
+    display: none;
+  }
+
+  .ed__area {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: var(--s-3);
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+    line-height: 1.6;
+    resize: vertical;
+  }
+
+  .ed__msg {
+    margin: 0;
+    padding: 0 var(--s-3) var(--s-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-muted);
+    min-height: 1.4em;
+  }
+
+  .ed__msg.is-bad {
+    color: var(--accent-3);
+  }
+
+  /* Reset is just another one-click action, so it sits with the variants rather
+     than in a bar of its own — which also keeps the label row a single line of
+     text on both sides of the split, so the boxes below it stay level. */
+  .tries {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .try {
+    padding: 0.45em 0.9em;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg);
+    color: var(--text);
+    font-size: var(--t-sm);
+    cursor: pointer;
+  }
+
+  .try:hover {
+    border-color: var(--accent-bright);
+    background: var(--accent-soft);
+  }
+
+  .try--reset {
+    margin-left: auto;
+    color: var(--text-muted);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+  }
+
+  .try--reset:hover {
+    color: var(--accent);
+    background: transparent;
+  }
+</style>

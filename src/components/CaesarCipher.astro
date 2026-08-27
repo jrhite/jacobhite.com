@@ -1,51 +1,101 @@
 ---
 /**
  * Lesson 02, live. The thing students always get wrong is wraparound:
- * x → a, y → b, z → c. So the alphabet strip shows the wrap happening.
+ * x → a, y → b, z → c.
+ *
+ * The rule below is not an illustration of the code — it *is* the code. It
+ * ships as a string, gets evaluated once on load, and the demo calls whatever
+ * comes back. So there is only ever one copy: edit it and the strip changes,
+ * break it and the strip breaks. Everything the lesson is not about (reading
+ * the input, painting 26 cells, the arithmetic caption) stays in the script
+ * below, out of the learner's way.
  */
+import RuleEditor from './RuleEditor.astro';
+
 const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+
+const rule = `// letter: 0-25 (a = 0)
+// shift: how far to slide it
+function shiftLetter(letter, shift) {
+  return (letter + shift) % 26
+}`;
+
+/** One-click ways in, for someone who doesn't yet know what to type. */
+const variants = [
+  {
+    label: 'No wraparound',
+    hint: 'Take the % 26 away and letters run off the end of the alphabet.',
+    src: `// Where does 'z' go now?
+function shiftLetter(letter, shift) {
+  return letter + shift
+}`,
+  },
+  {
+    label: 'Wrap at 13',
+    hint: 'Wrap halfway through the alphabet instead of at the end.',
+    src: `// Half an alphabet.
+function shiftLetter(letter, shift) {
+  return (letter + shift) % 13
+}`,
+  },
+  {
+    label: 'Go backwards',
+    hint: 'Shift the other way — and see why the + 26 has to be there.',
+    src: `// + 26 keeps it from going negative
+function shiftLetter(letter, shift) {
+  return (letter - shift + 26) % 26
+}`,
+  },
+];
 ---
 
-<div class="caesar" data-caesar>
-  <div class="caesar__controls">
-    <label class="field">
-      <span class="field__label">Your message</span>
-      <input type="text" data-caesar-input value="attack at dawn" maxlength="60" spellcheck="false" />
-    </label>
+<div class="caesar toy-split" data-caesar>
+  <div class="toy-col">
+    <span class="toy-col__label">Your message</span>
 
-    <label class="field">
-      <span class="field__label">
-        Shift <output data-caesar-shift-out>3</output>
-      </span>
-      <input type="range" min="0" max="25" value="3" data-caesar-shift />
-    </label>
-  </div>
+    <div class="toy-col__body">
+      <div class="caesar__controls">
+        <input type="text" data-caesar-input value="zulu zone at dawn" maxlength="60" spellcheck="false" aria-label="Your message" />
 
-  <div class="caesar__out">
-    <span class="caesar__out-key">Encrypted</span>
-    <output data-caesar-output>dwwdfn dw gdzq</output>
-  </div>
-
-  <div class="caesar__strip" aria-hidden="true">
-    {
-      alphabet.map((letter, i) => (
-        <div class="cell" data-cell={i}>
-          <span class="cell__from">{letter}</span>
-          <span class="cell__arrow">↓</span>
-          <span class="cell__to" data-cell-to>
-            {letter}
+        <label class="field">
+          <span class="field__label">
+            Shift <output data-caesar-shift-out>3</output>
           </span>
-        </div>
-      ))
-    }
+          <input type="range" min="0" max="25" value="3" data-caesar-shift />
+        </label>
+      </div>
+
+      <div class="caesar__out">
+        <span class="caesar__out-key">Encrypted</span>
+        <output data-caesar-output>cxox crqh dw gdzq</output>
+      </div>
+
+      <div class="caesar__strip" aria-hidden="true">
+        {
+          alphabet.map((letter, i) => (
+            <div class="cell" data-cell={i}>
+              <span class="cell__from">{letter}</span>
+              <span class="cell__arrow">↓</span>
+              <span class="cell__to" data-cell-to>
+                {letter}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="caesar__math">
+        <code data-caesar-math>shiftLetter(25, 3) → 2 · 'z' becomes 'c'</code>
+      </p>
+    </div>
   </div>
 
-  <p class="caesar__math">
-    <code data-caesar-math>(0 + 3) % 26 = 3 → 'a' becomes 'd'</code>
-  </p>
+  <RuleEditor source={rule} label="The shiftLetter rule, editable" variants={variants} rows={5} />
 </div>
 
 <script>
+  import { createRuleEditor } from '../scripts/rule-editor';
+
   const root = document.querySelector<HTMLElement>('[data-caesar]');
 
   if (root) {
@@ -57,65 +107,80 @@ const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
     const cells = [...root.querySelectorAll<HTMLElement>('[data-cell]')];
 
     const A = 'a'.charCodeAt(0);
+    type Rule = (letter: number, shift: number) => number;
 
-    /** The whole lesson, in five lines. */
-    function encrypt(text: string, by: number) {
-      let out = '';
-      for (const ch of text.toLowerCase()) {
-        const code = ch.charCodeAt(0);
-        if (code >= A && code <= A + 25) {
-          out += String.fromCharCode(((code - A + by) % 26) + A);
-        } else {
-          out += ch;
-        }
-      }
-      return out;
+    let rule: Rule = (letter, by) => (letter + by) % 26;
+
+    function compile(src: string): Rule {
+      const made = new Function(
+        `"use strict";${src};return typeof shiftLetter === 'function' ? shiftLetter : null;`,
+      )();
+      if (!made) throw new Error('No function called shiftLetter is defined.');
+      if (typeof made(0, 0) !== 'number') throw new Error('shiftLetter has to return a number.');
+      return made as Rule;
+    }
+
+    /**
+     * Deliberately does not clamp into a-z. Running off the end of the alphabet
+     * is the thing the lesson is about, so it has to be visible. Only genuinely
+     * unpaintable answers become '?'.
+     */
+    function charFrom(base: number, n: number) {
+      if (!Number.isFinite(n)) return '?';
+      const code = base + Math.trunc(n);
+      if (code < 32 || code > 0x10ffff) return '?';
+      return String.fromCodePoint(code);
     }
 
     function render() {
       const by = Number(shift.value);
       shiftOut.textContent = String(by);
-      output.textContent = encrypt(input.value, by) || ' ';
 
-      cells.forEach((cell, i) => {
-        const to = (i + by) % 26;
-        cell.querySelector('[data-cell-to]')!.textContent = String.fromCharCode(65 + to);
-        // Flag the letters that wrapped past Z — the bit that trips everyone up.
-        cell.classList.toggle('is-wrapped', i + by > 25);
-      });
+      try {
+        let out = '';
+        for (const ch of input.value.toLowerCase()) {
+          const code = ch.charCodeAt(0);
+          out += code >= A && code <= A + 25 ? charFrom(A, rule(code - A, by)) : ch;
+        }
+        output.textContent = out || ' ';
 
-      // Show the arithmetic for the first letter of the message.
-      const first = input.value.toLowerCase().match(/[a-z]/)?.[0] ?? 'a';
-      const from = first.charCodeAt(0) - A;
-      const to = (from + by) % 26;
-      math.textContent = `(${from} + ${by}) % 26 = ${to}  →  '${first}' becomes '${String.fromCharCode(
-        to + A,
-      )}'`;
+        cells.forEach((cell, i) => {
+          const to = rule(i, by);
+          cell.querySelector('[data-cell-to]')!.textContent = charFrom(65, to);
+          // Flagged where the alphabet ran out *and* the rule did something
+          // about it. Both halves matter: derived from the rule, so deleting the
+          // % 26 correctly stops flagging anything and lets the letters run off
+          // the end in plain sight; anchored to i + by > 25, so a rule that
+          // simply moves letters elsewhere doesn't light up all 26.
+          cell.classList.toggle('is-wrapped', Number.isFinite(to) && i + by > 25 && to !== i + by);
+        });
+
+        const first = input.value.toLowerCase().match(/[a-z]/)?.[0] ?? 'a';
+        const from = first.charCodeAt(0) - A;
+        const to = rule(from, by);
+        math.textContent = `shiftLetter(${from}, ${by}) → ${to} · '${first}' becomes '${charFrom(A, to)}'`;
+      } catch {
+        /* A rule that throws mid-render leaves the last good paint on screen. */
+      }
     }
+
+    createRuleEditor<Rule>({
+      root,
+      compile,
+      apply: (next) => (rule = next),
+      render,
+    });
 
     input.addEventListener('input', render);
     shift.addEventListener('input', render);
-    render();
   }
 </script>
 
 <style>
-  .caesar {
-    display: grid;
-    gap: var(--s-5);
-  }
-
+  /* Layout comes from .toy-split in global.css so all three toys align. */
   .caesar__controls {
     display: grid;
     gap: var(--s-4);
-  }
-
-  @media (min-width: 40rem) {
-    .caesar__controls {
-      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-      gap: var(--s-5);
-      align-items: end;
-    }
   }
 
   .field {
@@ -173,16 +238,12 @@ const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
     white-space: pre;
   }
 
+  /* Two rows of 13 rather than one of 26: the strip now lives in a column,
+     and 26 cells across half a page is unreadable at any viewport. */
   .caesar__strip {
     display: grid;
     grid-template-columns: repeat(13, minmax(0, 1fr));
     gap: 3px;
-  }
-
-  @media (min-width: 52rem) {
-    .caesar__strip {
-      grid-template-columns: repeat(26, minmax(0, 1fr));
-    }
   }
 
   .cell {
@@ -226,4 +287,5 @@ const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
     background: var(--accent-soft);
     border-color: var(--accent-bright);
   }
+
 </style>

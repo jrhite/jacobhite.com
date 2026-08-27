@@ -8,49 +8,156 @@
  * the pit, miss it, and watch what happens, which is nothing except starting
  * over.
  *
- * The panel beside it is the same loop written down, and it lights up the line
- * the game is executing. Falling in highlights `attempts += 1` and `respawn()`
- * and there is no third line, because there is no punishment to implement —
- * which is the lesson stated in the only place a programmer really reads.
+ * The panel beside it is not a picture of the loop — it is the loop. The rule
+ * ships as a string, gets evaluated, and the engine calls whatever comes back,
+ * so there is only one copy and it cannot drift. Falling in lights up the line
+ * that ran, and there is no line to punish you, because there is no punishment
+ * to implement — the lesson stated in the only place a programmer really reads.
+ * Anyone who doubts it can add `world.lose(5)` and watch the page argue with
+ * itself.
  *
  * Deliberately not any existing game's character or trademark.
  */
+import RuleEditor from './RuleEditor.astro';
 
-/** The loop on the right. `on` is the state key that lights each line up. */
-const code = [
-  { t: 'const GRAVITY = 0.3', dim: true },
-  { t: 'const JUMP    = -5.2', dim: true },
-  { t: 'const SPEED   =  2.0', dim: true },
-  { t: '' },
-  { t: 'function tick() {' },
-  { t: '  if (jumpPressed && player.onGround) {' },
-  { t: '    player.vy = JUMP', on: 'jump' },
-  { t: '  }' },
-  { t: '' },
-  { t: '  player.vy += GRAVITY', on: 'gravity' },
-  { t: '  player.y  += player.vy' },
-  { t: '  player.x  += SPEED', on: 'run' },
-  { t: '' },
-  { t: '  if (onSolidGround(player)) {' },
-  { t: '    player.y  = GROUND', on: 'land' },
-  { t: '    player.vy = 0' },
-  { t: '  }' },
-  { t: '' },
-  { t: '  if (player.y > PIT_BOTTOM) {' },
-  { t: '    attempts += 1', on: 'fall' },
-  { t: '    respawn(player)', on: 'respawn' },
-  { t: '    // no points lost. no lecture.', dim: true },
-  { t: '  }' },
-  { t: '' },
-  { t: '  if (player.x >= flag.x) {' },
-  { t: '    win()', on: 'win' },
-  { t: '  }' },
-  { t: '}' },
+/**
+ * Kept to short lines on purpose: this panel sits in a half-width column, and
+ * a line that wraps is a line a learner has to reassemble in their head.
+ */
+const rule = `const GRAVITY = 0.3
+const JUMP    = -5.2
+const SPEED   =  2.0
+
+// One step of the world.
+function step(p, world) {
+  if (p.jumped && p.onGround) {
+    p.vy = JUMP
+    p.onGround = false
+  }
+
+  p.vy += GRAVITY
+  p.y  += p.vy
+  p.x  += SPEED
+
+  if (world.landed(p)) {
+    p.y  = world.FLOOR
+    p.vy = 0
+    p.onGround = true
+  }
+
+  if (p.y > world.PIT_BOTTOM) {
+    world.fall()
+    // no points lost. no lecture.
+  }
+
+  if (p.x >= world.FLAG_X) {
+    world.win()
+  }
+}`;
+
+const variants = [
+  {
+    label: 'Punish the miss',
+    hint: 'Add the one line this whole page is an argument against.',
+    src: `const GRAVITY = 0.3
+const JUMP    = -5.2
+const SPEED   =  2.0
+
+function step(p, world) {
+  if (p.jumped && p.onGround) {
+    p.vy = JUMP
+    p.onGround = false
+  }
+
+  p.vy += GRAVITY
+  p.y  += p.vy
+  p.x  += SPEED
+
+  if (world.landed(p)) {
+    p.y  = world.FLOOR
+    p.vy = 0
+    p.onGround = true
+  }
+
+  if (p.y > world.PIT_BOTTOM) {
+    world.fall()
+    world.lose(5)
+  }
+
+  if (p.x >= world.FLAG_X) {
+    world.win()
+  }
+}`,
+  },
+  {
+    label: 'Moon gravity',
+    hint: 'Same code, one number. Physics is just constants.',
+    src: `const GRAVITY = 0.08
+const JUMP    = -3.2
+const SPEED   =  2.0
+
+function step(p, world) {
+  if (p.jumped && p.onGround) {
+    p.vy = JUMP
+    p.onGround = false
+  }
+
+  p.vy += GRAVITY
+  p.y  += p.vy
+  p.x  += SPEED
+
+  if (world.landed(p)) {
+    p.y  = world.FLOOR
+    p.vy = 0
+    p.onGround = true
+  }
+
+  if (p.y > world.PIT_BOTTOM) {
+    world.fall()
+  }
+
+  if (p.x >= world.FLAG_X) {
+    world.win()
+  }
+}`,
+  },
+  {
+    label: 'Never fall',
+    hint: 'Delete the pit check. Where does the player end up?',
+    src: `const GRAVITY = 0.3
+const JUMP    = -5.2
+const SPEED   =  2.0
+
+function step(p, world) {
+  if (p.jumped && p.onGround) {
+    p.vy = JUMP
+    p.onGround = false
+  }
+
+  p.vy += GRAVITY
+  p.y  += p.vy
+  p.x  += SPEED
+
+  if (world.landed(p)) {
+    p.y  = world.FLOOR
+    p.vy = 0
+    p.onGround = true
+  }
+
+  if (p.x >= world.FLAG_X) {
+    world.win()
+  }
+}`,
+  },
 ];
+
 ---
 
-<div class="rg" data-rg>
-  <div class="rg__play">
+<div class="rg toy-split" data-rg>
+  <div class="toy-col">
+    <span class="toy-col__label">Jump the pit</span>
+
+    <div class="toy-col__body rg__play">
     <div class="rg__stage" data-rg-stage>
       <svg viewBox="0 0 320 160" shape-rendering="crispEdges" aria-hidden="true">
         <!-- Ground, with the pit the whole lesson is about. -->
@@ -108,50 +215,22 @@ const code = [
         Press <kbd>Space</kbd> to start. Then press it again to jump.
       </p>
       <div class="rg__meta">
-        <span><strong data-rg-attempts>0</strong> attempts</span>
-        <span class="rg__cost">points lost: <strong>0</strong></span>
+        <span><strong data-rg-attempts>0</strong> <span data-rg-attempts-word>attempts</span></span>
+        <span class="rg__cost">points lost: <strong data-rg-cost>0</strong></span>
       </div>
       <div class="rg__controls">
         <button type="button" class="rg__btn rg__btn--go" data-rg-jump>Jump</button>
         <button type="button" class="rg__btn" data-rg-reset>Start over</button>
       </div>
+      </div>
     </div>
   </div>
 
-  <figure class="rg__code">
-    <figcaption>
-      <span class="eyebrow">The same thing, as code</span>
-      Every frame runs this. Watch which line lights up when you miss.
-    </figcaption>
-    <pre><code>{
-      code.map((l) => (
-        <span
-          class={`rg__line${l.dim ? ' is-dim' : ''}`}
-          data-on={l.on}
-        >{l.t || ' '}
-</span>
-      ))
-    }</code></pre>
-    <p class="rg__note">
-      There is no <code>score -= 5</code> in here. Nothing to add, and that absence is
-      the entire finding.
-    </p>
-  </figure>
+  <RuleEditor source={rule} label="The step rule, editable" variants={variants} rows={28} />
 </div>
 
 <style>
-  .rg {
-    display: grid;
-    gap: var(--s-5);
-    align-items: start;
-  }
-
-  @media (min-width: 56rem) {
-    .rg {
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      gap: var(--s-6);
-    }
-  }
+  /* Layout comes from .toy-split in global.css so all three toys align. */
 
   /* ---- the game ---- */
 
@@ -310,74 +389,14 @@ const code = [
 
   /* ---- the code panel ---- */
 
-  .rg__code {
-    margin: 0;
-    min-width: 0;
-  }
 
-  .rg__code figcaption {
-    display: grid;
-    gap: var(--s-1);
-    margin-bottom: var(--s-3);
-    font-size: var(--t-sm);
-    color: var(--text-muted);
-  }
 
-  .rg__code pre {
-    margin: 0;
-    padding: var(--s-4);
-    border: 1px solid var(--border);
-    border-radius: var(--r-lg);
-    /* The global `pre` is an inverted card — light-on-dark and dark-on-light.
-       This panel sits on the page's own surface instead so the highlight
-       colors read against it, which means restating the text color too:
-       inheriting the inverted one would paint dark text on a dark panel. */
-    background: var(--bg-sunken);
-    color: var(--text);
-    overflow-x: auto;
-    font-size: var(--t-xs);
-    line-height: 1.7;
-  }
 
-  .rg__line {
-    display: block;
-    padding-inline: var(--s-2);
-    border-radius: var(--r-sm);
-    border-left: 2px solid transparent;
-    white-space: pre;
-    transition:
-      background var(--dur-fast) var(--ease),
-      color var(--dur-fast) var(--ease);
-  }
 
-  .rg__line.is-dim {
-    color: var(--text-faint);
-  }
 
-  .rg__line.is-active {
-    background: var(--accent-soft);
-    border-left-color: var(--accent-bright);
-    color: var(--text);
-  }
 
-  /* Falling is the moment worth noticing, so it gets its own color rather
-     than sharing one with the ordinary every-frame lines. */
-  .rg__line.is-active[data-on='fall'],
-  .rg__line.is-active[data-on='respawn'] {
-    background: color-mix(in oklab, var(--accent-3) 22%, transparent);
-    border-left-color: var(--accent-3);
-  }
 
-  .rg__line.is-active[data-on='win'] {
-    background: var(--accent-2-soft);
-    border-left-color: var(--accent-2);
-  }
 
-  .rg__note {
-    margin: var(--s-3) 0 0;
-    font-size: var(--t-sm);
-    color: var(--text-muted);
-  }
 
   @media (prefers-reduced-motion: reduce) {
     .leg {
@@ -387,6 +406,8 @@ const code = [
 </style>
 
 <script>
+  import { createRuleEditor } from '../scripts/rule-editor';
+
   const root = document.querySelector<HTMLElement>('[data-rg]');
 
   if (root) {
@@ -395,14 +416,18 @@ const code = [
     const banner = root.querySelector<HTMLElement>('[data-rg-banner]')!;
     const status = root.querySelector<HTMLElement>('[data-rg-status]')!;
     const attemptsEl = root.querySelector<HTMLElement>('[data-rg-attempts]')!;
+    const attemptsWordEl = root.querySelector<HTMLElement>('[data-rg-attempts-word]')!;
+
+    /** Keeps the count and its noun in agreement — "1 attempts" reads as a bug. */
+    const setAttempts = (n: number) => {
+      attemptsEl.textContent = String(n);
+      attemptsWordEl.textContent = n === 1 ? 'attempt' : 'attempts';
+    };
     const resetBtn = root.querySelector<HTMLButtonElement>('[data-rg-reset]')!;
     const jumpBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-rg-jump]')];
-    const lines = [...root.querySelectorAll<HTMLElement>('.rg__line[data-on]')];
+    const costEl = root.querySelector<HTMLElement>('[data-rg-cost]')!;
 
-    // World constants, in the SVG's own units. The code panel quotes these.
-    const GRAVITY = 0.3;
-    const JUMP = -5.2;
-    const SPEED = 2.0;
+    // World constants the rule does not own, in the SVG's own units.
     const GROUND = 49; // player `y` when standing
     const PIT_BOTTOM = 130;
     const PIT_FROM = 144;
@@ -410,32 +435,42 @@ const code = [
     const FLAG_X = 276;
     const START_X = 8;
 
-    const player = { x: START_X, y: GROUND, vy: 0, onGround: true };
+    const player = { x: START_X, y: GROUND, vy: 0, onGround: true, jumped: false };
+
+    type Step = (p: typeof player, world: World) => void;
+    type World = {
+      FLOOR: number;
+      PIT_BOTTOM: number;
+      FLAG_X: number;
+      landed: (p: typeof player) => boolean;
+      fall: () => void;
+      win: () => void;
+      lose: (n: number) => void;
+    };
+
+    let step: Step = () => {};
     let attempts = 0;
     let running = false;
     let finished = false;
     let queuedJump = false;
     let raf = 0;
     let last = 0;
+    let accumulator = 0;
     let stepPhase = 0;
 
-    const lit = new Map<string, number>();
+    let pointsLost = 0;
 
-    /** The current frame's timestamp. Lighting and painting must read the same
-     *  clock, or a line's expiry is measured against a different one. */
-    let frameNow = performance.now();
-
-    /** Light a line for a moment. Cheap, and it re-arms on every hit. */
-    const light = (key: string, ms = 420) => {
-      lit.set(key, frameNow + ms);
-    };
-
-    const paintLines = (now: number) => {
-      for (const el of lines) {
-        const key = el.dataset.on!;
-        const until = lit.get(key) ?? 0;
-        el.classList.toggle('is-active', until > now);
-      }
+    /**
+     * Highlight the line that just ran. Matched by pattern rather than by line
+     * number, because the learner is editing this document — a cached number
+     * would point at the wrong line the moment they add one, and if they delete
+     * the line nothing lights up, which is the honest answer.
+     */
+    let clearMark: number | undefined;
+    const mark = (pattern: RegExp, ms = 900) => {
+      editor.markLine(pattern);
+      window.clearTimeout(clearMark);
+      clearMark = window.setTimeout(() => editor.markLine(null), ms);
     };
 
     const say = (html: string) => {
@@ -480,20 +515,32 @@ const code = [
     const win = () => {
       finished = true;
       stop();
-      light('win', 4000);
+      // The successful run is an attempt too. Without this the prose said
+      // "attempt 1" while the counter beside it still read 0.
+      attempts += 1;
+      setAttempts(attempts);
+      mark(/world\.win/, 4000);
       showBanner('You got there.', 'win');
+      /**
+       * The claim "nothing was deducted" is only true while nobody has added a
+       * penalty. Once `world.lose` has fired, saying it anyway makes the page
+       * look broken rather than makes the argument — so name the contradiction
+       * instead of denying it. This is the "argue with itself" moment.
+       */
       say(
-        `Cleared it on attempt <strong>${attempts + 1}</strong>. Nothing was deducted along the way — ` +
-          'the only thing the misses cost you was the walk back.',
+        pointsLost > 0
+          ? `Cleared it on attempt <strong>${attempts}</strong> — and <strong>${pointsLost}</strong> points ` +
+            'went somewhere on the way. Nothing in the world needed them: you added that line, and the ' +
+            'run played out exactly the same without it.'
+          : `Cleared it on attempt <strong>${attempts}</strong>. Nothing was deducted along the way — ` +
+            'the only thing the misses cost you was the walk back.',
       );
-      paintLines(frameNow);
     };
 
     const fall = () => {
       attempts += 1;
-      attemptsEl.textContent = String(attempts);
-      light('fall', 900);
-      light('respawn', 900);
+      setAttempts(attempts);
+      mark(/world\.fall/);
       showBanner('Try again');
       say(
         `That didn't work. Attempt <strong>${attempts}</strong> — you're back at the start, ` +
@@ -503,51 +550,57 @@ const code = [
       window.setTimeout(hideBanner, 900);
     };
 
-    const tick = (now: number) => {
-      // Normalized to 60fps so the physics match the constants on the right,
-      // and clamped so a backgrounded tab doesn't teleport the player.
+    /**
+     * A fixed step, so the rule on the right never has to mention `dt`. The
+     * engine catches up by running whole steps rather than scaling a frame, and
+     * the numbers a learner reads are the numbers actually applied.
+     */
+    const STEP_MS = 1000 / 60;
+
+    const world = {
+      FLOOR: GROUND,
+      PIT_BOTTOM,
+      FLAG_X,
+      landed: (p: typeof player) =>
+        (p.onGround || (p.vy > 0 && p.y >= GROUND)) && !overPit(),
+      fall: () => fall(),
+      win: () => win(),
+      lose: (n: number) => {
+        pointsLost += Number(n) || 0;
+        costEl.textContent = String(pointsLost);
+      },
+    };
+
+    const frame = (now: number) => {
       // Clamped at both ends: the ceiling stops a backgrounded tab teleporting
-      // the player, and the floor stops a non-monotonic clock running it backwards.
-      frameNow = now;
-      const dt = Math.min(Math.max((now - last) / 16.667, 0), 3);
+      // the player, and the floor stops a non-monotonic clock running it back.
+      accumulator += Math.min(Math.max(now - last, 0), STEP_MS * 4);
       last = now;
 
-      if (queuedJump && player.onGround) {
-        player.vy = JUMP;
-        player.onGround = false;
-        light('jump');
-      }
-      queuedJump = false;
+      let steps = 0;
+      while (accumulator >= STEP_MS && steps < 4 && running && !finished) {
+        accumulator -= STEP_MS;
+        steps += 1;
 
-      player.vy += GRAVITY * dt;
-      player.y += player.vy * dt;
-      player.x += SPEED * dt;
-      light('gravity', 120);
-      light('run', 120);
+        player.jumped = queuedJump;
+        queuedJump = false;
 
-      if (player.onGround || (player.vy > 0 && player.y >= GROUND && !overPit())) {
-        if (!overPit()) {
-          player.y = GROUND;
-          player.vy = 0;
-          player.onGround = true;
-          light('land', 120);
-        } else {
-          player.onGround = false;
+        try {
+          step(player, world);
+        } catch (err) {
+          // A rule that throws stops the run rather than spinning on the error.
+          running = false;
+          say(`The rule threw: <strong>${err instanceof Error ? err.message : String(err)}</strong>`);
+          break;
         }
-      }
 
-      if (player.y > PIT_BOTTOM) fall();
+        if (player.jumped && !player.onGround) mark(/p\.vy = JUMP/, 320);
+      }
 
       stepPhase = (player.x / 9) % 1;
       draw();
-      paintLines(now);
 
-      if (player.x >= FLAG_X) {
-        win();
-        return;
-      }
-
-      if (running) raf = requestAnimationFrame(tick);
+      if (running && !finished) raf = requestAnimationFrame(frame);
     };
 
     const start = () => {
@@ -556,7 +609,8 @@ const code = [
       hideBanner();
       say('Running. Press <kbd>Space</kbd>, or tap the picture, to jump the pit.');
       last = performance.now();
-      raf = requestAnimationFrame(tick);
+      accumulator = 0;
+      raf = requestAnimationFrame(frame);
     };
 
     const onJump = () => {
@@ -572,15 +626,34 @@ const code = [
       stop();
       finished = false;
       attempts = 0;
-      attemptsEl.textContent = '0';
-      lit.clear();
-      frameNow = performance.now();
-      paintLines(frameNow);
+      setAttempts(0);
+      pointsLost = 0;
+      costEl.textContent = '0';
+      editor.markLine(null);
+      accumulator = 0;
       respawn();
       draw();
       hideBanner();
       say('Press <kbd>Space</kbd> to start. Then press it again to jump.');
     };
+
+    /**
+     * The rule owns the constants and the step; the engine owns everything the
+     * lesson is not about. `apply` swaps the step in mid-run, so an edit shows
+     * up on the very next frame without restarting the game.
+     */
+    const editor = createRuleEditor<Step>({
+      root,
+      compile(src) {
+        const made = new Function(
+          `"use strict";${src};return typeof step === 'function' ? step : null;`,
+        )();
+        if (!made) throw new Error('No function called step is defined.');
+        return made as Step;
+      },
+      apply: (next) => (step = next),
+      render: () => draw(),
+    });
 
     for (const b of jumpBtns) b.addEventListener('click', onJump);
     resetBtn.addEventListener('click', reset);
