@@ -2,14 +2,16 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EngineeringLoop from '../components/EngineeringLoop.astro';
-import { navItems, siteMeta } from '../data/nav';
+import { navItems, siteMeta, careerYears } from '../data/nav';
 import teaching from '../assets/original/teaching-se-asia.jpg';
+import avatar from '../assets/jacob-hite-avatar.jpg';
 
 const facts = [
   { value: '1999', label: 'BS Computer Science, CU Boulder' },
-  { value: '25 yrs', label: 'shipping software for a living' },
+  { value: `${careerYears} yrs`, label: 'shipping software for a living' },
   { value: '2011', label: 'moved to South East Asia' },
-  { value: 'CELTA', label: 'certified in Chiang Mai, Thailand' },
+  { value: 'CELTA', label: 'certified in Chiang Mai, 2011' },
+  { value: '2026', label: 'switch from software engineering to teaching about it' },
 ];
 
 const offerings = [
@@ -43,18 +45,28 @@ const offerings = [
       <div class="hero__text">
         <p class="eyebrow">Engineer → Teacher</p>
         <h1>
-          Twenty-five years building software.<br />
+          {careerYears} years building software.<br />
           Now I teach it, for the <mark>AI</mark> era.
         </h1>
         <p class="lede">
           Computer science for grades 9–12 and for professionals. Teaching, system design,
           mock interviews, and mentoring engineers and engineering managers.
         </p>
-        <p class="hero__tagline">{siteMeta.tagline}</p>
+        <div class="hero__byline">
+          <Image
+            class="hero__face"
+            src={avatar}
+            alt={`${siteMeta.name}, mid-laugh, turned slightly away from the camera.`}
+            widths={[64, 128]}
+            sizes="64px"
+            loading="eager"
+          />
+          <p class="hero__tagline">{siteMeta.tagline}</p>
+        </div>
 
         <div class="hero__cta">
           <a class="btn btn--primary" href="/teaching">How I teach</a>
-          <a class="btn" href="/playground">Try a lesson →</a>
+          <a class="btn" href="/teaching#hands-on">Try a lesson →</a>
           {
             siteMeta.email && (
               <a class="btn btn--mail" href={`mailto:${siteMeta.email}`}>
@@ -169,9 +181,26 @@ const offerings = [
   /* ---- hero ---- */
 
   /* The one-line "who is this" — the credential the rest of the page assumes
-     you already have. It was only in the footer. */
+     you already have. It was only in the footer. The face rides alongside it as
+     a byline: the hero photo shows the work, this shows who is doing it. Kept
+     small on purpose, so it complements the teaching shot instead of competing. */
+  .hero__byline {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+  }
+
+  .hero__face {
+    flex: none;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--r-full);
+    object-fit: cover;
+    border: 2px solid var(--bg-raised);
+    box-shadow: var(--shadow-sm);
+  }
+
   .hero__tagline {
-    margin-top: var(--s-5);
     padding-left: var(--s-4);
     border-left: 3px solid var(--accent-bright);
     font-family: var(--f-display);
@@ -346,8 +375,21 @@ const offerings = [
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   }
 
+  /* Seven cards over four columns leaves an orphan row of three. An auto-fit grid
+     pins that row to the left, so it reads as a mistake. Flex with a fixed basis
+     keeps every card the same width and centers whatever the last row holds. */
   .cards {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* 16.5rem is exactly a quarter of the widest content row: (1200px page - 2x3rem
+     padding - 3x1rem gap) / 4 = 264px. Four fill the row edge to edge, so the top
+     row still lines up with the section heading, and nothing grows — every card
+     stays the same width, which is what lets the short row center under them. */
+  .cards > li {
+    flex: 0 1 min(100%, 16.5rem);
   }
 
   .offering a,

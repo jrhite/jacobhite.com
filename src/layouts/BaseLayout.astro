@@ -7,11 +7,11 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
-  /** Optional OG image path relative to the site root, e.g. /images/og-teaching.png */
+  /** Optional OG image path relative to the site root, e.g. /images/og-teaching.jpg */
   ogImage?: string;
 }
 
-const { title, description, ogImage = '/images/og-default.png' } = Astro.props;
+const { title, description, ogImage = '/images/og-default.jpg' } = Astro.props;
 
 const siteName = 'Jacob Hite';
 const fullTitle = title === siteName ? title : `${title} · ${siteName}`;

@@ -3,8 +3,10 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import { careerStart, careerSwitch, careerYears } from '../data/nav';
 import selfie from '../assets/original/office-selfie.png';
 import teaching from '../assets/original/teaching-se-asia.jpg';
+import portrait from '../assets/jacob-hite-portrait.jpg';
 
 /**
  * The five paragraphs below are the bio from the original Google Site home page,
@@ -31,9 +33,9 @@ const timeline = [
     detail: 'The formal part of the education.',
   },
   {
-    when: '1999 — today',
+    when: `${careerStart} — ${careerSwitch}`,
     what: 'Software engineer — Amazon, Google',
-    detail: 'Twenty-five years of shipping things at real scale, and of learning what actually breaks in production.',
+    detail: `${careerYears} years of shipping things at real scale, and of learning what actually breaks in production.`,
   },
   {
     when: '2011',
@@ -41,21 +43,21 @@ const timeline = [
     detail: 'Where most of the last fifteen years have been spent.',
   },
   {
-    when: 'Chiang Mai',
-    what: 'CELTA certification',
+    when: '2011',
+    what: 'CELTA certification, Chiang Mai',
     detail: 'English teaching certification, plus volunteer teaching — the first real evidence that this was the direction.',
   },
   {
-    when: 'Now',
+    when: '2026',
     what: 'Moreland University, TEACH-NOW',
-    detail: 'Teacher certification, and the pivot from writing code to teaching software engineering at international schools and online.',
+    detail: 'Teacher certification, and the switch from writing code to teaching software engineering at international schools and online.',
   },
 ];
 ---
 
 <BaseLayout
   title="About"
-  description="Colorado, CU Boulder, twenty-five years of software engineering at Amazon and Google, fifteen years in South East Asia, and a deliberate pivot into teaching and coaching."
+  description={`Colorado, CU Boulder, ${careerYears} years of software engineering at Amazon and Google, fifteen years in South East Asia, and a deliberate pivot into teaching and coaching.`}
 >
   <PageHeader
     eyebrow="About"
@@ -70,6 +72,21 @@ const timeline = [
       </div>
 
       <div class="about__photos">
+        {/*
+          `sizes` is 28rem here, not the 24rem the other two figures use: this column
+          actually lays out wider than 24rem, and the crop tops out at 610px. Understate
+          it and the browser picks a candidate below 1x, which reads as a soft photo.
+        */}
+        <figure>
+          <Image
+            src={portrait}
+            alt="Jacob Hite, smiling at the camera in a black polo shirt, seated against a concrete wall."
+            widths={[400, 610]}
+            sizes="(min-width: 60rem) 28rem, 92vw"
+            loading="eager"
+          />
+          <figcaption>Me, these days.</figcaption>
+        </figure>
         <figure>
           <Image
             src={teaching}
@@ -86,7 +103,7 @@ const timeline = [
             widths={[400, 800]}
             sizes="(min-width: 60rem) 24rem, 92vw"
           />
-          <figcaption>The other half of the story: twenty-five years of this.</figcaption>
+          <figcaption>The other half of the story: {careerYears} years of this.</figcaption>
         </figure>
       </div>
     </div>

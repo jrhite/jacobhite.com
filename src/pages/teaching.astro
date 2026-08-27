@@ -3,6 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import MerrillCycle from '../components/MerrillCycle.astro';
+import SuperMarioEffect from '../components/SuperMarioEffect.astro';
+import RespawnGame from '../components/RespawnGame.astro';
+import CaesarCipher from '../components/CaesarCipher.astro';
+import WordCounter from '../components/WordCounter.astro';
 
 /** Merrill's First Principles, as I actually run them. From my clinical practice write-up. */
 const principles = [
@@ -117,9 +121,14 @@ const weeks = [
           job: deciding what it should do, discovering you were wrong, and changing it.
         </p>
         <p>
-          So the "curriculum" is a to-do list web application. It starts as a variable and a print
-          statement. By the end it has a database, accounts, tests, and real users — and at no point
-          did the student learn something whose purpose was "you'll need this later."
+          So the "curriculum" is one application, built over a term. There isn't a fixed syllabus
+          behind it — every student is different, and what they actually want to build is usually
+          the thing worth building.
+        </p>
+        <p>
+          The default, and where most people start, is a to-do list. It begins as a variable and a
+          print statement. By the end it has a database, accounts, tests, and real users — and at no
+          point did the student learn something whose purpose was "you'll need this later."
         </p>
         <p>
           The last principle is the one that matters most: they use the app as
@@ -140,10 +149,133 @@ const weeks = [
     </div>
   </section>
 
+  <section class="section page" id="hands-on">
+    <p class="eyebrow">What it feels like</p>
+    <h2 class="section__title">Fun is the method, and getting your hands on it is the lesson</h2>
+    <p class="lede prose">
+      There is a formal framework under all of this, and it is the next section down. But two
+      things decide whether any of it lands, and they are easier to show than to argue about — so
+      this part is not a description. It runs, you can edit it, and you are meant to.
+    </p>
+
+    <ul class="stance">
+      <li class="stance__card reveal">
+        <h3>Fun is not decoration</h3>
+        <p class="muted">
+          A student who is enjoying themselves attempts the harder thing, and attempting the harder
+          thing is the entire mechanism. Play is not the sugar around the lesson — it is what makes
+          somebody willing to be wrong in front of you, which is the precondition for learning
+          anything at all.
+        </p>
+      </li>
+      <li class="stance__card reveal">
+        <h3>Hands on, and unafraid</h3>
+        <p class="muted">
+          Running code beside the code that produced it, editable, with nothing punishing a bad
+          edit. Breaking it isn't the point — being in it is: changing a number because you
+          wondered what it did, and finding out. Things do break, and that is fine; it is the
+          evidence you were actually involved rather than watching. Nothing here scores you or
+          keeps a streak, so there is nothing to be careful about — and somebody with nothing to
+          be careful about is still enjoying it an hour later.
+        </p>
+      </li>
+    </ul>
+
+    <p class="framing">
+      This first one isn't a code demo. Before anyone writes a line, something has to be true about
+      the room — that being wrong here is cheap, and that trying again is the expected move rather
+      than an admission. Get that part wrong and nobody guesses out loud for the rest of the term,
+      however good the lesson after it is.
+    </p>
+
+    <article class="toy" id="two-framings">
+      <header class="toy__head">
+        <p class="eyebrow">Before the code · Learning science</p>
+        <h3>One puzzle, two framings</h3>
+        <p class="lede prose">
+          Two people get the same puzzle. One is told a wrong guess costs five points; the other is
+          just told to try again. Nothing else differs. Play either version, notice how you feel
+          about guessing — the numbers come after.
+        </p>
+      </header>
+
+      <div class="toy__body">
+        <SuperMarioEffect />
+      </div>
+
+      <p class="credit">
+        The effect this demonstrates is Mark Rober's, named the Super Mario Effect and shown in his
+        2018 TEDxPenn talk{' '}
+        <a
+          href="https://www.ted.com/talks/mark_rober_the_super_mario_effect_tricking_your_brain_into_learning_more"
+          rel="noopener">The Super Mario Effect: tricking your brain into learning more</a
+        >. The idea, the coding challenge and the numbers in it are his; the toys on this page are
+        my own restaging of them for a classroom.
+      </p>
+    </article>
+
+    <p class="framing">
+      Everything below is code, and the rule you just felt is still the one running underneath it.
+      Change a number, see what it does, change it back — that loop is the whole method, and these
+      are the smallest places I can show it to you.
+    </p>
+
+    <article class="toy" id="super-mario-effect">
+      <header class="toy__head">
+        <p class="eyebrow">Loops, state, a little physics</p>
+        <h3>The Super Mario Effect</h3>
+        <p class="lede prose">
+          Mario doesn't tell you you're a bad person when you fall in a pit. He puts you back at the
+          start of the level. Miss this one a few times on purpose, then read the rule beside it and
+          notice what isn't in there — the comment that says <code>// no points lost. no lecture.</code>
+          is sitting on the only line where a punishment could go. Put <code>world.lose(5)</code> on
+          it, or press <em>Punish the miss</em>, and watch the page argue with itself.
+        </p>
+      </header>
+      <div class="toy__body">
+        <RespawnGame />
+      </div>
+    </article>
+
+    <article class="toy" id="caesar-cipher">
+      <header class="toy__head">
+        <p class="eyebrow">Strings, loops, functions</p>
+        <h3>A Caesar cipher</h3>
+        <p class="lede prose">
+          Shift every letter forward. Easy — until <code>z</code> needs to become <code>c</code>.
+          Drag the shift and watch the red cells: that's the wraparound, and that's what
+          <code>% 26</code> is for.
+        </p>
+      </header>
+      <div class="toy__body">
+        <CaesarCipher />
+      </div>
+    </article>
+
+    <article class="toy" id="word-counter">
+      <header class="toy__head">
+        <p class="eyebrow">Objects</p>
+        <h3>An object as a counter</h3>
+        <p class="lede prose">
+          An array stores values by position. An object stores them by key — which makes it a
+          tally sheet. Paste anything in and watch the keys appear.
+        </p>
+      </header>
+      <div class="toy__body">
+        <WordCounter />
+      </div>
+    </article>
+  </section>
+
   <section class="section page">
     <p class="eyebrow">The framework</p>
     <h2 class="section__title">Merrill's First Principles, in practice</h2>
-    {/* Diagram, then the cards, then the lede as the sign-off. */}
+    {/* Lede, then the diagram, then the cards. */}
+    <p class="lede prose framework__note">
+      My clinical practice is built on Merrill's First Principles of Instruction. Here is what each
+      one actually looks like on a Tuesday.
+    </p>
+
     <div class="framework">
       <MerrillCycle />
     </div>
@@ -161,11 +293,6 @@ const weeks = [
         ))
       }
     </ol>
-
-    <p class="lede prose framework__note">
-      My clinical practice is built on Merrill's First Principles of Instruction. Here is what each
-      one actually looks like on a Tuesday.
-    </p>
 
     <p class="refs muted">
       Merrill, M. D. (2002). First principles of instruction. <em>Educational Technology Research
@@ -227,18 +354,6 @@ const weeks = [
       </div>
     </div>
   </section>
-
-  <section class="section page">
-    <div class="cta-band">
-      <div>
-        <h2>Want to see it rather than read about it?</h2>
-        <p class="muted">
-          The playground has live, working versions of the lessons — the same ones my students build.
-        </p>
-      </div>
-      <a class="btn btn--primary" href="/playground">Open the playground →</a>
-    </div>
-  </section>
   <ContactCTA
     heading="Ready to see it up close?"
     body="Whether it's a student, a school, or your own return to code — tell me what you want to build and I'll tell you how I'd teach it."
@@ -290,10 +405,11 @@ const weeks = [
     margin-bottom: var(--s-6);
   }
 
-  /* Now a sign-off under the cards rather than an intro above them, so it
-     needs the same air the references below it get. */
+  /* Introduces the diagram directly below it, so it sits on the same centre
+     axis. The section title above already supplies the space it needs. */
   .framework__note {
-    margin-top: var(--s-6);
+    margin-inline: auto;
+    text-align: center;
   }
 
   /* Six columns so a card can span two and the short last row can sit on the
@@ -496,50 +612,81 @@ const weeks = [
 
   /* ---- cta ---- */
 
-  .cta-band {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--s-5);
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    border-radius: var(--r-lg);
-    background: var(--accent-soft);
+  /* ---- the two stance principles, and the toys that evidence them ---- */
+
+  .stance {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-6) 0 var(--s-8);
+    display: grid;
+    gap: var(--s-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .stance__card {
+    padding: var(--s-5);
     border: 1px solid var(--border);
-  }
-
-  .cta-band h2 {
-    font-size: var(--t-xl);
-    margin-bottom: var(--s-2);
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 0.72em 1.35em;
-    border-radius: var(--r-full);
-    border: 1px solid var(--border-strong);
+    border-radius: var(--r-lg);
     background: var(--bg-raised);
-    font-weight: 700;
+    box-shadow: var(--shadow-sm);
+  }
+
+
+  .stance__card h3 {
+    font-size: var(--t-lg);
+    margin-bottom: var(--s-3);
+  }
+
+  /* Connective narration at section level, not inside a toy: it frames the Mario
+     piece as a teaching demonstration rather than a code demo, then hands off to
+     the code toys. Body size and muted on purpose — the toy ledes below it
+     should stay the loudest thing in each block. */
+  .framing {
+    max-width: var(--measure);
+    margin-bottom: var(--s-8);
+    color: var(--text-muted);
+  }
+
+  .toy {
+    scroll-margin-top: 6rem;
+    padding-bottom: var(--s-8);
+    margin-bottom: var(--s-8);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .toy:last-of-type {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .toy__head h3 {
+    font-size: var(--t-2xl);
+    margin-block: var(--s-2) var(--s-4);
+  }
+
+  /* Attribution, not body copy — it sits under the game it credits, close
+     enough to belong to it but quiet enough not to read as the next lesson.
+
+     Not `var(--measure)`: that is 68ch, and `ch` resolves against the element's
+     own font-size, so at --t-sm this paragraph wrapped roughly 1.4x narrower
+     than the --t-lg lede above it and left a ragged short column. A rem measure
+     is font-size independent, so both wrap on the same right edge. */
+  .credit {
+    max-width: 47rem;
+    margin-top: var(--s-5);
+    margin-inline: auto;
+    text-align: center;
     font-size: var(--t-sm);
-    text-decoration: none;
-    white-space: nowrap;
-    transition:
-      transform var(--dur) var(--ease),
-      box-shadow var(--dur) var(--ease);
+    color: var(--text-muted);
   }
 
-  .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+  .toy__body {
+    margin-top: var(--s-6);
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    box-shadow: var(--shadow-sm);
   }
 
-  .btn--primary {
-    background: var(--btn-bg);
-    color: var(--btn-fg);
-    border-color: var(--btn-bg);
-  }
-
-  .btn--primary:hover {
-    color: var(--btn-fg);
-  }
 </style>

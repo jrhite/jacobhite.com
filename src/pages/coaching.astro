@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import { careerYears } from '../data/nav';
 
 const services = [
   {
@@ -50,7 +51,7 @@ const services = [
   <PageHeader
     eyebrow="Coaching"
     title="Practice, with someone who has been on the other side"
-    lede="Twenty-five years of writing software, reviewing designs, and interviewing engineers. Three ways to borrow that before you need it for real."
+    lede={`${careerYears} years of writing software, reviewing designs, and interviewing engineers. Three ways to borrow that before you need it for real.`}
   />
 
   <section class="section page">

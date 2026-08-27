@@ -5,6 +5,18 @@
  * the original Google Site — see docs/CONTENT-INVENTORY.md.
  */
 
+/**
+ * The software career as a closed span: graduation in 1999 to the 2026 switch
+ * into teaching. Every "N years of code" claim on the site derives from these
+ * two numbers, so none of them can drift out of step with the About timeline.
+ *
+ * Deliberately not `new Date().getFullYear() - 1999`: the span ended when the
+ * switch happened, so it must stop counting rather than tick up every January.
+ */
+export const careerStart = 1999;
+export const careerSwitch = 2026;
+export const careerYears = careerSwitch - careerStart;
+
 export interface NavItem {
   label: string;
   href: string;
@@ -22,11 +34,6 @@ export const navItems: NavItem[] = [
     label: 'Coaching',
     href: '/coaching',
     blurb: 'Teaching, system design, mock interviews, and mentoring engineers and engineering managers.',
-  },
-  {
-    label: 'Playground',
-    href: '/playground',
-    blurb: 'Live versions of the lessons. Break them on purpose — that is the point.',
   },
   {
     label: 'Writing',
@@ -51,7 +58,7 @@ export const navItems: NavItem[] = [
   {
     label: 'About',
     href: '/about',
-    blurb: 'Colorado, Boulder, twenty-five years of code, and a classroom in the hills.',
+    blurb: `Colorado, Boulder, ${careerYears} years of code, and a classroom in the hills.`,
   },
 ];
 

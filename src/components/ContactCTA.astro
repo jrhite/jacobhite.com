@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { siteMeta } from '../data/nav';
+import avatar from '../assets/jacob-hite-avatar.jpg';
 
 interface Props {
   heading: string;
@@ -18,6 +20,14 @@ const email = siteMeta.email;
 <section class="section page">
   <div class="cta">
     <div class="cta__text">
+      <Image
+        class="cta__face"
+        src={avatar}
+        alt={`${siteMeta.name}, mid-laugh, turned slightly away from the camera.`}
+        widths={[72, 144]}
+        sizes="72px"
+        loading="lazy"
+      />
       <h2>{heading}</h2>
       <p class="muted">{body}</p>
     </div>
@@ -59,6 +69,17 @@ const email = siteMeta.email;
 
   .cta__text {
     max-width: 40rem;
+  }
+
+  /* A face at the moment someone decides whether to write. */
+  .cta__face {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: var(--r-full);
+    object-fit: cover;
+    margin-bottom: var(--s-4);
+    border: 2px solid var(--bg-raised);
+    box-shadow: var(--shadow-sm);
   }
 
   .cta h2 {
