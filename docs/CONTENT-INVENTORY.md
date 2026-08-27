@@ -23,13 +23,6 @@ This file is the parity contract. Every row below has a home on the new site.
 | 8 | Module 6 (ED 506) | `/module/module-6-ed-506` | **Placeholder** — H1 only | `/portfolio/module-6` |
 | 9 | Clincal Practice | `/clincal-practice` | H1 "Clinical Practice" + Merrill framework + 2 refs | `/portfolio/clinical-practice` |
 | 10 | InTASC Standards | `/intasc-standards` | H1 + **broken** Drive embed | `/portfolio/intasc-standards` |
-| 11 | M.Ed. | `/m-ed` | H1 "Master's of Education Degrees" + PPTX embed | `/portfolio/m-ed` |
-| 12 | M.Ed. in Educational Technology | `/m-ed/m-ed-in-educational-technology` | **Placeholder** — H1 only | `/portfolio/m-ed-educational-technology` |
-| 13 | M.Ed. in Early Childhood Education | `/m-ed/m-ed-in-early-childhood-education` | **Placeholder** — H1 only | `/portfolio/m-ed-early-childhood-education` |
-| 14 | M.Ed. in Special Education | `/m-ed/m-ed-in-special-education` | **Placeholder** — H1 only | `/portfolio/m-ed-special-education` |
-| 15 | M.Ed. in Multilingual Learners | `/m-ed/m-ed-in-multilingual-learners` | **Placeholder** — H1 "MED in Multilanguage Learners" | `/portfolio/m-ed-multilingual-learners` |
-| 16 | M.Ed. in Globalization in Education | `/m-ed/m-ed-in-globalization-in-education` | **Placeholder** — H1 reads "Untitled page" | `/portfolio/m-ed-globalization-in-education` |
-| 17 | M.Ed. in Educational Research | `/m-ed/m-ed-in-educational-research` | **Placeholder** — H1 reads "M.Ed. in Educational Technology" | `/portfolio/m-ed-educational-research` |
 
 "Module" itself is a nav folder on the original, not a page. On the new site it gets a real index at `/portfolio`.
 
@@ -43,9 +36,6 @@ This file is the parity contract. Every row below has a home on the new site.
 | Literacy | Link text "Cohort Literaracy Guide" — misspelled | Spelled "Literacy" |
 | Home | "have been working as a software ever since" — word missing | "as a software engineer ever since" |
 | InTASC Standards | Embedded Drive file 404s: *"Sorry, the file you have requested does not exist."* | Page kept, embed removed, marked as needing a replacement file |
-| M.Ed. → Educational Research | Heading says "M.Ed. in Educational Technology" | Heading corrected to "Educational Research" |
-| M.Ed. → Globalization | Heading says "Untitled page" | Heading set to "Globalization in Education" |
-| M.Ed. → Multilingual Learners | Heading says "Multilanguage" | Heading matches the nav: "Multilingual Learners" |
 
 ---
 
@@ -69,14 +59,13 @@ Two of these are **cohort collaborative documents containing other students' nam
 | --- | --- | --- | --- |
 | "Literacy Guide_M1-6" | Literacy | Google Doc, ~40k chars, multi-author cohort table | Linked, not copied — contains classmates' names |
 | "M2U3A2_IDEACategories_24" | Module 2 | Google Doc, ~20k chars, multi-author cohort table | Linked, not copied — contains classmates' names |
-| "MED Programs at a Glance.pptx" | M.Ed. | Drive file, Moreland marketing material | Linked, not copied — Moreland's material |
 | InTASC embed | InTASC Standards | Drive file | **Dead link.** File does not exist. Needs replacing. |
 
 ---
 
 ## Parity checklist
 
-- [x] Every page from the original has a home here (17/17)
+- [x] Every page from the original has a home here (10/17) — the seven M.Ed. pathway pages were dropped on purpose, not missed
 - [x] Every placeholder carried over, and still visibly a placeholder
 - [x] Every image downloaded and committed to `src/assets/original/`
 - [x] Every outbound link recorded

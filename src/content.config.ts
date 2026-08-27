@@ -15,7 +15,7 @@ const portfolio = defineCollection({
     title: z.string(),
     navLabel: z.string(),
     subtitle: z.string().optional(),
-    group: z.enum(['Coursework', 'Modules', 'M.Ed. Pathways']),
+    group: z.enum(['Coursework', 'Modules']),
     order: z.number(),
     status: z.enum(['complete', 'placeholder', 'needs-file']),
     /**

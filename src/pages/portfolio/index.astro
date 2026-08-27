@@ -6,7 +6,7 @@ import StatusPill from '../../components/StatusPill.astro';
 
 const entries = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
 
-const groups = ['Coursework', 'Modules', 'M.Ed. Pathways'] as const;
+const groups = ['Coursework', 'Modules'] as const;
 
 const counts = {
   total: entries.length,
