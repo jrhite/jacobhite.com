@@ -14,6 +14,11 @@
  * principle names into the document outline directly below the cards that
  * explain them.
  *
+ * A name is all each cell carries. The cards above already say what each
+ * principle looks like in a lesson, in full; a one-line gloss in the diagram
+ * could only paraphrase them. What the cards cannot say is that the four run as
+ * a loop around a single task, and that is the whole job left for the drawing.
+ *
  * DOM order is the single-column reading order: hub, then the four principles
  * in the order they run. The wide layout is placed with grid areas rather than
  * source order, so the reflow needs no reordering and the markup stays the
@@ -25,10 +30,10 @@
  */
 
 const cycle = [
-  { key: 'a', name: 'Activation', note: 'warm-ups build on yesterday' },
-  { key: 'b', name: 'Demonstration', note: 'watch it work first' },
-  { key: 'c', name: 'Application', note: 'your hands on the keys' },
-  { key: 'd', name: 'Integration', note: 'real use and reflection' },
+  { key: 'a', name: 'Activation' },
+  { key: 'b', name: 'Demonstration' },
+  { key: 'c', name: 'Application' },
+  { key: 'd', name: 'Integration' },
 ];
 
 const lesson = [
@@ -45,7 +50,6 @@ const lesson = [
   <div class="mc__grid">
     <div class="mc__hub">
       <p class="mc__name">Task-centered</p>
-      <p>build one real app</p>
     </div>
 
     {
@@ -53,7 +57,6 @@ const lesson = [
         <>
           <div class={`mc__node mc__node--${c.key}`}>
             <p class="mc__name">{c.name}</p>
-            <p>{c.note}</p>
           </div>
           <span
             class={`mc__arrow mc__arrow--${c.key}${cycle[(i + 1) % cycle.length].key}`}
@@ -177,13 +180,6 @@ const lesson = [
 
   .mc__hub .mc__name {
     color: var(--accent);
-  }
-
-  .mc__node p,
-  .mc__hub p {
-    margin: var(--s-1) 0 0;
-    font-size: var(--t-sm);
-    color: var(--text-muted);
   }
 
   /* Arrows: a rule plus a border triangle. No artwork to distort. */
