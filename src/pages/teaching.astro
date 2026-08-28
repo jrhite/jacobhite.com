@@ -7,7 +7,6 @@ import SectionNav from '../components/SectionNav.astro';
 import SuperMarioEffect from '../components/SuperMarioEffect.astro';
 import RespawnGame from '../components/RespawnGame.astro';
 import CaesarCipher from '../components/CaesarCipher.astro';
-import { careerYears } from '../data/nav';
 
 /**
  * The in-page table of contents. In document order, and short enough to sit on
@@ -73,9 +72,10 @@ const graded = [
 ];
 
 /**
- * The dials. Every concrete structure on this page (the to-do list, the eight
- * weeks, the grading list) is a worked example, and this is the section that
- * says so out loud rather than leaving a visitor to guess whether they fit.
+ * The ranges. Every concrete structure on this page (the to-do list, the eight
+ * weeks, the grading list) is one setting out of several, and this is where
+ * each one gets its range — so a visitor whose class, clock or project looks
+ * nothing like the worked example can place themselves without asking first.
  */
 const fits = [
   {
@@ -418,12 +418,12 @@ const weeks = [
   </section>
   <section class="section page" id="fit">
     <p class="eyebrow">Fit</p>
-    <h2 class="section__title">Most of the above is a dial</h2>
+    <h2 class="section__title">You already have constraints</h2>
     <p class="lede prose">
-      This page shows one worked version, because a vague description helps nobody decide anything.
-      But the specifics are examples, not requirements — and {careerYears} years of building
-      software is what makes them movable, since I don't have to bend your project toward the one
-      thing I happen to know.
+      A class you did not pick, a syllabus you are committed to, a schedule with holes in it, a
+      student who only wants to build one specific thing. None of those are obstacles to this —
+      they are the inputs. The page above settles each of these on one setting so it could say
+      something concrete; here is the range each one actually has.
     </p>
 
     <dl class="fits">
