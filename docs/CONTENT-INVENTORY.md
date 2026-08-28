@@ -22,7 +22,7 @@ This file is the parity contract. Every row below has a home on the new site.
 | 7 | Module 5 (ED 505) | `/module/module-5-ed-505` | **Placeholder** — H1 only | `/portfolio/module-5` |
 | 8 | Module 6 (ED 506) | `/module/module-6-ed-506` | **Placeholder** — H1 only | `/portfolio/module-6` |
 | 9 | Clincal Practice | `/clincal-practice` | H1 "Clinical Practice" + Merrill framework + 2 refs | `/portfolio/clinical-practice` |
-| 10 | InTASC Standards | `/intasc-standards` | H1 + **broken** Drive embed | `/portfolio/intasc-standards` |
+| 10 | InTASC Standards | `/intasc-standards` | H1 + **broken** Drive embed. Since written up here | `/portfolio/intasc-standards` |
 
 "Module" itself is a nav folder on the original, not a page. On the new site it gets a real index at `/portfolio`.
 
@@ -35,7 +35,7 @@ This file is the parity contract. Every row below has a home on the new site.
 | Nav | "Clincal Practice" — misspelled | Spelled "Clinical Practice" |
 | Literacy | Link text "Cohort Literaracy Guide" — misspelled | Spelled "Literacy" |
 | Home | "have been working as a software ever since" — word missing | "as a software engineer ever since" |
-| InTASC Standards | Embedded Drive file 404s: *"Sorry, the file you have requested does not exist."* | Page kept, embed removed, marked as needing a replacement file |
+| InTASC Standards | Embedded Drive file 404s: *"Sorry, the file you have requested does not exist."* | Page kept, embed removed, replaced with the ten standards written out from the CCSSO source |
 
 ---
 
@@ -61,7 +61,7 @@ Two of these are **cohort collaborative documents containing other students' nam
 | --- | --- | --- | --- |
 | "Literacy Guide_M1-6" | Literacy | Google Doc, ~40k chars, multi-author cohort table | Linked, not copied — contains classmates' names |
 | "M2U3A2_IDEACategories_24" | Module 2 | Google Doc, ~20k chars, multi-author cohort table | Linked, not copied — contains classmates' names |
-| InTASC embed | InTASC Standards | Drive file | **Dead link.** File does not exist. Needs replacing. |
+| InTASC embed | InTASC Standards | Drive file | **Dead link.** File does not exist. Replaced by written content citing CCSSO (2011, 2013) directly — no embed. |
 
 ---
 
@@ -72,4 +72,4 @@ Two of these are **cohort collaborative documents containing other students' nam
 - [x] Every image downloaded and committed to `src/assets/original/`
 - [x] Every outbound link recorded
 - [ ] Decide what to do about the two cohort Google Docs (see above)
-- [ ] Replace the dead InTASC file
+- [x] Replace the dead InTASC file — written out on the page instead of re-embedded, sourced to CCSSO
