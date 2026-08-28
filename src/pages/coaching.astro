@@ -12,7 +12,7 @@ const services = [
     body: "A real interview, run at real pace, by someone who has sat on the other side of the table for two decades. Coding, or system design, or behavioral — your call.",
     detail: [
       'A recorded, timed round with a genuine problem — no toy questions.',
-      'I interrupt, I push back, and I ask the follow-up you were hoping to avoid.',
+      'I interrupt, push back, and ask the follow-up you were hoping to avoid — dialed to whatever pressure is useful to you that day.',
       'Then we stop, and I tell you exactly what I would have written on the feedback form.',
       'We re-run the moment it went wrong until the answer is yours, not mine.',
     ],
@@ -33,7 +33,7 @@ const services = [
     id: 'role-play',
     kicker: 'Senior-engineer role-play',
     title: "I'll be the engineer you have to lead",
-    body: 'For new managers and new tech leads. I play a senior engineer on your team — the skeptical one, the checked-out one, the brilliant one who will not write tests — and you have to actually handle it.',
+    body: 'For new managers and new tech leads. I play a senior engineer on your team — the skeptical one, the checked-out one, the brilliant one who will not write tests, or whoever you are actually dreading — and you have to handle it.',
     detail: [
       'You run the one-on-one, the design review, or the difficult conversation. I stay in character.',
       'Scenarios drawn from what actually happens: a missed deadline, a rejected design, a quiet resignation risk.',
@@ -51,7 +51,7 @@ const services = [
   <PageHeader
     eyebrow="Coaching"
     title="Practice, with someone who has been on the other side"
-    lede={`${careerYears} years of writing software, reviewing designs, and interviewing engineers. Three ways to borrow that before you need it for real.`}
+    lede={`${careerYears} years of writing software, reviewing designs, and interviewing engineers. Below are three ways to borrow that — they mix, they scale up or down, and they bend to whatever you're actually walking into.`}
   />
 
   <section class="section page">
@@ -80,6 +80,15 @@ const services = [
     </div>
   </section>
 
+  <section class="section page">
+    <p class="mix prose">
+      None of these is a fixed package, and plenty of what would help is none of them: a design
+      review of something you are shipping this quarter, rehearsing a promotion case, unpicking a
+      team problem with no clean answer, or a standing hour a month while you settle into a new
+      role. Tell me the situation and we'll shape the sessions around it.
+    </p>
+  </section>
+
   <section class="section page pull-section">
     <blockquote class="pull">
       <p>
@@ -90,7 +99,7 @@ const services = [
 
   <ContactCTA
     heading="Want to run one?"
-    body="Tell me which of the three, and where you are in the process. If it is an interview, tell me the company and the round — the preparation is different for each."
+    body="Tell me what's coming up and where you are with it. If it is an interview, the company and the round help — the preparation differs for each. If it is none of the three above, describe it anyway; most of this started as somebody's odd request."
   />
 </BaseLayout>
 
@@ -98,6 +107,13 @@ const services = [
   .services {
     display: grid;
     gap: var(--s-8);
+  }
+
+  /* The three services read as a menu, which invites "which one am I?" — this
+     answers it directly under the list, before the pull quote changes subject. */
+  .mix {
+    max-width: var(--measure);
+    color: var(--text-muted);
   }
 
   .service {

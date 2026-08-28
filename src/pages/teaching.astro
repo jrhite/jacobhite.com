@@ -6,19 +6,19 @@ import MerrillCycle from '../components/MerrillCycle.astro';
 import SuperMarioEffect from '../components/SuperMarioEffect.astro';
 import RespawnGame from '../components/RespawnGame.astro';
 import CaesarCipher from '../components/CaesarCipher.astro';
-import WordCounter from '../components/WordCounter.astro';
+import { careerYears } from '../data/nav';
 
 /** Merrill's First Principles, as I actually run them. From my clinical practice write-up. */
 const principles = [
   {
     n: '01',
     name: 'Task-centered',
-    body: 'The entire curriculum is one artifact: a real application the student builds up step by step. No concept is ever taught "for later." Each one is introduced the moment the app needs it, and the task grows in complexity.',
+    body: 'The curriculum is an artifact rather than a topic list: a real application the student builds up step by step. Concepts arrive when the app needs them rather than "for later," and the task grows as they do.',
   },
   {
     n: '02',
     name: 'Activation',
-    body: 'Every lesson opens with a warm-up that reviews the previous session by doing — not by me recapping it.',
+    body: 'Lessons usually open with a warm-up that revisits the last session by doing, rather than by me recapping it.',
   },
   {
     n: '03',
@@ -28,12 +28,12 @@ const principles = [
   {
     n: '04',
     name: 'Application',
-    body: 'The student practices a similar task while I watch. They explain each piece back to me as it lands — the AI\'s lines included — and I coach by question, not by answer.',
+    body: 'The student practices a similar task while I watch. They explain each piece back to me as it lands — the AI\'s lines included — and I coach by question where a question will get there, and answer outright when it would only stall them.',
   },
   {
     n: '05',
     name: 'Integration',
-    body: 'The student uses the app as their real to-do list, and keeps a running list of its annoyances and the features they wish it had. Those lists become the next lessons, which they now drive.',
+    body: 'The student actually uses what they built, and keeps a running list of its annoyances and the features they wish it had. Those lists become the next lessons, which they now drive.',
   },
 ];
 
@@ -55,6 +55,38 @@ const graded = [
   'Git and checkpoint discipline',
   'Quality of user feedback',
   'Their final engineering postmortem',
+];
+
+/**
+ * The dials. Every concrete structure on this page (the to-do list, the eight
+ * weeks, the grading list) is a worked example, and this is the section that
+ * says so out loud rather than leaving a visitor to guess whether they fit.
+ */
+const fits = [
+  {
+    label: "Who's in the room",
+    body: 'Grades 9–12, adults starting from nothing, and working engineers picking up a part of the stack they never touched. The vocabulary and the pace change; the loop underneath does not.',
+  },
+  {
+    label: 'The format',
+    body: 'One-to-one, a small group, or a full class. In person, or online across time zones — a weekly hour and a shared screen is enough to run all of it.',
+  },
+  {
+    label: 'The project',
+    body: 'A to-do list is the worked example on this page, because it walks through the core concepts in a natural order. A game, a bot, a scoreboard, a tool for a family business — I would rather teach the one you already care about.',
+  },
+  {
+    label: 'The stack',
+    body: 'Python or JavaScript to start, then wherever the project actually points: web front to back, databases, APIs, deploys. My own work was large production systems, so following your project costs less than redirecting it.',
+  },
+  {
+    label: 'The clock',
+    body: 'A full term, an eight-week unit, a run of Saturdays, or an hour a week for as long as it stays useful. Short formats drop rungs rather than rushing them.',
+  },
+  {
+    label: 'The paperwork',
+    body: "A school's existing curriculum, standards and rubric — this maps onto them rather than competing with them. Or none at all, if you just want the thing to exist.",
+  },
 ];
 
 const weeks = [
@@ -103,12 +135,12 @@ const weeks = [
 
 <BaseLayout
   title="Teaching"
-  description="How I teach programming: one real application built line by line, Merrill's First Principles of Instruction, and a curriculum where AI writes code but the student owns every decision."
+  description="How I teach programming: one real application built line by line, Merrill's First Principles of Instruction, and a structure that adapts to the student, the school and the schedule — with AI writing code and the student owning the decisions."
 >
   <PageHeader
     eyebrow="Teaching"
-    title="One app. AI in the loop. Every line explained."
-    lede="The whole curriculum is a single artifact the student builds from nothing, with AI as a working partner rather than a shortcut. Every concept arrives the moment the app needs it — and nothing stays in the codebase until the student can explain it, including the lines the AI wrote."
+    title="One real project. AI in the loop. Code you can explain."
+    lede="The curriculum is usually one thing the student builds from nothing, with AI as a working partner rather than a shortcut, and concepts arriving when the project needs them. What follows is the version I would run given a blank page — a worked example, not a package. Which project, how long, how fast, and what gets graded all get rebuilt around the student, the school, and the time we actually have."
   />
 
   <section class="section page">
@@ -126,24 +158,34 @@ const weeks = [
           the thing worth building.
         </p>
         <p>
-          The default, and where most people start, is a to-do list. It begins as a variable and a
+          The example I use throughout this page is a to-do list. It begins as a variable and a
           print statement. By the end it has a database, accounts, tests, and real users — and at no
           point did the student learn something whose purpose was "you'll need this later."
         </p>
         <p>
-          The last principle is the one that matters most: they use the app as
-          their <em>real</em> to-do list, and keep a list of everything that annoys them about it. That list becomes the
-          syllabus, and now they're the one setting it.
+          I picked it because it reaches the concepts in a sensible order without needing a premise
+          explained first, not because it is the thing to build. A game, a Discord bot, a scoreboard
+          for a team, a small tool for a family business — any of those work, and I would rather
+          teach the one somebody already cares about. {careerYears} years across large systems is
+          what makes that affordable: I can follow the project wherever it goes instead of steering
+          it back toward the one stack I know.
+        </p>
+        <p>
+          The last principle is the one that matters most: they use what they built for
+          <em>real</em> — the to-do list becomes the list they actually run their week on — and keep
+          a list of everything that annoys them about it. That list becomes the syllabus, and now
+          they're the one setting it.
         </p>
       </div>
 
       <aside class="callout">
-        <p class="eyebrow">The rule that surprises people</p>
-        <p class="callout__big">No line stays until you can explain it.</p>
+        <p class="eyebrow">The part I hold to</p>
+        <p class="callout__big">You should be able to explain what you shipped.</p>
         <p class="muted">
           Especially the lines the AI wrote. You read it back to me — what it does, why it's there,
-          what breaks if it's wrong. Can't explain it, it comes out. Typing speed was never the
-          skill. Owning the code is.
+          what breaks if it's wrong. When that comes out shaky, it isn't a penalty; it's just the
+          next thing we work on, and sometimes it means the code comes back out. Typing speed was
+          never the skill. Owning the code is.
         </p>
       </aside>
     </div>
@@ -239,30 +281,17 @@ const weeks = [
 
     <article class="toy" id="caesar-cipher">
       <header class="toy__head">
-        <p class="eyebrow">Strings, loops, functions</p>
+        <p class="eyebrow">Shown, not told</p>
         <h3>A Caesar cipher</h3>
         <p class="lede prose">
-          Shift every letter forward. Easy — until <code>z</code> needs to become <code>c</code>.
-          Drag the shift and watch the red cells: that's the wraparound, and that's what
-          <code>% 26</code> is for.
+          A student can be told that <code>% 26</code> handles the wraparound and write it down
+          without ever seeing it. So instead: shift every letter forward, and watch what happens
+          when <code>z</code> has to become <code>c</code>. Drag the shift, watch the red cells.
+          That is the explanation — the sentence about modulo is just the caption.
         </p>
       </header>
       <div class="toy__body">
         <CaesarCipher />
-      </div>
-    </article>
-
-    <article class="toy" id="word-counter">
-      <header class="toy__head">
-        <p class="eyebrow">Objects</p>
-        <h3>An object as a counter</h3>
-        <p class="lede prose">
-          An array stores values by position. An object stores them by key — which makes it a
-          tally sheet. Paste anything in and watch the keys appear.
-        </p>
-      </header>
-      <div class="toy__body">
-        <WordCounter />
       </div>
     </article>
   </section>
@@ -308,9 +337,15 @@ const weeks = [
       <p class="eyebrow">The shape of a term</p>
       <h2 class="section__title">Eight weeks, one thing, getting harder</h2>
       <p class="lede prose">
-        Each week the to-do list gains a capability, and the student gains the concern that arrives with
-        it. The final assessment is their own app, with real users — not a zip file that only runs on
-        my laptop.
+        One example term, running the to-do list above: each week the app gains a capability, and
+        the student gains the concern that arrives with it. The final assessment is their own app,
+        with real users — not a zip file that only runs on my laptop.
+      </p>
+      <p class="lede prose ladder__note">
+        A different project, a shorter unit, a class that already has a syllabus, or an adult with
+        one evening a week all reorder these rungs — and some terms never reach week seven, which is
+        fine. What carries over is the shape: one thing, gaining a capability at a time, with the
+        student able to explain each one.
       </p>
 
       <ol class="ladder">
@@ -333,8 +368,10 @@ const weeks = [
         <p class="eyebrow">Evidence of judgement</p>
         <h2 class="section__title">The engineering journal</h2>
         <p class="prose muted">
-          Every significant AI-assisted change gets five sentences. Not to create paperwork — to
-          create a trail showing that a person, not a model, made the call.
+          A significant AI-assisted change gets a few sentences. Not to create paperwork — to leave a
+          trail showing that a person, not a model, made the call. These five questions are the
+          version I use — kept in commit messages, in a doc, or just said out loud to me, whichever
+          one a student will actually keep up.
         </p>
         <ol class="journal">
           {journal.map((q) => <li>{q}</li>)}
@@ -346,7 +383,9 @@ const weeks = [
         <h2 class="section__title">What I actually grade</h2>
         <p class="prose muted">
           Notice what isn't on this list: how much code you produced. In a world where code is cheap,
-          grading volume grades the wrong thing.
+          grading volume grades the wrong thing. Where a school has its own rubric, these map onto it
+          rather than replace it — and where nobody is being graded at all, it is simply the list of
+          things we work on.
         </p>
         <ul class="graded">
           {graded.map((g) => <li>{g}</li>)}
@@ -354,9 +393,31 @@ const weeks = [
       </div>
     </div>
   </section>
+  <section class="section page">
+    <p class="eyebrow">Fit</p>
+    <h2 class="section__title">Most of the above is a dial</h2>
+    <p class="lede prose">
+      This page shows one worked version, because a vague description helps nobody decide anything.
+      But the specifics are examples, not requirements — and {careerYears} years of building
+      software is what makes them movable, since I don't have to bend your project toward the one
+      thing I happen to know.
+    </p>
+
+    <dl class="fits">
+      {
+        fits.map((f) => (
+          <div class="fit reveal">
+            <dt>{f.label}</dt>
+            <dd class="muted">{f.body}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
   <ContactCTA
     heading="Ready to see it up close?"
-    body="Whether it's a student, a school, or your own return to code — tell me what you want to build and I'll tell you how I'd teach it."
+    body="Tell me the constraints you actually have — the student, the class, the schedule, the syllabus you're already committed to — and I'll tell you how I'd run it inside them. If what you want isn't on this page, describe it anyway."
   />
 </BaseLayout>
 
@@ -552,6 +613,46 @@ const weeks = [
   }
 
   .rung__d {
+    font-size: var(--t-sm);
+  }
+
+  /* The ladder is one example term, so the note that says so sits directly under
+     the lede rather than after the rungs — by then a reader has already taken the
+     eight weeks as a fixed syllabus. */
+  .ladder__note {
+    margin-top: var(--s-4);
+    font-size: var(--t-base);
+    color: var(--text-muted);
+  }
+
+  /* ---- fits ---- */
+
+  .fits {
+    margin: var(--s-6) 0 0;
+    display: grid;
+    gap: var(--s-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .fit {
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-bright);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .fit dt {
+    font-family: var(--f-display);
+    font-size: var(--t-lg);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--s-3);
+  }
+
+  .fit dd {
+    margin: 0;
     font-size: var(--t-sm);
   }
 

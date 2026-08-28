@@ -28,7 +28,7 @@ export const navItems: NavItem[] = [
   {
     label: 'Teaching',
     href: '/teaching',
-    blurb: 'How I teach programming: one real app, and no line stays until the student can explain it.',
+    blurb: 'How I teach programming: one real app, built to fit the student, and code they can explain.',
   },
   {
     label: 'Coaching',
