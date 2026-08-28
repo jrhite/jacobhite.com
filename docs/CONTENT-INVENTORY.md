@@ -17,7 +17,7 @@ This file is the parity contract. Every row below has a home on the new site.
 | 2 | Literacy | `/literacy` | H1 "Literacy Guide" + link to cohort Doc | `/portfolio/literacy` |
 | 3 | Module 1 (ED 501) | `/module/module-1-ed-501` | H1 + orientation write-up (7 points + InTASC para) | `/portfolio/module-1` |
 | 4 | Module 2 (ED 502) | `/module/module-2-ed-502` | H1 + link to "IDEA Categories" Doc | `/portfolio/module-2` |
-| 5 | Module 3 (ED 503) | `/module/module-3-ed-503` | **Placeholder** — H1 only | `/portfolio/module-3` |
+| 5 | Module 3 (ED 503) | `/module/module-3-ed-503` | **Placeholder** — H1 only. Since written up here, with a recording | `/portfolio/module-3` |
 | 6 | Module 4 (ED 504) | `/module/module-4-ed-504` | **Placeholder** — H1 only | `/portfolio/module-4` |
 | 7 | Module 5 (ED 505) | `/module/module-5-ed-505` | **Placeholder** — H1 only | `/portfolio/module-5` |
 | 8 | Module 6 (ED 506) | `/module/module-6-ed-506` | **Placeholder** — H1 only | `/portfolio/module-6` |
@@ -46,6 +46,8 @@ This file is the parity contract. Every row below has a home on the new site.
 | `src/assets/original/office-selfie.png` | 1280×1280 PNG | Home | Group selfie, office/coworking space |
 | `src/assets/original/teaching-se-asia.jpg` | 900×432 JPEG | Home | Volunteer teaching, wooden classroom in SE Asia |
 | `src/assets/original/moreland-logo.png` | 195×235 PNG | Every page | **Moreland University logo** — their mark, not ours. Not reused as site branding. |
+| `public/media/supporting-ell-mll-students.mp4` | 4:19, 1792×992 H.264 | Module 3 — **new here**, not on the original | Recorded slide presentation. Transcoded from a 1920×996 HEVC `.mov`; HEVC only plays in Safari. |
+| `public/media/supporting-ell-mll-students-poster.jpg` | 1280×709 JPEG | Module 3 | First frame of the recording, used as the video poster. |
 
 The page-header background (dark diagonal beams) is a Google Sites stock theme image, not owned content. Not carried over.
 
@@ -66,7 +68,7 @@ Two of these are **cohort collaborative documents containing other students' nam
 ## Parity checklist
 
 - [x] Every page from the original has a home here (10/17) — the seven M.Ed. pathway pages were dropped on purpose, not missed
-- [x] Every placeholder carried over, and still visibly a placeholder
+- [x] Every placeholder carried over, and still visibly a placeholder — except Module 3, which has since been written up and is marked complete
 - [x] Every image downloaded and committed to `src/assets/original/`
 - [x] Every outbound link recorded
 - [ ] Decide what to do about the two cohort Google Docs (see above)

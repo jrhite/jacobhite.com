@@ -1,0 +1,85 @@
+---
+/**
+ * A self-hosted recording. Self-hosted rather than embedded from YouTube so the
+ * page carries no third-party player, no tracking, and no dependency on an
+ * account that could take the file down.
+ *
+ * `preload="metadata"` on purpose: the poster is a real still from the
+ * recording, so the browser fetches a few kilobytes of headers instead of
+ * megabytes of video nobody asked to play.
+ */
+interface Props {
+  src: string;
+  poster?: string;
+  /** Accessible name for the player, and the visible caption above it. */
+  title: string;
+  /** Human-readable running time, e.g. "4:19". */
+  duration?: string;
+  /** One line under the player, for context the recording itself doesn't give. */
+  caption?: string;
+}
+
+const { src, poster, title, duration, caption } = Astro.props;
+---
+
+<figure class="video">
+  <div class="video__head">
+    <span class="video__label">Recording</span>
+    {duration && <span class="video__duration">{duration}</span>}
+  </div>
+
+  <video class="video__player" controls preload="metadata" poster={poster} title={title}>
+    <source src={src} type="video/mp4" />
+    <p>
+      Your browser can’t play this video.
+      <a href={src} download>Download the recording</a> instead.
+    </p>
+  </video>
+
+  {caption && <figcaption class="video__caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .video {
+    margin: 0 0 var(--s-7);
+  }
+
+  .video__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin-bottom: var(--s-2);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .video__label {
+    font-weight: 700;
+    color: var(--accent-2);
+  }
+
+  .video__duration {
+    color: var(--text-faint);
+  }
+
+  /* The recording is a slide deck: it is legible at the page's full width and
+     cramped at the reading measure, so it runs wider than the prose below it. */
+  .video__player {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1792 / 992;
+    background: var(--ink-950);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .video__caption {
+    margin-top: var(--s-3);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+</style>

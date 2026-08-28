@@ -24,6 +24,21 @@ const portfolio = defineCollection({
      * a phone — instead of a flat export the page can only scale down.
      */
     diagram: z.enum(['merrill-cycle']).optional(),
+    /**
+     * A recording to run above the prose. Self-hosted out of `public/media/`,
+     * so the file is committed with the page it belongs to rather than living
+     * in someone else's account.
+     */
+    video: z
+      .object({
+        src: z.string(),
+        poster: z.string().optional(),
+        title: z.string(),
+        /** Running time as a reader would say it, e.g. "4:19". */
+        duration: z.string().optional(),
+        caption: z.string().optional(),
+      })
+      .optional(),
     /** Path on the original Google Site, for the record. */
     sourcePath: z.string(),
   }),
