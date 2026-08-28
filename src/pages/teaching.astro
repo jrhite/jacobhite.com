@@ -3,10 +3,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import MerrillCycle from '../components/MerrillCycle.astro';
+import SectionNav from '../components/SectionNav.astro';
 import SuperMarioEffect from '../components/SuperMarioEffect.astro';
 import RespawnGame from '../components/RespawnGame.astro';
 import CaesarCipher from '../components/CaesarCipher.astro';
 import { careerYears } from '../data/nav';
+
+/**
+ * The in-page table of contents. In document order, and short enough to sit on
+ * one line of a phone — these label the sections rather than restating their
+ * headings, which are full sentences and would not fit.
+ */
+const sections = [
+  { id: 'why-one-app', label: 'Why one app' },
+  { id: 'hands-on', label: 'Hands on' },
+  { id: 'framework', label: 'Framework' },
+  { id: 'eight-weeks', label: 'Example term' },
+  { id: 'assessment', label: 'Assessment' },
+  { id: 'fit', label: 'Fit' },
+];
 
 /** Merrill's First Principles, as I actually run them. From my clinical practice write-up. */
 const principles = [
@@ -143,7 +158,9 @@ const weeks = [
     lede="The curriculum is usually one thing the student builds from nothing, with AI as a working partner rather than a shortcut, and concepts arriving when the project needs them. What follows is the version I would run given a blank page — a worked example, not a package. Which project, how long, how fast, and what gets graded all get rebuilt around the student, the school, and the time we actually have."
   />
 
-  <section class="section page">
+  <SectionNav sections={sections} label="Sections of this page" />
+
+  <section class="section page" id="why-one-app">
     <div class="lead-grid">
       <div class="prose">
         <h2>Why one app, and not twelve exercises</h2>
@@ -153,28 +170,20 @@ const weeks = [
           job: deciding what it should do, discovering you were wrong, and changing it.
         </p>
         <p>
-          So the "curriculum" is one application, built over a term. There isn't a fixed syllabus
-          behind it — every student is different, and what they actually want to build is usually
-          the thing worth building.
+          So there isn't a fixed syllabus behind it — every student is different, and what they
+          actually want to build is usually the thing worth building.
         </p>
         <p>
           The example I use throughout this page is a to-do list. It begins as a variable and a
           print statement. By the end it has a database, accounts, tests, and real users — and at no
-          point did the student learn something whose purpose was "you'll need this later."
+          point did the student learn something whose purpose was "you'll need this later." I
+          picked it because it reaches the concepts in a sensible order without needing a premise
+          explained first, not because it is the thing to build.
         </p>
         <p>
-          I picked it because it reaches the concepts in a sensible order without needing a premise
-          explained first, not because it is the thing to build. A game, a Discord bot, a scoreboard
-          for a team, a small tool for a family business — any of those work, and I would rather
-          teach the one somebody already cares about. {careerYears} years across large systems is
-          what makes that affordable: I can follow the project wherever it goes instead of steering
-          it back toward the one stack I know.
-        </p>
-        <p>
-          The last principle is the one that matters most: they use what they built for
-          <em>real</em> — the to-do list becomes the list they actually run their week on — and keep
-          a list of everything that annoys them about it. That list becomes the syllabus, and now
-          they're the one setting it.
+          The part that matters most comes last: they use what they built for <em>real</em> — the
+          to-do list becomes the list they actually run their week on — and everything that annoys
+          them about it becomes the syllabus, which they are now the one setting.
         </p>
       </div>
 
@@ -224,10 +233,9 @@ const weeks = [
     </ul>
 
     <p class="framing">
-      This first one isn't a code demo. Before anyone writes a line, something has to be true about
-      the room — that being wrong here is cheap, and that trying again is the expected move rather
-      than an admission. Get that part wrong and nobody guesses out loud for the rest of the term,
-      however good the lesson after it is.
+      The first one below isn't a code demo. Mistakes have to be free before anyone writes a line:
+      trying again is the expected move, not an admission of defeat. Get that wrong and the
+      attempts turn careful, and careful is slow to undo.
     </p>
 
     <article class="toy" id="two-framings">
@@ -241,9 +249,14 @@ const weeks = [
         </p>
       </header>
 
-      <div class="toy__body">
-        <SuperMarioEffect />
-      </div>
+      <details class="toy__run" open>
+        <summary>
+          <span class="toy__run-label">Play both versions</span>
+        </summary>
+        <div class="toy__body">
+          <SuperMarioEffect />
+        </div>
+      </details>
 
       <p class="credit">
         The effect this demonstrates is Mark Rober's, named the Super Mario Effect and shown in his
@@ -274,9 +287,14 @@ const weeks = [
           it, or press <em>Punish the miss</em>, and watch the page argue with itself.
         </p>
       </header>
-      <div class="toy__body">
-        <RespawnGame />
-      </div>
+      <details class="toy__run">
+        <summary>
+          <span class="toy__run-label">Play the level</span>
+        </summary>
+        <div class="toy__body">
+          <RespawnGame />
+        </div>
+      </details>
     </article>
 
     <article class="toy" id="caesar-cipher">
@@ -290,13 +308,18 @@ const weeks = [
           That is the explanation — the sentence about modulo is just the caption.
         </p>
       </header>
-      <div class="toy__body">
-        <CaesarCipher />
-      </div>
+      <details class="toy__run">
+        <summary>
+          <span class="toy__run-label">Try the cipher</span>
+        </summary>
+        <div class="toy__body">
+          <CaesarCipher />
+        </div>
+      </details>
     </article>
   </section>
 
-  <section class="section page">
+  <section class="section page" id="framework">
     <p class="eyebrow">The framework</p>
     <h2 class="section__title">Merrill's First Principles, in practice</h2>
     {/* Lede, then the five in full, then the diagram that shows how they cycle. */}
@@ -332,7 +355,7 @@ const weeks = [
     </p>
   </section>
 
-  <section class="section ladder-section">
+  <section class="section ladder-section" id="eight-weeks">
     <div class="page">
       <p class="eyebrow">The shape of a term</p>
       <h2 class="section__title">Eight weeks, one thing, getting harder</h2>
@@ -362,7 +385,7 @@ const weeks = [
     </div>
   </section>
 
-  <section class="section page">
+  <section class="section page" id="assessment">
     <div class="two-up">
       <div>
         <p class="eyebrow">Evidence of judgement</p>
@@ -393,7 +416,7 @@ const weeks = [
       </div>
     </div>
   </section>
-  <section class="section page">
+  <section class="section page" id="fit">
     <p class="eyebrow">Fit</p>
     <h2 class="section__title">Most of the above is a dial</h2>
     <p class="lede prose">
@@ -466,7 +489,7 @@ const weeks = [
     margin-bottom: var(--s-6);
   }
 
-  /* Introduces the diagram directly below it, so it sits on the same centre
+  /* Introduces the diagram directly below it, so it sits on the same center
      axis. The section title above already supplies the space it needs. */
   .framework__note {
     margin-inline: auto;
@@ -748,8 +771,11 @@ const weeks = [
     color: var(--text-muted);
   }
 
+  /* No `scroll-margin-top`: it used to clear the site nav for the toys' own
+     anchors, but `scroll-padding-top` on the root now clears both sticky bars
+     for every anchor on the page, and the two would stack into 6rem of dead
+     space above a linked toy. */
   .toy {
-    scroll-margin-top: 6rem;
     padding-bottom: var(--s-8);
     margin-bottom: var(--s-8);
     border-bottom: 1px solid var(--border);
@@ -779,6 +805,88 @@ const weeks = [
     text-align: center;
     font-size: var(--t-sm);
     color: var(--text-muted);
+  }
+
+  /*
+   * The three toys are the best evidence on this page and also the bulk of it:
+   * their interactive bodies alone ran to ~1,900px, which is why the section
+   * was two-fifths of a twelve-screen page. Collapsing the *body* rather than
+   * the whole toy is the trade that keeps both — every title, eyebrow and lede
+   * stays on the page, so a scroller still meets all three and can see what
+   * each one offers; only the running app waits to be asked for.
+   *
+   * `<details>` rather than a scripted accordion: it is the browser's own
+   * widget, so it works with JavaScript off, is keyboard operable and announced
+   * as expandable for free, and Ctrl+F still finds text inside a closed one in
+   * current browsers. The first is `open` because the section's lede promises
+   * "it runs, you can edit it" — a reader should meet a running thing without
+   * having to ask for it first, and the two below it are then clearly the
+   * optional deeper cuts.
+   */
+  .toy__run > summary {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    width: fit-content;
+    margin-top: var(--s-5);
+    padding: var(--s-2) var(--s-4);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-md);
+    background: var(--bg-raised);
+    cursor: pointer;
+    font-size: var(--t-sm);
+    font-weight: 600;
+    color: var(--text-muted);
+    /* Removes the default disclosure triangle so the chevron below can carry
+       the state; `display` above already suppresses it in most engines, and
+       this covers Safari, which uses a pseudo-element instead. */
+    list-style: none;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .toy__run > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .toy__run > summary:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .toy__run > summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* The chevron: a rotating caret drawn from a border, so it needs no asset and
+     inherits the summary's own color through `currentColor`. */
+  .toy__run > summary::after {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    /* Points down when closed, up when open. The -0.15em nudges the glyph onto
+       the text's optical center rather than its box center. */
+    transform: translateY(-0.15em) rotate(45deg);
+    transition: transform 0.15s ease;
+  }
+
+  .toy__run[open] > summary::after {
+    transform: translateY(0.1em) rotate(-135deg);
+  }
+
+  .toy__run[open] > summary {
+    color: var(--text);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toy__run > summary,
+    .toy__run > summary::after {
+      transition: none;
+    }
   }
 
   .toy__body {

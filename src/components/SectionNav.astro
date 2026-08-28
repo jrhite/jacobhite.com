@@ -1,0 +1,253 @@
+---
+/**
+ * An in-page table of contents for a long page.
+ *
+ * The teaching page runs to a dozen screens, which is the right shape for it —
+ * a visitor is meant to scroll and accumulate a sense of how the work goes,
+ * and tabs would hide five arguments out of six behind labels they'd have to
+ * guess at. What long-scroll costs instead is orientation: no way to see the
+ * shape of what's below, and no way to reach the one part you came for. This
+ * buys that back without hiding anything.
+ *
+ * It is a `<nav>` of plain anchors, so it works with no JavaScript at all —
+ * every link resolves against a real element id. The scroll-spy that marks the
+ * current section is an enhancement layered on top; without it the bar still
+ * navigates, it just doesn't track.
+ *
+ * It sticks below the site nav rather than replacing it, so `top` is that
+ * nav's height. The two together are what `scroll-padding-top` in global.css
+ * accounts for, which is what stops an anchored section from landing behind
+ * them both.
+ */
+
+interface Props {
+  /** In document order — the scroll-spy assumes it. */
+  sections: { id: string; label: string }[];
+  /** Names what the bar indexes, for a screen reader meeting it out of context. */
+  label?: string;
+}
+
+const { sections, label = 'Sections on this page' } = Astro.props;
+---
+
+{/* Anchored sections must clear both sticky bars, not just the site nav. Both
+    heights are measured by the script below; these are the no-JS fallbacks. */}
+<style is:global>
+  html {
+    scroll-padding-top: var(--secnav-scroll-pad, 8rem);
+  }
+
+  /*
+   * No-JS fallbacks, split at the width where the site nav's own links wrap and
+   * it grows from ~4.25rem to ~6.6rem. Both values err high by a pixel or two:
+   * overshooting leaves a hairline of page between the bars, while undershooting
+   * tucks this one behind the site nav, which has the higher z-index.
+   */
+  @media (max-width: 40rem) {
+    html {
+      --secnav-top: 6.75rem;
+      --secnav-scroll-pad: 10.5rem;
+    }
+  }
+</style>
+
+<nav class="secnav" aria-label={label} data-section-nav>
+  <div class="page secnav__inner">
+    <ul class="secnav__list">
+      {
+        sections.map((s) => (
+          <li>
+            <a href={`#${s.id}`} data-secnav-link={s.id}>
+              {s.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .secnav {
+    position: sticky;
+    /*
+     * Directly under the site nav — whose height is not a constant. It sets a
+     * `min-height`, then grows past it whenever its own links wrap, which they
+     * do on a narrow screen. A hardcoded offset here was wrong by 40px on a
+     * phone, leaving a stripe of page scrolling through the gap between the two
+     * bars. The script below measures the real nav and keeps this var in sync;
+     * the fallback is the nav's min-height, which is right until it wraps.
+     */
+    top: var(--secnav-top, 4.375rem);
+    z-index: 40;
+    border-bottom: 1px solid var(--border);
+    /* Opaque: content scrolls underneath it. */
+    background: var(--bg-raised);
+  }
+
+  .secnav__inner {
+    /* The list scrolls sideways on narrow screens rather than wrapping to two
+       rows, which would make the bar tall enough to eat the viewport it is
+       supposed to help you navigate. */
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .secnav__inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .secnav__list {
+    display: flex;
+    gap: var(--s-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  .secnav__list li {
+    /* No shrinking: with the row wider than the viewport these should overflow
+       into the horizontal scroll, not compress into slivers. */
+    flex: 0 0 auto;
+  }
+
+  .secnav a {
+    display: block;
+    /* Stated here rather than inherited from the list: a global rule resets
+       white-space on links, so the inherited `nowrap` never reached them and
+       every label broke onto three lines inside a 55px sliver. */
+    white-space: nowrap;
+    padding: var(--s-3) var(--s-3);
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    font-size: var(--t-sm);
+    text-decoration: none;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .secnav a:hover {
+    color: var(--text);
+  }
+
+  /* Set by the scroll-spy below; absent entirely when JS is off. */
+  .secnav a[aria-current='true'] {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    font-weight: 600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .secnav a {
+      transition: none;
+    }
+  }
+
+  @media print {
+    .secnav {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Marks the section you're currently reading.
+   *
+   * Deliberately not IntersectionObserver-per-section with a "most visible
+   * wins" rule: sections here differ in height by a factor of five, so the
+   * tallest one wins that contest almost always. This instead asks which
+   * section's top has most recently passed the reading line — the point just
+   * below the two sticky bars — which is the same question a reader is
+   * answering when they look up to see where they are.
+   */
+  const nav = document.querySelector('[data-section-nav]');
+
+  if (nav) {
+    /**
+     * Both sticky bars are measured rather than assumed. The site nav grows
+     * when its links wrap, the section bar grows with the reader's font size,
+     * and either would otherwise be off by tens of pixels — enough to park an
+     * anchored heading behind them.
+     */
+    const siteNav = document.querySelector('body > header');
+    const root = document.documentElement;
+
+    const measure = () => {
+      const top = siteNav ? siteNav.getBoundingClientRect().height : 0;
+      root.style.setProperty('--secnav-top', `${top}px`);
+      // Re-read after the offset lands, since the bar's own position feeds it.
+      root.style.setProperty(
+        '--secnav-scroll-pad',
+        `${top + nav.getBoundingClientRect().height + 8}px`,
+      );
+    };
+
+    measure();
+
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(measure);
+      if (siteNav) ro.observe(siteNav);
+      ro.observe(nav);
+    }
+
+    const scroller = nav.querySelector('.secnav__inner');
+    const links = [...nav.querySelectorAll('[data-secnav-link]')];
+    const entries = links
+      .map((link) => ({
+        link,
+        el: document.getElementById(link.getAttribute('data-secnav-link') ?? ''),
+      }))
+      .filter((e) => e.el);
+
+    let current = null;
+    let queued = false;
+
+    const sync = () => {
+      queued = false;
+      // The reading line: just under both sticky bars, with a little slack so a
+      // section counts as "current" as its heading arrives rather than after.
+      const line = nav.getBoundingClientRect().bottom + 24;
+
+      let active = null;
+      for (const entry of entries) {
+        if (entry.el.getBoundingClientRect().top <= line) active = entry;
+      }
+
+      // Past the last section (the footer, say) the last one stays lit; before
+      // the first, nothing is.
+      if (active === current) return;
+
+      current?.link.removeAttribute('aria-current');
+      active?.link.setAttribute('aria-current', 'true');
+      current = active;
+
+      // Keep the active link in view in the horizontally scrolling bar. Done
+      // by hand rather than with scrollIntoView: the document is in smooth-
+      // scroll mode, and scrollIntoView would happily animate the *page* while
+      // the reader is mid-scroll, which feels like the page fighting back.
+      if (active && scroller) {
+        const linkBox = active.link.getBoundingClientRect();
+        const box = scroller.getBoundingClientRect();
+        if (linkBox.left < box.left) {
+          scroller.scrollLeft -= box.left - linkBox.left + 16;
+        } else if (linkBox.right > box.right) {
+          scroller.scrollLeft += linkBox.right - box.right + 16;
+        }
+      }
+    };
+
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(sync);
+    };
+
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    sync();
+  }
+</script>
