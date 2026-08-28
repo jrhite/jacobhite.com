@@ -29,7 +29,7 @@ const toc = headings.filter((h) => h.depth === 2);
             Decorative: the author's name sits immediately beside it as text, so alt
             text here would just make a screen reader announce the name twice.
           */}
-          <Image class="article__face" src={avatar} alt="" widths={[48, 96]} sizes="48px" loading="eager" />
+          <Image class="article__face" src={avatar} alt="" widths={[60, 120]} sizes="60px" loading="eager" />
           <div>
             <p class="article__author">{siteMeta.name}</p>
             <p class="article__meta">
@@ -78,9 +78,9 @@ const toc = headings.filter((h) => h.depth === 2);
     background: radial-gradient(50rem 26rem at 10% -30%, var(--accent-soft), transparent 62%);
   }
 
-  /* An article has an author. 48px is the floor at which this photo still reads as
-     a face — below that the smile and eyes turn to mush, so it is not shrunk to
-     match the meta line's type size. */
+  /* An article has an author. Sized well clear of the meta line's type size on
+     purpose: 48px is the floor at which this photo still reads as a face, and
+     below that the smile and eyes turn to mush. */
   .article__byline {
     display: flex;
     align-items: center;
@@ -90,8 +90,8 @@ const toc = headings.filter((h) => h.depth === 2);
 
   .article__face {
     flex: none;
-    width: 3rem;
-    height: 3rem;
+    width: 3.75rem;
+    height: 3.75rem;
     border-radius: var(--r-full);
     object-fit: cover;
     border: 2px solid var(--bg-raised);
