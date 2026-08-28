@@ -8,6 +8,8 @@ status: complete
 sourcePath: /module/module-1-ed-501
 ---
 
+### Program orientation
+
 The ED Puzzle was a great introduction to the Moreland teaching platform, including
 its goals and pointers to some of the most important elements of the TEACH-NOW
 website including:
@@ -21,4 +23,17 @@ website including:
 
 The InTASC Standards outline what teachers should know and be able to do to ensure
 that every K–12 student reaches the goal of being ready to enter college or the
-workforce in today's world.
+workforce in today's world. They get their own page here — see
+[InTASC Standards](/portfolio/intasc-standards).
+
+### Activity 3: Cohort Literacy Guide
+
+Each module the cohort adds to a shared **Literacy Guide**, organized by module
+with terms listed alphabetically. Every member defines the terms for the module
+currently in session, so Module 1's section is the program-orientation vocabulary.
+
+Like the other cohort documents it is multi-author, so it stays behind Moreland's
+access controls rather than being republished here — the
+[Literacy](/portfolio/literacy) page carries the full note.
+
+[Cohort Literacy Guide →](https://docs.google.com/document/d/1Fo9HS7EhjxGcl66CIxhs3E7M7tOym3QPoE2MufZsZMY/edit)
