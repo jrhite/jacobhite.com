@@ -11,6 +11,7 @@ video:
   poster: /media/supporting-ell-mll-students-poster.jpg
   title: Supporting ELL & MLL Students
   duration: '4:19'
+  aspect: 1792 / 992
   caption: >-
     A narrated walkthrough of three practices for English language learners and
     multilingual learners: scaffolding discussion, treating the home language as

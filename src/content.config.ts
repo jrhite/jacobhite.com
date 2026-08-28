@@ -37,6 +37,8 @@ const portfolio = defineCollection({
         /** Running time as a reader would say it, e.g. "4:19". */
         duration: z.string().optional(),
         caption: z.string().optional(),
+        /** The file's own aspect ratio as `w / h`, so the player box matches it. */
+        aspect: z.string(),
       })
       .optional(),
     /** Path on the original Google Site, for the record. */

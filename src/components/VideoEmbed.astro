@@ -17,9 +17,15 @@ interface Props {
   duration?: string;
   /** One line under the player, for context the recording itself doesn't give. */
   caption?: string;
+  /**
+   * The recording's own aspect ratio, as `w / h`. Given rather than assumed
+   * because the box is sized before the file loads — get it wrong and the
+   * player letterboxes its own poster.
+   */
+  aspect: string;
 }
 
-const { src, poster, title, duration, caption } = Astro.props;
+const { src, poster, title, duration, caption, aspect } = Astro.props;
 ---
 
 <figure class="video">
@@ -28,7 +34,14 @@ const { src, poster, title, duration, caption } = Astro.props;
     {duration && <span class="video__duration">{duration}</span>}
   </div>
 
-  <video class="video__player" controls preload="metadata" poster={poster} title={title}>
+  <video
+    class="video__player"
+    style={`aspect-ratio: ${aspect};`}
+    controls
+    preload="metadata"
+    poster={poster}
+    title={title}
+  >
     <source src={src} type="video/mp4" />
     <p>
       Your browser can’t play this video.
@@ -66,11 +79,11 @@ const { src, poster, title, duration, caption } = Astro.props;
   }
 
   /* The recording is a slide deck: it is legible at the page's full width and
-     cramped at the reading measure, so it runs wider than the prose below it. */
+     cramped at the reading measure, so it runs wider than the prose below it.
+     `aspect-ratio` is set inline, per recording. */
   .video__player {
     display: block;
     width: 100%;
-    aspect-ratio: 1792 / 992;
     background: var(--ink-950);
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
