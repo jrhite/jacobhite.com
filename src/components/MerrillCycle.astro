@@ -9,6 +9,11 @@
  * and sized by the reader's own settings — and the layout reflows to one
  * column rather than demanding a pinch and a squint.
  *
+ * Node labels are paragraphs, not headings: they name parts of a diagram rather
+ * than sections of the page, and as headings they put a second copy of all five
+ * principle names into the document outline directly below the cards that
+ * explain them.
+ *
  * DOM order is the single-column reading order: hub, then the four principles
  * in the order they run. The wide layout is placed with grid areas rather than
  * source order, so the reflow needs no reordering and the markup stays the
@@ -35,11 +40,11 @@ const lesson = [
 ---
 
 <figure class="mc">
-  <p class="mc__title">Merrill's first principles in this curriculum</p>
+  <p class="mc__title">How the four cycle around the one task</p>
 
   <div class="mc__grid">
     <div class="mc__hub">
-      <h3>Task-centered</h3>
+      <p class="mc__name">Task-centered</p>
       <p>build one real app</p>
     </div>
 
@@ -47,7 +52,7 @@ const lesson = [
       cycle.map((c, i) => (
         <>
           <div class={`mc__node mc__node--${c.key}`}>
-            <h3>{c.name}</h3>
+            <p class="mc__name">{c.name}</p>
             <p>{c.note}</p>
           </div>
           <span
@@ -159,18 +164,18 @@ const lesson = [
     background: var(--accent-soft);
   }
 
-  .mc__node h3,
-  .mc__hub h3 {
+  .mc__node .mc__name,
+  .mc__hub .mc__name {
     margin: 0;
     font-size: var(--t-base);
     font-weight: 700;
   }
 
-  .mc__node h3 {
+  .mc__node .mc__name {
     color: var(--accent-2);
   }
 
-  .mc__hub h3 {
+  .mc__hub .mc__name {
     color: var(--accent);
   }
 
