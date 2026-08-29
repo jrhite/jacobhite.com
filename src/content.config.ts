@@ -10,7 +10,7 @@ import { z } from 'astro/zod';
  * See docs/CONTENT-INVENTORY.md for the parity contract.
  */
 const portfolio = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/portfolio' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/portfolio' }),
   schema: z.object({
     title: z.string(),
     navLabel: z.string(),
@@ -25,22 +25,12 @@ const portfolio = defineCollection({
      */
     diagram: z.enum(['merrill-cycle']).optional(),
     /**
-     * A recording to run above the prose. Self-hosted out of `public/media/`,
-     * so the file is committed with the page it belongs to rather than living
-     * in someone else's account.
+     * Recordings live in the page body, not here: a page with three of them
+     * needs each one inside the activity it belongs to. `.mdx` pages import
+     * `VideoEmbed` and place it themselves. Files are self-hosted out of
+     * `public/media/`, committed with the page rather than living in someone
+     * else's account.
      */
-    video: z
-      .object({
-        src: z.string(),
-        poster: z.string().optional(),
-        title: z.string(),
-        /** Running time as a reader would say it, e.g. "4:19". */
-        duration: z.string().optional(),
-        caption: z.string().optional(),
-        /** The file's own aspect ratio as `w / h`, so the player box matches it. */
-        aspect: z.string(),
-      })
-      .optional(),
     /** Path on the original Google Site, for the record. */
     sourcePath: z.string(),
   }),
