@@ -1,0 +1,28 @@
+---
+/**
+ * Where one activity's content came from on the original Google Site.
+ *
+ * Most module pages have outgrown their origin: the page-level line that used
+ * to sit under every title claimed the whole page came from Moreland, which
+ * stopped being true once the activities were written here. On those pages the
+ * claim belongs to the one activity it actually describes, which is this.
+ *
+ * Pages that did carry over wholesale keep saying so at the top instead — see
+ * `carriedOver` in the portfolio schema.
+ */
+
+interface Props {
+  /** Path on the original Google Site, typos included. */
+  path: string;
+}
+
+const { path } = Astro.props;
+---
+
+<p class="source muted">Carried over from <code>{path}</code> on the Moreland site</p>
+
+<style>
+  .source {
+    font-size: var(--t-sm);
+  }
+</style>

@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
 const { entry, prev, next } = Astro.props;
 const { Content } = await render(entry);
-const { title, subtitle, status, group, sourcePath, diagram } = entry.data;
+const { title, subtitle, status, group, sourcePath, diagram, carriedOver } = entry.data;
 ---
 
 <BaseLayout
@@ -33,9 +33,13 @@ const { title, subtitle, status, group, sourcePath, diagram } = entry.data;
   <article class="section page">
     <div class="meta">
       <StatusPill status={status} />
-      <span class="meta__source muted">
-        Originally at <code>{sourcePath}</code> on the Moreland site
-      </span>
+      {
+        carriedOver && (
+          <span class="meta__source muted">
+            Carried over from <code>{sourcePath}</code> on the Moreland site
+          </span>
+        )
+      }
     </div>
 
     {
