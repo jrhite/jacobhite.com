@@ -6,11 +6,16 @@ import StatusPill from '../../components/StatusPill.astro';
 
 const entries = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
 
-const groups = ['Coursework', 'Modules'] as const;
+const groups = ['Coursework', 'Modules', 'Reference'] as const;
+
+// The counter is about the migration, so it counts only the pages that came
+// over from the Google Site. A page native to this one would otherwise inflate
+// the parity it is meant to report.
+const carried = entries.filter((e) => e.data.sourcePath);
 
 const counts = {
-  total: entries.length,
-  done: entries.filter((e) => e.data.status === 'complete').length,
+  total: carried.length,
+  done: carried.filter((e) => e.data.status === 'complete').length,
 };
 ---
 

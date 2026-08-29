@@ -15,7 +15,7 @@ const portfolio = defineCollection({
     title: z.string(),
     navLabel: z.string(),
     subtitle: z.string().optional(),
-    group: z.enum(['Coursework', 'Modules']),
+    group: z.enum(['Coursework', 'Modules', 'Reference']),
     order: z.number(),
     status: z.enum(['complete', 'placeholder', 'needs-file']),
     /**
@@ -31,8 +31,12 @@ const portfolio = defineCollection({
      * `public/media/`, committed with the page rather than living in someone
      * else's account.
      */
-    /** Path on the original Google Site, for the record. */
-    sourcePath: z.string(),
+    /**
+     * Path on the original Google Site, for the record. Optional because not
+     * every page here came from there: `/portfolio/references` is site-native,
+     * gathering sources the original never listed in one place.
+     */
+    sourcePath: z.string().optional(),
 
   }),
 });

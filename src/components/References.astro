@@ -1,0 +1,108 @@
+---
+/**
+ * An APA reference list, rendered from `src/data/references.ts`.
+ *
+ * A page names the sources it cites and nothing more — no entry's text is
+ * written twice, so correcting a citation is one edit in one file rather than
+ * a hunt across every page that happens to use it. The a/b/c suffix APA puts
+ * on same-author-same-year works is computed for the list actually being
+ * rendered; see `resolve()`.
+ *
+ * The markup it produces is the same `<div class="references">` the pages used
+ * to write by hand, so the hanging indent in `[...slug].astro` still applies.
+ */
+import { getCollection } from 'astro:content';
+import { citations, citedOn, resolve } from '../data/references';
+
+interface Props {
+  /** Portfolio page id; renders exactly the sources that page cites. */
+  page?: string;
+  /** An explicit set instead, for a list that is not one page's own. */
+  ids?: readonly string[];
+  /**
+   * Give every entry an anchor and a line saying which pages cite it. For the
+   * gathered list at `/portfolio/references`; noise anywhere else.
+   */
+  linked?: boolean;
+}
+
+const { page, ids, linked = false } = Astro.props;
+
+if (!page && !ids) throw new Error('<References> needs either `page` or `ids`.');
+if (page && !citations[page]) throw new Error(`No citations recorded for page: ${page}`);
+
+const entries = resolve(ids ?? citations[page!]);
+
+// Titles for the backlinks. Read from the collection rather than hard-coded so
+// a page that gets renamed cannot leave a stale label behind.
+const labels = new Map(
+  linked ? (await getCollection('portfolio')).map((e) => [e.id, e.data.navLabel]) : [],
+);
+
+/**
+ * APA italicises titles, and the entries carry that as `_underscores_`. The
+ * text is escaped first — nineteen of the author strings contain an ampersand
+ * — and the URL never passes through here, so a DOI's underscores cannot be
+ * mistaken for emphasis.
+ */
+const italics = (s: string) =>
+  s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/_([^_]+)_/g, '<em>$1</em>');
+---
+
+<div class="references">
+  <ul>
+    {
+      entries.map((ref) => (
+        <li id={linked ? ref.id : undefined}>
+          <Fragment set:html={`${italics(ref.author)} (${ref.label}).`} />{' '}
+          <Fragment set:html={italics(ref.rest)} />
+          {ref.url && (
+            <>
+              {' '}
+              <a href={ref.url}>{ref.url}</a>
+            </>
+          )}
+          {linked && (
+            <span class="references__cited">
+              Cited on{' '}
+              {citedOn(ref.id).map((id, i) => (
+                <>
+                  {i > 0 && ', '}
+                  <a href={`/portfolio/${id}`}>{labels.get(id) ?? id}</a>
+                </>
+              ))}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  /* The list itself is styled with the rest of the prose in `[...slug].astro`,
+     where the hanging indent lives. Only the backlink line is local. */
+  .references__cited {
+    display: block;
+    /* Cancels the hanging indent for this line: it is an annotation on the
+       entry, not a continuation of it, so it lines up under the entry's own
+       first character rather than out in the hanging margin. */
+    text-indent: 0;
+    margin-top: var(--s-1);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-faint);
+  }
+
+  .references__cited a {
+    color: inherit;
+  }
+
+  .references__cited a:hover {
+    color: var(--accent);
+  }
+</style>

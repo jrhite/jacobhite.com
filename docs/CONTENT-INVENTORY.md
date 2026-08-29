@@ -26,6 +26,16 @@ This file is the parity contract. Every row below has a home on the new site.
 
 "Module" itself is a nav folder on the original, not a page. On the new site it gets a real index at `/portfolio`.
 
+## Pages native to this site
+
+Not part of the parity contract above — these have no counterpart on the original,
+and the counter on `/portfolio` excludes them so it keeps reporting the migration
+rather than the site.
+
+| New page | Why it exists |
+| --- | --- |
+| `/portfolio/references` | Every source cited anywhere in the portfolio, in one APA list, each entry linked back to the pages citing it. The per-page lists are still the citation of record — APA puts a reference list with the document, and that is what prints — but the entries are stored once in `src/data/references.ts` and rendered from there, so a correction lands on every page at once. |
+
 ---
 
 ## Defects found in the original (carried over as *fixed*, listed here so nothing is lost silently)
@@ -81,3 +91,4 @@ Two of these are **cohort collaborative documents containing other students' nam
 - [x] Every outbound link recorded
 - [ ] Decide what to do about the two cohort Google Docs (see above)
 - [x] Replace the dead InTASC file — written out on the page instead of re-embedded, sourced to CCSSO
+- [x] References de-duplicated into `src/data/references.ts`; every page renders its list from it, and `/portfolio/references` gathers all 74

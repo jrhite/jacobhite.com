@@ -69,10 +69,15 @@ const { title, subtitle, status, group, sourcePath, diagram } = entry.data;
     }
 
     {/* A reference, so it sits with the references at the foot of the page
-        rather than in front of the reader before they have read anything. */}
-    <p class="source-ref muted">
-      Also at <code>{sourcePath}</code> on the Moreland site
-    </p>
+        rather than in front of the reader before they have read anything.
+        Absent on the pages that are native to this site. */}
+    {
+      sourcePath && (
+        <p class="source-ref muted">
+          Also at <code>{sourcePath}</code> on the Moreland site
+        </p>
+      )
+    }
 
     <nav class="pager" aria-label="Portfolio pages">
       {

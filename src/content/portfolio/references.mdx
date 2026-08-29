@@ -1,0 +1,27 @@
+---
+title: References
+navLabel: References
+subtitle: Every source cited across the portfolio, in one alphabetical list
+group: Reference
+order: 30
+status: complete
+---
+
+import References from '../../components/References.astro';
+import { references } from '../../data/references';
+
+Every source cited anywhere in this portfolio, gathered into one list. Each page
+keeps its own reference list — that is where APA puts it, and it is what prints
+with the page — but the entries themselves are written once, in a single file,
+so a correction lands everywhere at once. This page is that file, read out.
+
+The line under each entry says which pages cite it.
+
+> **On the letters.** APA adds an *a* / *b* / *c* to works by the same author in
+> the same year, so a reader can tell which one a citation points at. The letter
+> belongs to the list, not to the work: a source is *n.d.* on a page where it
+> stands alone and *n.d.-b* here, where two others share its author and year.
+> Both are correct, and each page's own list is the one its in-text citations
+> match.
+
+<References ids={references.map((r) => r.id)} linked />
