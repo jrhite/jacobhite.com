@@ -16,8 +16,20 @@ const { title, subtitle, description, pubDate, readingTime } = post.data;
 
 const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
 
-// Only the section headings — the h3s would make the contents longer than the article.
-const toc = headings.filter((h) => h.depth === 2);
+/**
+ * Sections, with their subsections nested under them. The h3s were left out
+ * originally because sixteen of them make a long list — but that length is the
+ * argument for including them: "The most useful capabilities for teaching" is
+ * most of the article, and without its children the contents can only drop you
+ * at the top of it. The rail scrolls inside its own sticky box, and the
+ * scroll-spy below keeps your place in it.
+ */
+type TocEntry = (typeof headings)[number] & { children: typeof headings };
+const toc = headings.reduce<TocEntry[]>((acc, h) => {
+  if (h.depth === 2) acc.push({ ...h, children: [] });
+  else if (h.depth === 3 && acc.length) acc.at(-1)!.children.push(h);
+  return acc;
+}, []);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -47,12 +59,25 @@ const toc = headings.filter((h) => h.depth === 2);
     <div class="page article__grid">
       {
         toc.length > 1 && (
-          <nav class="toc" aria-label="Contents">
+          <nav class="toc" aria-label="Contents" data-toc>
             <p class="toc__title">Contents</p>
-            <ol>
+            <ol class="toc__list">
               {toc.map((h) => (
                 <li>
-                  <a href={`#${h.slug}`}>{h.text}</a>
+                  <a href={`#${h.slug}`} data-toc-link={h.slug}>
+                    {h.text}
+                  </a>
+                  {h.children.length > 0 && (
+                    <ol class="toc__sub">
+                      {h.children.map((c) => (
+                        <li>
+                          <a href={`#${c.slug}`} data-toc-link={c.slug}>
+                            {c.text}
+                          </a>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
                 </li>
               ))}
             </ol>
@@ -69,6 +94,67 @@ const toc = headings.filter((h) => h.depth === 2);
       <a href="/writing">← All writing</a>
     </footer>
   </article>
+
+  <script>
+    /**
+     * Marks the heading you are currently reading.
+     *
+     * Asks which heading's top has most recently passed the reading line, rather
+     * than which section is most visible: the sections here differ in height by
+     * more than an order of magnitude, and "most visible" would hand the whole
+     * article to the longest one.
+     */
+    const toc = document.querySelector<HTMLElement>('[data-toc]');
+  
+    if (toc) {
+      const links = [...toc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+      const entries = links
+        .map((link) => ({ link, el: document.getElementById(link.dataset.tocLink ?? '') }))
+        .filter((e): e is { link: HTMLAnchorElement; el: HTMLElement } => Boolean(e.el));
+  
+      if (entries.length) {
+        let current: (typeof entries)[number] | null = null;
+        let queued = false;
+  
+        const sync = () => {
+          queued = false;
+          // A little below the site nav, so a heading counts as current as it
+          // arrives rather than once it has already scrolled past.
+          const line = 120;
+  
+          let active: (typeof entries)[number] | null = null;
+          for (const entry of entries) {
+            if (entry.el.getBoundingClientRect().top <= line) active = entry;
+          }
+          if (active === current) return;
+  
+          current?.link.removeAttribute('aria-current');
+          active?.link.setAttribute('aria-current', 'true');
+          current = active;
+  
+          // Keep the marked link inside the rail's own scroll without dragging
+          // the page: the document is in smooth-scroll mode, and scrollIntoView
+          // would animate the article out from under the reader.
+          if (active) {
+            const linkBox = active.link.getBoundingClientRect();
+            const box = toc.getBoundingClientRect();
+            if (linkBox.top < box.top) toc.scrollTop -= box.top - linkBox.top + 12;
+            else if (linkBox.bottom > box.bottom) toc.scrollTop += linkBox.bottom - box.bottom + 12;
+          }
+        };
+  
+        const onScroll = () => {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(sync);
+        };
+  
+        addEventListener('scroll', onScroll, { passive: true });
+        addEventListener('resize', onScroll, { passive: true });
+        sync();
+      }
+    }
+  </script>
 </BaseLayout>
 
 <style>
@@ -155,6 +241,16 @@ const toc = headings.filter((h) => h.depth === 2);
       top: 6rem;
       max-height: calc(100dvh - 8rem);
       overflow-y: auto;
+      scrollbar-width: thin;
+    }
+  }
+
+  /* Stacked above the article on a narrow screen, where twenty entries would
+     otherwise be a screen and a half before the first paragraph. */
+  @media (max-width: 67.999rem) {
+    .toc {
+      max-height: 40vh;
+      overflow-y: auto;
     }
   }
 
@@ -174,6 +270,9 @@ const toc = headings.filter((h) => h.depth === 2);
     margin: 0;
     display: grid;
     gap: var(--s-2);
+  }
+
+  .toc__list {
     border-left: 1px solid var(--border);
   }
 
@@ -189,6 +288,27 @@ const toc = headings.filter((h) => h.depth === 2);
   .toc a:hover {
     color: var(--accent);
     border-left-color: var(--accent-bright);
+  }
+
+  /* The subsections indent rather than carrying a second rule, so the eye has
+     one vertical line to follow down the whole contents. Declared after `.toc a`
+     because they tie with it on specificity, and the later rule wins. */
+  .toc__sub {
+    margin-top: var(--s-2);
+    gap: var(--s-1);
+  }
+
+  .toc__sub a {
+    padding-left: var(--s-7);
+    font-size: var(--t-xs);
+    color: var(--text-faint);
+  }
+
+  /* Set by the scroll-spy; absent entirely when JS is off. */
+  .toc a[aria-current='true'] {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
   }
 
   /* ---- article body ---- */
@@ -244,3 +364,4 @@ const toc = headings.filter((h) => h.depth === 2);
     font-size: var(--t-sm);
   }
 </style>
+
