@@ -8,9 +8,11 @@ tags: [teaching, ai, curriculum]
 ---
 
 The big shift is this: **don't teach students to "code with AI." Teach them to
-direct, inspect, test, and improve software that AI helps produce.** Replit is
-unusually good for that because the whole loop, from idea to deployed app, can
-happen in one place.
+direct, inspect, test, and improve software that AI helps produce.** The examples below use Replit, which is unusually
+good for that because the whole loop, from idea to deployed app, can happen in one
+place. None of it is Replit-specific. Point a student at Claude or ChatGPT instead
+and the work is the same: say what you want, read what comes back, decide whether it
+ships.
 
 ## The most useful capabilities for teaching
 
@@ -40,7 +42,7 @@ bad changes.
 Have students deliberately:
 
 1. Create a working version.
-2. Ask Agent to make a risky architectural change.
+2. Ask the model to make a risky architectural change.
 3. Compare the result with the prior checkpoint.
 4. Roll back if appropriate.
 5. Explain what they learned.
@@ -50,8 +52,7 @@ just "undo."
 
 ### 3. The model writes most of the code. The student reviews it.
 
-"Use AI as a code-review partner" has the roles the wrong way round. On a working
-team the model is now the one producing the bulk of the code, and the engineer is
+"Use AI as a code-review partner" has the roles the wrong way round. On many working teams the model is now the one producing the bulk of the code, and the engineer is
 the reviewer: the person who decides what to ask for, reads what comes back,
 and answers for what ships. That is the job this curriculum is training for, and
 it is why the capability being taught is judgement rather than syntax.
@@ -66,7 +67,7 @@ accountable for the result.
 Require a short engineering journal for every major AI change:
 
 - What did I ask for?
-- What did Agent change?
+- What did the model change?
 - What did I verify myself?
 - What could be wrong?
 - Why did I accept or reject the change?
@@ -168,8 +169,10 @@ permissions, touch interfaces, device sizes, offline behavior, and privacy.
 
 ### 10. Teach AI engineering by building AI products
 
-AI Integrations provide managed access to models from OpenAI, Anthropic, Google, and
+AI Integrations provide managed access to models from Anthropic, OpenAI, Google and
 OpenRouter without students having to manage separate API keys and infrastructure.
+Building *on* Claude or the OpenAI API is a different skill from building *with*
+ChatGPT, and this is where students meet it.
 
 Students can build a retrieval-based study assistant, a feedback tool for writing or
 code, a document question-answering system, a classifier for support requests, a
@@ -305,7 +308,7 @@ postmortem.
 - **AI study coach:** model integration, evaluation, privacy, prompt design.
 - **Community issue tracker:** roles, moderation, file uploads, dashboards.
 - **Student startup MVP:** product discovery, design, database, deployment, analytics.
-- **Open-source maintenance simulation:** inherit a messy codebase, use Agent to understand it, fix bugs, add tests, and write a release note.
+- **Open-source maintenance simulation:** inherit a messy codebase, use the model to understand it, fix bugs, add tests, and write a release note.
 - **AI pair-programming experiment:** one team uses AI freely, another uses constrained AI workflows, then compare quality, speed, defects, and understanding.
 - **Software audit challenge:** students receive an AI-generated app and must find correctness, security, UX, and maintainability problems.
 
