@@ -55,6 +55,7 @@ rather than the site.
 | --- | --- | --- | --- |
 | `src/assets/original/office-selfie.png` | 1280×1280 PNG | Home | Group selfie, office/coworking space |
 | `src/assets/original/teaching-se-asia.jpg` | 900×432 JPEG | Home | Volunteer teaching, wooden classroom in SE Asia |
+| `src/assets/office-alchemy-2022.jpg` | 1800×864 JPEG | Home — **new here**, not on the original | Jacob on the engineering floor at Alchemy, 15 Aug 2022 (Pixel 5, per the file's EXIF). Cropped from the 3264×2448 original to 900:432, matching `teaching-se-asia.jpg` so the two sit as a pair in the hero. |
 | `src/assets/original/moreland-logo.png` | 195×235 PNG | Every page | **Moreland University logo** — their mark, not ours. Not reused as site branding. |
 | `public/media/supporting-ell-mll-students.mp4` | 4:19, 1792×992 H.264 | Module 3 — **new here**, not on the original | Recorded slide presentation. Transcoded from a 1920×996 HEVC `.mov`; HEVC only plays in Safari. |
 | `public/media/supporting-ell-mll-students-poster.jpg` | 1280×709 JPEG | Module 3 | First frame of the recording, used as the video poster. |

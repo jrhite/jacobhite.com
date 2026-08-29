@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import EngineeringLoop from '../components/EngineeringLoop.astro';
 import { navItems, siteMeta, careerYears } from '../data/nav';
 import teaching from '../assets/original/teaching-se-asia.jpg';
+import office from '../assets/office-alchemy-2022.jpg';
 import avatar from '../assets/jacob-hite-avatar.jpg';
 
 const facts = [
@@ -81,16 +82,31 @@ const offerings = [
         </div>
       </div>
 
-      <figure class="hero__figure">
-        <Image
-          src={teaching}
-          alt="A room of children seated on the floor of a wooden schoolhouse in South East Asia, with two adults teaching at the front."
-          widths={[420, 800, 1200]}
-          sizes="(min-width: 60rem) 32rem, 92vw"
-          loading="eager"
-        />
-        <figcaption>Volunteer teaching, South East Asia.</figcaption>
-      </figure>
+      {/* The two halves of the sentence in the headline, in order: the desk the
+          career happened at, then the room it is turning into. */}
+      <div class="hero__figures">
+        <figure class="hero__figure hero__figure--tilt-left">
+          <Image
+            src={office}
+            alt="Jacob Hite in an open-plan engineering office, rows of desks and monitors behind him and birthday balloons hanging from the ceiling."
+            widths={[420, 800, 1200]}
+            sizes="(min-width: 60rem) 32rem, 92vw"
+            loading="eager"
+          />
+          <figcaption>Alchemy, 2022.</figcaption>
+        </figure>
+
+        <figure class="hero__figure">
+          <Image
+            src={teaching}
+            alt="A room of children seated on the floor of a wooden schoolhouse in South East Asia, with two adults teaching at the front."
+            widths={[420, 800, 1200]}
+            sizes="(min-width: 60rem) 32rem, 92vw"
+            loading="eager"
+          />
+          <figcaption>Volunteer teaching, South East Asia.</figcaption>
+        </figure>
+      </div>
     </div>
 
     <div class="page">
@@ -313,6 +329,11 @@ const offerings = [
     height: 1.05rem;
   }
 
+  .hero__figures {
+    display: grid;
+    gap: var(--s-6);
+  }
+
   .hero__figure {
     margin: 0;
   }
@@ -322,6 +343,12 @@ const offerings = [
     border-radius: var(--r-lg);
     box-shadow: var(--shadow-lg);
     transform: rotate(1.1deg);
+  }
+
+  /* Tilted against each other, so the pair reads as two prints set down next to
+     each other rather than as a grid that failed to line up. */
+  .hero__figure--tilt-left img {
+    transform: rotate(-1deg);
   }
 
   .hero__figure figcaption {
