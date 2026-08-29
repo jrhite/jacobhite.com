@@ -1,7 +1,7 @@
 ---
 title: Don't teach students to code with AI
 subtitle: Teach them to direct, inspect, test, and improve software that AI helps produce
-description: A curriculum for teaching software engineering when the code is cheap — sixteen capabilities, one loop, and the rule I won't bend.
+description: A curriculum for teaching software engineering when the code is cheap. Sixteen capabilities, one loop, and the rule I won't bend.
 pubDate: 2026-08-21
 readingTime: 14
 tags: [teaching, ai, curriculum]
@@ -9,7 +9,7 @@ tags: [teaching, ai, curriculum]
 
 The big shift is this: **don't teach students to "code with AI." Teach them to
 direct, inspect, test, and improve software that AI helps produce.** Replit is
-unusually good for that because the whole loop — from idea to deployed app — can
+unusually good for that because the whole loop, from idea to deployed app, can
 happen in one place.
 
 ## The most useful capabilities for teaching
@@ -45,7 +45,7 @@ Have students deliberately:
 4. Roll back if appropriate.
 5. Explain what they learned.
 
-That teaches version control, risk management, and reversible decision-making — not
+That teaches version control, risk management, and reversible decision-making, not
 just "undo."
 
 ### 3. Use AI as a code-review partner, not an answer machine
@@ -85,7 +85,7 @@ Students should still inspect and challenge AI-generated tests. Otherwise they l
 to create tests that merely confirm the implementation instead of testing the
 requirement.
 
-### 5. Build real, publishable artifacts — not toy snippets
+### 5. Build real, publishable artifacts, not toy snippets
 
 Artifacts can include web apps, mobile apps, slide decks, animations, data
 visualizations, and designs, with publishable outputs and shareable URLs.
@@ -143,7 +143,7 @@ when a project review is ready, import data from an existing school workflow, bu
 small CRM for a student-run organization.
 
 This teaches API design, authentication boundaries, rate limits, webhooks, data
-mapping, and failure handling — the "glue" work that dominates much professional
+mapping, and failure handling: the "glue" work that dominates much professional
 software engineering.
 
 ### 9. Build native mobile apps
@@ -308,5 +308,5 @@ The most important rule I'd establish is:
 > explanation, and release decision.**
 
 That produces graduates who are not merely faster typists. It produces people who can
-turn ambiguous problems into reliable systems — the part of software engineering that
+turn ambiguous problems into reliable systems: the part of software engineering that
 becomes more valuable, not less, in the age of AI.

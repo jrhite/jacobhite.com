@@ -15,7 +15,7 @@ It covers Module 1 (Program Orientation), Module 2 (The Culture of Schooling),
 Module 3 (The Learner and Learning in the Digital Age), Module 5 (Student
 Assessments) and Module 6 (Planning and Preparation for Learning).
 
-> **A note on the link below.** The guide is a collaborative cohort document —
+> **A note on the link below.** The guide is a collaborative cohort document;
 > most of what is in it was written by my classmates, under their own names. It
 > stays where it is, behind Moreland's access controls, rather than being
 > republished here.

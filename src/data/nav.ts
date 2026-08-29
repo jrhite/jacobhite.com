@@ -2,7 +2,7 @@
  * Site navigation, in one place.
  *
  * `/portfolio` holds the Moreland e-portfolio, carried over page for page from
- * the original Google Site — see docs/CONTENT-INVENTORY.md.
+ * the original Google Site; see docs/CONTENT-INVENTORY.md.
  */
 
 /**
@@ -48,7 +48,7 @@ export const navItems: NavItem[] = [
      */
     label: 'Clinical Practice',
     href: '/portfolio/clinical-practice',
-    blurb: "Merrill's first principles, applied to teaching programming — one real app, built step by step.",
+    blurb: "Merrill's first principles, applied to teaching programming: one real app, built step by step.",
   },
   {
     label: 'Portfolio',
