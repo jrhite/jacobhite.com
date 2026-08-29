@@ -9,13 +9,24 @@ sourcePath: /module/module-3-ed-503
 ---
 
 import VideoEmbed from '../../components/VideoEmbed.astro';
+import ActivityTabs from '../../components/ActivityTabs.astro';
 
 This page was a bare heading on the original Moreland site. Each activity below is
 presented rather than written up — the recording is the work, and the notes under
 it say what is in it.
 
-### Activity 1: Supporting ELL and MLL students
+export const TABS = [
+  { id: 'a1', label: 'Activity 1 — Supporting ELL & MLL students' },
+  { id: 'a2', label: 'Activity 2 — Evidence-based instruction' },
+  { id: 'a3', label: 'Activity 3 — CS literacy tools' },
+  { id: 'references', label: 'References' },
+];
 
+<ActivityTabs tabs={TABS}>
+
+<Fragment slot="a1">
+
+### Activity 1: Supporting ELL and MLL students
 <VideoEmbed
   src="/media/supporting-ell-mll-students.mp4"
   poster="/media/supporting-ell-mll-students-poster.jpg"
@@ -39,8 +50,11 @@ it say what is in it.
   to cognates and background knowledge, and give low-stakes practice before
   anything is graded.
 
-### Activity 2: Evidence-based instructional practices
+</Fragment>
 
+<Fragment slot="a2">
+
+### Activity 2: Evidence-based instructional practices
 <VideoEmbed
   src="/media/evidence-based-instruction.mp4"
   poster="/media/evidence-based-instruction-poster.jpg"
@@ -72,8 +86,11 @@ that bar, and what each looks like in a 9–12 room:
 The through-line is one assumption: all students can succeed when instruction is
 built on what the research actually shows.
 
-### Activity 3: Literacy tools hiding in the CS toolchain
+</Fragment>
 
+<Fragment slot="a3">
+
+### Activity 3: Literacy tools hiding in the CS toolchain
 <VideoEmbed
   src="/media/cs-literacy-tools.mp4"
   poster="/media/cs-literacy-tools-poster.jpg"
@@ -99,8 +116,11 @@ This is the same argument as the disciplinary literacy work on
 [Module 2](/portfolio/module-2): the reading and writing practices belong to the
 discipline, and so do the tools.
 
-### References
+</Fragment>
 
+<Fragment slot="references">
+
+### References
 - Cárdenas-Hagan, E. (n.d.). _Stages of second language acquisition_ [Video].
   Reading Universe; Colorín Colorado.
 - ClickView Education. (n.d.). [10 evidence-based instructional strategies](https://www.clickvieweducation.com/blog/teaching-strategies/evidence-based-instructional-strategies).
@@ -112,3 +132,7 @@ discipline, and so do the tools.
 - Regional Educational Laboratory Southeast. (2025, January). [Evidence-based teaching practices](https://ies.ed.gov/rel-southeast/2025/01/infographic-21) [Infographic]. Institute of Education Sciences, U.S. Department of Education.
 - Robertson, K., & Ford, K. (n.d.). [Language acquisition: An overview](https://www.colorincolorado.org/article/language-acquisition-overview). Colorín Colorado.
 - TeachHub. (2021, July). [What is evidence-based instruction?](https://www.teachhub.com/teaching-strategies/2021/07/what-is-evidence-based-instruction/)
+
+</Fragment>
+
+</ActivityTabs>

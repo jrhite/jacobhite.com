@@ -1,0 +1,310 @@
+---
+/**
+ * Side tabs for a module page's units and activities.
+ *
+ * The teaching page deliberately refuses tabs — see `SectionNav.astro` — because
+ * it is one argument built across a dozen screens, and hiding five parts of it
+ * behind labels costs the reader the thread. A module page is the opposite
+ * shape: its sections are independent pieces of coursework that happen to share
+ * a page, nobody reads Unit 3 to understand Unit 1, and the label someone is
+ * scanning for is the literal thing they came to see — "Unit 2, Activity 2".
+ * Long-scrolling six of those buries all but the first.
+ *
+ * Degrades to the long page it replaces. With no JavaScript every panel is
+ * visible and the rail is a list of anchors that jump to real element ids —
+ * which is also what prints, and what a crawler reads. The script layers the
+ * tab behavior on top: it takes over the rail, hides the inactive panels, and
+ * wires the keyboard. Nothing is hidden by markup alone.
+ */
+
+interface Props {
+  /**
+   * In document order. `group` is the unit heading the tab sits under —
+   * consecutive tabs sharing one are collected beneath a single label.
+   * `label` is the rail's short form; the panel keeps its own full heading.
+   */
+  tabs: { id: string; group?: string; label: string }[];
+  /** Names the rail for a screen reader meeting it out of context. */
+  label?: string;
+}
+
+const { tabs, label = 'Activities on this page' } = Astro.props;
+
+type Group = { name?: string; tabs: Props['tabs'] };
+
+const groups = tabs.reduce<Group[]>((acc, tab) => {
+  const last = acc.at(-1);
+  if (last && last.name === tab.group) last.tabs.push(tab);
+  else acc.push({ name: tab.group, tabs: [tab] });
+  return acc;
+}, []);
+---
+
+<div class="tabs" data-activity-tabs>
+  <nav class="tabs__rail" aria-label={label} data-tabs-rail>
+    {
+      groups.map((group) => (
+        <div class="tabs__group">
+          {group.name && <p class="tabs__groupname">{group.name}</p>}
+          <ul class="tabs__list">
+            {group.tabs.map((tab) => (
+              <li>
+                <a class="tabs__tab" id={`tab-${tab.id}`} href={`#${tab.id}`} data-tab={tab.id}>
+                  {tab.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </nav>
+
+  <div class="tabs__panels">
+    {
+      tabs.map((tab) => (
+        <section
+          class="tabs__panel"
+          id={tab.id}
+          data-tab-panel={tab.id}
+          aria-labelledby={`tab-${tab.id}`}
+        >
+          <slot name={tab.id} />
+        </section>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .tabs {
+    display: grid;
+    gap: var(--s-5);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Two columns only once the rail can hold its labels without squeezing the
+     reading column below a comfortable measure. */
+  @media (min-width: 62rem) {
+    .tabs {
+      grid-template-columns: 15.5rem minmax(0, 1fr);
+      gap: var(--s-7);
+    }
+
+    .tabs__rail {
+      position: sticky;
+      /* Clears the site nav, whose height changes when its links wrap. The
+         script measures it; this is the no-JS fallback. */
+      top: var(--tabs-top, 5.5rem);
+      align-self: start;
+      max-height: calc(100vh - var(--tabs-top, 5.5rem) - var(--s-5));
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      border-right: 1px solid var(--border);
+      padding-right: var(--s-4);
+    }
+  }
+
+  /* Below that, the rail is a horizontal strip above the panels. It scrolls
+     sideways rather than wrapping, so it cannot grow tall enough to eat the
+     viewport it exists to navigate. */
+  @media (max-width: 61.999rem) {
+    .tabs__rail {
+      display: flex;
+      gap: var(--s-4);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      padding-bottom: var(--s-2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tabs__rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tabs__group {
+      flex: 0 0 auto;
+    }
+
+    .tabs__list {
+      display: flex;
+      gap: var(--s-1);
+    }
+
+    .tabs__tab {
+      white-space: nowrap;
+    }
+  }
+
+  .tabs__group + .tabs__group {
+    margin-top: var(--s-4);
+  }
+
+  .tabs__groupname {
+    margin: 0 0 var(--s-2);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .tabs__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tabs__tab {
+    display: block;
+    padding: var(--s-2) var(--s-3);
+    border-radius: var(--r-sm);
+    color: var(--text-muted);
+    font-size: var(--t-sm);
+    line-height: 1.35;
+    text-decoration: none;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .tabs__tab:hover {
+    color: var(--text);
+    background: var(--bg-sunken);
+  }
+
+  /* Set by the script; with JS off no tab is current and every panel shows. */
+  .tabs__tab[aria-selected='true'] {
+    color: var(--accent);
+    background: var(--accent-soft);
+    font-weight: 600;
+  }
+
+  .tabs__panel {
+    max-width: var(--measure);
+  }
+
+  /* The panel's own heading is the top of the column — it should not carry the
+     big top margin `.prose` gives an h3 that follows body copy. */
+  .tabs__panel > :global(:first-child) {
+    margin-top: 0;
+  }
+
+  /* Only reachable with JS off, where each panel is a section of a long page. */
+  .tabs__panel + .tabs__panel {
+    margin-top: var(--s-8);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tabs__tab {
+      transition: none;
+    }
+  }
+
+  /* Paper has no tabs. Print the whole page and drop the rail. */
+  @media print {
+    .tabs__rail {
+      display: none;
+    }
+
+    .tabs__panel[hidden] {
+      display: block !important;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Upgrades each rail-and-panels pair into a real tab set.
+   *
+   * The tabs stay anchors rather than becoming buttons: the href is what makes
+   * them work with JS off, and it survives as a right-click-copyable link to
+   * the activity. ARIA allows `role="tab"` on an anchor, so the only thing the
+   * roving tabindex has to manage is which one the Tab key lands on.
+   */
+  type Entry = { tab: HTMLAnchorElement; panel: HTMLElement };
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-activity-tabs]')) {
+    const rail = root.querySelector<HTMLElement>('[data-tabs-rail]');
+    if (!rail) continue;
+
+    const entries: Entry[] = [];
+    for (const tab of rail.querySelectorAll<HTMLAnchorElement>('[data-tab]')) {
+      const panel = root.querySelector<HTMLElement>(
+        `[data-tab-panel="${CSS.escape(tab.dataset.tab ?? '')}"]`,
+      );
+      if (panel) entries.push({ tab, panel });
+    }
+    if (entries.length < 2) continue;
+
+    rail.setAttribute('role', 'tablist');
+    rail.setAttribute('aria-orientation', 'vertical');
+    for (const { tab, panel } of entries) {
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-controls', panel.id);
+      panel.setAttribute('role', 'tabpanel');
+      // Focusable so a keyboard reader can scroll a panel that holds no
+      // focusable content of its own.
+      panel.setAttribute('tabindex', '0');
+    }
+
+    let active: Entry | null = null;
+
+    const select = (entry: Entry, { focus = false, hash = false } = {}) => {
+      if (entry === active) {
+        if (focus) entry.tab.focus();
+        return;
+      }
+      for (const e of entries) {
+        const on = e === entry;
+        e.tab.setAttribute('aria-selected', String(on));
+        // Roving tabindex: one stop for the whole set, arrows move within it.
+        e.tab.tabIndex = on ? 0 : -1;
+        e.panel.hidden = !on;
+      }
+      active = entry;
+      if (focus) entry.tab.focus();
+      // replaceState, not a hash assignment: the browser would jump the page to
+      // the panel top, and every tab press would be a back-button stop.
+      if (hash) history.replaceState(null, '', `#${entry.panel.id}`);
+    };
+
+    const fromHash = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      return entries.find((e) => e.panel.id === id) ?? null;
+    };
+
+    select(fromHash() ?? entries[0]);
+
+    rail.addEventListener('click', (event) => {
+      const tab = (event.target as HTMLElement).closest<HTMLAnchorElement>('[data-tab]');
+      const entry = tab && entries.find((e) => e.tab === tab);
+      if (!entry) return;
+      event.preventDefault();
+      select(entry, { hash: true });
+    });
+
+    rail.addEventListener('keydown', (event) => {
+      const index = entries.findIndex((e) => e.tab === document.activeElement);
+      if (index < 0) return;
+
+      const step = { ArrowUp: -1, ArrowLeft: -1, ArrowDown: 1, ArrowRight: 1 }[event.key];
+      let next: number | undefined;
+
+      if (step !== undefined) next = (index + step + entries.length) % entries.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = entries.length - 1;
+      if (next === undefined) return;
+
+      event.preventDefault();
+      select(entries[next], { focus: true, hash: true });
+    });
+
+    // A link elsewhere on the page pointing at an activity should open it.
+    addEventListener('hashchange', () => {
+      const entry = fromHash();
+      if (entry) select(entry);
+    });
+  }
+</script>

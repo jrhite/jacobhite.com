@@ -9,6 +9,7 @@ sourcePath: /module/module-2-ed-502
 ---
 
 import VideoEmbed from '../../components/VideoEmbed.astro';
+import ActivityTabs from '../../components/ActivityTabs.astro';
 
 ED 502 steps back from the classroom to look at the system around it: the laws,
 policies and norms that decide what teaching is allowed to be. Six pieces of
@@ -16,8 +17,21 @@ that module are collected here, in unit and activity order — disciplinary
 literacy, the laws and policies research presentation, digital citizenship,
 language development, promoting literacy, and the cohort's IDEA resource.
 
-### Unit 1, Activity 1: Disciplinary literacy in a computer science classroom
+export const TABS = [
+  { id: 'u1a1', group: 'Unit 1', label: 'Activity 1 — Disciplinary literacy' },
+  { id: 'u1a2', group: 'Unit 1', label: 'Activity 2 — Laws and policies' },
+  { id: 'u1a3', group: 'Unit 1', label: 'Activity 3 — Digital citizenship' },
+  { id: 'u2a1', group: 'Unit 2', label: 'Activity 1 — Language development' },
+  { id: 'u2a2', group: 'Unit 2', label: 'Activity 2 — Promoting literacy' },
+  { id: 'u3a2', group: 'Unit 3', label: 'Activity 2 — Assistive technologies' },
+  { id: 'references', label: 'References' },
+];
 
+<ActivityTabs tabs={TABS}>
+
+<Fragment slot="u1a1">
+
+### Unit 1, Activity 1: Disciplinary literacy in a computer science classroom
 Literacy in a CS classroom works best when it is treated as *disciplinary*
 literacy rather than generic reading strategies imported from English lessons.
 Shanahan and Shanahan's (2008) core argument is that experts in different fields
@@ -44,8 +58,11 @@ The vocabulary side of this lesson goes into the cohort's shared Literacy Guide.
 The guide has one home on this site rather than a copy of the link on every module
 it touches — it is on the [Literacy](/portfolio/literacy) page.
 
-### Unit 1, Activity 2: Laws and policies that affect teaching
+</Fragment>
 
+<Fragment slot="u1a2">
+
+### Unit 1, Activity 2: Laws and policies that affect teaching
 <VideoEmbed
   src="/media/licensed-to-teach-thailand.mp4"
   poster="/media/licensed-to-teach-thailand-poster.jpg"
@@ -84,8 +101,11 @@ staffing pattern in an international-track Thai classroom — who is permanent, 
 is renewed annually, who sets the curriculum — is not an accident of any one
 school. It is what this law produces.
 
-### Unit 1, Activity 3: Teaching digital citizenship
+</Fragment>
 
+<Fragment slot="u1a3">
+
+### Unit 1, Activity 3: Teaching digital citizenship
 #### Why teach digital citizenship?
 
 There are a number of reasons to teach digital citizenship: online safety, being
@@ -175,8 +195,11 @@ habits.
   explain every line they submit — if you cannot explain it, you do not get credit
   for it. And no personal information goes into an AI tool or a public forum.
 
-### Unit 2, Activity 1: Language development and literacy
+</Fragment>
 
+<Fragment slot="u2a1">
+
+### Unit 2, Activity 1: Language development and literacy
 #### What is language development?
 
 Language development is the process by which a person learns to understand,
@@ -226,8 +249,11 @@ instead of left to be absorbed; visual supports, graphic organizers and multimed
 where they carry meaning; and assignments that give more than one way to
 demonstrate the same learning.
 
-### Unit 2, Activity 2: Promoting literacy — language development
+</Fragment>
 
+<Fragment slot="u2a2">
+
+### Unit 2, Activity 2: Promoting literacy — language development
 A twelve-slide presentation arguing that literacy instruction belongs in every
 grade and every classroom — secondary computer science included — and proposing a
 plan of action a school could actually adopt.
@@ -332,8 +358,11 @@ The goal is one sentence: every student reads, writes and discusses
 discipline-specific texts every week, in every course, with measurable growth for
 the students flagged in Phase 1.
 
-### Unit 3, Activity 2: Assistive technologies for intervention
+</Fragment>
 
+<Fragment slot="u3a2">
+
+### Unit 3, Activity 2: Assistive technologies for intervention
 Working as a cohort in the live virtual classroom, we built a shared resource of
 assistive technologies and accommodations for struggling students across each of
 the fourteen IDEA disability categories, citing every source we drew on.
@@ -344,8 +373,11 @@ the fourteen IDEA disability categories, citing every source we drew on.
 
 [IDEA Categories →](https://docs.google.com/document/d/1qmv962BoWiY6Lyqpsi3n9SSJL6x-xQ0EsqLTZs4ovrw/edit)
 
-### References
+</Fragment>
 
+<Fragment slot="references">
+
+### References
 - Boryga, A. (2022). [How to work literacy instruction into all content areas](https://www.edutopia.org/article/how-to-work-literacy-instruction-into-all-content-areas/). Edutopia.
 - Duff, D., & Tomblin, J. B. (2018, October). [Literacy as an outcome of language development and its impact on children's psychosocial and emotional development](https://www.child-encyclopedia.com/language-development-and-literacy/according-experts/literacy-outcome-language-development-and-its). In _Encyclopedia on early childhood development_.
 - Foorman, B., Beyler, N., Borradaile, K., Coyne, M., Denton, C. A., Dimino, J.,
@@ -383,3 +415,7 @@ the fourteen IDEA disability categories, citing every source we drew on.
 
 Full source citations for the presentation, including the news reporting behind
 the waitlist and enforcement figures, appear on the slides themselves.
+
+</Fragment>
+
+</ActivityTabs>
