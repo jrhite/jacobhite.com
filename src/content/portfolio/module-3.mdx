@@ -90,13 +90,67 @@ established and builds new vocabulary on top of it (American Speech-Language-Hea
 Association, as cited in Reading Rockets, n.d.-a). A newcomer's silence, then, is
 expected processing, not disengagement.
 
-The Input Hypothesis has clear classroom implications. Scaffolding with visuals and
-simplified language supports faster progress than pushing early production too soon.
-Sentence frames rather than constant correction help build confidence, illustrating
-the affective filter in action. For students who seem socially fluent but struggle
-academically, reducing anxiety around production matters as much as the input
-itself. Krashen's theory ultimately frames language growth as dependent on
-comprehensible, low-stress input, not just grammar drills.
+#### What this looks like in a computer science classroom
+
+The theory says pitch the input just past the learner and keep the anxiety down.
+In a grades 9-12 programming room, that turns into five concrete moves.
+
+- **Make the input recoverable from something other than the prose.** Documentation
+  and error messages are the texts my students read most, and both are dense. Every
+  doc paragraph I assign is paired with a runnable snippet, so meaning can be
+  recovered by running the code and changing a value when the sentence alone does
+  not land. The example carries the comprehensible part.
+- **Let a silent student show understanding without speaking.** During the silent
+  period a newcomer can trace a loop on paper, predict a program's output before we
+  run it, or reassemble a Parsons problem from scrambled lines. All three make the
+  thinking visible and gradeable while production is still emerging, which means I
+  am not mistaking silence for not knowing.
+- **Give the language, not just the task.** Sentence frames for code review carry
+  the register: "I expected ___ but I saw ___", "this function returns ___
+  because ___". The student contributes the reasoning; the frame supplies the
+  syntax, which is the affective filter in action rather than in theory.
+- **Pre-teach the words that block comprehension.** Direction verbs in every
+  prompt (create, return, iterate, review) and the pairs students confuse
+  (variable and value, argument and parameter) go up before the task, and cognates
+  get pointed at directly, since *function* and *función* or *variable* and
+  *variable* are free vocabulary for a Spanish-speaking student.
+- **Let the home language do the planning.** Pairs may design and argue in whichever
+  language they think fastest in; the artifact that ships, the README and the commit
+  message, is in English. The cognitive work is not gated on the second language,
+  but the written product still builds it.
+
+#### Where the theory runs out
+
+Comprehensible input is a good account of why a scaffolded classroom works, and a
+poor guide to what to do on Tuesday.
+
+The central objection is that *i+1* cannot be operationally defined. There is no
+way to measure a student's current level precisely enough to pitch input one step
+beyond it, which also makes the claim difficult to falsify (Gregg, 1984). As a
+teacher I get no decision procedure from it: it tells me to scaffold, not which
+scaffold.
+
+It also underweights output. Swain (1985) argued that producing language forces
+syntactic processing that comprehension alone never demands, and computer science
+makes that gap unusually visible. A student can trace code they cannot yet write,
+and follow a design discussion they cannot yet join. Waiting for production to
+emerge on its own leaves that unaddressed, which is why the moves above ask for
+output early and support it, rather than deferring it.
+
+The affective-filter argument can also be pushed too far. Read strictly, it
+discourages correction, but the meta-analytic evidence favours explicit,
+form-focused instruction over purely implicit exposure (Norris & Ortega, 2000). Low
+anxiety is a condition for learning, not a substitute for teaching. And
+conversational fluency arrives years ahead of academic language (Cummins, 2008): a
+student who chats easily will still not absorb *parameter*, *idempotent* or *race
+condition* from context, because a CS classroom's register is technical and rare.
+Those have to be taught outright.
+
+The risk that matters most is clinical. Treating a long silence as expected
+processing is right most of the time, and wrong in the case where it is masking a
+language disorder or a learning difference. That is the judgement call the
+[referral flowchart in Module 2](/portfolio/module-2#u3a1) exists to make, and
+Krashen's framework gives no way to tell the two apart.
 
 </Fragment>
 
@@ -127,14 +181,18 @@ module currently in session.
   Reading Universe; Colorín Colorado.
 - ClickView Education. (n.d.). [10 evidence-based instructional strategies](https://www.clickvieweducation.com/blog/teaching-strategies/evidence-based-instructional-strategies).
 - Cloud, N. (n.d.). _Using the native language as a resource_ [Video]. Colorín Colorado.
+- Cummins, J. (2008). [BICS and CALP: Empirical and theoretical status of the distinction](https://link.springer.com/rwe/10.1007/978-0-387-30424-3_36). In B. Street & N. H. Hornberger (Eds.), _Encyclopedia of language and education_ (2nd ed., Vol. 2, pp. 71–83). Springer.
 - D'Souza, F. P., & Padmanabha, C. H. (2024). [Krashen's second language acquisition, a theory or hypothesis: An analytical study](https://eric.ed.gov/?id=EJ1440740). _Journal on English Language Teaching, 14_(3), 43–48.
 - Genesee, F. (2012). [The home language: An English language learner's most valuable resource](https://www.colorincolorado.org/article/home-language-english-language-learners-most-valuable-resource). Colorín Colorado.
+- Gregg, K. R. (1984). [Krashen's monitor and Occam's razor](https://doi.org/10.1093/applin/5.2.79). _Applied Linguistics, 5_(2), 79–100.
 - Lee, L. (2019, August 8). [Simple ways to integrate four evidence-based teaching strategies](https://www.edutopia.org/article/simple-ways-integrate-four-evidence-based-teaching-strategies/). Edutopia.
 - National Clearinghouse on Autism Evidence and Practice. (2020). [Evidence-based practices](https://autismpdc.fpg.unc.edu/ebps). Frank Porter Graham Child Development Institute, University of North Carolina at Chapel Hill.
+- Norris, J. M., & Ortega, L. (2000). [Effectiveness of L2 instruction: A research synthesis and quantitative meta-analysis](https://doi.org/10.1111/0023-8333.00136). _Language Learning, 50_(3), 417–528.
 - Reading Rockets. (n.d.-a). [Second language acquisition](https://www.readingrockets.org/topics/english-language-learners/articles/second-language-acquisition).
 - Reading Rockets. (n.d.-b). [What is evidence-based instruction?](https://www.readingrockets.org/classroom/evidence-based-instruction/what-is-evidence-based-instruction)
 - Regional Educational Laboratory Southeast. (2025, January). [Evidence-based teaching practices](https://ies.ed.gov/rel-southeast/2025/01/infographic-21) [Infographic]. Institute of Education Sciences, U.S. Department of Education.
 - Robertson, K., & Ford, K. (n.d.). [Language acquisition: An overview](https://www.colorincolorado.org/article/language-acquisition-overview). Colorín Colorado.
+- Swain, M. (1985). Communicative competence: Some roles of comprehensible input and comprehensible output in its development. In S. Gass & C. Madden (Eds.), _Input in second language acquisition_ (pp. 235–253). Newbury House.
 - TeachHub. (2021, July). [What is evidence-based instruction?](https://www.teachhub.com/teaching-strategies/2021/07/what-is-evidence-based-instruction/)
 
 </Fragment>
