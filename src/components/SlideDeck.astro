@@ -130,13 +130,28 @@ const { slides, label } = Astro.props;
 
   .slide {
     padding: clamp(1.1rem, 4vw, 2rem);
-    /* Holds the deck's height steady across slides of different lengths, so the
-       Next button does not walk up and down the page as you step through. */
-    min-height: 22rem;
+  }
+
+  /* With JS the slides share one grid cell, so the stage is always as tall as
+     the longest slide and the Next button stays put as you step through. They
+     cannot be `hidden` for that — display:none would drop them out of the grid
+     and the height would collapse back to whichever slide is showing — so the
+     inactive ones are made invisible and inert instead, which also takes them
+     out of the tab order and off the accessibility tree. */
+  .deck[data-enhanced] .deck__stage {
+    display: grid;
+  }
+
+  .deck[data-enhanced] .slide {
+    grid-area: 1 / 1;
+  }
+
+  .deck[data-enhanced] .slide[data-off] {
+    visibility: hidden;
   }
 
   /* Only reachable with JS off, where the slides stack into a list. */
-  .slide + .slide {
+  .deck:not([data-enhanced]) .slide + .slide {
     border-top: 1px solid var(--border);
   }
 
@@ -275,13 +290,18 @@ const { slides, label } = Astro.props;
     cursor: default;
   }
 
+  /* Paper gets every slide, one after another, not six stacked in one cell. */
   @media print {
     .deck__nav {
       display: none;
     }
 
-    .slide[hidden] {
-      display: block !important;
+    .deck[data-enhanced] .deck__stage {
+      display: block;
+    }
+
+    .deck[data-enhanced] .slide[data-off] {
+      visibility: visible;
     }
   }
 </style>
@@ -296,11 +316,17 @@ const { slides, label } = Astro.props;
     if (slides.length < 2 || !nav || !count || !prev || !next) continue;
 
     nav.hidden = false;
+    deck.dataset.enhanced = '';
     let at = 0;
 
     const show = (i: number) => {
       at = Math.max(0, Math.min(slides.length - 1, i));
-      slides.forEach((s, n) => (s.hidden = n !== at));
+      slides.forEach((s, n) => {
+        const off = n !== at;
+        s.toggleAttribute('data-off', off);
+        s.inert = off;
+        s.setAttribute('aria-hidden', String(off));
+      });
       count.textContent = `${at + 1} / ${slides.length}`;
       prev.disabled = at === 0;
       next.disabled = at === slides.length - 1;
