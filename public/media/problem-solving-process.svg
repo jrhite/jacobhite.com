@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img">
+<rect width="1440" height="1000" fill="#f7f9fc"/>
+<rect width="1440" height="168" fill="#0c1523"/>
+<text x="54" y="90" font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700" fill="#f7f9fc">Stuck? Six Moves.</text>
+<text x="54" y="130" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#a9b5c3">What to do when a new digital tool does not do what you expected.</text>
+<text x="1386" y="78" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#8dbcf2" text-anchor="end" letter-spacing="1.6">SECONDARY COMPUTER SCIENCE · GRADES 9–12</text>
+<text x="1386" y="108" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#7d8b9c" text-anchor="end">Mr. Hite · jacobhite.com</text>
+<rect x="54" y="206" width="58" height="5" rx="2.5" fill="#1c68be"/>
+<text x="54" y="242" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#1c68be" letter-spacing="1.6">UNDERSTAND IT</text>
+<rect x="520" y="206" width="58" height="5" rx="2.5" fill="#17804f"/>
+<text x="520" y="242" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#17804f" letter-spacing="1.6">NARROW IT DOWN</text>
+<rect x="986" y="206" width="58" height="5" rx="2.5" fill="#c9402c"/>
+<text x="986" y="242" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#c9402c" letter-spacing="1.6">ASK AND RECORD</text>
+<rect x="54" y="262" width="400" height="262" rx="16" fill="#ffffff" stroke="#d3dbe4" stroke-width="1.5"/>
+<circle cx="108" cy="316" r="27" fill="#1c68be"/>
+<text x="108" y="326" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="150" y="326" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="700" fill="#0c1523">Say what broke</text>
+<text x="84" y="378" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">Write one sentence: what you expected,</text>
+<text x="84" y="406" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">and what happened instead. Screenshot</text>
+<text x="84" y="434" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">the screen and copy the error text</text>
+<text x="84" y="462" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">exactly. If you cannot write that sentence,</text>
+<text x="84" y="490" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">that is the first problem to solve.</text>
+<rect x="54" y="558" width="400" height="262" rx="16" fill="#ffffff" stroke="#d3dbe4" stroke-width="1.5"/>
+<circle cx="108" cy="612" r="27" fill="#1c68be"/>
+<text x="108" y="622" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+<text x="150" y="622" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="700" fill="#0c1523">Read all of it</text>
+<text x="84" y="674" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">Read the error message down to its last</text>
+<text x="84" y="702" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">line, then open the tool’s own</text>
+<text x="84" y="730" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">documentation. The answer is in there</text>
+<text x="84" y="758" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">more often than it is anywhere else on</text>
+<text x="84" y="786" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">the internet.</text>
+<rect x="520" y="262" width="400" height="262" rx="16" fill="#ffffff" stroke="#d3dbe4" stroke-width="1.5"/>
+<circle cx="574" cy="316" r="27" fill="#17804f"/>
+<text x="574" y="326" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<text x="616" y="326" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="700" fill="#0c1523">Change one thing</text>
+<text x="550" y="378" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">One change, then test. Two at once and</text>
+<text x="550" y="406" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">you no longer know which one mattered.</text>
+<text x="550" y="434" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">Undo whatever did not help before you</text>
+<text x="550" y="462" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">try the next idea.</text>
+<rect x="520" y="558" width="400" height="262" rx="16" fill="#ffffff" stroke="#d3dbe4" stroke-width="1.5"/>
+<circle cx="574" cy="612" r="27" fill="#17804f"/>
+<text x="574" y="622" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+<text x="616" y="622" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="700" fill="#0c1523">Search the error</text>
+<text x="550" y="674" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">Search the exact error text plus the tool’s</text>
+<text x="550" y="702" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">name. Check the date on the answer and</text>
+<text x="550" y="730" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">the version it was written for. Old fixes</text>
+<text x="550" y="758" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">break new tools.</text>
+<rect x="986" y="262" width="400" height="262" rx="16" fill="#ffffff" stroke="#d3dbe4" stroke-width="1.5"/>
+<circle cx="1040" cy="316" r="27" fill="#c9402c"/>
+<text x="1040" y="326" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+<text x="1082" y="326" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="700" fill="#0c1523">Ask a real question</text>
+<text x="1016" y="378" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">Bring your Step 1 sentence, what you</text>
+<text x="1016" y="406" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">tried, and what happened. Ask a partner,</text>
+<text x="1016" y="434" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">then the class, then me. Never paste</text>
+<text x="1016" y="462" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">passwords, keys, or personal information</text>
+<text x="1016" y="490" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">into an unvetted tool.</text>
+<rect x="986" y="558" width="400" height="262" rx="16" fill="#ffffff" stroke="#d3dbe4" stroke-width="1.5"/>
+<circle cx="1040" cy="612" r="27" fill="#c9402c"/>
+<text x="1040" y="622" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+<text x="1082" y="622" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="700" fill="#0c1523">Log the fix</text>
+<text x="1016" y="674" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">Add it to the class troubleshooting log:</text>
+<text x="1016" y="702" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">symptom, cause, fix. The next person</text>
+<text x="1016" y="730" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18.5" font-weight="400" fill="#384657">stuck on this is usually going to be you.</text>
+<path d="M 476 523 L 496 541 L 476 559" fill="none" stroke="#17804f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 942 523 L 962 541 L 942 559" fill="none" stroke="#c9402c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="54" y="862" width="1332" height="88" rx="16" fill="#e7f0fd" stroke="#c4dcfa" stroke-width="1.5"/>
+<text x="82" y="900" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#14508f">Still stuck after 20 minutes? Go back to Step 3 with a smaller case, then bring your Step 1 sentence to a person.</text>
+<text x="82" y="930" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#384657">Being stuck is data. Hiding it is the only real failure. Every fix you log makes the next person faster, and the next person is usually you.</text>
+<text x="54" y="978" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="400" fill="#7d8b9c">Adapted from the four stages of problem solving in Pólya (1945) and ISTE Standards for Students 1.1.d.</text>
+</svg>

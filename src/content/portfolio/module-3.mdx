@@ -17,6 +17,7 @@ export const TABS = [
   { id: 'u1a3', group: 'Unit 1 · Understanding the Learner', label: 'Activity 3: Multisensory practices within phonology' },
   { id: 'u2a1', group: 'Unit 2 · Learning in a Digital Age', label: 'Activity 1: Language acquisition and literacy' },
   { id: 'u2a2', group: 'Unit 2 · Learning in a Digital Age', label: 'Activity 2: Understanding multilingual learners' },
+  { id: 'u3a1', group: 'Unit 3 · Technology in Education', label: 'Activity 1: Technology use in education' },
   { id: 'references', label: 'References' },
 ];
 
@@ -123,7 +124,7 @@ It underweights output. Producing language forces syntactic processing that
 comprehension never demands (Swain, 1985), and a student can trace code they cannot
 write. Waiting for production to emerge leaves that gap unaddressed.
 
-Read strictly, the affective filter discourages correction, but the evidence favours
+Read strictly, the affective filter discourages correction, but the evidence favors
 explicit, form-focused instruction (Norris & Ortega, 2000). And conversational
 fluency arrives years ahead of academic language (Cummins, 2008), so *parameter* and
 *race condition* will not be absorbed from context.
@@ -153,6 +154,211 @@ module currently in session.
 
 </Fragment>
 
+<Fragment slot="u3a1">
+
+### Unit 3, Activity 1: Technology use in education
+
+The tool I want to take further is generative AI, and specifically the coding
+assistants my students already have open in another tab. I teach secondary
+computer science, grades 9 through 12, so roughly ages fourteen to eighteen, and
+this is not a hypothetical technology in that room. It is the one already in it.
+
+Most classroom technology helps you learn to do something. A simulation, a video,
+an IDE: each of them still leaves the doing to you. Generative AI is the first
+tool most of my students have met that will also just do the thing, and often do
+it better than they can. That is what makes its benefits and its challenges so
+hard to pull apart, because they are the same property seen from two sides.
+
+#### The question underneath: where does the line go?
+
+I do not know how an internal combustion engine works. I drive perfectly well
+anyway. Learning the thermodynamics would be a hobby, not a competence I need,
+and nobody thinks less of me for that. Abstraction is not a failure of education,
+it is what makes any of this possible, and my own field is built on the same
+move: I write TypeScript without reading the compiler, open a socket without
+implementing TCP, and allocate memory without writing the collector. Every one of
+those is an engine I never open.
+
+So when a student asks why they should learn to write the loop when the model
+writes it faster and cleaner, they are not being lazy. They are making the
+abstraction argument, and it is a good argument. The question is not whether to
+draw a line, because everyone draws one. The question is where, and on what
+basis.
+
+Two things settle it for me. The first is that the abstraction leaks. Spolsky's
+(2002) law of leaky abstractions holds that every non-trivial abstraction leaks:
+it works until it does not, and when it fails you need to know what was
+underneath. Driving is an unusually clean case, because the engine's interface is
+stable and someone else, a mechanic, is accountable when it is not. Generated
+code leaks constantly and confidently. It compiles, it reads well, and it has an
+off-by-one in it.
+
+The second is Bainbridge's (1983) ironies of automation, written about aircraft
+cockpits forty years ago and describing my classroom exactly. Automating the
+routine parts of a job leaves the human only the hard parts, the ones that need
+the most skill, while removing the everyday practice that built that skill. The
+operator ends up responsible for catching failures in a system they are no longer
+fluent enough to monitor.
+
+Put those together and the line stops being a matter of taste. **You may abstract
+away what you are not accountable for verifying.** I am not accountable for my
+engine, so I am allowed to drive in ignorance. My students are accountable for
+the code they ship, so they may use the model, and they have to be able to read
+what it hands back, say what it does, and say what happens if it is wrong. That
+is a far lower bar than writing it unaided. It is nowhere near zero.
+
+#### Benefits
+
+A model is a tutor with infinite patience and no schedule, which is the closest
+anyone has come to offering Bloom's (1984) two sigma problem a practical answer:
+the gap between a student in a class of thirty and the same student with a
+one-to-one tutor. It will explain the same pointer diagram nine times at eleven
+at night without sighing. For a multilingual learner it sits on top of an error
+message, which is the most hostile text in my subject, and makes that input
+comprehensible on demand, which is the Krashen argument from Unit 2 of this
+module arriving as a product feature. It lowers the floor for a first working
+program, and a first working program is where motivation comes from. On my side
+of the desk it drafts three differentiated versions of a problem set in the time
+I used to spend on one.
+
+#### Challenges
+
+The evidence is not that AI is bad for learners. It is that AI is best for the
+learners who need it least. Prather et al. (2024) watched novices work with
+generative AI and found the gap between strong and struggling students widening
+rather than closing: students who could already evaluate the output got faster,
+and students who could not were led further astray by fluent code they had no way
+to judge. Fan et al. (2025) name the mechanism metacognitive laziness, the
+offloading of the monitoring and regulating work to the model, which feels like
+learning and is not. Lee et al. (2025) found the same shape in adults at work,
+where higher confidence in the tool predicted less critical thinking and higher
+confidence in one's own expertise predicted more.
+
+Three further costs I take seriously. **Assessment:** the take-home programming
+assignment is finished as a measure of individual capability, and pretending
+otherwise is my failure, not the students'. **Equity:** the paid tiers are
+meaningfully better than the free ones, so a classroom that quietly assumes AI
+imports an income gradient. **Privacy:** this is the one with law attached to it,
+and it gets its own section below.
+
+#### Co-learning: how my class finds and vets a new tool
+
+The International Society for Technology in Education (ISTE, n.d.-a) puts this in the educator standards as 2.4.b, collaborating and
+co-learning with students to discover and use new digital resources and to
+troubleshoot technology issues, which is the standard I am working to here rather
+than a habit I invented. Four methods:
+
+- **A student-led tool review, on rotation.** Every two weeks a pair takes one
+  candidate tool and gives the class a five-minute verdict against a rubric the
+  class wrote: what does it do that we cannot already do, what data does it want,
+  who owns what we put into it, what does it cost once the trial ends, and what
+  breaks if it disappears next term. The class keeps the resulting list. I do not.
+- **I evaluate live, and badly.** A tool I have never used goes on the projector
+  and I fail at it in front of them, narrating. The point is to model not-knowing
+  as a normal professional state rather than a thing teachers hide.
+- **A standing invitation.** If a student found something, they bring it to the
+  review and defend it. In practice this is where most of what we adopt comes
+  from, because they are downstream of far more software than I am.
+- **Whoever reviews it, writes it up.** Each adopted tool gets a paragraph in the
+  class handbook under the reviewer's name, which makes the list an artifact the
+  class owns rather than a handout from me.
+
+#### Investigating safely: student safety and privacy
+
+Investigation is the part that needs guardrails, because a new tool is an unknown
+counterparty. What I do, in order:
+
+- **Sandbox first.** A new tool meets a throwaway project in a class account
+  before it touches graded work or anything personal.
+- **The public-only rule.** Nothing goes into an unvetted tool that is not
+  already public. No names, no student IDs, no photographs, no addresses, no
+  credentials, and nobody else's work. We practice on a fake dataset I maintain
+  for the purpose, so the habit is built before the stakes are real.
+- **Three questions of the terms of service,** read together on the projector the
+  first few times: what do they collect, do they train on it, and can I get it
+  deleted. The Privacy Technical Assistance Center (2014) guidance is written for
+  exactly this reading, and reading a privacy policy is a disciplinary literacy
+  skill, which is the [Module 2](/portfolio/module-2#u1a1) argument again.
+- **Account hygiene.** School account only, never a personal email, never signing
+  in through a personal Google account, and I never ask a student to create an
+  account somewhere I would not want their name printed.
+- **The legal floor, taught rather than assumed.** FERPA governs their education
+  records and the protection follows the data to the vendor (Family Educational
+  Rights and Privacy Act, 1974). COPPA governs users under 13, which is not my
+  roster but is very much the audience for the apps my students build
+  (Children's Online Privacy Protection Act, 1998). The tools have age gates of
+  their own too: several assistants require 18, or 13 with parental consent, and
+  a class where I quietly overlook that has taught something I did not intend.
+- **Five minutes as the malicious user.** On every tool we adopt: where does this
+  leak, who else can see this link, what happens if I put someone else's name in.
+
+#### When it breaks: engaging students in problem solving
+
+New tools break, and the moment they break is the lesson. My students get one
+protocol, and it is deliberately the same one whether the thing that broke is a
+compiler, an API, or a tool the class adopted last week. It is Pólya's (1945)
+four stages fitted to a toolchain, and ISTE (n.d.-b) makes troubleshooting a
+student standard rather than the teacher's job: standard 1.1.d asks students to
+choose, use and troubleshoot current technologies and to transfer that knowledge
+to technologies nobody has taught them.
+
+![A six-step infographic titled "Stuck? Six Moves." for secondary computer science, grades 9 to 12. Three phases: Understand it, covering step 1, say what broke, and step 2, read all of it; Narrow it down, covering step 3, change one thing, and step 4, search the error; Ask and record, covering step 5, ask a real question, which forbids pasting passwords, keys, or personal information into an unvetted tool, and step 6, log the fix in the class troubleshooting log. A footer reads: still stuck after 20 minutes, go back to step 3 with a smaller case, then bring your step 1 sentence to a person.](/media/problem-solving-process.png)
+
+[Download the original file (.svg, 10 KB) →](/media/problem-solving-process.svg)
+
+Around the poster sit four classroom routines.
+
+- **The stuck note is the price of asking.** Before a student asks anyone,
+  including me, they write down what they expected, what happened, and what they
+  have already tried. Writing that note solves the problem outright often enough
+  to be worth the friction, which is rubber duck debugging under a different name
+  (Hunt & Thomas, 1999).
+- **Ask a partner, then the class, then me,** and no more than twenty minutes
+  alone before the first of those. Being stuck is normal. Being stuck in silence
+  for a period is a routine failure, not a character one.
+- **A class troubleshooting log,** symptom, cause and fix, that everyone can
+  write to. It turns a solved problem into a shared artifact and gives step 6 a
+  reason to exist.
+- **I grade the process, not just the fix.** The stuck note and the log entry are
+  assessed. A student who documented a failure they never solved has done the
+  work I actually care about.
+
+The one thing I do not do is take the keyboard and fix it at the board. That
+resolves the problem and teaches that the teacher is the debugger.
+
+#### Reflection: would I use this in my classroom?
+
+Yes, and I already do, under four conditions.
+
+1. **AI is allowed and disclosed, never hidden.** Disclosure is a line in the
+   commit message: what I asked for, and what I changed afterward. Hidden use is
+   the thing I am against, not use.
+2. **Assessment moves to what the model cannot do for you.** Explaining generated
+   code line by line out loud, writing tests that challenge the requirement
+   rather than confirm the implementation, and defending the design in
+   conversation.
+3. **There are deliberately unassisted stretches.** Not because assistance is
+   cheating, but because the fluency you need to supervise the model is built by
+   working without it, which is the Bainbridge point turned into a schedule.
+4. **The privacy floor is not negotiable,** and neither is the guidance around
+   all of this. Kirschner et al. (2006) is my reason for not simply turning
+   students loose with a powerful tool and trusting discovery to do the rest.
+
+That is where I draw my own line, and I say so to the class rather than pretend
+the rule came down from somewhere. I do not read the compiler. I do read every
+line the model writes for me, because when it is wrong at two in the morning, it
+is my name on it. The U.S. Department of Education's (2023) framing is the one I
+keep returning to: keep humans in the loop, and design the classroom so that
+staying in the loop is the easy path.
+
+And the honest answer to my own question, where each person draws the line, is
+that it moves. It moves with what you are responsible for. A student writing a
+toy program can afford an ignorance I cannot afford shipping a login form.
+Teaching that the line moves, and teaching students to notice when it has moved
+under them, is worth more than any fixed policy I could hand out.
+
+</Fragment>
+
 <Fragment slot="references">
 
 ### References
@@ -161,22 +367,37 @@ Entries cited in the text above, plus the sources cited in the three recordings.
 
 <div class="references">
 
+- Bainbridge, L. (1983). Ironies of automation. _Automatica, 19_(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8
+- Bloom, B. S. (1984). The 2 sigma problem: The search for methods of group instruction as effective as one-to-one tutoring. _Educational Researcher, 13_(6), 4–16. https://doi.org/10.3102/0013189X013006004
 - Cárdenas-Hagan, E. (n.d.). _Teaching English learners: The stages of second language acquisition_ [Video]. Reading Universe. https://www.youtube.com/watch?v=wX80JthFvGM
+- Children's Online Privacy Protection Act, 15 U.S.C. §§ 6501–6506 (1998). https://www.law.cornell.edu/uscode/text/15/chapter-91
 - ClickView Education. (n.d.). _10 evidence-based instructional strategies._ https://www.clickvieweducation.com/blog/teaching-strategies/evidence-based-instructional-strategies
 - Cloud, N. (n.d.). _Using the native language as a resource_ [Video]. Colorín Colorado. https://www.colorincolorado.org/video/using-native-language-resourse
 - Cummins, J. (2008). BICS and CALP: Empirical and theoretical status of the distinction. In B. Street & N. H. Hornberger (Eds.), _Encyclopedia of language and education_ (2nd ed., Vol. 2, pp. 71–83). Springer. https://doi.org/10.1007/978-0-387-30424-3_36
 - D'Souza, F. P., & Padmanabha, C. H. (2024). Krashen's second language acquisition, a theory or hypothesis: An analytical study. _Journal on English Language Teaching, 14_(3), 43–48. https://eric.ed.gov/?id=EJ1440740
+- Family Educational Rights and Privacy Act, 20 U.S.C. § 1232g (1974). https://www.law.cornell.edu/uscode/text/20/1232g
+- Fan, Y., Tang, L., Le, H., Shen, K., Tan, S., Zhao, Y., Shen, Y., Li, X., & Gašević, D. (2025). Beware of metacognitive laziness: Effects of generative artificial intelligence on learning motivation, processes, and performance. _British Journal of Educational Technology, 56_(2), 489–530. https://doi.org/10.1111/bjet.13544
 - Genesee, F. (2012). _The home language: An English language learner's most valuable resource._ Colorín Colorado. https://www.colorincolorado.org/article/home-language-english-language-learners-most-valuable-resource
 - Gregg, K. R. (1984). Krashen's monitor and Occam's razor. _Applied Linguistics, 5_(2), 79–100. https://doi.org/10.1093/applin/5.2.79
+- Hunt, A., & Thomas, D. (1999). _The pragmatic programmer: From journeyman to master._ Addison-Wesley.
+- International Society for Technology in Education. (n.d.-a). _ISTE standards: For educators._ https://iste.org/standards/educators
+- International Society for Technology in Education. (n.d.-b). _ISTE standards: For students._ https://iste.org/standards/students
+- Kirschner, P. A., Sweller, J., & Clark, R. E. (2006). Why minimal guidance during instruction does not work: An analysis of the failure of constructivist, discovery, problem-based, experiential, and inquiry-based teaching. _Educational Psychologist, 41_(2), 75–86. https://doi.org/10.1207/s15326985ep4102_1
+- Lee, H.-P., Sarkar, A., Tankelevitch, L., Drosos, I., Rintel, S., Banks, R., & Wilson, N. (2025). The impact of generative AI on critical thinking: Self-reported reductions in cognitive effort and confidence effects from a survey of knowledge workers. In _Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems_ (Article 1121, pp. 1–22). Association for Computing Machinery. https://doi.org/10.1145/3706598.3713778
 - Lee, L. (2019, August 8). _Simple ways to integrate four evidence-based teaching strategies._ Edutopia. https://www.edutopia.org/article/simple-ways-integrate-four-evidence-based-teaching-strategies/
 - National Clearinghouse on Autism Evidence and Practice. (2020). _Evidence-based practices._ Frank Porter Graham Child Development Institute, University of North Carolina at Chapel Hill. https://autismpdc.fpg.unc.edu/ebps
 - Norris, J. M., & Ortega, L. (2000). Effectiveness of L2 instruction: A research synthesis and quantitative meta-analysis. _Language Learning, 50_(3), 417–528. https://doi.org/10.1111/0023-8333.00136
+- Pólya, G. (1945). _How to solve it: A new aspect of mathematical method._ Princeton University Press.
+- Prather, J., Reeves, B. N., Leinonen, J., MacNeil, S., Randrianasolo, A. S., Becker, B. A., Kimmel, B., Wright, J., & Briggs, B. (2024). The widening gap: The benefits and harms of generative AI for novice programmers. In _Proceedings of the 2024 ACM Conference on International Computing Education Research_ (Vol. 1, pp. 469–486). Association for Computing Machinery. https://doi.org/10.1145/3632620.3671116
+- Privacy Technical Assistance Center. (2014, February). _Protecting student privacy while using online educational services: Requirements and best practices._ U.S. Department of Education. https://studentprivacy.ed.gov/sites/default/files/resource_document/file/Student%20Privacy%20and%20Online%20Educational%20Services%20(February%202014)_0.pdf
 - Reading Rockets. (n.d.-a). _Second language acquisition._ https://www.readingrockets.org/topics/english-language-learners/articles/second-language-acquisition
 - Reading Rockets. (n.d.-b). _What is evidence-based instruction?_ https://www.readingrockets.org/classroom/evidence-based-instruction/what-is-evidence-based-instruction
 - Regional Educational Laboratory Southeast. (2025, January). _Evidence-based teaching practices_ [Infographic]. Institute of Education Sciences, U.S. Department of Education. https://ies.ed.gov/rel-southeast/2025/01/infographic-21
 - Robertson, K., & Ford, K. (n.d.). _Language acquisition: An overview._ Colorín Colorado. https://www.colorincolorado.org/article/language-acquisition-overview
+- Spolsky, J. (2002, November 11). _The law of leaky abstractions._ Joel on Software. https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/
 - Swain, M. (1985). Communicative competence: Some roles of comprehensible input and comprehensible output in its development. In S. Gass & C. Madden (Eds.), _Input in second language acquisition_ (pp. 235–253). Newbury House.
 - TeachHub. (2021, July). _What is evidence-based instruction?_ https://www.teachhub.com/teaching-strategies/2021/07/what-is-evidence-based-instruction/
+- U.S. Department of Education, Office of Educational Technology. (2023). _Artificial intelligence and the future of teaching and learning: Insights and recommendations._ https://www.ed.gov/sites/ed/files/documents/ai-report/ai-report.pdf
 
 </div>
 
