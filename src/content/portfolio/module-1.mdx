@@ -8,8 +8,19 @@ status: complete
 sourcePath: /module/module-1-ed-501
 ---
 
-### Activity 1: Program orientation
+import ActivityTabs from '../../components/ActivityTabs.astro';
 
+export const TABS = [
+  { id: 'a1', label: 'Activity 1 — Program orientation' },
+  { id: 'a2', label: 'Activity 2 — Build the e-portfolio' },
+  { id: 'a3', label: 'Activity 3 — Cohort Literacy Guide' },
+];
+
+<ActivityTabs tabs={TABS}>
+
+<Fragment slot="a1">
+
+### Activity 1: Program orientation
 The ED Puzzle was a great introduction to the Moreland teaching platform, including
 its goals and pointers to some of the most important elements of the TEACH-NOW
 website including:
@@ -26,16 +37,26 @@ that every K–12 student reaches the goal of being ready to enter college or th
 workforce in today's world. They get their own page here — see
 [InTASC Standards](/portfolio/intasc-standards).
 
-### Activity 2: Build the e-portfolio
+</Fragment>
 
+<Fragment slot="a2">
+
+### Activity 2: Build the e-portfolio
 This site. The activity was to stand up an e-portfolio for the program — a home
 page, a page per course, and tabs for literacy, clinical practice and the InTASC
 standards — and every artifact from here on lands in it.
 
-### Activity 3: Cohort Literacy Guide
+</Fragment>
 
+<Fragment slot="a3">
+
+### Activity 3: Cohort Literacy Guide
 Each module the cohort adds to a shared Literacy Guide, organized by module with
 terms listed alphabetically. Every member defines the terms for the module
 currently in session, so Module 1's section is the program-orientation vocabulary.
 
 It lives on the [Literacy](/portfolio/literacy) page.
+
+</Fragment>
+
+</ActivityTabs>

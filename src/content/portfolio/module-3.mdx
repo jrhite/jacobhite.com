@@ -12,9 +12,9 @@ import VideoEmbed from '../../components/VideoEmbed.astro';
 import ActivityTabs from '../../components/ActivityTabs.astro';
 
 export const TABS = [
-  { id: 'a1', label: 'Activity 1 — Supporting ELL & MLL students' },
-  { id: 'a2', label: 'Activity 2 — Evidence-based instruction' },
-  { id: 'a3', label: 'Activity 3 — CS literacy tools' },
+  { id: 'a1', group: 'Unit 1', label: 'Activity 1 — Supporting ELL & MLL students' },
+  { id: 'a2', group: 'Unit 1', label: 'Activity 2 — Evidence-based instruction' },
+  { id: 'a3', group: 'Unit 1', label: 'Activity 3 — CS literacy tools' },
   { id: 'references', label: 'References' },
 ];
 
@@ -22,7 +22,7 @@ export const TABS = [
 
 <Fragment slot="a1">
 
-### Activity 1: Supporting ELL and MLL students
+### Unit 1, Activity 1: Supporting ELL and MLL students
 <VideoEmbed
   src="/media/supporting-ell-mll-students.mp4"
   poster="/media/supporting-ell-mll-students-poster.jpg"
@@ -46,11 +46,16 @@ export const TABS = [
   to cognates and background knowledge, and give low-stakes practice before
   anything is graded.
 
+The vocabulary this module turns on — the stages of second language acquisition,
+academic versus conversational language, cognates — goes into the cohort's shared
+[Literacy Guide](/portfolio/literacy), where each member defines the terms for the
+module currently in session.
+
 </Fragment>
 
 <Fragment slot="a2">
 
-### Activity 2: Evidence-based instructional practices
+### Unit 1, Activity 2: Evidence-based instructional practices
 <VideoEmbed
   src="/media/evidence-based-instruction.mp4"
   poster="/media/evidence-based-instruction-poster.jpg"
@@ -86,7 +91,7 @@ built on what the research actually shows.
 
 <Fragment slot="a3">
 
-### Activity 3: Literacy tools hiding in the CS toolchain
+### Unit 1, Activity 3: Literacy tools hiding in the CS toolchain
 <VideoEmbed
   src="/media/cs-literacy-tools.mp4"
   poster="/media/cs-literacy-tools-poster.jpg"
