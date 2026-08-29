@@ -1,0 +1,217 @@
+---
+/**
+ * A slide deck shown as the slides themselves, one image per page.
+ *
+ * An earlier version rebuilt the deck from its text so it could take the page's
+ * tokens. It read as a styled article, not as the deck — the layout, the stat
+ * cards, the typography that carried the argument were all gone. For a
+ * presentation the design *is* part of the artifact, which is the opposite of
+ * the diagrams here: those get built precisely because their content should
+ * adopt the page. This one should look like what was presented.
+ *
+ * So the slides are rendered from the exported PDF and shown as pictures, with
+ * the original file downloadable underneath. The trade is real — the text is
+ * not selectable and the images carry their own light background — so each
+ * slide keeps a caption for the accessible name, and the deck sits on a plain
+ * white mat so a light slide on a dark page reads as a slide rather than a
+ * blown-out rectangle.
+ *
+ * Degrades like the rest: no JavaScript shows every slide in order, which is
+ * also what prints.
+ */
+
+interface Props {
+  /** In presentation order. */
+  slides: { src: string; alt: string }[];
+  /** Names the deck for a screen reader meeting it out of context. */
+  label: string;
+}
+
+const { slides, label } = Astro.props;
+---
+
+<figure class="show" data-slideshow aria-label={label}>
+  <div class="show__bar">
+    <span class="show__label">Slides</span>
+    <span class="show__count" data-show-count>{slides.length} slides</span>
+  </div>
+
+  <div class="show__stage">
+    {
+      slides.map((slide, i) => (
+        /* The image is wrapped rather than being the grid item itself: the
+           lightbox replaces every `.prose img` with a button around it, which
+           would otherwise swap the element this layout positions. Tap-to-enlarge
+           is worth keeping on a dense slide, so the wrapper takes the grid cell
+           and the lightbox can do as it likes inside. */
+        <div class="show__slide" data-show-slide>
+        <img
+          class="show__img"
+          src={slide.src}
+          alt={`Slide ${i + 1} of ${slides.length}. ${slide.alt}`}
+          width="1600"
+          height="900"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="show__nav" data-show-nav hidden>
+    <button type="button" data-show-prev>← Previous</button>
+    <button type="button" data-show-next>Next →</button>
+  </div>
+</figure>
+
+<style>
+  .show {
+    margin: var(--s-5) 0 var(--s-7);
+  }
+
+  .show__bar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin-bottom: var(--s-2);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .show__label {
+    font-weight: 700;
+    color: var(--accent-2);
+  }
+
+  .show__count {
+    color: var(--text-faint);
+  }
+
+  /* The slides carry their own light background, so they get a white mat and a
+     border rather than sitting straight on a dark page. */
+  .show__stage {
+    padding: var(--s-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .show__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--r-sm);
+  }
+
+  /* With JS the slides share one grid cell, so the stage never resizes between
+     them and the buttons stay put. */
+  .show[data-enhanced] .show__stage {
+    display: grid;
+  }
+
+  .show[data-enhanced] .show__slide {
+    grid-area: 1 / 1;
+  }
+
+  .show[data-enhanced] .show__slide[data-off] {
+    visibility: hidden;
+  }
+
+  /* Only reachable with JS off, where the slides stack into a strip. */
+  .show:not([data-enhanced]) .show__slide + .show__slide {
+    margin-top: var(--s-3);
+  }
+
+  .show__nav {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin-top: var(--s-3);
+  }
+
+  .show__nav button {
+    padding: var(--s-2) var(--s-4);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-full);
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: var(--t-sm);
+  }
+
+  .show__nav button:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .show__nav button:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  @media print {
+    .show__nav {
+      display: none;
+    }
+
+    .show[data-enhanced] .show__stage {
+      display: block;
+    }
+
+    .show[data-enhanced] .show__slide[data-off] {
+      visibility: visible;
+    }
+  }
+</style>
+
+<script>
+  for (const show of document.querySelectorAll<HTMLElement>('[data-slideshow]')) {
+    const slides = [...show.querySelectorAll<HTMLElement>('[data-show-slide]')];
+    const nav = show.querySelector<HTMLElement>('[data-show-nav]');
+    const count = show.querySelector<HTMLElement>('[data-show-count]');
+    const prev = show.querySelector<HTMLButtonElement>('[data-show-prev]');
+    const next = show.querySelector<HTMLButtonElement>('[data-show-next]');
+    if (slides.length < 2 || !nav || !count || !prev || !next) continue;
+
+    nav.hidden = false;
+    show.dataset.enhanced = '';
+    let at = 0;
+
+    const go = (i: number) => {
+      at = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach((s, n) => {
+        const off = n !== at;
+        s.toggleAttribute('data-off', off);
+        s.setAttribute('aria-hidden', String(off));
+        // The next slide along is the one most likely to be asked for, so it
+        // stops being lazy as soon as its neighbour is on screen.
+        const img = s.querySelector('img');
+        if (img && Math.abs(n - at) <= 1) img.loading = 'eager';
+      });
+      count.textContent = `${at + 1} / ${slides.length}`;
+      prev.disabled = at === 0;
+      next.disabled = at === slides.length - 1;
+    };
+
+    go(0);
+
+    prev.addEventListener('click', () => go(at - 1));
+    next.addEventListener('click', () => go(at + 1));
+
+    show.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        go(at - 1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        go(at + 1);
+      }
+    });
+  }
+</script>

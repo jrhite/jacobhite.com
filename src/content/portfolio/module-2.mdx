@@ -11,7 +11,7 @@ sourcePath: /module/module-2-ed-502
 import VideoEmbed from '../../components/VideoEmbed.astro';
 import ActivityTabs from '../../components/ActivityTabs.astro';
 import SourceNote from '../../components/SourceNote.astro';
-import SlideDeck from '../../components/SlideDeck.astro';
+import SlideShow from '../../components/SlideShow.astro';
 import WritingProgression from '../../components/WritingProgression.astro';
 import { promotingLiteracySlides } from '../../data/promoting-literacy-slides';
 
@@ -22,6 +22,7 @@ export const TABS = [
   { id: 'u2a1', group: 'Unit 2 · Student Diversity and Literacy', label: 'Activity 1 — Understanding language development' },
   { id: 'u2a2', group: 'Unit 2 · Student Diversity and Literacy', label: 'Activity 2 — Promoting literacy: language development' },
   { id: 'u2a3', group: 'Unit 2 · Student Diversity and Literacy', label: 'Activity 3 — Promoting literacy: writing development' },
+  { id: 'u3a1', group: 'Unit 3', label: 'Activity 1 — Referral flowchart' },
   { id: 'u3a2', group: 'Unit 3', label: 'Activity 2 — Assistive technologies' },
   { id: 'references', label: 'References' },
 ];
@@ -231,7 +232,7 @@ demonstrate the same learning.
 <Fragment slot="u2a2">
 
 ### Unit 2, Activity 2: Promoting literacy — language development
-<SlideDeck slides={promotingLiteracySlides} label="Promoting Literacy Instruction in Schools" />
+<SlideShow slides={promotingLiteracySlides} label="Promoting Literacy Instruction in Schools" />
 
 [Download the original file (.pptx, 62 KB) →](/media/promoting-literacy-language-development.pptx)
 
@@ -244,6 +245,16 @@ demonstrate the same learning.
 <WritingProgression />
 
 [Download the original file (.pdf, 239 KB) →](/media/writing-development-progression.pdf)
+
+</Fragment>
+
+<Fragment slot="u3a1">
+
+### Unit 3, Activity 1: Spotting and supporting a struggling student
+
+![A flowchart of the process for spotting and supporting a struggling student: notice the signs, document and build a learning profile, partner with the family early, distinguish a language difference from a learning disability, refer for evaluation with consent, and hold an eligibility meeting — with a keep-monitoring loop back to classroom supports at each decision point.](/media/struggling-student-referral-flowchart.jpg)
+
+[Download the original file (.pdf, 885 KB) →](/media/struggling-student-referral-flowchart.pdf)
 
 </Fragment>
 
@@ -267,6 +278,8 @@ the fourteen IDEA disability categories, citing every source we drew on.
 <Fragment slot="references">
 
 ### References
+- American Federation of Teachers. (n.d.). [Building parent-teacher relationships](https://www.readingrockets.org/topics/parentengagement/articles/building-parent-teacher-relationships). Reading Rockets.
+- American Psychiatric Association. (n.d.). [What is intellectual disability?](https://www.psychiatry.org/patients-families/intellectual-disability/what-is-intellectual-disability)
 - Applebee, A. N., Bazerman, C., Berninger, V. W., Brandt, D., Graham, S.,
   Matsuda, P. K., Murphy, S., Rowe, D. W., & Schleppegrell, M. (2017). Taking the
   long view on writing development. _Research in the Teaching of English, 51_(3),
@@ -280,6 +293,7 @@ the fourteen IDEA disability categories, citing every source we drew on.
 - Cheyney-Collante, K., Gonsalves, V., Duggins, S. E., & Bader, J. (2020). A
   misunderstood fundamental: Developmentally appropriate strategies for letter
   formation practice in preschool. _Dimensions of Early Childhood, 48_(2), 18–23.
+- Colorín Colorado. (n.d.). [Learning disabilities in English language learners](https://www.colorincolorado.org/article/learning-disabilities-english-language-learners-0).
 - Duff, D., & Tomblin, J. B. (2018, October). [Literacy as an outcome of language development and its impact on children's psychosocial and emotional development](https://www.child-encyclopedia.com/language-development-and-literacy/according-experts/literacy-outcome-language-development-and-its). In _Encyclopedia on early childhood development_.
 - Foorman, B., Beyler, N., Borradaile, K., Coyne, M., Denton, C. A., Dimino, J.,
   Furgeson, J., Hayes, L., Henke, J., Justice, L., Keating, B., Lewis, W., Sattar,
@@ -291,17 +305,23 @@ the fourteen IDEA disability categories, citing every source we drew on.
 - Graham, S., & Perin, D. (2007). _Writing next: Effective strategies to improve
   writing of adolescents in middle and high schools._ Alliance for Excellent
   Education.
+- The IRIS Center. (n.d.). [English learners with disabilities: Supporting young children in the classroom](https://iris.peabody.vanderbilt.edu/module/dll/cresource/q1/p02/) [Module]. Vanderbilt University.
 - ISTE. (2019, August 27). [_Make digital citizenship about the do's, not the don'ts_](https://www.youtube.com/watch?v=tZeNr1q5QTU) [Video]. YouTube.
+- Learning Disabilities Association of America. (n.d.). [Eligibility: Determining whether a child is eligible for special education services](https://ldaamerica.org/info/eligibility-determining-whether-a-child-is-eligible-for-special-education-services/).
 - Levin, L., & Porath, S. (n.d.). [Struggling readers](https://kstatelibraries.pressbooks.pub/teachingliteracydraft/chapter/struggling-readers/). In _Teaching literacy in grades pre-K to 2_ (2nd ed.). K-State Libraries Pressbooks.
 - Lexia Learning. (n.d.). [Literacy-first: A winning strategy at one elementary school](https://www.lexialearning.com/blog/literacy-first-winning-strategy-one-elementary-school).
 - Margent, R. (n.d.). [What I've seen: 7 signs a student needs explicit reading instruction](https://www.understood.org/en/articles/what-ive-seen-7-signs-a-student-needs-explicit-reading-instruction). Understood.org.
 - Mathers, C. (2020, October 30). [Bilingualism and literacy development](https://www.bilingualism-matters.ppls.ed.ac.uk/bilingualism-and-literacy-development/). Bilingualism Matters, University of Edinburgh.
+- Medina, T. J. (2018). [_Language difference or language disorder? English learners and special education_](https://platform-user-content.s3.us-west-2.amazonaws.com/activity_resources/Exploring-Equity-Language-Difference-or-Language-Disorder.pdf) (Exploring Equity Issues series). Mid-Atlantic Equity Consortium.
 - Ministry of Education. (1999). _National Education Act B.E. 2542 (1999)._
   Royal Kingdom of Thailand.
 - Ministry of Education. (2003). _Teachers and Educational Personnel Council Act
   B.E. 2546 (2003)._ Royal Kingdom of Thailand.
+- Morin, A. (2021, February 18). [Recognizing signs of potential learning disabilities in preschool](https://www.edutopia.org/article/recognizing-signs-potential-learning-disabilities-preschool/). Edutopia.
 - MORKSENSEI. (2020, September 27). [_What is plagiarism & why is it wrong?_](https://www.youtube.com/watch?v=BXE0IczlIyM) [Video]. YouTube.
 - National Assessment of Educational Progress. (2024). [Grade 12 reading results](https://www.nationsreportcard.gov/reports/reading/2024/g12/).
+- National Center for Learning Disabilities. (n.d.). [NCLD](https://ncld.org/).
+- National Center for Learning Disabilities. (n.d.-b). [What is an IEP?](https://www.youtube.com/watch?v=q2XlAWcMAUk) [Video]. YouTube.
 - Parsons, D., & Haden, P. (2006). Parson's programming puzzles: A fun and
   effective learning tool for first programming courses. In D. Tolhurst & S. Mann
   (Eds.), _Proceedings of the 8th Australasian Conference on Computing Education_
@@ -309,6 +329,7 @@ the fourteen IDEA disability categories, citing every source we drew on.
 - Piasta, S. B., Purpura, D. J., & Wagner, R. K. (2010). Fostering alphabet
   knowledge development: A comparison of two instructional approaches. _Reading and
   Writing, 23_(6), 607–626.
+- Project IDEAL. (n.d.). [Special education referral process](https://www.projectidealonline.org/v/special-education-referral-process/). Texas Council for Developmental Disabilities.
 - Raising Children Network. (n.d.). [Language development: 0–8 years](https://raisingchildren.net.au/babies/development/language-development/language-development-0-8).
 - Reading Rockets. (n.d.). _Stages of writing._
 - Reading Universe. (n.d.). _An overview of handwriting._
@@ -320,6 +341,7 @@ the fourteen IDEA disability categories, citing every source we drew on.
   licenses B.E. 2565._
 - Teachers' Council of Thailand, Bureau of Professional License Registration.
   (2023). _Permission to teach without a professional license._
+- TeachThought Staff. (2023, March 11). [Learning profiles: What great teachers know about their students](https://www.teachthought.com/pedagogy/learning-profiles/). TeachThought.
 - Tomlinson, C. A. (2017). [_How to differentiate instruction in academically diverse classrooms_](https://www.ascd.org/books/how-to-differentiate-instruction-in-academically-diverse-classrooms-3rd-edition/) (3rd ed.). ASCD.
 - Voyager Sopris. (n.d.). _Stages of writing development._
 
