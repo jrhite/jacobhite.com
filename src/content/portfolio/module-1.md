@@ -26,6 +26,12 @@ that every K–12 student reaches the goal of being ready to enter college or th
 workforce in today's world. They get their own page here — see
 [InTASC Standards](/portfolio/intasc-standards).
 
+### Activity 2: Build the e-portfolio
+
+This site. The activity was to stand up an e-portfolio for the program — a home
+page, a page per course, and tabs for literacy, clinical practice and the InTASC
+standards — and every artifact from here on lands in it.
+
 ### Activity 3: Cohort Literacy Guide
 
 Each module the cohort adds to a shared Literacy Guide, organized by module with
