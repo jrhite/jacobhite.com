@@ -6,7 +6,7 @@
  *
  * The textarea is the pristine copy — `defaultValue` never changes as the
  * learner types, so Reset needs no second copy to keep in sync. See
- * `src/scripts/rule-editor.ts` for the behaviour.
+ * `src/scripts/rule-editor.ts` for the behavior.
  */
 interface Variant {
   label: string;
@@ -72,7 +72,7 @@ const { source, title = 'The rule, edit it', label, variants = [], rows = 6 } = 
   }
 
   /* CodeMirror builds its DOM at runtime, so those nodes never receive Astro's
-     scoping attribute — hence :global. Colour lives in the theme object in
+     scoping attribute — hence :global. Color lives in the theme object in
      rule-editor.ts; only the box is sized here. */
   .ed__frame :global(.cm-editor) {
     min-height: 9rem;

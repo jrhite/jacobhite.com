@@ -190,7 +190,7 @@ const { slides, label } = Astro.props;
         s.toggleAttribute('data-off', off);
         s.setAttribute('aria-hidden', String(off));
         // The next slide along is the one most likely to be asked for, so it
-        // stops being lazy as soon as its neighbour is on screen.
+        // stops being lazy as soon as its neighbor is on screen.
         const img = s.querySelector('img');
         if (img && Math.abs(n - at) <= 1) img.loading = 'eager';
       });

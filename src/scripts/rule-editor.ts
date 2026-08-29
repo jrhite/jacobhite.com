@@ -103,7 +103,7 @@ export function createRuleEditor<T>(options: RuleEditorOptions<T>): RuleEditorHa
     const t = highlight.tags;
 
     /**
-     * Every colour is a site token, so light/dark switching is pure CSS: no
+     * Every color is a site token, so light/dark switching is pure CSS: no
      * listener here, because flipping data-theme re-resolves these var() calls
      * in place.
      */
