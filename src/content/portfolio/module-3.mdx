@@ -12,17 +12,61 @@ import VideoEmbed from '../../components/VideoEmbed.astro';
 import ActivityTabs from '../../components/ActivityTabs.astro';
 
 export const TABS = [
-  { id: 'a1', group: 'Unit 1', label: 'Activity 1 — Supporting ELL & MLL students' },
-  { id: 'a2', group: 'Unit 1', label: 'Activity 2 — Evidence-based instruction' },
-  { id: 'a3', group: 'Unit 1', label: 'Activity 3 — CS literacy tools' },
+  { id: 'u1a1', group: 'Unit 1 · Understanding the Learner', label: 'Activity 1 — Literacy Guide development' },
+  { id: 'u1a2', group: 'Unit 1 · Understanding the Learner', label: 'Activity 2 — Evidence-based practices in the classroom' },
+  { id: 'u1a3', group: 'Unit 1 · Understanding the Learner', label: 'Activity 3 — Multisensory practices within phonology' },
+  { id: 'u2a2', group: 'Unit 2 · Learning in a Digital Age', label: 'Activity 2 — Understanding multilingual learners' },
   { id: 'references', label: 'References' },
 ];
 
 <ActivityTabs tabs={TABS}>
 
-<Fragment slot="a1">
+<Fragment slot="u1a1">
 
-### Unit 1, Activity 1: Supporting ELL and MLL students
+### Unit 1, Activity 1: Literacy Guide development
+
+The cohort's shared **Literacy Guide** takes the vocabulary of each module in
+turn — for this one, the stages of second language acquisition, academic versus
+conversational language, and cognates. It has one home on this site: the
+[Literacy](/portfolio/literacy) page.
+
+</Fragment>
+
+<Fragment slot="u1a2">
+
+### Unit 1, Activity 2: Evidence-based practices in the classroom
+<VideoEmbed
+  src="/media/evidence-based-instruction.mp4"
+  poster="/media/evidence-based-instruction-poster.jpg"
+  title="Evidence-Based Instruction Practices"
+  duration="5:40"
+  aspect="16 / 9"
+  caption="What makes a practice evidence-based, and three that clear the bar — explicit instruction, feedback and checking for understanding, and cooperative learning — each with what it looks like in my own 9–12 classroom."
+/>
+
+</Fragment>
+
+<Fragment slot="u1a3">
+
+### Unit 1, Activity 3: Multisensory practices within phonology
+<VideoEmbed
+  src="/media/cs-literacy-tools.mp4"
+  poster="/media/cs-literacy-tools-poster.jpg"
+  title="Literacy Tools Hiding in the CS Toolchain"
+  duration="4:34"
+  aspect="16 / 9"
+  caption="A tour of the TypeScript compiler, ESLint, Prettier and Replit as literacy tools — what each one does for orthographic awareness and writing in grades 9–12."
+/>
+
+This is the same argument as the disciplinary literacy work on
+[Module 2](/portfolio/module-2): the reading and writing practices belong to the
+discipline, and so do the tools.
+
+</Fragment>
+
+<Fragment slot="u2a2">
+
+### Unit 2, Activity 2: Understanding multilingual learners
 <VideoEmbed
   src="/media/supporting-ell-mll-students.mp4"
   poster="/media/supporting-ell-mll-students-poster.jpg"
@@ -39,41 +83,10 @@ module currently in session.
 
 </Fragment>
 
-<Fragment slot="a2">
-
-### Unit 1, Activity 2: Evidence-based instructional practices
-<VideoEmbed
-  src="/media/evidence-based-instruction.mp4"
-  poster="/media/evidence-based-instruction-poster.jpg"
-  title="Evidence-Based Instruction Practices"
-  duration="5:40"
-  aspect="16 / 9"
-  caption="What makes a practice evidence-based, and three that clear the bar — explicit instruction, feedback and checking for understanding, and cooperative learning — each with what it looks like in my own 9–12 classroom."
-/>
-
-</Fragment>
-
-<Fragment slot="a3">
-
-### Unit 1, Activity 3: Literacy tools hiding in the CS toolchain
-<VideoEmbed
-  src="/media/cs-literacy-tools.mp4"
-  poster="/media/cs-literacy-tools-poster.jpg"
-  title="Literacy Tools Hiding in the CS Toolchain"
-  duration="4:34"
-  aspect="16 / 9"
-  caption="A tour of the TypeScript compiler, ESLint, Prettier and Replit as literacy tools — what each one does for orthographic awareness and writing in grades 9–12."
-/>
-
-This is the same argument as the disciplinary literacy work on
-[Module 2](/portfolio/module-2): the reading and writing practices belong to the
-discipline, and so do the tools.
-
-</Fragment>
-
 <Fragment slot="references">
 
 ### References
+
 - Cárdenas-Hagan, E. (n.d.). _Stages of second language acquisition_ [Video].
   Reading Universe; Colorín Colorado.
 - ClickView Education. (n.d.). [10 evidence-based instructional strategies](https://www.clickvieweducation.com/blog/teaching-strategies/evidence-based-instructional-strategies).
