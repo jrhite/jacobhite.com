@@ -44,7 +44,7 @@ const groups = tabs.reduce<Group[]>((acc, tab) => {
   <nav class="tabs__rail" aria-label={label} data-tabs-rail>
     {
       groups.map((group) => (
-        <div class="tabs__group">
+        <div class:list={['tabs__group', group.name && 'tabs__group--titled']}>
           {group.name && <p class="tabs__groupname">{group.name}</p>}
           <ul class="tabs__list">
             {group.tabs.map((tab) => (
@@ -150,10 +150,41 @@ const groups = tabs.reduce<Group[]>((acc, tab) => {
     color: var(--text-faint);
   }
 
-  .tabs__list {
+  /* Descendant selector, not `.tabs__list` alone: the rail renders inside the
+     page's `.prose`, whose `ul` rule is one specificity point heavier and was
+     silently indenting every tab by 1.25em. */
+  .tabs__rail .tabs__list {
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  /* On the vertical rail the unit name is a parent and its activities are its
+     children, so the children step in and anything with no unit — References —
+     stays at the top level, aligned with the unit names rather than with the
+     activities under them. Without this every tab sits on one line and
+     "References" reads as one more activity of the last unit.
+     Horizontal rail excluded: there is no vertical stack for an indent to
+     describe, and the tabs there scroll sideways as equals. */
+  @media (min-width: 62rem) {
+    /* Matches a tab's own padding, so a unit name and a top-level tab start on
+       the same vertical line even though only the tab has a background. */
+    .tabs__groupname {
+      padding-left: var(--s-3);
+    }
+
+    .tabs__group--titled .tabs__tab {
+      padding-left: var(--s-6);
+    }
+
+    /* Leaving the units behind is a bigger move than changing unit, so it gets
+       a rule as well as the outdent — at this type size the indent alone is
+       too quiet to carry it. */
+    .tabs__group--titled + .tabs__group:not(.tabs__group--titled) {
+      margin-top: var(--s-5);
+      padding-top: var(--s-4);
+      border-top: 1px solid var(--border);
+    }
   }
 
   .tabs__tab {
