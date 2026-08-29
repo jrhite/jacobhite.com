@@ -5,14 +5,21 @@ interface Props {
 
 const { status } = Astro.props;
 
+/**
+ * Nothing is rendered for a finished page. Every real page here is written now,
+ * so a "Written" badge on each one labels the norm rather than the exception —
+ * it costs a glance and tells the reader nothing. What still earns a badge is a
+ * page that is *not* done, which is the whole point of carrying the unfinished
+ * ones over instead of hiding them.
+ */
 const label = {
-  complete: 'Written',
+  complete: null,
   placeholder: 'Placeholder',
   'needs-file': 'Needs a file',
 }[status];
 ---
 
-<span class:list={['pill', `pill--${status}`]}>{label}</span>
+{label && <span class:list={['pill', `pill--${status}`]}>{label}</span>}
 
 <style>
   .pill {

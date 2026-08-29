@@ -31,16 +31,18 @@ const { title, subtitle, status, group, sourcePath, diagram, carriedOver } = ent
   <PageHeader eyebrow={group} title={title} lede={subtitle} />
 
   <article class="section page">
-    <div class="meta">
-      <StatusPill status={status} />
-      {
-        carriedOver && (
-          <span class="meta__source muted">
-            Carried over from <code>{sourcePath}</code> on the Moreland site
-          </span>
-        )
-      }
-    </div>
+    {
+      (status !== 'complete' || carriedOver) && (
+        <div class="meta">
+          <StatusPill status={status} />
+          {carriedOver && (
+            <span class="meta__source muted">
+              Carried over from <code>{sourcePath}</code> on the Moreland site
+            </span>
+          )}
+        </div>
+      )
+    }
 
     {
       status === 'placeholder' ? (
