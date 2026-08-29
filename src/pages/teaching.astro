@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import MerrillCycle from '../components/MerrillCycle.astro';
 import SectionNav from '../components/SectionNav.astro';
 import SuperMarioEffect from '../components/SuperMarioEffect.astro';
 import RespawnGame from '../components/RespawnGame.astro';
@@ -16,39 +15,9 @@ import CaesarCipher from '../components/CaesarCipher.astro';
 const sections = [
   { id: 'why-one-app', label: 'Why one app' },
   { id: 'hands-on', label: 'Hands on' },
-  { id: 'framework', label: 'Framework' },
   { id: 'eight-weeks', label: 'Example term' },
   { id: 'assessment', label: 'Assessment' },
   { id: 'fit', label: 'Fit' },
-];
-
-/** Merrill's First Principles, as I actually run them. From my clinical practice write-up. */
-const principles = [
-  {
-    n: '01',
-    name: 'Task-centered',
-    body: 'The curriculum is an artifact rather than a topic list: a real application the student builds up step by step. Concepts arrive when the app needs them rather than "for later," and the task grows as they do.',
-  },
-  {
-    n: '02',
-    name: 'Activation',
-    body: 'Lessons usually open with a warm-up that revisits the last session by doing, rather than by me recapping it.',
-  },
-  {
-    n: '03',
-    name: 'Demonstration',
-    body: 'I introduce and play with the new tool using example data, while the student watches.',
-  },
-  {
-    n: '04',
-    name: 'Application',
-    body: 'The student practices a similar task while I watch. They explain each piece back to me as it lands — the AI\'s lines included — and I coach by question where a question will get there, and answer outright when it would only stall them.',
-  },
-  {
-    n: '05',
-    name: 'Integration',
-    body: 'The student actually uses what they built, and keeps a running list of its annoyances and the features they wish it had. Those lists become the next lessons, which they now drive.',
-  },
 ];
 
 const journal = [
@@ -204,9 +173,10 @@ const weeks = [
     <p class="eyebrow">What it feels like</p>
     <h2 class="section__title">Fun is the method, and getting your hands on it is the lesson</h2>
     <p class="lede prose">
-      There is a formal framework under all of this, and it is the next section down. But two
-      things decide whether any of it lands, and they are easier to show than to argue about — so
-      this part is not a description. It runs, you can edit it, and you are meant to.
+      There is a formal framework under all of this — Merrill's First Principles, written up on my
+      <a href="/portfolio/clinical-practice">clinical practice</a> page. But two things decide
+      whether any of it lands, and they are easier to show than to argue about — so this part is
+      not a description. It runs, you can edit it, and you are meant to.
     </p>
 
     <ul class="stance">
@@ -287,7 +257,7 @@ const weeks = [
           it, or press <em>Punish the miss</em>, and watch the page argue with itself.
         </p>
       </header>
-      <details class="toy__run">
+      <details class="toy__run" open>
         <summary>
           <span class="toy__run-label">Play the level</span>
         </summary>
@@ -308,7 +278,7 @@ const weeks = [
           That is the explanation — the sentence about modulo is just the caption.
         </p>
       </header>
-      <details class="toy__run">
+      <details class="toy__run" open>
         <summary>
           <span class="toy__run-label">Try the cipher</span>
         </summary>
@@ -317,42 +287,6 @@ const weeks = [
         </div>
       </details>
     </article>
-  </section>
-
-  <section class="section page" id="framework">
-    <p class="eyebrow">The framework</p>
-    <h2 class="section__title">Merrill's First Principles, in practice</h2>
-    {/* Lede, then the five in full, then the diagram that shows how they cycle. */}
-    <p class="lede prose framework__note">
-      My clinical practice is built on Merrill's First Principles of Instruction. Here is what each
-      one actually looks like on a Tuesday.
-    </p>
-
-    <ol class="principles">
-      {
-        principles.map((p) => (
-          <li class="principle reveal">
-            <span class="principle__n" aria-hidden="true">
-              {p.n}
-            </span>
-            <h3>{p.name}</h3>
-            <p class="muted">{p.body}</p>
-          </li>
-        ))
-      }
-    </ol>
-
-    <div class="framework">
-      <MerrillCycle />
-    </div>
-
-    <p class="refs muted">
-      Merrill, M. D. (2002). First principles of instruction. <em>Educational Technology Research
-      and Development, 50</em>(3), 43–59.
-      <a href="https://doi.org/10.1007/BF02505024">https://doi.org/10.1007/BF02505024</a><br />
-      Merrill, M. D. (2013). <em>First principles of instruction: Identifying and designing
-      effective, efficient, and engaging instruction.</em> Pfeiffer.
-    </p>
   </section>
 
   <section class="section ladder-section" id="eight-weeks">
@@ -478,110 +412,6 @@ const weeks = [
 
   .section__title {
     margin-block: var(--s-3) var(--s-4);
-  }
-
-  /* ---- principles ---- */
-
-  .framework {
-    display: flex;
-    justify-content: center;
-    margin-top: var(--s-6);
-    margin-bottom: var(--s-6);
-  }
-
-  /* Introduces the diagram directly below it, so it sits on the same center
-     axis. The section title above already supplies the space it needs. */
-  .framework__note {
-    margin-inline: auto;
-    text-align: center;
-  }
-
-  /* Six columns so a card can span two and the short last row can sit on the
-     half-column offsets — five cards otherwise leave the bottom two shoved
-     against the left edge under a full row of three. */
-  .principles {
-    list-style: none;
-    padding: 0;
-    margin: var(--s-6) 0 0;
-    display: grid;
-    gap: var(--s-4);
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  .principle {
-    grid-column: span 2;
-  }
-
-  .principle:nth-child(4) {
-    grid-column: 2 / span 2;
-  }
-
-  .principle:nth-child(5) {
-    grid-column: 4 / span 2;
-  }
-
-  @media (max-width: 62rem) {
-    .principles {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .principle,
-    .principle:nth-child(4) {
-      grid-column: auto;
-    }
-
-    /* Odd one out on a two-up grid — center it rather than leave a gap. */
-    .principle:nth-child(5) {
-      grid-column: 1 / -1;
-      max-width: calc(50% - (var(--s-4) / 2));
-      margin-inline: auto;
-    }
-  }
-
-  @media (max-width: 40rem) {
-    .principles {
-      grid-template-columns: 1fr;
-    }
-
-    .principle:nth-child(5) {
-      grid-column: auto;
-      max-width: none;
-    }
-  }
-
-  .principle {
-    padding: var(--s-5);
-    min-width: 0;
-    border: 1px solid var(--border);
-    border-radius: var(--r-lg);
-    background: var(--bg-raised);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .principle__n {
-    position: absolute;
-    top: -0.15em;
-    right: 0.1em;
-    font-family: var(--f-display);
-    font-size: 4.5rem;
-    font-weight: 900;
-    color: var(--accent-soft);
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  .principle h3 {
-    font-size: var(--t-lg);
-    margin-bottom: var(--s-3);
-    position: relative;
-  }
-
-  .refs {
-    margin-top: var(--s-6);
-    font-size: var(--t-sm);
-    max-width: var(--measure);
-    line-height: 1.7;
   }
 
   /* ---- ladder ---- */

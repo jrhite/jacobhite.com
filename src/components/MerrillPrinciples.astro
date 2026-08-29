@@ -1,0 +1,145 @@
+---
+/**
+ * Merrill's First Principles as I actually run them, with the cycle diagram
+ * that shows how they feed each other.
+ *
+ * This lived on `/teaching` and was summarized again, more thinly, on the
+ * clinical practice page — the same five principles written twice, with the
+ * fuller version on the page that is not the artifact. It now lives once, on
+ * the clinical practice page, which is what the framework is a description of
+ * and where a reader who follows the top-level Clinical Practice link lands.
+ */
+import MerrillCycle from './MerrillCycle.astro';
+
+const principles = [
+  {
+    n: '01',
+    name: 'Task-centered',
+    body: 'The curriculum is an artifact rather than a topic list: a real application the student builds up step by step. Concepts arrive when the app needs them rather than "for later," and the task grows as they do.',
+  },
+  {
+    n: '02',
+    name: 'Activation',
+    body: 'Lessons usually open with a warm-up that revisits the last session by doing, rather than by me recapping it.',
+  },
+  {
+    n: '03',
+    name: 'Demonstration',
+    body: 'I introduce and play with the new tool using example data, while the student watches.',
+  },
+  {
+    n: '04',
+    name: 'Application',
+    body: "The student practices a similar task while I watch. They explain each piece back to me as it lands — the AI's lines included — and I coach by question where a question will get there, and answer outright when it would only stall them.",
+  },
+  {
+    n: '05',
+    name: 'Integration',
+    body: 'The student actually uses what they built, and keeps a running list of its annoyances and the features they wish it had. Those lists become the next lessons, which they now drive.',
+  },
+];
+---
+
+<ol class="principles">
+  {
+    principles.map((p) => (
+      <li class="principle">
+        <span class="principle__n" aria-hidden="true">
+          {p.n}
+        </span>
+        <h4>{p.name}</h4>
+        <p class="muted">{p.body}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<div class="framework">
+  <MerrillCycle />
+</div>
+
+<style>
+  /* Six columns so a card can span two and the short last row can sit on the
+     half-column offsets — five cards otherwise leave the bottom two shoved
+     against the left edge under a full row of three. */
+  .principles {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-6) 0 0;
+    display: grid;
+    gap: var(--s-4);
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .principle {
+    grid-column: span 2;
+    padding: var(--s-5);
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .principle:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .principle:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+
+  @media (max-width: 62rem) {
+    .principles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .principle,
+    .principle:nth-child(4) {
+      grid-column: auto;
+    }
+
+    /* Odd one out on a two-up grid — center it rather than leave a gap. */
+    .principle:nth-child(5) {
+      grid-column: 1 / -1;
+      max-width: calc(50% - (var(--s-4) / 2));
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .principles {
+      grid-template-columns: 1fr;
+    }
+
+    .principle:nth-child(5) {
+      grid-column: auto;
+      max-width: none;
+    }
+  }
+
+  .principle__n {
+    position: absolute;
+    top: -0.15em;
+    right: 0.1em;
+    font-family: var(--f-display);
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--accent-soft);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .principle h4 {
+    font-size: var(--t-lg);
+    margin-bottom: var(--s-3);
+    position: relative;
+  }
+
+  .framework {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--s-6);
+  }
+</style>
