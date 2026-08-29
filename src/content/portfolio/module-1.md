@@ -38,5 +38,4 @@ Each module the cohort adds to a shared Literacy Guide, organized by module with
 terms listed alphabetically. Every member defines the terms for the module
 currently in session, so Module 1's section is the program-orientation vocabulary.
 
-The guide has one home on this site rather than a copy of the link on every module
-it touches — it is on the [Literacy](/portfolio/literacy) page.
+It lives on the [Literacy](/portfolio/literacy) page.

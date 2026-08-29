@@ -15,14 +15,9 @@ dialogue, and reissued in 2013 with learning progressions describing how each
 standard develops over a career rather than arriving all at once (Council of
 Chief State School Officers, 2011, 2013).
 
-> **On the original site this page was an embedded Drive file that no longer
-> exists.** This is the replacement, written rather than embedded. The ten
-> summaries below are my own wording; the official statements are in the CCSSO
-> document under References, published under a CC BY-NC-SA 4.0 license. Each one
-> is paired with what it actually looks like in a secondary computer science
-> classroom — specifically the clinical practice described on the
-> [Clinical Practice](/portfolio/clinical-practice) page, where the whole
-> curriculum is one todo-list web application the student builds up step by step.
+> **The summaries below are my own wording.** The official statements are in the
+> CCSSO document under References, published under a CC BY-NC-SA 4.0 license. The
+> classroom examples are drawn from my [Clinical Practice](/portfolio/clinical-practice).
 
 ### The Learner and Learning
 
