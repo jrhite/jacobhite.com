@@ -9,7 +9,8 @@ import CaesarCipher from '../components/CaesarCipher.astro';
 
 /**
  * The in-page table of contents. In document order, and short enough to sit on
- * one line of a phone — these label the sections rather than restating their
+ * one line of a phone.
+ * These label the sections rather than restating their
  * headings, which are full sentences and would not fit.
  */
 const sections = [
@@ -43,7 +44,8 @@ const graded = [
 /**
  * The ranges. Every concrete structure on this page (the to-do list, the eight
  * weeks, the grading list) is one setting out of several, and this is where
- * each one gets its range — so a visitor whose class, clock or project looks
+ * each one gets its range,
+ * so a visitor whose class, clock or project looks
  * nothing like the worked example can place themselves without asking first.
  */
 const fits = [
@@ -53,11 +55,11 @@ const fits = [
   },
   {
     label: 'The format',
-    body: 'One-to-one, a small group, or a full class. In person, or online across time zones — a weekly hour and a shared screen is enough to run all of it.',
+    body: 'One-to-one, a small group, or a full class. In person, or online across time zones. A weekly hour and a shared screen is enough to run all of it.',
   },
   {
     label: 'The project',
-    body: 'A to-do list is the worked example on this page, because it walks through the core concepts in a natural order. A game, a bot, a scoreboard, a tool for a family business — I would rather teach the one you already care about.',
+    body: 'A to-do list is the worked example on this page, because it walks through the core concepts in a natural order. A game, a bot, a scoreboard, a tool for a family business. I would rather teach the one you already care about.',
   },
   {
     label: 'The stack',
@@ -69,7 +71,7 @@ const fits = [
   },
   {
     label: 'The paperwork',
-    body: "A school's existing curriculum, standards and rubric — this maps onto them rather than competing with them. Or none at all, if you just want the thing to exist.",
+    body: "A school's existing curriculum, standards and rubric: this maps onto them rather than competing with them. Or none at all, if you just want the thing to exist.",
   },
 ];
 
@@ -87,7 +89,7 @@ const weeks = [
   {
     w: '3',
     t: 'The list survives a refresh',
-    d: 'Storage — and the moment a task stops being a string and becomes a record with an id, a title, and a done flag.',
+    d: 'Storage, and the moment a task stops being a string and becomes a record with an id, a title, and a done flag.',
   },
   {
     w: '4',
@@ -107,7 +109,7 @@ const weeks = [
   {
     w: '7',
     t: "Other people's tasks",
-    d: 'Deployed, with real users putting real errands in it — and a rollback plan for the morning it goes wrong.',
+    d: 'Deployed, with real users putting real errands in it, and a rollback plan for the morning it goes wrong.',
   },
   {
     w: '8',
@@ -119,12 +121,12 @@ const weeks = [
 
 <BaseLayout
   title="Teaching"
-  description="How I teach programming: one real application built line by line, Merrill's First Principles of Instruction, and a structure that adapts to the student, the school and the schedule — with AI writing code and the student owning the decisions."
+  description="How I teach programming: one real application built line by line, Merrill's First Principles of Instruction, and a structure that adapts to the student, the school and the schedule, with AI writing code and the student owning the decisions."
 >
   <PageHeader
     eyebrow="Teaching"
     title="One real project. AI in the loop. Code you can explain."
-    lede="The curriculum is usually one thing the student builds from nothing, with AI as a working partner rather than a shortcut, and concepts arriving when the project needs them. What follows is the version I would run given a blank page — a worked example, not a package. Which project, how long, how fast, and what gets graded all get rebuilt around the student, the school, and the time we actually have."
+    lede="The curriculum is usually one thing the student builds from nothing, with AI as a working partner rather than a shortcut, and concepts arriving when the project needs them. What follows is the version I would run given a blank page: a worked example, not a package. Which project, how long, how fast, and what gets graded all get rebuilt around the student, the school, and the time we actually have."
   />
 
   <SectionNav sections={sections} label="Sections of this page" />
@@ -139,19 +141,18 @@ const weeks = [
           job: deciding what it should do, discovering you were wrong, and changing it.
         </p>
         <p>
-          So there isn't a fixed syllabus behind it — every student is different, and what they
+          So there isn't a fixed syllabus behind it. Every student is different, and what they
           actually want to build is usually the thing worth building.
         </p>
         <p>
           The example I use throughout this page is a to-do list. It begins as a variable and a
-          print statement. By the end it has a database, accounts, tests, and real users — and at no
-          point did the student learn something whose purpose was "you'll need this later." I
+          print statement. By the end it has a database, accounts, tests, and real users, and at no point did the student learn something whose purpose was "you'll need this later." I
           picked it because it reaches the concepts in a sensible order without needing a premise
           explained first, not because it is the thing to build.
         </p>
         <p>
-          The part that matters most comes last: they use what they built for <em>real</em> — the
-          to-do list becomes the list they actually run their week on — and everything that annoys
+          The part that matters most comes last. They use what they built for <em>real</em>: the to-do list becomes the list they actually run their
+          week on, and everything that annoys
           them about it becomes the syllabus, which they are now the one setting.
         </p>
       </div>
@@ -160,7 +161,7 @@ const weeks = [
         <p class="eyebrow">The part I hold to</p>
         <p class="callout__big">You should be able to explain what you shipped.</p>
         <p class="muted">
-          Especially the lines the AI wrote. You read it back to me — what it does, why it's there,
+          Especially the lines the AI wrote. You read it back to me: what it does, why it's there,
           what breaks if it's wrong. When that comes out shaky, it isn't a penalty; it's just the
           next thing we work on, and sometimes it means the code comes back out. Typing speed was
           never the skill. Owning the code is.
@@ -173,9 +174,9 @@ const weeks = [
     <p class="eyebrow">What it feels like</p>
     <h2 class="section__title">Fun is the method, and getting your hands on it is the lesson</h2>
     <p class="lede prose">
-      There is a formal framework under all of this — Merrill's First Principles, written up on my
-      <a href="/portfolio/clinical-practice">clinical practice</a> page. But two things decide
-      whether any of it lands, and they are easier to show than to argue about — so this part is
+      There is a formal framework under all of this: Merrill's First Principles, written up on
+      my <a href="/portfolio/clinical-practice">clinical practice</a> page. But two things decide
+      whether any of it lands, and they are easier to show than to argue about, so this part is
       not a description. It runs, you can edit it, and you are meant to.
     </p>
 
@@ -184,7 +185,7 @@ const weeks = [
         <h3>Fun is not decoration</h3>
         <p class="muted">
           A student who is enjoying themselves attempts the harder thing, and attempting the harder
-          thing is the entire mechanism. Play is not the sugar around the lesson — it is what makes
+          thing is the entire mechanism. Play is not the sugar around the lesson. It is what makes
           somebody willing to be wrong in front of you, which is the precondition for learning
           anything at all.
         </p>
@@ -193,10 +194,10 @@ const weeks = [
         <h3>Hands on, and unafraid</h3>
         <p class="muted">
           Running code beside the code that produced it, editable, with nothing punishing a bad
-          edit. Breaking it isn't the point — being in it is: changing a number because you
+          edit. Breaking it isn't the point. Being in it is: changing a number because you
           wondered what it did, and finding out. Things do break, and that is fine; it is the
           evidence you were actually involved rather than watching. Nothing here scores you or
-          keeps a streak, so there is nothing to protect — and somebody with nothing to protect is
+          keeps a streak, so there is nothing to protect, and somebody with nothing to protect is
           still enjoying it an hour later.
         </p>
       </li>
@@ -214,8 +215,7 @@ const weeks = [
         <h3>One puzzle, two framings</h3>
         <p class="lede prose">
           Two people get the same puzzle. One is told a wrong guess costs five points; the other is
-          just told to try again. Nothing else differs. Play either version, notice how you feel
-          about guessing — the numbers come after.
+          just told to try again. Nothing else differs. Play either version, notice how you feel about guessing. The numbers come after.
         </p>
       </header>
 
@@ -241,7 +241,7 @@ const weeks = [
 
     <p class="framing">
       Everything below is code, and the rule you just felt is still the one running underneath it.
-      Change a number, see what it does, change it back — that loop is the whole method, and these
+      Change a number, see what it does, change it back. That loop is the whole method, and these
       are the smallest places I can show it to you.
     </p>
 
@@ -252,7 +252,7 @@ const weeks = [
         <p class="lede prose">
           Mario doesn't tell you you're a bad person when you fall in a pit. He puts you back at the
           start of the level. Miss this one a few times on purpose, then read the rule beside it and
-          notice what isn't in there — the comment that says <code>// no points lost. no lecture.</code>
+          notice what isn't in there: the comment that says <code>// no points lost. no lecture.</code>
           is sitting on the only line where a punishment could go. Put <code>world.lose(5)</code> on
           it, or press <em>Punish the miss</em>, and watch the page argue with itself.
         </p>
@@ -275,7 +275,7 @@ const weeks = [
           A student can be told that <code>% 26</code> handles the wraparound and write it down
           without ever seeing it. So instead: shift every letter forward, and watch what happens
           when <code>z</code> has to become <code>c</code>. Drag the shift, watch the red cells.
-          That is the explanation — the sentence about modulo is just the caption.
+          That is the explanation. The sentence about modulo is just the caption.
         </p>
       </header>
       <details class="toy__run" open>
@@ -295,12 +295,11 @@ const weeks = [
       <h2 class="section__title">Eight weeks, one thing, getting harder</h2>
       <p class="lede prose">
         One example term, running the to-do list above: each week the app gains a capability, and
-        the student gains the concern that arrives with it. The final assessment is their own app,
-        with real users — not a zip file that only runs on my laptop.
+        the student gains the concern that arrives with it. The final assessment is their own app, with real users, not a zip file that only runs on my laptop.
       </p>
       <p class="lede prose ladder__note">
         A different project, a shorter unit, a class that already has a syllabus, or an adult with
-        one evening a week all reorder these rungs — and some terms never reach week seven, which is
+        one evening a week all reorder these rungs, and some terms never reach week seven, which is
         fine. What carries over is the shape: one thing, gaining a capability at a time, with the
         student able to explain each one.
       </p>
@@ -325,9 +324,7 @@ const weeks = [
         <p class="eyebrow">Evidence of judgement</p>
         <h2 class="section__title">The engineering journal</h2>
         <p class="prose muted">
-          A significant AI-assisted change gets a few sentences. Not to create paperwork — to leave a
-          trail showing that a person, not a model, made the call. These five questions are the
-          version I use — kept in commit messages, in a doc, or just said out loud to me, whichever
+          A significant AI-assisted change gets a few sentences. Not to create paperwork, but to leave a trail showing that a person, not a model, made the call. These five questions are the version I use, kept in commit messages, in a doc, or just said out loud to me, whichever
           one a student will actually keep up.
         </p>
         <ol class="journal">
@@ -341,7 +338,7 @@ const weeks = [
         <p class="prose muted">
           Notice what isn't on this list: how much code you produced. In a world where code is cheap,
           grading volume grades the wrong thing. Where a school has its own rubric, these map onto it
-          rather than replace it — and where nobody is being graded at all, it is simply the list of
+          rather than replace it, and where nobody is being graded at all, it is simply the list of
           things we work on.
         </p>
         <ul class="graded">
@@ -355,8 +352,7 @@ const weeks = [
     <h2 class="section__title">You already have constraints</h2>
     <p class="lede prose">
       A class you did not pick, a syllabus you are committed to, a schedule with holes in it, a
-      student who only wants to build one specific thing. None of those are obstacles to this —
-      they are the inputs. The page above settles each of these on one setting so it could say
+      student who only wants to build one specific thing. None of those are obstacles to this. They are the inputs. The page above settles each of these on one setting so it could say
       something concrete; here is the range each one actually has.
     </p>
 
@@ -374,7 +370,7 @@ const weeks = [
 
   <ContactCTA
     heading="Ready to see it up close?"
-    body="Tell me the constraints you actually have — the student, the class, the schedule, the syllabus you're already committed to — and I'll tell you how I'd run it inside them. If what you want isn't on this page, describe it anyway."
+    body="Tell me the constraints you actually have: the student, the class, the schedule, the syllabus you're already committed to. Then I'll tell you how I'd run it inside them. If what you want isn't on this page, describe it anyway."
   />
 </BaseLayout>
 
@@ -470,7 +466,8 @@ const weeks = [
   }
 
   /* The ladder is one example term, so the note that says so sits directly under
-     the lede rather than after the rungs — by then a reader has already taken the
+     the lede rather than after the rungs;
+     by then a reader has already taken the
      eight weeks as a fixed syllabus. */
   .ladder__note {
     margin-top: var(--s-4);
@@ -593,7 +590,8 @@ const weeks = [
 
   /* Connective narration at section level, not inside a toy: it frames the Mario
      piece as a teaching demonstration rather than a code demo, then hands off to
-     the code toys. Body size and muted on purpose — the toy ledes below it
+     the code toys. Body size and muted on purpose:
+     the toy ledes below it
      should stay the loudest thing in each block. */
   .framing {
     max-width: var(--measure);
@@ -621,7 +619,8 @@ const weeks = [
     margin-block: var(--s-2) var(--s-4);
   }
 
-  /* Attribution, not body copy — it sits under the game it credits, close
+  /* Attribution, not body copy:
+     it sits under the game it credits, close
      enough to belong to it but quiet enough not to read as the next lesson.
 
      Not `var(--measure)`: that is 68ch, and `ch` resolves against the element's
@@ -641,7 +640,8 @@ const weeks = [
    * The three toys are the best evidence on this page and also the bulk of it:
    * their interactive bodies alone ran to ~1,900px, which is why the section
    * was two-fifths of a twelve-screen page. Collapsing the *body* rather than
-   * the whole toy is the trade that keeps both — every title, eyebrow and lede
+   * the whole toy is the trade that keeps both:
+   * every title, eyebrow and lede
    * stays on the page, so a scroller still meets all three and can see what
    * each one offers; only the running app waits to be asked for.
    *
@@ -649,7 +649,8 @@ const weeks = [
    * widget, so it works with JavaScript off, is keyboard operable and announced
    * as expandable for free, and Ctrl+F still finds text inside a closed one in
    * current browsers. The first is `open` because the section's lede promises
-   * "it runs, you can edit it" — a reader should meet a running thing without
+   * "it runs, you can edit it";
+   * a reader should meet a running thing without
    * having to ask for it first, and the two below it are then clearly the
    * optional deeper cuts.
    */
