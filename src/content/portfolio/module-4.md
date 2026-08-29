@@ -5,5 +5,4 @@ group: Modules
 order: 24
 status: placeholder
 sourcePath: /module/module-4-ed-504
-carriedOver: true
 ---

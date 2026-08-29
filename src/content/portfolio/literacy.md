@@ -5,7 +5,6 @@ group: Coursework
 order: 10
 status: complete
 sourcePath: /literacy
-carriedOver: true
 ---
 
 Throughout the program the cohort builds a shared **Literacy Guide**, structured by

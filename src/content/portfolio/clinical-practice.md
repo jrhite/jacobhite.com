@@ -6,7 +6,6 @@ order: 11
 status: complete
 diagram: merrill-cycle
 sourcePath: /clincal-practice
-carriedOver: true
 ---
 
 My clinical practice is built on Merrill's First Principles of Instruction, applied

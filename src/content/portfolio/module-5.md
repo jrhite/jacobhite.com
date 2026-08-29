@@ -6,5 +6,4 @@ group: Modules
 order: 25
 status: placeholder
 sourcePath: /module/module-5-ed-505
-carriedOver: true
 ---

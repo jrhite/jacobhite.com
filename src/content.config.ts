@@ -33,13 +33,7 @@ const portfolio = defineCollection({
      */
     /** Path on the original Google Site, for the record. */
     sourcePath: z.string(),
-    /**
-     * Whether that page's content carried over wholesale. When it did, the
-     * provenance line belongs at the top of the page. When only one activity
-     * came across, that activity says so itself with `SourceNote`, and when
-     * nothing did, nobody claims it.
-     */
-    carriedOver: z.boolean().default(false),
+
   }),
 });
 
