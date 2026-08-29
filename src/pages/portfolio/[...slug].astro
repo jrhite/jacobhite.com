@@ -172,6 +172,26 @@ const { title, subtitle, status, group, sourcePath, diagram } = entry.data;
     padding-left: 1.25em;
   }
 
+  /* An APA reference list is not a bulleted list: entries are flush left with a
+     hanging indent on every line after the first, so the eye can run down the
+     authors' surnames. Markdown gives us a `ul`, so the bullet comes off and the
+     indent is rebuilt from padding plus a negative first-line indent. */
+  .prose :global(.references ul) {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .prose :global(.references li) {
+    padding-left: 2.5em;
+    text-indent: -2.5em;
+  }
+
+  /* URLs are printed as APA prints them, so they have to be able to break
+     rather than push the column sideways. */
+  .prose :global(.references a) {
+    word-break: break-word;
+  }
+
   .prose :global(li + li) {
     margin-top: var(--s-2);
   }
