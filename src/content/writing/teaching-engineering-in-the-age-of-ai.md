@@ -48,13 +48,20 @@ Have students deliberately:
 That teaches version control, risk management, and reversible decision-making, not
 just "undo."
 
-### 3. Use AI as a code-review partner, not an answer machine
+### 3. The model writes most of the code. The student reviews it.
 
-Students can ask Agent to explain unfamiliar code line by line, identify hidden
-assumptions, find duplicated logic, propose smaller functions, review error
-handling, generate a threat model, compare two architectural approaches, write tests
-before changing behavior, and explain *why* a bug occurs rather than merely
-patching it.
+"Use AI as a code-review partner" has the roles the wrong way round. On a working
+team the model is now the one producing the bulk of the code, and the engineer is
+the reviewer: the person who decides what to ask for, reads what comes back,
+and answers for what ships. That is the job this curriculum is training for, and
+it is why the capability being taught is judgement rather than syntax.
+
+None of which makes it an answer machine. Students can ask Agent to explain
+unfamiliar code line by line, identify hidden assumptions, find duplicated logic,
+propose smaller functions, review error handling, generate a threat model, compare
+two architectural approaches, write tests before changing behavior, and explain
+*why* a bug occurs rather than merely patching it. What changes is who is
+accountable for the result.
 
 Require a short engineering journal for every major AI change:
 
