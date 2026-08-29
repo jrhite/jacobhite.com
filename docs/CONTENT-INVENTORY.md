@@ -17,7 +17,7 @@ This file is the parity contract. Every row below has a home on the new site.
 | 2 | Literacy | `/literacy` | H1 "Literacy Guide" + link to cohort Doc | `/portfolio/literacy` |
 | 3 | Module 1 (ED 501) | `/module/module-1-ed-501` | H1 + orientation write-up (7 points + InTASC para) | `/portfolio/module-1` |
 | 4 | Module 2 (ED 502) | `/module/module-2-ed-502` | H1 + link to "IDEA Categories" Doc. Since extended here with a recording and the digital citizenship activity | `/portfolio/module-2` |
-| 5 | Module 3 (ED 503) | `/module/module-3-ed-503` | **Placeholder** — H1 only. Since written up here, with a recording | `/portfolio/module-3` |
+| 5 | Module 3 (ED 503) | `/module/module-3-ed-503` | **Placeholder** — H1 only. Since written up here, with three recordings | `/portfolio/module-3` |
 | 6 | Module 4 (ED 504) | `/module/module-4-ed-504` | **Placeholder** — H1 only | `/portfolio/module-4` |
 | 7 | Module 5 (ED 505) | `/module/module-5-ed-505` | **Placeholder** — H1 only | `/portfolio/module-5` |
 | 8 | Module 6 (ED 506) | `/module/module-6-ed-506` | **Placeholder** — H1 only | `/portfolio/module-6` |
@@ -50,6 +50,10 @@ This file is the parity contract. Every row below has a home on the new site.
 | `public/media/supporting-ell-mll-students-poster.jpg` | 1280×709 JPEG | Module 3 | First frame of the recording, used as the video poster. |
 | `public/media/licensed-to-teach-thailand.mp4` | 4:56, 1920×1080 H.264 | Module 2 — **new here**, not on the original | Narrated research presentation on Thai teacher licensing law. Transcoded from a 3024×1964 60fps `.mov` screen recording; the letterbox was cropped off, leaving a true 16:9. |
 | `public/media/licensed-to-teach-thailand-poster.jpg` | 1280×720 JPEG | Module 2 | Title slide of the recording, used as the video poster. |
+| `public/media/evidence-based-instruction.mp4` | 5:40, 1920×1080 H.264 | Module 3 — **new here**, not on the original | Narrated deck on evidence-based instructional practices. Transcoded from a 3024×1898 60fps `.mov`; letterbox cropped off, leaving a true 16:9. |
+| `public/media/evidence-based-instruction-poster.jpg` | 1280×720 JPEG | Module 3 | Opening slide, used as the video poster. |
+| `public/media/cs-literacy-tools.mp4` | 4:34, 1920×1080 H.264 | Module 3 — **new here**, not on the original | Screen tutorial on the CS toolchain as literacy tooling. Shipped as delivered — already H.264/AAC with the moov atom up front, so no re-encode. |
+| `public/media/cs-literacy-tools-poster.jpg` | 1280×720 JPEG | Module 3 | Title slide, used as the video poster. |
 
 The page-header background (dark diagonal beams) is a Google Sites stock theme image, not owned content. Not carried over.
 
