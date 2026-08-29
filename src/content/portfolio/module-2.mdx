@@ -10,6 +10,9 @@ sourcePath: /module/module-2-ed-502
 
 import VideoEmbed from '../../components/VideoEmbed.astro';
 import ActivityTabs from '../../components/ActivityTabs.astro';
+import SourceNote from '../../components/SourceNote.astro';
+import SlideDeck from '../../components/SlideDeck.astro';
+import { promotingLiteracySlides } from '../../data/promoting-literacy-slides';
 
 export const TABS = [
   { id: 'u1a1', group: 'Unit 1', label: 'Activity 1 — Disciplinary literacy' },
@@ -251,7 +254,9 @@ A twelve-slide presentation arguing that literacy instruction belongs in every
 grade and every classroom — secondary computer science included — and proposing a
 plan of action a school could actually adopt.
 
-[Download the presentation (.pptx, 62 KB) →](/media/promoting-literacy-language-development.pptx)
+<SlideDeck slides={promotingLiteracySlides} label="Promoting Literacy Instruction in Schools" />
+
+[Download the original file (.pptx, 62 KB) →](/media/promoting-literacy-language-development.pptx)
 
 #### Literacy is a K–12 responsibility, not an elementary subject
 
@@ -365,6 +370,8 @@ the fourteen IDEA disability categories, citing every source we drew on.
 > cohort member, under their own name. It stays behind Moreland's access controls.
 
 [IDEA Categories →](https://docs.google.com/document/d/1qmv962BoWiY6Lyqpsi3n9SSJL6x-xQ0EsqLTZs4ovrw/edit)
+
+<SourceNote path="/module/module-2-ed-502" />
 
 </Fragment>
 
