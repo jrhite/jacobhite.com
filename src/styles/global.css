@@ -326,6 +326,12 @@ hr {
   margin-top: var(--s-7);
 }
 
+/* A sub-heading wants less air above it than a section heading and more than the
+   paragraph rhythm — without this it sits flush against the text it divides. */
+.prose > * + h4 {
+  margin-top: var(--s-6);
+}
+
 .stack > * + * {
   margin-top: var(--s-4);
 }

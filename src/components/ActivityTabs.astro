@@ -64,7 +64,7 @@ const groups = tabs.reduce<Group[]>((acc, tab) => {
     {
       tabs.map((tab) => (
         <section
-          class="tabs__panel"
+          class="tabs__panel prose"
           id={tab.id}
           data-tab-panel={tab.id}
           aria-labelledby={`tab-${tab.id}`}
@@ -181,9 +181,10 @@ const groups = tabs.reduce<Group[]>((acc, tab) => {
     font-weight: 600;
   }
 
-  .tabs__panel {
-    max-width: var(--measure);
-  }
+  /* `.tabs__panel` also carries `.prose`: the site's vertical rhythm is set on
+     `.prose > * + *`, and the panel is this content's parent now, so without
+     that class every paragraph and heading inside a tab loses its margins. It
+     brings the reading measure with it. */
 
   /* The panel's own heading is the top of the column — it should not carry the
      big top margin `.prose` gives an h3 that follows body copy. */

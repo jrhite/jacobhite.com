@@ -54,7 +54,11 @@ const { src, poster, title, duration, caption, aspect } = Astro.props;
 
 <style>
   .video {
-    margin: 0 0 var(--s-7);
+    /* The top margin is stated rather than left to `.prose > * + *`: a bare
+       `margin: 0` here outranked that rule and sat the player flush against
+       the heading above it. A player is a heavier block than a paragraph, so
+       it takes more than the paragraph step. */
+    margin: var(--s-5) 0 var(--s-7);
   }
 
   .video__head {
