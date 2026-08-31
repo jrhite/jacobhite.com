@@ -42,27 +42,6 @@ const services = [
     ],
   },
 ];
-
-const preplyUrl = 'https://preply.com/en/tutor/8033353';
-
-// Quoted verbatim from the tutor profile's "What my students say" section.
-const reviews = [
-  {
-    name: 'Aleksandr',
-    when: 'August 2026',
-    body: 'I had a great experience learning with Jacob. He helped me prepare for an interview at Amazon, especially behavioral interview. His practical approach with mock interview and structure exercises was very effective.',
-  },
-  {
-    name: 'Henrik',
-    when: 'July 2026',
-    body: 'In the lessons with Jacob, we worked on interview preparation for positions in the tech field. If anyone is in a similar position, like me, to prepare for interviews and exchange knowledge in the CS field, I can highly recommend booking a lesson with him. Jacob is really friendly and puts effort into preparing the lessons. I would for sure book lessons again!',
-  },
-  {
-    name: 'Alex',
-    when: 'July 2026',
-    body: 'Jacob is highly experienced and has been very helpful in helping me understand different topics - not only the basics but the latest developments and trends as well.',
-  },
-];
 ---
 
 <BaseLayout
@@ -115,30 +94,6 @@ const reviews = [
         side of the table.
       </p>
     </blockquote>
-  </section>
-
-  <section class="section page" id="students">
-    <p class="eyebrow">What students say</p>
-    <h2 class="section__title">From people who ran one</h2>
-    <div class="reviews">
-      {
-        reviews.map((r) => (
-          <figure class="review reveal">
-            <blockquote>
-              <p>{r.body}</p>
-            </blockquote>
-            <figcaption>
-              <span class="review__name">{r.name}</span>
-              <span class="review__meta">{r.when}</span>
-            </figcaption>
-          </figure>
-        ))
-      }
-    </div>
-    <p class="reviews__source">
-      Left on my <a href={preplyUrl} rel="noopener">Preply tutor profile</a>, where I also teach
-      coding and CS fundamentals.
-    </p>
   </section>
 
   <ContactCTA
@@ -234,64 +189,6 @@ const reviews = [
     margin: 0 auto;
     max-width: 44rem;
     text-align: center;
-  }
-
-  .section__title {
-    margin-block: var(--s-3) var(--s-4);
-  }
-
-  .reviews {
-    margin-top: var(--s-6);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
-    gap: var(--s-5);
-    align-items: start;
-  }
-
-  .review {
-    margin: 0;
-    padding: var(--s-5);
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-  }
-
-  .review blockquote {
-    margin: 0;
-  }
-
-  .review blockquote p {
-    font-size: var(--t-sm);
-    color: var(--text-muted);
-  }
-
-  .review blockquote p::before {
-    content: '“';
-  }
-
-  .review blockquote p::after {
-    content: '”';
-  }
-
-  .review figcaption {
-    margin-top: var(--s-4);
-    display: flex;
-    align-items: baseline;
-    gap: var(--s-3);
-  }
-
-  .review__name {
-    font-weight: 700;
-  }
-
-  .review__meta {
-    font-size: var(--t-sm);
-    color: var(--text-muted);
-  }
-
-  .reviews__source {
-    margin-top: var(--s-5);
-    font-size: var(--t-sm);
-    color: var(--text-muted);
   }
 
   .pull p {

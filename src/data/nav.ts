@@ -36,6 +36,11 @@ export const navItems: NavItem[] = [
     blurb: 'Teaching, system design, mock interviews, and mentoring engineers and engineering managers.',
   },
   {
+    label: 'Reviews',
+    href: '/reviews',
+    blurb: 'What students say about learning, interview prep, and coaching sessions with me.',
+  },
+  {
     label: 'Writing',
     href: '/writing',
     blurb: 'Notes on teaching software engineering in the age of AI.',
