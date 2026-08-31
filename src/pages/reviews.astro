@@ -5,21 +5,25 @@ import ContactCTA from '../components/ContactCTA.astro';
 
 const preplyUrl = 'https://preply.com/en/tutor/8033353';
 
-// Quoted verbatim from the Preply profile's "What my students say" section.
+// Quoted verbatim from the Preply profile's "What my students say" section,
+// ratings included (bestRating is 5).
 const reviews = [
   {
     name: 'Aleksandr',
     when: 'August 2026',
+    rating: 5,
     body: 'I had a great experience learning with Jacob. He helped me prepare for an interview at Amazon, especially behavioral interview. His practical approach with mock interview and structure exercises was very effective.',
   },
   {
     name: 'Henrik',
     when: 'July 2026',
+    rating: 5,
     body: 'In the lessons with Jacob, we worked on interview preparation for positions in the tech field. If anyone is in a similar position, like me, to prepare for interviews and exchange knowledge in the CS field, I can highly recommend booking a lesson with him. Jacob is really friendly and puts effort into preparing the lessons. I would for sure book lessons again!',
   },
   {
     name: 'Alex',
     when: 'July 2026',
+    rating: 5,
     body: 'Jacob is highly experienced and has been very helpful in helping me understand different topics - not only the basics but the latest developments and trends as well.',
   },
 ];
@@ -40,6 +44,9 @@ const reviews = [
       {
         reviews.map((r) => (
           <figure class="review reveal">
+            <p class="review__stars" aria-label={`Rated ${r.rating} out of 5 stars`}>
+              <span aria-hidden="true">{'★'.repeat(r.rating)}</span>
+            </p>
             <blockquote>
               <p>{r.body}</p>
             </blockquote>
@@ -52,8 +59,9 @@ const reviews = [
       }
     </div>
     <p class="reviews__source">
-      All of these were left on my <a href={preplyUrl} rel="noopener">Preply tutor profile</a>,
-      where I teach coding, AI, and CS fundamentals and run interview preparation.
+      All of these were left on my <a href={preplyUrl} rel="noopener">Preply tutor profile</a> —
+      5.0 across the board — where I teach coding, AI, and CS fundamentals and run interview
+      preparation.
     </p>
   </section>
 
@@ -76,6 +84,14 @@ const reviews = [
     padding: var(--s-5);
     border: 1px solid var(--border);
     border-radius: 0.75rem;
+  }
+
+  .review__stars {
+    margin-bottom: var(--s-3);
+    color: var(--accent-bright);
+    font-size: var(--t-sm);
+    letter-spacing: 0.25em;
+    line-height: 1;
   }
 
   .review blockquote {
