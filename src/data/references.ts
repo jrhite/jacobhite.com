@@ -208,6 +208,13 @@ export const references: Reference[] = [
     rest: '_The pragmatic programmer: From journeyman to master._ Addison-Wesley.',
   },
   {
+    id: 'icev-nd',
+    author: 'iCEV.',
+    date: 'n.d.',
+    rest: '_What are ISTE standards? (And why do they matter?)_',
+    url: 'https://www.icevonline.com/blog/what-are-iste-standards',
+  },
+  {
     id: 'international-society-technology-education-nd-iste-standards-educators',
     author: 'International Society for Technology in Education.',
     date: 'n.d.',
@@ -592,6 +599,7 @@ export const citations: Record<string, string[]> = {
     'genesee-2012',
     'gregg-1984',
     'hunt-1999',
+    'icev-nd',
     'international-society-technology-education-nd-iste-standards-educators',
     'international-society-technology-education-nd-iste-standards-students',
     'kirschner-2006',
