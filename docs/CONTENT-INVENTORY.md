@@ -17,7 +17,7 @@ This file is the parity contract. Every row below has a home on the new site.
 | 2 | Literacy | `/literacy` | H1 "Literacy Guide" + link to cohort Doc | `/portfolio/literacy` |
 | 3 | Module 1 (ED 501) | `/module/module-1-ed-501` | H1 + orientation write-up (7 points + InTASC para) | `/portfolio/module-1` |
 | 4 | Module 2 (ED 502) | `/module/module-2-ed-502` | H1 + link to "IDEA Categories" Doc. Since extended here with a recording and the digital citizenship activity | `/portfolio/module-2` |
-| 5 | Module 3 (ED 503) | `/module/module-3-ed-503` | **Placeholder** — H1 only. Since written up here, with three recordings and an infographic | `/portfolio/module-3` |
+| 5 | Module 3 (ED 503) | `/module/module-3-ed-503` | **Placeholder** — H1 only. Since written up here, with three recordings, an infographic, and the ISTE self-assessment (carried over from the U3A2 submission Doc, which was linked on the Moreland platform rather than the Google Site) | `/portfolio/module-3` |
 | 6 | Module 4 (ED 504) | `/module/module-4-ed-504` | **Placeholder** — H1 only | `/portfolio/module-4` |
 | 7 | Module 5 (ED 505) | `/module/module-5-ed-505` | **Placeholder** — H1 only | `/portfolio/module-5` |
 | 8 | Module 6 (ED 506) | `/module/module-6-ed-506` | **Placeholder** — H1 only | `/portfolio/module-6` |

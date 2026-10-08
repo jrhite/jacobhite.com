@@ -1,0 +1,224 @@
+---
+/**
+ * The ISTE Standards for Teachers self-assessment from Module 3, Unit 3,
+ * Activity 2: seven standards, a 1–5 self-rating each, and the reflection
+ * behind the number.
+ *
+ * A component rather than a Markdown table because the source document is a
+ * three-column table whose third column holds whole paragraphs — at any width
+ * this site serves, that renders as slivers. Cards keep the ratings scannable
+ * and give each reflection a full reading measure.
+ *
+ * `gist` is iCEV's (n.d.) one-line summary of the standard; the rating and
+ * reflection are mine. Reflection paragraphs are HTML strings because two of
+ * them carry links.
+ */
+
+interface Standard {
+  /** ISTE educator-standard number, 2.1 through 2.7. */
+  code: string;
+  name: string;
+  /** iCEV's one-line summary of what the standard asks. */
+  gist: string;
+  /** Self-rating out of 5. */
+  rating: number;
+  /** Reflection, one HTML string per paragraph. */
+  reflection: string[];
+}
+
+const standards: Standard[] = [
+  {
+    code: '2.1',
+    name: 'Learner',
+    gist: 'Setting professional goals, pursuing professional learning networks, and keeping current with research on student learning.',
+    rating: 5,
+    reflection: [
+      'My entire career has been never-ending learning due to ever-changing technology. I&rsquo;m still learning each and every day as things evolve. I believe this brings me closer to the students&rsquo; learning perspective in many ways.',
+      'I&rsquo;ve been embedded in peer networks like <a href="https://stackoverflow.com/users/964823/lostdorje">Stack Overflow</a> and open-source contributions on <a href="https://github.com/jrhite/">GitHub</a> that keep me current (ISTE 2.1a Set Professional Goals, 2.1b Participate in PLNs, 2.1c Keep Current on Research). Concretely and more recently, that means a structured self-study path across AI tooling &mdash; evaluating different AI offerings between companies like OpenAI and Anthropic, and their specific models, like Claude&rsquo;s Opus and Sonnet lines, for different coding and teaching tasks.',
+      'I&rsquo;ve also looked into the open-source OpenClaw project to see how it is (was &mdash; a lot of its uniqueness has now been adopted by the larger AI companies) different from just using a chat AI bot.',
+    ],
+  },
+  {
+    code: '2.2',
+    name: 'Leader',
+    gist: 'Advancing a shared vision for learning with technology, advocating for equitable access, and demonstrating digital tools for colleagues.',
+    rating: 3,
+    reflection: [
+      'I&rsquo;ve done a lot to advance my own learning, but am only just growing my own wings as a leader in education. I&rsquo;ve done some practice tutoring online to that end. Some lessons and students&rsquo; tracks hit well. Some don&rsquo;t. It&rsquo;s not total trial and error, but I am in the process of learning and improving. Students and I will have to grow together, and my own teaching mistakes can end up as lessons to all.',
+      'Where I do feel real movement is in modeling new tools rather than just talking about them. For example, reframing a student from a corporate/spreadsheet background as the &ldquo;director of the build&rdquo; who directs AI coding agents rather than hand-writing every line, bridging from something familiar (spreadsheets) to something new (databases, APIs) (ISTE 2.2c Model Digital Tool Use). This modeling has stayed student-facing rather than extending to peers, which is why a 3 still feels honest.',
+    ],
+  },
+  {
+    code: '2.3',
+    name: 'Citizen',
+    gist: 'Creating positive experiences online, evaluating resources for credibility, and modeling safe, legal, ethical practice with data.',
+    rating: 4,
+    reflection: [
+      'As mentioned, I&rsquo;ve participated in Stack Overflow, in both asking and answering questions, and in helping with open-source code on GitHub. I also try to model safe and ethical practices with student and user data directly in the products I build. For example, deliberately configuring session-replay privacy settings (masking sensitive fields) before enabling analytics tools on Owlonit, rather than defaulting to full capture (ISTE 2.3d Manage, Protect Data).',
+      'I make a point of teaching students to evaluate AI-generated output critically rather than accept it uncritically, since that&rsquo;s now a core digital-literacy skill (ISTE 2.3b Evaluate Resources for Credibility).',
+    ],
+  },
+  {
+    code: '2.4',
+    name: 'Collaborator',
+    gist: 'Building learning experiences with colleagues, learning alongside students, and employing collaborative tools.',
+    rating: 3,
+    reflection: [
+      'I&rsquo;ve done some collaboration with students in crafting custom curriculum and letting them lead lessons where the questions land. I try to turn questions into challenges the students and I solve together. This shows up concretely in one-on-one tutoring &mdash; for instance, working with a student building a real-estate deal-management app, where we&rsquo;re genuinely discovering the right architecture together rather than me dictating it (ISTE 2.4b Learn Alongside Students).',
+      'I also lean on collaborative, cloud-based tools so we can work inside the same artifact in real time rather than trading files back and forth (ISTE 2.4c Use Collaborative Tools). I&rsquo;d like to grow this into more structured peer/colleague collaboration, which is the main gap keeping this at a 3.',
+    ],
+  },
+  {
+    code: '2.5',
+    name: 'Designer',
+    gist: 'Accommodating learner differences, designing standards-aligned activities with technology, and creating innovative learning environments.',
+    rating: 4,
+    reflection: [
+      'This is where I think my strongest work happens.',
+      'I intentionally personalize instruction around each student&rsquo;s actual background rather than a fixed curriculum. For example, with a student coming from a corporate/spreadsheet background rather than CS, I rebuilt the entry point to systems concepts around analogies that were already familiar to her (spreadsheets &rarr; databases, formulas &rarr; APIs) instead of starting from unfamiliar CS vocabulary (ISTE 2.5a Accommodate Learner Differences).',
+      'I also try to keep learning activities authentic rather than toy exercises, having students build and ship something real (a task-management workflow, a real-estate deal tracker) so the technology use is in service of an actual outcome, not a simulation of one (ISTE 2.5b Design Authentic Learning Activities).',
+    ],
+  },
+  {
+    code: '2.6',
+    name: 'Facilitator',
+    gist: 'Fostering student ownership of learning, managing classroom technology use, and teaching design and computational thinking.',
+    rating: 3,
+    reflection: [
+      'I try to hand over real ownership rather than just permission &mdash; in essence, positioning students as the &ldquo;director&rdquo; of their own build who directs AI coding agents, makes the architectural calls, and is accountable for the result, with me facilitating rather than driving (ISTE 2.6a Foster Student Ownership of Learning).',
+      'I also design learning around computational-thinking problems directly: for example, building a mock-interview problem around AST/expression trees for a student targeting ML engineering roles, so the practice is decomposition and pattern recognition, not just syntax recall (ISTE 2.6c Teach Computational and Design Thinking).',
+      'I&rsquo;m rating this a 3 because I&rsquo;m still better at 1:1 facilitation than at managing this kind of ownership across a group or classroom setting, which I haven&rsquo;t yet had the chance to test.',
+    ],
+  },
+  {
+    code: '2.7',
+    name: 'Analyst',
+    gist: 'Offering alternative assessments, using technology for formative and summative assessment, and using data to guide progress.',
+    rating: 3,
+    reflection: [
+      'Most of my assessment work has been building structured, criteria-based feedback rather than simple pass/fail grading &mdash; for example, writing multi-dimension scoring rubrics for mock technical interviews (covering things like depth of ownership, decision reasoning, and self-awareness under pressure) so a student gets specific, actionable feedback tied to a real competency rather than a single score (ISTE 2.7b Use Tech to Create Assessments). I use that feedback to adjust what we work on next (ISTE 2.7c Use Data to Guide Progress).',
+      'I haven&rsquo;t yet built out more systematic, tech-based data collection across students, which is the main thing keeping this at a 3 rather than higher.',
+    ],
+  },
+];
+
+const scale = [1, 2, 3, 4, 5];
+---
+
+<ol class="standards">
+  {
+    standards.map((s) => (
+      <li class="standard">
+        <span class="standard__n" aria-hidden="true">
+          {s.code}
+        </span>
+        <div class="standard__head">
+          <h4>{s.name}</h4>
+          <span class="standard__rating" role="img" aria-label={`Self-rated ${s.rating} out of 5`}>
+            {scale.map((step) => (
+              <span
+                class:list={['standard__dot', step <= s.rating && 'standard__dot--filled']}
+                aria-hidden="true"
+              />
+            ))}
+            <span class="standard__score" aria-hidden="true">
+              {s.rating}/5
+            </span>
+          </span>
+        </div>
+        <p class="standard__gist muted">{s.gist}</p>
+        <div class="standard__reflection">
+          {s.reflection.map((p) => (
+            <p set:html={p} />
+          ))}
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .standards {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-5) 0 0;
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .standard {
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .standard__n {
+    position: absolute;
+    top: -0.15em;
+    right: 0.1em;
+    font-family: var(--f-display);
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--accent-soft);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .standard__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    position: relative;
+    /* Clear of the ghost numeral, which the rating would otherwise sit on. */
+    padding-right: 5rem;
+  }
+
+  .standard__head h4 {
+    font-size: var(--t-lg);
+  }
+
+  .standard__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
+  }
+
+  .standard__dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: var(--r-full);
+    border: 2px solid var(--border-strong);
+  }
+
+  .standard__dot--filled {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+
+  .standard__score {
+    margin-left: var(--s-2);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  .standard__gist {
+    margin-top: var(--s-2);
+    font-size: var(--t-sm);
+    max-width: 55ch;
+  }
+
+  .standard__reflection {
+    margin-top: var(--s-4);
+  }
+
+  .standard__reflection p + p {
+    margin-top: var(--s-3);
+  }
+</style>
