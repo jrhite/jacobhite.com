@@ -66,6 +66,7 @@ export const siteMeta = {
   name: 'Jacob Hite',
   tagline: 'Former Amazon and Google software engineer turned software engineering teacher and coach.',
   domain: 'jacobhite.com',
+  github: 'https://github.com/jrhite',
   repo: 'https://github.com/jrhite/jacobhite.com',
 
   /**
