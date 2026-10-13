@@ -40,6 +40,17 @@ boundaries, not substrings.
 - **Commits** are conventional-prefixed (`feat(scope):`, `fix:`, `docs:`,
   `chore:`, `ci:`) with a body that explains *why*, not what the diff already
   shows. History is linear — merge fast-forward, never a merge commit.
+- **Every commit is `Jacob Hite <1085644+jrhite@users.noreply.github.com>`**,
+  as both author and committer. The noreply address keeps a personal inbox out
+  of the public history while GitHub still attributes the commit to @jrhite.
+  Never set `user.email`, `--author`, or `GIT_AUTHOR_*`/`GIT_COMMITTER_*` to
+  anything else, and never put a personal address in a trailer — an agent's
+  own `Co-Authored-By` line is fine. `scripts/check-git-identity.sh` enforces
+  it from the `pre-commit` and `pre-push` hooks in `.githooks/` (wired up by
+  `pnpm install` via `prepare`, or `git config core.hooksPath .githooks`) and
+  again in CI, which fails the deploy. Don't bypass it with `--no-verify`; if
+  it fires, fix the config and rewrite the commit before it is pushed — once
+  pushed, the address is public.
 - **Pushing to `main` deploys.** `.github/workflows/deploy.yml` builds and
   uploads to Cloudflare Pages on every push to `main`, so a push is a release.
 - **Design tokens over literals.** Colors, spacing, radii and type sizes all

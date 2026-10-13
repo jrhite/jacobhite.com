@@ -17,6 +17,10 @@ pnpm preview      # serve dist/ locally
 
 Node ≥ 22.12 and pnpm 11.
 
+`pnpm install` also points git at `.githooks/`, which refuses any commit or
+push not authored as `Jacob Hite <1085644+jrhite@users.noreply.github.com>`.
+See "Commits" in `AGENTS.md`.
+
 ## Layout
 
 ```

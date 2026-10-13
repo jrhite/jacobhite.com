@@ -1,0 +1,15 @@
+#!/bin/sh
+# Refuse to publish any commit, however it was made (rebase, cherry-pick,
+# amend with --author), whose author or committer is not the noreply identity.
+zero=0000000000000000000000000000000000000000
+script="$(git rev-parse --show-toplevel)/scripts/check-git-identity.sh"
+while read -r _local_ref local_sha _remote_ref remote_sha; do
+  [ "$local_sha" = "$zero" ] && continue # deleting a ref
+  if [ "$remote_sha" = "$zero" ]; then
+    range="$local_sha --not --remotes"
+  else
+    range="$remote_sha..$local_sha"
+  fi
+  # shellcheck disable=SC2086
+  "$script" $range || exit 1
+done

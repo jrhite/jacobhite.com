@@ -27,6 +27,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Backstop for the local hooks, which a clone without `pnpm install` (or
+      # `--no-verify`) skips. Fails the deploy rather than shipping a commit
+      # that exposes a personal address — see AGENTS.md.
+      - name: Check commit identity
+        # On a PR, HEAD is GitHub's synthetic merge commit; check the PR's own.
+        run: scripts/check-git-identity.sh ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: pnpm/action-setup@v6
 
