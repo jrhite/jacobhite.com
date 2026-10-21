@@ -1,0 +1,189 @@
+---
+/**
+ * The relationship-building strategies from Module 4, Unit 1, Activity 1: three
+ * for daily use and three interventions, each with what it looks like and why
+ * it works.
+ *
+ * A component rather than Markdown because the source is the Learning
+ * Environment Plan template's two-column table, whose cells each hold a
+ * labeled description and a labeled rationale. Cards keep the strategy name
+ * scannable and give both paragraphs a full reading measure.
+ *
+ * Paragraphs are HTML strings for typographic quotes and dashes.
+ */
+
+interface Strategy {
+  name: string;
+  description: string;
+  rationale: string;
+}
+
+const groups: { title: string; lede: string; strategies: Strategy[] }[] = [
+  {
+    title: 'For daily use',
+    lede: 'Routine strategies: what I will do every day to build and keep a relationship with every student.',
+    strategies: [
+      {
+        name: 'Door greetings by name',
+        description:
+          'I will greet every student at the door by the name they prefer, pronounced the way they say it, and ask one quick personal or coding question (&ldquo;Did your program run last night?&rdquo;). In an international classroom with students from many countries and language backgrounds, getting each name right is the first daily signal that every student and culture in the room matters.',
+        rationale:
+          'Teachers in Edutopia (2019) use morning greetings to see students as people, and the researchers in the video explain that consistency and trust are central to learning. Mr. Gomez greeted every student on the first day, looking for any detail to connect over so students felt safe and wanted (San Bernardino City Unified School District [SBCUSD], 2018). The greeting will also let me read each student&rsquo;s mood before class starts.',
+      },
+      {
+        name: 'Know my learners and build it into projects',
+        description:
+          'In the first week, students will complete a background survey (see the student background survey below) and an identity activity such as a learner portrait. I will then build what they share into their coding work. A student who has moved between three countries might build a time-zone tool for family calls; a student who plays football might build a match-stats tracker.',
+        rationale:
+          'Williams (2024) names knowing your learners as the first pillar of classroom community. Culturally responsive teaching uses students&rsquo; customs, experiences, and perspectives as tools for instruction (Will &amp; Najarro, 2022). Identity becomes central in adolescence, and self-identity is the base of self-esteem (ACT for Youth, n.d.), so projects that reflect who students are tell them they belong in computing.',
+      },
+      {
+        name: 'Co-created norms and structured pair programming',
+        description:
+          'Students and I will write our class agreements together in the first week. One norm I will push for: everyone&rsquo;s code breaks, so nobody laughs at an error message or calls a task &ldquo;easy.&rdquo; Pair programming will use rotating driver and navigator roles, with partners planned around coding experience and language background so experienced coders explain their thinking and newer coders, including students still building academic English, get hands-on time with support.',
+        rationale:
+          'Williams (2024) recommends co-creating community agreements so the classroom feels like it belongs to everyone, and using intentional grouping and group roles to build collaboration. Mr. Gomez planned his seating chart around skill level and language so stronger students could support those who struggle (SBCUSD, 2018). The U.S. Department of Education (2023) links rigorous, high-expectation environments to mutual respect between students and teachers.',
+      },
+    ],
+  },
+  {
+    title: 'For interventions',
+    lede: 'Intervention strategies: how I will deliberately close the gap between a struggling student and me.',
+    strategies: [
+      {
+        name: 'Private check-ins instead of public correction',
+        description:
+          'When a student pulls back, stops turning in work, or acts out, I will talk with them quietly at their computer or during a free period, starting with care rather than correction (&ldquo;You had a lot to say yesterday. Are you okay?&rdquo;). Every student will also have a private way to ask for help, such as a direct message, so asking does not mean admitting confusion in front of classmates.',
+        rationale:
+          'In Edutopia (2019), one teacher notices a change in a student and checks in quietly, and another spends free periods making connections instead of grading. Adolescents are more self-conscious and more concerned with how others see them (Pfeifer &amp; Berkman, 2018), so public correction can cost more trust than it gains, especially for students who are new to the school, the country, or English.',
+      },
+      {
+        name: 'Look at the data before deciding what the problem is',
+        description:
+          'Before assuming a student is unmotivated, I will review attendance, assignment, and engagement data alongside their survey answers about technology access and life outside school. A student who never submits coding homework may only have a phone at home, share one computer with siblings, or be managing a long commute or family responsibilities. The fix might be lunchtime lab access, an offline version of the task, or a realistic deadline, not a lecture about effort.',
+        rationale:
+          'The U.S. Department of Education (2023) recommends routinely examining attendance, engagement, and academic data to identify students who need support early, as part of a multi-tiered system of supports. Addressing the real barrier instead of the visible behavior treats the student with dignity and keeps the relationship intact, which supports the sense of belonging the guidance identifies as the first principle of a positive school climate.',
+      },
+      {
+        name: 'Restorative conversation, then rebuild through strengths',
+        description:
+          'I will meet one-on-one with the student, ask how things look from their side, share what I have noticed, own any part I played, and agree on one small next step together. Then I will give the student a chance to be the expert, such as helping a classmate debug a loop if they build game mods at home, and send a specific, positive message to the family before any further problem comes up.',
+        rationale:
+          'Restorative practices build relationships through listening, accountability, and repair (U.S. Department of Education, 2023), and Williams (2024) lists restorative conversations and specific recognition among core relationship strategies. Pfeifer and Berkman (2018) argue that identity-based values are a changeable source of adolescent motivation, so helping a student see themselves as someone who can code can re-engage them. The Department of Education (2023) also recommends consistent two-way communication with families before problems arise.',
+      },
+    ],
+  },
+];
+---
+
+<div class="strategies">
+  {
+    groups.map((g) => (
+      <section class="strategies__group">
+        <h4 class="strategies__title">{g.title}</h4>
+        <p class="strategies__lede muted">{g.lede}</p>
+        <ol class="strategies__list">
+          {g.strategies.map((s) => (
+            <li class="strategy">
+              <h5 class="strategy__name">{s.name}</h5>
+              <div class="strategy__body">
+                <div>
+                  <span class="strategy__label">What it looks like</span>
+                  <p set:html={s.description} />
+                </div>
+                <div>
+                  <span class="strategy__label">Why it works</span>
+                  <p set:html={s.rationale} />
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .strategies {
+    display: grid;
+    gap: var(--s-6);
+    margin-top: var(--s-5);
+  }
+
+  .strategies__title {
+    font-size: var(--t-lg);
+  }
+
+  .strategies__lede {
+    margin-top: var(--s-1);
+    font-size: var(--t-sm);
+  }
+
+  /* The portfolio prose column indents lists and spaces `li + li`; this one is
+     a grid of cards, so both come back off. */
+  .strategies .strategies__list {
+    list-style: none;
+    padding-left: 0;
+    margin: var(--s-4) 0 0;
+    display: grid;
+    gap: var(--s-4);
+    counter-reset: strategy;
+  }
+
+  .strategies .strategies__list > li {
+    margin-top: 0;
+  }
+
+  .strategy {
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    counter-increment: strategy;
+  }
+
+  .strategy__name {
+    font-family: var(--f-display);
+    font-size: var(--t-lg);
+    line-height: 1.25;
+  }
+
+  .strategy__name::before {
+    content: counter(strategy);
+    display: inline-grid;
+    place-items: center;
+    width: 1.6em;
+    height: 1.6em;
+    margin-right: var(--s-3);
+    border-radius: var(--r-full);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    vertical-align: 0.2em;
+  }
+
+  .strategy__body {
+    margin-top: var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--s-4) var(--s-6);
+  }
+
+  .strategy__label {
+    display: block;
+    margin-bottom: var(--s-1);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+  }
+
+  .strategy__body p {
+    font-size: var(--t-sm);
+  }
+</style>

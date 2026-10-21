@@ -18,7 +18,7 @@ This file is the parity contract. Every row below has a home on the new site.
 | 3 | Module 1 (ED 501) | `/module/module-1-ed-501` | H1 + orientation write-up (7 points + InTASC para) | `/portfolio/module-1` |
 | 4 | Module 2 (ED 502) | `/module/module-2-ed-502` | H1 + link to "IDEA Categories" Doc. Since extended here with a recording and the digital citizenship activity | `/portfolio/module-2` |
 | 5 | Module 3 (ED 503) | `/module/module-3-ed-503` | **Placeholder** — H1 only. Since written up here, with three recordings, an infographic, the ISTE self-assessment (carried over from the U3A2 submission Doc, which was linked on the Moreland platform rather than the Google Site), and Unit 4's UDL lesson plan and case study questionnaire (likewise carried over from their submission Docs) | `/portfolio/module-3` |
-| 6 | Module 4 (ED 504) | `/module/module-4-ed-504` | **Placeholder** — H1 only | `/portfolio/module-4` |
+| 6 | Module 4 (ED 504) | `/module/module-4-ed-504` | **Placeholder** — H1 only. Since written up here: Unit 1's relationship strategies, student background survey, and classroom norms, carried over from the Learning Environment Plan submission Doc | `/portfolio/module-4` |
 | 7 | Module 5 (ED 505) | `/module/module-5-ed-505` | **Placeholder** — H1 only | `/portfolio/module-5` |
 | 8 | Module 6 (ED 506) | `/module/module-6-ed-506` | **Placeholder** — H1 only | `/portfolio/module-6` |
 | 9 | Clincal Practice | `/clincal-practice` | H1 "Clinical Practice" + Merrill framework + 2 refs | `/portfolio/clinical-practice` |
@@ -87,7 +87,7 @@ Two of these are **cohort collaborative documents containing other students' nam
 ## Parity checklist
 
 - [x] Every page from the original has a home here (10/17) — the seven M.Ed. pathway pages were dropped on purpose, not missed
-- [x] Every placeholder carried over, and still visibly a placeholder — except Module 3, which has since been written up and is marked complete
+- [x] Every placeholder carried over, and still visibly a placeholder — except Modules 3 and 4, which have since been written up and are marked complete
 - [x] Every image downloaded and committed to `src/assets/original/`
 - [x] Every outbound link recorded
 - [ ] Decide what to do about the two cohort Google Docs (see above)

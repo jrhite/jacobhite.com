@@ -27,6 +27,13 @@ export interface Reference {
 
 export const references: Reference[] = [
   {
+    id: 'act-youth-nd',
+    author: 'ACT for Youth.',
+    date: 'n.d.',
+    rest: '_Adolescent identity development._ Cornell University.',
+    url: 'https://actforyouth.org/adolescence/identity.cfm',
+  },
+  {
     id: 'aierstok-2023',
     author: 'Aierstok, E.',
     date: '2023, April 8',
@@ -183,11 +190,32 @@ export const references: Reference[] = [
     url: 'https://eric.ed.gov/?id=EJ1440740',
   },
   {
+    id: 'developmental-studies-center-nd',
+    author: 'Developmental Studies Center.',
+    date: 'n.d.',
+    rest: '_What are standards/norms?_ [Handout]. Edutopia.',
+    url: 'https://wpvip.edutopia.org/wp-content/uploads/2022/10/edutopia-stw-louisville-sel-what-are-standards-norms.pdf',
+  },
+  {
     id: 'duff-2018',
     author: 'Duff, D., & Tomblin, J. B.',
     date: '2018, October',
     rest: '_Literacy as an outcome of language development and its impact on children\'s psychosocial and emotional development._ Encyclopedia on Early Childhood Development.',
     url: 'https://www.child-encyclopedia.com/language-development-and-literacy/according-experts/literacy-outcome-language-development-and-its',
+  },
+  {
+    id: 'edutopia-2019',
+    author: 'Edutopia.',
+    date: '2019, January 14',
+    rest: '_The power of relationships in schools_ [Video]. YouTube.',
+    url: 'https://www.youtube.com/watch?v=kzvm1m8zq5g',
+  },
+  {
+    id: 'evertson-2003',
+    author: 'Evertson, C., Poole, I., & the IRIS Center.',
+    date: '2003',
+    rest: '_Establishing classroom norms and expectations._',
+    url: 'https://iris.peabody.vanderbilt.edu/wp-content/uploads/pdf_case_studies/ics_norms.pdf',
   },
   {
     id: 'facing-history-ourselves-canada-2021',
@@ -209,6 +237,13 @@ export const references: Reference[] = [
     date: '2025',
     rest: 'Beware of metacognitive laziness: Effects of generative artificial intelligence on learning motivation, processes, and performance. _British Journal of Educational Technology, 56_(2), 489–530.',
     url: 'https://doi.org/10.1111/bjet.13544',
+  },
+  {
+    id: 'finley-2014',
+    author: 'Finley, T.',
+    date: '2014, August 12',
+    rest: 'The science behind classroom norming. _Edutopia._',
+    url: 'https://www.edutopia.org/blog/establishing-classroom-norms-todd-finley',
   },
   {
     id: 'foorman-2016',
@@ -244,6 +279,13 @@ export const references: Reference[] = [
     url: 'https://doi.org/10.1093/applin/5.2.79',
   },
   {
+    id: 'gruenert-2023',
+    author: 'Gruenert, S., & Whitaker, T.',
+    date: '2023, November 28',
+    rest: 'School culture versus school climate. _ASCD._',
+    url: 'https://www.ascd.org/blogs/school-culture-versus-school-climate',
+  },
+  {
     id: 'harari-2020',
     author: 'Harari, Y. N., Vandermeulen, D., & Casanave, D.',
     date: '2020',
@@ -275,6 +317,13 @@ export const references: Reference[] = [
     date: 'n.d.',
     rest: '_ISTE standards: For students._',
     url: 'https://iste.org/standards/students',
+  },
+  {
+    id: 'iris-center-2021',
+    author: 'The IRIS Center.',
+    date: '2021',
+    rest: '_Classroom behavior management (Part 2, secondary): Developing a behavior management plan._',
+    url: 'https://iris.peabody.vanderbilt.edu/module/beh2_sec/',
   },
   {
     id: 'iris-center-nd',
@@ -454,6 +503,13 @@ export const references: Reference[] = [
     rest: '_Hatchet._ Bradbury Press.',
   },
   {
+    id: 'pfeifer-2018',
+    author: 'Pfeifer, J. H., & Berkman, E. T.',
+    date: '2018',
+    rest: 'The development of self and identity in adolescence: Neural evidence and implications for a value-based choice perspective on motivated behavior. _Child Development Perspectives, 12_(3), 158–164.',
+    url: 'https://doi.org/10.1111/cdep.12279',
+  },
+  {
     id: 'piasta-2010',
     author: 'Piasta, S. B., Purpura, D. J., & Wagner, R. K.',
     date: '2010',
@@ -550,11 +606,25 @@ export const references: Reference[] = [
     url: 'https://ies.ed.gov/rel-southeast/2025/01/infographic-21',
   },
   {
+    id: 'rhode-island-department-education-nd',
+    author: 'Rhode Island Department of Education.',
+    date: 'n.d.',
+    rest: '_Developing norms for distance learning._',
+    url: 'https://ride.ri.gov/sites/g/files/xkgbur806/files/Portals/0/Uploads/Documents/Instruction-and-Assessment-World-Class-Standards/Instructional-Resources/BackToSchool/DevelopingNormsForDistanceLearning.pdf',
+  },
+  {
     id: 'robertson-nd',
     author: 'Robertson, K., & Ford, K.',
     date: 'n.d.',
     rest: '_Language acquisition: An overview._ Colorín Colorado.',
     url: 'https://www.colorincolorado.org/article/language-acquisition-overview',
+  },
+  {
+    id: 'san-bernardino-city-unified-2018',
+    author: 'San Bernardino City Unified School District.',
+    date: '2018, August 17',
+    rest: '_The first day of high school: Establishing classroom expectations and building relationships_ [Video]. YouTube.',
+    url: 'https://www.youtube.com/watch?v=eUiWFntut00',
   },
   {
     id: 'schmidt-2016',
@@ -637,11 +707,31 @@ export const references: Reference[] = [
     url: 'https://www.ed.gov/sites/ed/files/documents/ai-report/ai-report.pdf',
   },
   {
+    id: 'u-s-department-education-2023-school-climates',
+    author: 'U.S. Department of Education.',
+    date: '2023',
+    rest: '_Guiding principles for creating safe, inclusive, supportive, and fair school climates._',
+  },
+  {
     id: 'voyager-sopris-learning-nd',
     author: 'Voyager Sopris Learning.',
     date: 'n.d.',
     rest: '_What are the stages of writing development?_',
     url: 'https://www.voyagersopris.com/vsl/blog/stages-of-writing-development',
+  },
+  {
+    id: 'will-2022',
+    author: 'Will, M., & Najarro, I.',
+    date: '2022, April 18',
+    rest: 'What is culturally responsive teaching? _Education Week._',
+    url: 'https://www.edweek.org/teaching-learning/culturally-responsive-teaching-culturally-responsive-pedagogy/2022/04',
+  },
+  {
+    id: 'williams-2024',
+    author: 'Williams, K.',
+    date: '2024, August 27',
+    rest: 'Slow down to go fast: 6 pillars to prioritizing community and relationships. _Learner-Centered Collaborative._',
+    url: 'https://learnercentered.org/blog/slow-down-to-go-fast-6-pillars-to-prioritizing-community-and-relationships/',
   },
 ];
 
@@ -744,6 +834,21 @@ export const citations: Record<string, string[]> = {
     'swain-1985',
     'teachhub-2021',
     'u-s-department-education-2023',
+  ],
+  'module-4': [
+    'act-youth-nd',
+    'developmental-studies-center-nd',
+    'edutopia-2019',
+    'evertson-2003',
+    'finley-2014',
+    'gruenert-2023',
+    'iris-center-2021',
+    'pfeifer-2018',
+    'rhode-island-department-education-nd',
+    'san-bernardino-city-unified-2018',
+    'u-s-department-education-2023-school-climates',
+    'will-2022',
+    'williams-2024',
   ],
   'intasc-standards': [
     'council-chief-state-school-2011',

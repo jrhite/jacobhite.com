@@ -1,0 +1,198 @@
+---
+title: Module 4 (ED 504)
+navLabel: Module 4
+subtitle: Managing the Learning Environment
+group: Modules
+order: 24
+status: complete
+sourcePath: /module/module-4-ed-504
+---
+
+import ActivityTabs from '../../components/ActivityTabs.astro';
+import RelationshipStrategies from '../../components/RelationshipStrategies.astro';
+import StudentSurvey from '../../components/StudentSurvey.astro';
+import ClassroomNorms from '../../components/ClassroomNorms.astro';
+import References from '../../components/References.astro';
+
+export const TABS = [
+  { id: 'u1a1', group: 'Unit 1 · Climate and Culture of the Learning Environment', label: 'Activity 1: Building relationships' },
+  { id: 'u1a2', group: 'Unit 1 · Climate and Culture of the Learning Environment', label: 'Activity 2: Classroom norms' },
+  { id: 'references', label: 'References' },
+];
+
+<ActivityTabs tabs={TABS}>
+
+<Fragment slot="u1a1">
+
+### Unit 1, Activity 1: Building relationships
+
+The first part of my Learning Environment Plan. **Routine strategies** are the
+methods I will use every day to build and keep positive relationships with
+students. **Intervention strategies** are for the moment one student starts to
+drift: they deliberately close the gap between that student and me.
+
+<RelationshipStrategies />
+
+#### Method subject: a student background survey for Secondary Computer Sciences
+
+**Classroom context.** My clinical placement will be a secondary computer
+science classroom in an international school in Chiang Mai, Thailand, where
+English is the language of instruction and students come from all over the
+world: Thailand and the rest of Asia, Europe, North America, Australia, and
+beyond. Many students will be multilingual, and their English proficiency will
+range from native speakers to students still building academic English. Their
+schooling histories will vary just as widely. Some will have come up through
+the IB, British, or American systems; others through national systems in their
+home countries; and some, often called third culture kids, will have moved
+schools and countries several times. Each of those systems treats computer
+science differently, so prior coding experience will range from none at all to
+years of programming. Access to technology will vary too. Some students will
+have their own laptop and fast internet, while others may share a family
+computer, rely mainly on a phone, or lose reliable access when they travel home
+during breaks. Because coding homework depends on having a computer, I cannot
+assume every student has the same access or experience.
+
+**The survey.** It is a Google Form, in English, with short, plain-language
+questions so students still building English can answer comfortably.
+
+<StudentSurvey />
+
+Students' self-reported performance in question 4 will be checked against
+school records, reviewed with my mentor teacher's permission.
+
+#### Reflection
+
+This survey will help me build cultural competence because it replaces my
+assumptions with what students actually tell me. In an international school, it
+is easy to group students by nationality, but a student with a Korean passport
+may have spent most of her life in Singapore and Dubai. Culturally responsive
+teaching asks teachers to use students' own customs, experiences, and
+perspectives as tools for instruction (Will & Najarro, 2022), and the survey is
+how I learn what those are.
+
+Question 1 is a small example with a large effect: learning to pronounce every
+student's name correctly on the first day shows students from every background
+that I see them as individuals. Mr. Gomez spent the first minutes of the year
+looking for any detail to connect over (SBCUSD, 2018), and the survey gives me
+those details for every student, not only the outgoing ones.
+
+Question 7 matters because classroom norms around asking questions differ across
+school systems, and Gay's framework emphasizes appreciating different
+communication styles rather than treating them as problems (Will & Najarro,
+2022). Adolescents are also especially self-conscious about how peers see them
+(Pfeifer & Berkman, 2018). If a student says they only ask for help privately,
+I will check in quietly at their desk instead of waiting for a raised hand that
+may never come.
+
+Question 3 protects relationships as well. If I know a student arrived from a
+system with no computer science courses, I will not read their early struggles
+as a lack of ability, and they will not experience me as one more adult who
+assumed the worst. Each of these is a chance to show students I care before I
+ever need to correct them, and as Edutopia (2019) shows, students work harder
+for teachers they trust.
+
+#### How I will interpret and use the data
+
+I will organize responses into a simple class profile covering languages and
+English comfort, schooling history, technology access, coding experience,
+help-seeking preferences, outside commitments, and interests. Then I will act on
+each part:
+
+- **Building relationships.** I will use students' interests and app ideas
+  (questions 8 and 9) in greetings and one-on-one check-ins, and send each
+  family a positive first message early in the year. The U.S. Department of
+  Education (2023) recommends consistent, two-way communication with families
+  before problems arise.
+- **Making instructional decisions.** Coding experience (question 6) will guide
+  pair-programming partners and how I differentiate first projects. English
+  comfort and schooling history (questions 2 and 3) will tell me where to add
+  visual supports, vocabulary previews for terms like *variable* and
+  *function*, and worked examples. Interests will shape project themes, so a
+  student who plays football might build a match-stats tracker while a student
+  who has moved between countries builds a time-zone tool for family calls.
+- **Making sure all students are included and engaged.** Technology access
+  (question 5) will decide whether homework needs lab time, offline options, or
+  phone-friendly versions so no student falls behind because of equipment.
+  Outside commitments (question 8) will inform realistic deadlines, and
+  help-seeking preferences (question 7) will shape how I run check-ins during
+  independent coding time.
+
+I will repeat a shorter version of the survey mid-semester. Adolescents'
+identities are still forming and change over time (ACT for Youth, n.d.), new
+students arrive throughout the year in international schools, and the data
+should change my teaching as my students do.
+
+</Fragment>
+
+<Fragment slot="u1a2">
+
+### Unit 1, Activity 2: Classroom norms
+
+Classroom norms are the foundation for establishing and maintaining a positive
+learning environment, and the umbrella that rules sit under. Mine are five
+positively stated norms, each with the specific rules that make it concrete,
+and each with the modifications it needs in a virtual classroom.
+
+<ClassroomNorms />
+
+#### How these norms lead to a safe learning environment
+
+**Norms and rules work together.** Norms are the familiar, shared ways a class
+interacts. They cover broad sets of behavior, apply to everyone in the room (the
+teacher included), and are few in number, while rules are specific, observable
+statements of what students should do (Developmental Studies Center, n.d.;
+Evertson et al., 2003). That is why each of my five norms is listed with the
+rules that fit under it. A rule like "Credit any code, images, or AI help you
+use" makes the broader norm of using technology responsibly concrete enough to
+teach and check. All five norms are stated positively, telling students what to
+do rather than what not to do, and the IRIS Center (2021) notes that positively
+stated rules describing expected behavior are linked to less disruptive
+behavior.
+
+**How the norms create a safe learning environment.** Safety in my classroom
+will have three parts.
+
+- **Emotional safety** comes from norms 1 and 3. My students will come from
+  many countries, languages, and school systems, and what counts as respectful
+  or engaged differs among them. Dr. Andrew Kwok recommends having students
+  define words like *respect* together and allowing more than one way to
+  participate (The IRIS Center, 2021), so we will build what each norm looks
+  like as a class instead of assuming one definition.
+- **Intellectual safety** comes from norm 2. Programming is a constant cycle of
+  errors and fixes, and students who fear looking wrong in front of peers stop
+  experimenting. Making bugs a normal, shared part of class lets students take
+  the risks that learning to code requires.
+- **Physical and digital safety** comes from norms 4 and 5: protecting
+  passwords and files, getting permission before sharing anyone's image or
+  work, and predictable routines that keep class time focused on learning.
+
+**How I will establish and sustain them.** Because norms belong to the whole
+class, I will co-create them with students after the first two to three weeks of
+school, once the group has moved past its early forming and storming stages
+(Finley, 2014). Students will work in small groups to suggest norms for common
+problem areas, and we will vote on the final list and post it. I will then teach
+each norm by introducing it, discussing why it matters, modeling examples and
+non-examples, practicing, and reviewing it before transitions (The IRIS Center,
+2021). Responding consistently matters as much as the wording, because students
+become unsure whether expectations apply to them when teachers enforce them
+unevenly (Evertson et al., 2003).
+
+For virtual learning, we will co-construct the same norms on a digital
+whiteboard, revisit one norm at the start of each session, and plan for
+different devices, connections, and time zones (Rhode Island Department of
+Education, n.d.). I will revisit the norms with students mid-semester and adjust
+them together. Practiced every day, these norms can shift the classroom climate,
+and over time they become part of the class's culture, the way students act
+even when no one is checking (Gruenert & Whitaker, 2023).
+
+</Fragment>
+
+<Fragment slot="references">
+
+### References
+
+<References page="module-4" />
+
+</Fragment>
+
+</ActivityTabs>

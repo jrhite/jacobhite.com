@@ -1,0 +1,209 @@
+---
+/**
+ * The classroom norms from Module 4, Unit 1, Activity 2: five positively
+ * stated norms, the rules that sit under each, and how each one carries over
+ * to a virtual classroom.
+ *
+ * A component rather than Markdown because the source keeps the in-room norms
+ * and their virtual modifications in two separate table rows, so a reader has
+ * to match "Respect online" back to norm 1 by eye. Here each norm is one card
+ * with both versions side by side, which is the comparison the template is
+ * asking for.
+ */
+
+interface Norm {
+  norm: string;
+  rules: string[];
+  /** The short label the source gives the norm's virtual version. */
+  online: string;
+  virtual: string[];
+}
+
+const norms: Norm[] = [
+  {
+    norm: 'Respect every person, every idea, and every language in our room.',
+    rules: [
+      'Call classmates by the names they prefer, pronounced their way.',
+      'Listen while others are speaking.',
+      'Critique the code, not the coder.',
+    ],
+    online: 'Respect online',
+    virtual: [
+      'Use classmates’ names and keep the chat kind.',
+      'Stay muted while others speak and use the raise-hand or reaction tools to take turns.',
+      'Follow our camera agreement (on during discussions, optional during independent coding).',
+      'Tone does not come through in text, so write directly and respectfully.',
+    ],
+  },
+  {
+    norm: 'Treat mistakes and bugs as part of learning.',
+    rules: [
+      'Share your error messages instead of hiding them.',
+      'Ask questions out loud or privately, whichever works for you.',
+      'Celebrate the fix, not just the first try.',
+    ],
+    online: 'Mistakes online',
+    virtual: [
+      'Share your screen or paste your error message into the class help channel.',
+      'Post questions in private chat or the anonymous question form if you prefer.',
+      'Expect tech glitches, and be patient with yourself and others when they happen.',
+    ],
+  },
+  {
+    norm: 'Collaborate so everyone learns.',
+    rules: [
+      'Switch driver and navigator roles when the timer sounds.',
+      'Explain your thinking instead of typing for your partner.',
+      'Make sure every voice in your group is heard.',
+    ],
+    online: 'Collaborate online',
+    virtual: [
+      'Work in breakout rooms using a shared coding editor so both partners can see and edit the same code, and rotate roles on the same timer.',
+      'For asynchronous work, pair with a buddy, agree on a time to meet, and reply to discussion posts within the agreed window.',
+    ],
+  },
+  {
+    norm: 'Use technology responsibly and safely.',
+    rules: [
+      'Keep devices on class tasks during work time.',
+      'Protect your passwords and respect other people’s files.',
+      'Credit any code, images, or AI help you use.',
+    ],
+    online: 'Technology online',
+    virtual: [
+      'Use only our class platforms for class work.',
+      'Never record, screenshot, or share classmates without their permission.',
+      'Keep your login private, and cite sources in your code comments.',
+    ],
+  },
+  {
+    norm: 'Come ready to learn and make the most of our time.',
+    rules: [
+      'Be at your computer with your code editor open when class begins.',
+      'Bring a charged laptop.',
+      'Use our help routine when you are stuck.',
+    ],
+    online: 'Ready online',
+    virtual: [
+      'Log in a few minutes early with your editor and materials open, from a quiet space when possible.',
+      'If your connection drops, rejoin and check the posted recording and slides.',
+      'If you are in another time zone or cannot attend live, complete the asynchronous version by the posted deadline.',
+    ],
+  },
+];
+---
+
+<ol class="norms">
+  {
+    norms.map((n, i) => (
+      <li class="norm">
+        <span class="norm__n" aria-hidden="true">
+          {i + 1}
+        </span>
+        <h4 class="norm__statement">{n.norm}</h4>
+        <div class="norm__cols">
+          <div class="norm__col">
+            <span class="norm__label">In the room</span>
+            <ul>
+              {n.rules.map((r) => (
+                <li>{r}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="norm__col norm__col--online">
+            <span class="norm__label">{n.online}</span>
+            <ul>
+              {n.virtual.map((r) => (
+                <li>{r}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  /* The portfolio prose column indents lists and spaces `li + li`; the outer
+     list is a stack of cards, so both come back off. */
+  .norms {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-5) 0 0;
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .norms > li.norm {
+    margin-top: 0;
+  }
+
+  .norm {
+    position: relative;
+    overflow: hidden;
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+  }
+
+  .norm__n {
+    position: absolute;
+    top: -0.15em;
+    right: 0.1em;
+    font-family: var(--f-display);
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--accent-soft);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .norm__statement {
+    position: relative;
+    font-size: var(--t-lg);
+    line-height: 1.3;
+    /* Clear of the ghost numeral. */
+    padding-right: 3.5rem;
+  }
+
+  .norm__cols {
+    position: relative;
+    margin-top: var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--s-3);
+  }
+
+  .norm__col {
+    padding: var(--s-3) var(--s-4);
+    border-radius: var(--r-md);
+    background: var(--bg-sunken);
+    font-size: var(--t-sm);
+  }
+
+  .norm__col--online {
+    background: var(--accent-2-soft);
+  }
+
+  .norm__label {
+    display: block;
+    margin-bottom: var(--s-2);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+
+  .norm__col--online .norm__label {
+    color: var(--accent-2);
+  }
+
+  .norm__col ul {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+</style>

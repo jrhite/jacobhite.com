@@ -1,0 +1,255 @@
+---
+/**
+ * The student background survey from Module 4, Unit 1, Activity 1, as the
+ * live Google Form asks it: the form's own intro, its ten questions in order,
+ * and the options on the checkbox questions.
+ *
+ * The questions are taken from the form rather than from the Learning
+ * Environment Plan's list of them, because the form is what a student will
+ * actually read; the two differ only in small rewordings. Numbering matters,
+ * because the reflection around this component refers to questions by number.
+ */
+
+interface Question {
+  text: string;
+  kind: 'Short answer' | 'Paragraph' | 'Checkboxes';
+  options?: string[];
+  optional?: boolean;
+}
+
+const formUrl =
+  'https://docs.google.com/forms/d/e/1FAIpQLScPmTzzLrMHaXlFwqhNEALpjvnktMoAwoCuoU-Jnb5hgFjplg/viewform';
+
+const intro =
+  'Welcome to Computer Science! I want to get to know you so I can plan lessons that fit how you learn and what you care about. There are no right or wrong answers, and only your teacher will see your responses. It takes about 10 minutes.';
+
+const questions: Question[] = [
+  { text: 'What name would you like me to call you, and how do you pronounce it?', kind: 'Short answer' },
+  {
+    text: 'What languages do you speak, and which one are you most comfortable learning in? How comfortable are you reading instructions in English?',
+    kind: 'Paragraph',
+  },
+  {
+    text: 'Where have you lived and gone to school, and what kind of curriculum did you follow (for example IB, British, American, a national system, or homeschool)? How long have you been at this school?',
+    kind: 'Paragraph',
+  },
+  { text: 'Which subjects are going well for you right now, and which feel the hardest? Why?', kind: 'Paragraph' },
+  {
+    text: 'What technology can you use at home for schoolwork? (Check all that apply.)',
+    kind: 'Checkboxes',
+    options: [
+      'My own laptop or computer',
+      'A shared family computer',
+      'A tablet',
+      'Only a phone',
+      'Reliable internet',
+      'Internet only sometimes',
+      'No internet at home',
+      'Other',
+    ],
+  },
+  {
+    text: 'What have you already done with computers or coding? (Check all that apply.)',
+    kind: 'Checkboxes',
+    options: [
+      'Scratch or other block coding',
+      'Python or another programming language',
+      'Built a website',
+      'Modded or made a game',
+      'Edited videos or graphics',
+      'Nothing yet, and that’s okay!',
+      'Other',
+    ],
+  },
+  {
+    text: 'When you are stuck, how do you prefer to get help? (Check all that apply.)',
+    kind: 'Checkboxes',
+    options: [
+      'Raise my hand in class',
+      'Ask the teacher quietly at my desk',
+      'Send the teacher a private message',
+      'Ask a classmate first',
+      'Look it up or watch a video',
+      'Talk with the teacher after class',
+      'Other',
+    ],
+  },
+  {
+    text: 'What do you usually do after school (for example sports, clubs, tutoring, family responsibilities, a part-time job, or a long commute)? About how much time do you have for homework on a school night?',
+    kind: 'Paragraph',
+  },
+  {
+    text: 'What do you hope to learn in this class? If you could build any app, game, or website, what would it be and who would it help?',
+    kind: 'Paragraph',
+  },
+  {
+    text: 'Is there anything else you want me to know that would help me be a better teacher for you? (Only your teacher will read this.)',
+    kind: 'Paragraph',
+    optional: true,
+  },
+];
+---
+
+<figure class="survey">
+  <header class="survey__head">
+    <p class="survey__eyebrow">Google Form</p>
+    <p class="survey__title">Getting to Know You: Computer Science Student Survey</p>
+    <p class="survey__intro">{intro}</p>
+    <a class="survey__link" href={formUrl} rel="noopener">Open the live form →</a>
+  </header>
+  <ol class="survey__questions">
+    {
+      questions.map((q, i) => (
+        <li class="survey__q">
+          <span class="survey__n" aria-hidden="true">
+            {i + 1}
+          </span>
+          <div>
+            <p class="survey__text">{q.text}</p>
+            <p class="survey__kind">
+              {q.kind}
+              {q.optional && ' · optional'}
+            </p>
+            {q.options && (
+              <ul class="survey__options">
+                {q.options.map((o) => (
+                  <li>{o}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</figure>
+
+<style>
+  .survey {
+    margin: var(--s-5) 0 0;
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    overflow: hidden;
+  }
+
+  .survey__head {
+    padding: var(--s-5);
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .survey__eyebrow {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  .survey__title {
+    margin-top: var(--s-1);
+    font-family: var(--f-display);
+    font-size: var(--t-lg);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .survey__intro {
+    margin-top: var(--s-2);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+    max-width: var(--measure);
+  }
+
+  .survey__link {
+    display: inline-block;
+    margin-top: var(--s-3);
+    font-size: var(--t-sm);
+    font-weight: 600;
+  }
+
+  /* The portfolio prose column indents lists and spaces `li + li`; these are
+     laid out by the component, so both come back off. */
+  .survey .survey__questions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .survey .survey__questions > li {
+    margin-top: 0;
+  }
+
+  .survey__q {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: var(--s-3);
+    padding: var(--s-4) var(--s-5);
+  }
+
+  .survey__q + .survey__q {
+    border-top: 1px solid var(--border);
+  }
+
+  .survey__n {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--r-full);
+    border: 1px solid var(--border-strong);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .survey__text {
+    font-weight: 600;
+  }
+
+  .survey__kind {
+    margin-top: var(--s-1);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    color: var(--text-faint);
+  }
+
+  .survey .survey__options {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-3) 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .survey .survey__options > li {
+    margin-top: 0;
+    padding: 0.2em 0.7em;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background: var(--bg-sunken);
+    font-size: var(--t-sm);
+  }
+
+  .survey .survey__options > li::before {
+    content: '';
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    margin-right: 0.45em;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 2px;
+    vertical-align: -0.05em;
+  }
+
+  @media (max-width: 34rem) {
+    .survey__head,
+    .survey__q {
+      padding-inline: var(--s-4);
+    }
+  }
+</style>
