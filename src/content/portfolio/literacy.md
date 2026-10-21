@@ -12,7 +12,7 @@ course module with terms listed alphabetically. Each cohort member defines the t
 for the module currently in session and contributes to the guide.
 
 It covers Module 1 (Program Orientation), Module 2 (The Culture of Schooling),
-Module 3 (The Learner and Learning in the Digital Age), Module 5 (Student
+Module 3 (The Learner and Learning in a Digital Age), Module 5 (Student
 Assessments) and Module 6 (Planning and Preparation for Learning).
 
 > **A note on the link below.** The guide is a collaborative cohort document;

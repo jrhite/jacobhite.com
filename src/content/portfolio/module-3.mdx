@@ -1,7 +1,7 @@
 ---
 title: Module 3 (ED 503)
 navLabel: Module 3
-subtitle: The Learner and Learning in the Digital Age
+subtitle: The Learner and Learning in a Digital Age
 group: Modules
 order: 23
 status: complete
@@ -11,6 +11,7 @@ sourcePath: /module/module-3-ed-503
 import VideoEmbed from '../../components/VideoEmbed.astro';
 import ActivityTabs from '../../components/ActivityTabs.astro';
 import IsteSelfAssessment from '../../components/IsteSelfAssessment.astro';
+import UdlLessonPlan from '../../components/UdlLessonPlan.astro';
 import References from '../../components/References.astro';
 
 export const TABS = [
@@ -21,6 +22,8 @@ export const TABS = [
   { id: 'u2a2', group: 'Unit 2 · Learning in a Digital Age', label: 'Activity 2: Understanding multilingual learners' },
   { id: 'u3a1', group: 'Unit 3 · Digital Skills for Learning', label: 'Activity 1: Technology use in education' },
   { id: 'u3a2', group: 'Unit 3 · Digital Skills for Learning', label: 'Activity 2: Incorporating the ISTE Standards' },
+  { id: 'u4a1', group: 'Unit 4 · Digital Skills in Practice', label: 'Activity 1: UDL lesson plan enhancement' },
+  { id: 'u4a2', group: 'Unit 4 · Digital Skills in Practice', label: 'Activity 2: Case study remediation' },
   { id: 'references', label: 'References' },
 ];
 
@@ -91,7 +94,7 @@ silent period, students absorb input before producing language, matching Krashen
 claim that comprehension precedes production. This also fits the definition of
 sequential language acquisition, which assumes a first language is already
 established and builds new vocabulary on top of it (American Speech-Language-Hearing
-Association, as cited in Reading Rockets, n.d.-a). A newcomer's silence, then, is
+Association, as cited in Reading Rockets, n.d.-b). A newcomer's silence, then, is
 expected processing, not disengagement.
 
 #### What this looks like in a computer science classroom
@@ -427,11 +430,123 @@ practices I can translate into up-to-date, authentic CS instruction. In Module
 
 </Fragment>
 
+<Fragment slot="u4a1">
+
+### Unit 4, Activity 1: Enhancing a lesson plan with Universal Design for Learning
+
+The starting point is a stock 10th-grade science lesson on genetics and
+heredity, taught to a class from a case study: five students whose needs range
+from dyslexia and ADHD to a physical disability, an intellectual disability, and
+giftedness. The lesson is left exactly as written. Each change is a technology
+modification set beside the step it changes, with the student it is for, the
+principle of Universal Design for Learning it applies (CAST, 2018), and the
+research behind it.
+
+The recent research on technology-enhanced UDL comes from Bray et al. (2024),
+a systematic review of UDL with technology at second level, and Redstone and
+Luo (2024), a UDL redesign of a computer science course, which is the closest
+the literature gets to my own subject.
+
+One thing the changes have to survive is each other. Sending Adam to the board
+to burn off energy would leave Emily, who uses a wheelchair, at her desk, so the
+board is mirrored to her computer. The read-aloud quiz for Maya is the same quiz
+that keeps Adam engaged. A plan built one student at a time can work against
+itself, and checking for that is part of the job.
+
+<UdlLessonPlan />
+
+</Fragment>
+
+<Fragment slot="u4a2">
+
+### Unit 4, Activity 2: Case study remediation
+
+#### The student
+
+My case study student is the Grade 10 student in the Grade 10.1 TOWL-2 sample
+(OISE, University of Toronto, 2008). He was asked to write a story about a
+picture of early hunters and woolly mammoths. He has good background knowledge
+about early humans and already uses cause-and-effect words like *because* and
+*if*. However, he wrote an explanation instead of a story, his verb tenses shift
+between past and present, and he makes article and word order errors ("In
+thousand years ago," "there will be not enough"). These patterns suggest he may
+be an English language learner, which I would confirm before planning.
+
+The answers below use student-centered learning strategies throughout: he
+chooses his tools, his topics, his words, and his books.
+
+#### 1. How will you incorporate technology to support him?
+
+I would let him try a few tools and choose the ones that help him most, so he
+has a say in his own learning. To differentiate, I would match the tools to his
+needs (Reading Rockets, n.d.-a). Text-to-speech with a picture dictionary, such
+as Immersive Reader, would help him access grade-level texts, and a grammar
+checker would flag verb tense errors. Before class discussions, he could post
+his ideas on an online discussion board, since text-based chat has been shown
+to improve second-language learners' speaking fluency (Blake, 2009, as cited in
+Akki & Larouz, 2021). For his final project, he could choose to write a story,
+record a podcast, or make a digital comic.
+
+#### 2. How will you use writing experiences to enhance his oral language?
+
+Writing activities can strengthen speaking (Akki & Larouz, 2021). I would have
+him keep a dialogue journal on topics he picks, such as survival or early human
+life. I would write back using correct past-tense forms, and he would use his
+entry as notes for a short talk with a partner. To differentiate, I would give
+him past-tense sentence frames ("Thousands of years ago, the hunters…") to use
+first in writing and then in an oral retell. Guided writing like this has been
+linked to gains in learners' speaking (Fathali & Sotoudehnama, 2015, as cited in
+Akki & Larouz, 2021).
+
+#### 3. How will you differentiate word-building to enhance his oral language?
+
+He would keep a personal word bank of words he chooses from his reading and
+practice using them aloud with a partner using Statement–Question–Restate cards
+(Sedita, 2024). To differentiate, his word work would focus on his specific
+needs:
+
+- **Word endings:** *hunt, hunted, hunter, hunting*
+- **Irregular past tense:** *know → knew*
+- **Topic vocabulary,** taught with pictures: *prehistoric, tusk, spear*
+- **Stronger action verbs,** so he can describe the action in the picture:
+  *ran → charged*
+
+#### 4. What evidence-based practices in oral language and written expression will you use to enhance his comprehension?
+
+Before writing, he would discuss the topic with peers, since discussion helps
+students come up with clearer ideas for writing (Cumming, 1992, as cited in
+Akki & Larouz, 2021). He would also say sentences aloud before writing them
+down. To differentiate, I would start with informational texts about early
+humans, which builds on his strength in explaining, and have him write short
+cause-and-effect summaries. Then I would use a story map and a mentor text to
+show him how to turn that knowledge into a story with characters and a problem.
+Sentence-building practice is worthwhile because oral sentence skills are
+closely linked to reading comprehension (Lara-Díaz et al., 2021).
+
+#### 5. Considering his age, interests, and ability, how will you choose literature or domain-specific text?
+
+I would give him an interest survey and a quick reading assessment, then offer
+a few options so he chooses what he reads. I would also include diverse authors
+so texts can act as windows and mirrors for him (Rahman & de Leon, 2024).
+
+- **Age:** At 15–16, he needs texts with teen or adult themes rather than
+  children's books (Facing History and Ourselves Canada, 2021).
+- **Interests:** His writing shows an interest in early humans and survival, so
+  I would build a short unit around survival.
+- **Ability:** He reads well but is still developing English grammar and
+  vocabulary, so he needs visual support and accessible texts, with audio
+  available.
+- **Texts:** *Sapiens: A Graphic History, Vol. 1* (Harari et al., 2020) for
+  informational reading, and *Hatchet* (Paulsen, 1987), a survival story with a
+  teenage main character, as a model for his narrative writing (Aierstok, 2023).
+
+</Fragment>
+
 <Fragment slot="references">
 
 ### References
 
-Entries cited in the text above, plus the sources cited in the three recordings.
+Entries cited in the text above, plus the sources cited in the three recordings. Sources cited secondhand (Blake, 2009; Cumming, 1992; Fathali & Sotoudehnama, 2015) are listed under the work that cites them, as APA asks.
 
 <References page="module-3" />
 

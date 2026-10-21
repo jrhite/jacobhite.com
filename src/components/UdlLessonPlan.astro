@@ -1,0 +1,734 @@
+---
+/**
+ * The UDL-enhanced genetics lesson plan from Module 3, Unit 4, Activity 1: a
+ * stock 10th-grade science lesson, left as written, with each technology
+ * modification set beside the step it changes and the justification behind it.
+ *
+ * A component rather than Markdown because the source is a Google Doc whose
+ * justifications live in margin comments, one per modification. Inline, a
+ * paragraph of justification after every one-line change buries the lesson
+ * the changes are made to; as margin notes, they do not survive the trip to a
+ * web page at all. Here each change is a card carrying its own justification,
+ * tagged with the case-study student it serves and the UDL principle it
+ * applies.
+ *
+ * The student filter is layered on top. With no JavaScript every card shows
+ * and the buttons are not rendered, which is also what prints.
+ *
+ * The modifications are in ALL CAPS in the source, to stand out from the
+ * original plan; here the card does that job, so they are set in sentence
+ * case. Wording is otherwise unchanged. Justifications are HTML strings.
+ */
+
+type Student = 'all' | 'maya' | 'adam' | 'emily' | 'jack' | 'sarah';
+/** CAST's three principles: representation, action & expression, engagement. */
+type Principle = 'rep' | 'act' | 'eng';
+
+interface Modification {
+  student: Student;
+  udl: Principle[];
+  /** HTML: a sentence, or a `ul` where the change is several items. */
+  change: string;
+  why: string;
+}
+
+interface Step {
+  title: string;
+  minutes?: number;
+  /** The original plan's wording, one string per line. */
+  original: string[];
+  mods: Modification[];
+}
+
+const learners: { id: Exclude<Student, 'all'>; name: string; need: string }[] = [
+  { id: 'maya', name: 'Maya', need: 'Dyslexia; strong in oral communication' },
+  { id: 'adam', name: 'Adam', need: 'ADHD; energetic, hard to focus for long stretches' },
+  { id: 'emily', name: 'Emily', need: 'Physical disability; uses a wheelchair and her own computer' },
+  { id: 'jack', name: 'Jack', need: 'Intellectual disability; benefits from visual aids' },
+  { id: 'sarah', name: 'Sarah', need: 'Gifted; ahead of her peers' },
+];
+
+const studentName: Record<Student, string> = {
+  all: 'Whole class',
+  maya: 'Maya',
+  adam: 'Adam',
+  emily: 'Emily',
+  jack: 'Jack',
+  sarah: 'Sarah',
+};
+
+const principleName: Record<Principle, string> = {
+  rep: 'Representation',
+  act: 'Action & Expression',
+  eng: 'Engagement',
+};
+
+const steps: Step[] = [
+  {
+    title: 'Materials',
+    original: [
+      'Whiteboard and markers',
+      'Projector and computer for multimedia presentations',
+      'Textbooks or online resources on genetics',
+      'DNA model kits (optional)',
+      'Worksheets on Punnett squares',
+      'Chart paper and markers',
+    ],
+    mods: [
+      {
+        student: 'all',
+        udl: ['rep', 'act', 'eng'],
+        change:
+          '<ul><li>Text-to-speech / speech-to-text software (e.g., Immersive Reader or Read&amp;Write)</li><li>A visual timer / digital schedule app</li><li>The student&rsquo;s own computer with her specialized software, plus digital versions of all boards, slides, and worksheets; a wheelchair-accessible table for the DNA model kits</li><li>An interactive, drag-and-drop digital Punnett square and DNA modeling tool; picture-supported vocabulary cards</li><li>A genetics extension menu (dihybrid crosses, incomplete dominance, sex-linked traits, pedigree analysis)</li></ul>',
+        why: 'These five tech tools are added up front so every accommodation below is actually available in the room. Each matches a documented need in the case study: Maya&rsquo;s dyslexia (text-to-speech/speech-to-text; Meyer &amp; Bouck, 2014), Adam&rsquo;s ADHD (visual timer for pacing and movement breaks; Schmidt, Benzing, &amp; Kamer, 2016), Emily&rsquo;s physical disability (her computer with specialized software, plus digital, device-accessible versions of every board and worksheet so she never has to travel to participate; Bray et al., 2024), Jack&rsquo;s intellectual disability (interactive, manipulable Punnett square and DNA tools; Browder et al., 2014; Redstone &amp; Luo, 2024), and Sarah&rsquo;s giftedness (an extension menu for independent, deeper work; CAST, 2018). They also mirror the strategies the case study&rsquo;s teacher already uses: multi-sensory instruction, differentiation, assistive technology, and project-based learning.',
+      },
+    ],
+  },
+  {
+    title: 'Introduction',
+    minutes: 10,
+    original: [
+      'Begin the lesson by asking students what they know about genetics. Write their responses on the whiteboard. Introduce the essential question: &ldquo;How are traits passed from one generation to the next?&rdquo;',
+    ],
+    mods: [
+      {
+        student: 'maya',
+        udl: ['act'],
+        change:
+          'Use a shared digital brainstorm board (e.g., Padlet) with a voice-to-text input option so students can speak their prior-knowledge responses instead of only writing them.',
+        why: 'Maya struggles with reading and writing due to dyslexia but excels in oral communication. A voice-to-text brainstorm board lets her put her actual prior knowledge about genetics on the board without the writing barrier getting in the way first, building on the oral strength the case study says is growing her confidence. Bray et al.&rsquo;s (2024) systematic review of technology-enhanced UDL at second level supports using digital tools to widen the ways students can express what they know, and assistive reading/writing technology is an established support for adolescents with learning disabilities (Meyer &amp; Bouck, 2014). It changes how she can respond, not what she is asked to know.',
+      },
+      {
+        student: 'emily',
+        udl: ['act'],
+        change:
+          'Let every student post to the shared board from their own device, so no one has to travel to the front of the room to contribute.',
+        why: 'Emily uses a wheelchair and needs accommodations to move around the room. When participation means walking up to the whiteboard, she either has to navigate the room in front of her peers or sit out. Posting from her own computer, which already has her specialized software, makes her participation identical to everyone else&rsquo;s. Bray et al. (2024) identify this kind of technology-supported access as a central use of UDL at second level: removing barriers in the environment rather than singling out the student. Specifically, it optimizes access to tools and assistive technologies.',
+      },
+    ],
+  },
+  {
+    title: 'Class discussion',
+    original: [
+      'Discuss the importance of genetics in understanding the inheritance of traits.',
+      'Introduce key terms, such as DNA, genes, chromosomes, and alleles.',
+    ],
+    mods: [
+      {
+        student: 'jack',
+        udl: ['rep'],
+        change:
+          'Pre-teach the key terms (DNA, genes, chromosomes, alleles) with the special education teacher using picture-supported vocabulary cards, and keep the cards visible at the student&rsquo;s desk for the whole lesson.',
+        why: 'Jack has an intellectual disability and needs extra support to understand concepts; the case study notes he benefits from visual aids and already works with a special education teacher. Four abstract terms introduced in a single discussion is a lot to hold, so previewing them with picture supports, and keeping those supports in front of him, gives him an anchor to return to throughout the lesson. Visual supports and pre-teaching key vocabulary are among the evidence-based practices for teaching academic content to students with severe/intellectual disabilities (Browder, Wood, Thompson, &amp; Ribuffo, 2014). It clarifies vocabulary and activates background knowledge.',
+      },
+    ],
+  },
+  {
+    title: 'Main activity, part 1: DNA structure and function',
+    minutes: 35,
+    original: [
+      'Present a brief overview of DNA structure and its role in carrying genetic information.',
+      'Use multimedia resources to show the double helix structure and the process of DNA replication.',
+    ],
+    mods: [
+      {
+        student: 'adam',
+        udl: ['eng'],
+        change:
+          'Chunk the 35-minute main activity into three segments (DNA, genes and chromosomes, Punnett squares) separated by short, timed movement breaks with a visible countdown on the digital timer. During the first break, students build a short segment of the DNA model kit at the lab tables.',
+        why: 'Adam has ADHD, is very energetic, and has difficulty focusing for extended periods; a 35-minute block of mostly teacher-led presentation is the longest stretch in this lesson. The plan already has three natural sub-topics, so breaking at each one adds structure without cutting content, and the visible countdown makes each transition predictable. Making the first break a hands-on model-building task turns movement into learning, which matches the case study&rsquo;s note that hands-on, movement-based activities support Adam. Classroom physical activity breaks improve children&rsquo;s attention, particularly when they include cognitive engagement (Schmidt, Benzing, &amp; Kamer, 2016). It sustains effort and self-regulation by matching pacing to his attention span.',
+      },
+      {
+        student: 'emily',
+        udl: ['act'],
+        change:
+          'Set up the DNA model kit at a wheelchair-accessible table with a clear path to it, and offer a digital 3D DNA model on the student&rsquo;s computer as an alternative to handling small physical pieces.',
+        why: 'The case study notes that Emily&rsquo;s cognitive development aligns with her peers but that she may need support to access and engage with the curriculum. The barrier here is physical, not conceptual: lab tables at standing height and cramped aisles can keep her from the hands-on part of the lesson. An accessible table and clear path let her build the model alongside classmates, and a digital 3D model on her own computer gives her an equivalent, fully manipulable option if handling small pieces is difficult. It varies the methods for physical response and navigation.',
+      },
+    ],
+  },
+  {
+    title: 'Main activity, part 2: Genes and chromosomes',
+    original: [
+      'Discuss how genes are segments of DNA that code for specific traits.',
+      'Explain the role of chromosomes in carrying genes and how they are inherited from parents.',
+    ],
+    mods: [
+      {
+        student: 'jack',
+        udl: ['rep'],
+        change:
+          'Use an interactive digital model that lets students zoom from chromosome to gene to DNA base pairs, paired with a visual &ldquo;chromosome &rarr; gene &rarr; DNA&rdquo; concept map, rather than a verbal explanation alone.',
+        why: 'The relationship between chromosomes, genes, and DNA is a nested, abstract idea that is hard to hold from a verbal explanation alone. A zoomable model and a simple concept map make the &ldquo;part of&rdquo; relationship visible, matching the case study&rsquo;s recommendation of hands-on activities and visual aids for Jack. Visual supports and technology-assisted instruction are among the evidence-based practices for teaching academic content to students with intellectual disabilities (Browder et al., 2014). It illustrates concepts through multiple media.',
+      },
+      {
+        student: 'maya',
+        udl: ['rep'],
+        change:
+          'Provide the multimedia clips with closed captions and a narrated version of any text-heavy slides, so students can take in the explanation by listening rather than reading dense text.',
+        why: 'Explanations of genes and chromosomes often lean on text-heavy slides and textbook diagrams with small labels. Narrating that text lets Maya take in the content through listening, which the case study identifies as her strength and recommends supporting through audio formats such as audiobooks. Text-to-speech has been studied as a support for adolescents with learning disabilities reading expository text (Meyer &amp; Bouck, 2014). It offers alternatives for auditory and visual information.',
+      },
+    ],
+  },
+  {
+    title: 'Main activity, part 3: Punnett squares',
+    original: [
+      'Introduce Punnett squares as a tool to predict the outcomes of genetic crosses.',
+      'Provide examples on the whiteboard and guide students through solving Punnett square problems.',
+    ],
+    mods: [
+      {
+        student: 'jack',
+        udl: ['act'],
+        change:
+          'Replace pencil-only Punnett squares with a digital drag-and-drop Punnett square where students drag allele tiles (e.g., &ldquo;B&rdquo; and &ldquo;b&rdquo;) into the grid, with a fully worked example shown first.',
+        why: 'Drag-and-drop allele tiles keep the cognitive demand on the genetics (which alleles combine, and what the offspring ratios are) rather than on writing uppercase versus lowercase letters correctly in a small grid. Showing a worked example first follows the systematic, modeled instruction recommended for students with intellectual disabilities (Browder et al., 2014). Redstone and Luo&rsquo;s (2024) UDL redesign of a computer science course found that interactive, manipulable digital components helped reduce barriers to engaging with technical content. It changes how he demonstrates knowledge, not the knowledge required.',
+      },
+      {
+        student: 'adam',
+        udl: ['eng'],
+        change:
+          'Invite students to solve the whiteboard examples at the interactive board, so the demonstration becomes an active, movement-based task.',
+        why: 'Giving Adam a physical role in solving the class examples channels his energy into the task itself instead of competing with it, and turns watching the teacher into doing the problem. It also gives him a structured moment to talk through his reasoning out loud, which supports the case study&rsquo;s goal of helping him organize and express his thinking. This is consistent with findings that active, cognitively engaging movement improves attention (Schmidt, Benzing, &amp; Kamer, 2016), and with Bray et al.&rsquo;s (2024) review identifying interactive digital tools as a recurring way to offer multiple means of engagement. It recruits interest through active participation.',
+      },
+      {
+        student: 'emily',
+        udl: ['act'],
+        change:
+          'Mirror the interactive board to student devices so that any student, including one who stays at her desk, can take a turn solving a class example from her own computer.',
+        why: 'If solving examples at the board becomes a class routine, Emily should have the same chance to take a turn without having to maneuver to the front of the room. Screen mirroring lets her solve a problem from her own computer and have it appear on the board for everyone, so the accommodation for Adam does not create a new barrier for Emily. Bray et al. (2024) describe this kind of digital access as a core way technology supports UDL implementation at second level. It optimizes access to tools and assistive technologies.',
+      },
+    ],
+  },
+  {
+    title: 'Guided practice: Punnett square worksheet',
+    minutes: 15,
+    original: [
+      'Distribute worksheets with Punnett square problems for students to solve.',
+      'Walk around the class to provide assistance and clarify any misconceptions.',
+    ],
+    mods: [
+      {
+        student: 'maya',
+        udl: ['rep'],
+        change:
+          'Offer the Punnett square worksheet as a digital version with text-to-speech reading each problem aloud, so students solve the genetics rather than decode the word problem.',
+        why: 'Punnett square worksheets are usually word problems (&ldquo;A heterozygous brown-eyed parent is crossed with&hellip;&rdquo;), so a student with dyslexia can miss the item at the reading step before ever reaching the science. Having each problem read aloud removes that decoding barrier. Text-to-speech has been studied as a support for adolescents with learning disabilities reading expository text (Meyer &amp; Bouck, 2014), and Bray et al. (2024) identify read-aloud and other assistive technologies as common in technology-enhanced UDL at second level. Task content is delivered through audio as well as text.',
+      },
+      {
+        student: 'emily',
+        udl: ['act'],
+        change:
+          'Provide the worksheet as a fillable digital document the student can complete on her own computer with her specialized software.',
+        why: 'The case study states that Emily already uses a computer with specialized software to access information and complete assignments. A paper worksheet would force her to set that tool aside; a fillable digital version lets her complete the same problems with the setup that works for her. It optimizes access to tools and assistive technologies.',
+      },
+      {
+        student: 'jack',
+        udl: ['act'],
+        change:
+          'Give a scaffolded version of the worksheet that starts with partially completed Punnett squares and moves to blank ones, with the special education teacher checking in during the first few problems.',
+        why: 'Jack needs extra support to understand concepts and complete assignments. Moving from partially completed to blank squares lets him practice the same skill with gradually reduced support, and the case study already identifies his special education teacher as part of his support. Systematic instruction with fading prompts is a core evidence-based practice for students with intellectual disabilities (Browder et al., 2014). It supports practice with graduated levels of support.',
+      },
+      {
+        student: 'sarah',
+        udl: ['eng'],
+        change:
+          'Once the core problems are done, let students move to the extension menu: dihybrid (4 &times; 4) crosses, incomplete dominance, or sex-linked traits.',
+        why: 'Sarah is gifted and ahead of her peers; a worksheet of single-trait crosses is likely to be review for her within minutes. An extension menu keeps her working on the same lesson objective (how traits are inherited) at a higher level of complexity, rather than giving her more of the same problems or having her wait. Letting her choose among extensions also supports the learner agency that Redstone and Luo (2024) found to be a key outcome of UDL-based course design. It optimizes challenge, individual choice, and autonomy.',
+      },
+    ],
+  },
+  {
+    title: 'Closure: exit ticket',
+    minutes: 10,
+    original: [
+      'Summarize the key points of the lesson, emphasizing the connection between DNA, genes, and the inheritance of traits. Ask students to reflect on the essential question and share their thoughts.',
+      'Have students write a short response to the question: &ldquo;What is one thing you learned about genetics today?&rdquo;',
+    ],
+    mods: [
+      {
+        student: 'jack',
+        udl: ['act'],
+        change:
+          'Allow students to answer the exit ticket with a short voice recording or by selecting and labeling a picture (e.g., a Punnett square or DNA image) instead of only a written response.',
+        why: 'The exit ticket is meant to check what Jack learned about genetics, not how well he writes. A recorded response or a picture-based answer gives the teacher an accurate read on his understanding while still asking him to communicate the idea, and the case study notes he may benefit from alternative communication methods. This is consistent with recommendations to pair verbal and visual response options with reduced literacy demands for students with intellectual disabilities (Browder et al., 2014). It is an alternate channel for demonstrating what he knows.',
+      },
+      {
+        student: 'sarah',
+        udl: ['eng'],
+        change:
+          'Add an optional challenge prompt to the exit ticket: &ldquo;What is one question about inheritance that a Punnett square can&rsquo;t answer?&rdquo;',
+        why: 'The standard exit ticket asks for recall. An optional critical-thinking prompt asks Sarah to probe the limits of the model she just learned, which the case study recommends for supporting her advanced cognitive abilities. Her answer can also seed her homework research question. It fosters reflection and optimizes challenge.',
+      },
+    ],
+  },
+  {
+    title: 'Homework',
+    original: [
+      'Assign reading from the textbook or online resources to reinforce the concepts covered in class. Ask students to research a specific genetic disorder and present their findings in the next class.',
+    ],
+    mods: [
+      {
+        student: 'maya',
+        udl: ['rep', 'act'],
+        change:
+          'Provide the assigned reading as an audio textbook, and offer a choice of format for the genetic disorder presentation: a live oral presentation, a slideshow with text-to-speech narration, a short recorded video or podcast, or a written report.',
+        why: 'The case study recommends audiobooks and oral presentations for Maya and notes that her oral communication confidence has grown. An audio version of the reading lets her complete the homework without the decoding barrier (Meyer &amp; Bouck, 2014), and a choice of presentation format lets her show what she learned through her strength in speaking instead of a writing-heavy product. Offering a choice of digital output format is highlighted in recent UDL course-redesign research as a way to increase learner agency (Redstone &amp; Luo, 2024).',
+      },
+      {
+        student: 'jack',
+        udl: ['act'],
+        change:
+          'Provide a guided research template (What is it? Which gene? How is it inherited? One picture) with two pre-selected, readable sources, and schedule a check-in with the special education teacher before the presentation.',
+        why: 'Open-ended research on a genetic disorder requires finding sources, judging them, reading technical text, and organizing findings, each of which can be a separate barrier for Jack. A short template with pre-selected sources breaks the task into manageable steps, and a check-in with his special education teacher gives him the individualized support the case study recommends. Task analysis and structured supports are evidence-based practices for students with intellectual disabilities (Browder et al., 2014). It supports planning and strategy development.',
+      },
+      {
+        student: 'sarah',
+        udl: ['eng'],
+        change:
+          'Turn the genetic disorder research into an independent project for students who want to go deeper: trace the disorder through a pedigree and investigate a current treatment or gene-therapy approach, presented in a format of the student&rsquo;s choice.',
+        why: 'The case study&rsquo;s teacher already uses project-based learning to let Sarah explore topics in depth and apply her knowledge creatively, and it recommends independent research opportunities and critical thinking for her. Extending the same homework into a pedigree analysis and an investigation of current treatments keeps her on the class topic while giving her real depth and choice. Redstone and Luo (2024) found that choice in how learners engage with and demonstrate course content increased learner agency in their UDL redesign. It optimizes relevance, challenge, and autonomy.',
+      },
+    ],
+  },
+  {
+    title: 'Assessment',
+    original: [
+      'Evaluate students based on their participation in class discussions, accuracy in solving Punnett square problems during the guided practice, and the quality of their exit ticket responses. Use informal assessments to gauge understanding throughout the lesson.',
+    ],
+    mods: [
+      {
+        student: 'jack',
+        udl: ['act'],
+        change:
+          'Accept oral, recorded, or drag-and-drop demonstrations of Punnett square reasoning as an alternative to written responses when checking for understanding.',
+        why: 'Assessing Jack&rsquo;s genetics understanding through speech or the drag-and-drop tool, separate from his writing skill, gives a more accurate picture of whether he can actually predict the outcome of a cross, rather than conflating content knowledge with writing ability (Browder et al., 2014). The assessment format is matched to his strengths.',
+      },
+      {
+        student: 'adam',
+        udl: ['eng'],
+        change:
+          'Use low-stakes digital formative checks (e.g., Kahoot with text-to-speech enabled) after each main-activity segment rather than only at the exit ticket.',
+        why: 'A quick game-style check at the end of each chunk (DNA, genes/chromosomes, Punnett squares) keeps Adam actively engaged and gives the teacher real-time data on his focus and understanding, instead of waiting for a single end-of-lesson exit ticket. This aligns with evidence that short, cognitively engaging activity sustains attention (Schmidt, Benzing, &amp; Kamer, 2016), and Bray et al.&rsquo;s (2024) review notes that frequent, low-stakes digital tools are a recurring strategy for supporting engagement at second level. With text-to-speech enabled, the same check also works for Maya. It sustains attention through frequent feedback loops.',
+      },
+      {
+        student: 'sarah',
+        udl: ['eng'],
+        change:
+          'Add extension criteria to the rubric (e.g., accuracy on dihybrid crosses, depth of the pedigree analysis) so advanced work is assessed and not just additional.',
+        why: 'If Sarah&rsquo;s extension work is not reflected in assessment, it becomes extra work with no recognition, which can undermine motivation. Adding extension criteria shows that the deeper work counts and gives her feedback at her actual level. It increases mastery-oriented feedback and optimizes challenge.',
+      },
+    ],
+  },
+];
+
+const filters: Student[] = ['all', 'maya', 'adam', 'emily', 'jack', 'sarah'];
+const count = (s: Student) =>
+  steps.reduce((n, st) => n + st.mods.filter((m) => s === 'all' || m.student === s).length, 0);
+---
+
+<div class="udl" data-udl-plan>
+  <dl class="udl__plan">
+    <div><dt>Grade level</dt><dd>10th grade</dd></div>
+    <div><dt>Lesson plan title</dt><dd>Cell Structure and Function</dd></div>
+    <div>
+      <dt>Objective</dt>
+      <dd>
+        Students will understand the basic principles of genetics and heredity, including the
+        structure of DNA, the role of genes, and how traits are inherited.
+      </dd>
+    </div>
+  </dl>
+
+  <h4 class="udl__subhead">The five students</h4>
+  <ul class="udl__learners">
+    {
+      learners.map((l) => (
+        <li class={`udl__learner udl__learner--${l.id}`}>
+          <span class="udl__learner-name">{l.name}</span>
+          <span class="udl__learner-need">{l.need}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="udl__legend">
+    Each change is tagged with the UDL principle it applies (CAST, 2018):
+    <span class="udl__tag udl__tag--rep">Representation</span>
+    <span class="udl__tag udl__tag--act">Action &amp; Expression</span>
+    <span class="udl__tag udl__tag--eng">Engagement</span>
+  </p>
+
+  <div class="udl__filter" role="group" aria-label="Show modifications for" data-udl-filter hidden>
+    <span class="udl__filter-label">Show changes for</span>
+    {
+      filters.map((f) => (
+        <button type="button" class="udl__chip" data-filter={f} aria-pressed={f === 'all' ? 'true' : 'false'}>
+          {f === 'all' ? 'Everyone' : studentName[f]}
+          <span class="udl__chip-n">{count(f)}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <ol class="udl__steps">
+    {
+      steps.map((step) => (
+        <li class="udl__step" data-udl-step>
+          <div class="udl__step-head">
+            <h4>{step.title}</h4>
+            {step.minutes && <span class="udl__minutes">{step.minutes} min</span>}
+          </div>
+          <div class="udl__original">
+            <span class="udl__label">Original plan</span>
+            {step.original.length > 1 ? (
+              <ul>
+                {step.original.map((line) => (
+                  <li set:html={line} />
+                ))}
+              </ul>
+            ) : (
+              <p set:html={step.original[0]} />
+            )}
+          </div>
+          <ul class="udl__mods">
+            {step.mods.map((m) => (
+              <li class="udl__mod" data-student={m.student}>
+                <div class="udl__mod-meta">
+                  <span class={`udl__who udl__who--${m.student}`}>{studentName[m.student]}</span>
+                  {m.udl.map((p) => (
+                    <span class={`udl__tag udl__tag--${p}`}>{principleName[p]}</span>
+                  ))}
+                </div>
+                <div class="udl__change" set:html={m.change} />
+                <details class="udl__why">
+                  <summary>Why this change</summary>
+                  <p set:html={m.why} />
+                </details>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .udl {
+    margin-top: var(--s-5);
+  }
+
+  /* The portfolio prose column indents every `ul` and spaces `li + li`; these
+     lists are grids, so both come back off. */
+  .udl .udl__learners,
+  .udl .udl__mods {
+    padding-left: 0;
+  }
+
+  .udl .udl__learners > li,
+  .udl .udl__mods > li,
+  .udl .udl__steps > li {
+    margin-top: 0;
+  }
+
+  .udl__plan {
+    display: grid;
+    gap: var(--s-3);
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+  }
+
+  .udl__plan div {
+    display: grid;
+    grid-template-columns: minmax(8rem, 11rem) 1fr;
+    gap: var(--s-1) var(--s-4);
+  }
+
+  .udl__plan dt {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    padding-top: 0.2em;
+  }
+
+  .udl__subhead {
+    margin-top: var(--s-6);
+    font-size: var(--t-lg);
+  }
+
+  .udl__learners {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-3) 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: var(--s-3);
+  }
+
+  .udl__learner {
+    display: grid;
+    align-content: start;
+    gap: var(--s-1);
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--r-md);
+    background: var(--bg-raised);
+  }
+
+  .udl__learner-name {
+    font-weight: 700;
+  }
+
+  .udl__learner-need {
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+
+  .udl__legend {
+    margin-top: var(--s-5);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  /* One color per UDL principle, the same three accents both themes define. */
+  .udl__tag {
+    display: inline-block;
+    padding: 0.15em 0.6em;
+    border-radius: var(--r-full);
+    border: 1px solid currentColor;
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .udl__tag--rep {
+    color: var(--accent);
+  }
+
+  .udl__tag--act {
+    color: var(--accent-2);
+  }
+
+  .udl__tag--eng {
+    color: var(--accent-3);
+  }
+
+  .udl__filter {
+    margin-top: var(--s-5);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  .udl__filter[hidden] {
+    display: none;
+  }
+
+  .udl__filter-label {
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+    margin-right: var(--s-1);
+  }
+
+  .udl__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-1) var(--s-3);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-full);
+    background: var(--bg-raised);
+    color: var(--text);
+    font: inherit;
+    font-size: var(--t-sm);
+    cursor: pointer;
+    transition:
+      background var(--dur-fast) var(--ease),
+      border-color var(--dur-fast) var(--ease);
+  }
+
+  .udl__chip:hover {
+    border-color: var(--accent);
+  }
+
+  .udl__chip[aria-pressed='true'] {
+    background: var(--btn-bg);
+    border-color: var(--btn-bg);
+    color: var(--btn-fg);
+  }
+
+  .udl__chip-n {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    opacity: 0.7;
+  }
+
+  .udl__steps {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-5) 0 0;
+    display: grid;
+    gap: var(--s-6);
+  }
+
+  .udl__step[hidden] {
+    display: none;
+  }
+
+  .udl__step-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding-bottom: var(--s-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .udl__step-head h4 {
+    font-size: var(--t-lg);
+  }
+
+  .udl__minutes {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .udl__label {
+    display: block;
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    margin-bottom: var(--s-1);
+  }
+
+  .udl__original {
+    margin-top: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    border-radius: var(--r-md);
+    background: var(--bg-sunken);
+    color: var(--text-muted);
+    font-size: var(--t-sm);
+  }
+
+  .udl__original ul {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+
+  .udl__mods {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-3) 0 0;
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .udl__mod {
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+  }
+
+  .udl__mod[hidden] {
+    display: none;
+  }
+
+  .udl__mod-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  .udl__who {
+    font-weight: 700;
+    margin-right: var(--s-1);
+  }
+
+  .udl__change {
+    margin-top: var(--s-2);
+  }
+
+  .udl__change :global(ul) {
+    margin: 0;
+  }
+
+  .udl__why {
+    margin-top: var(--s-3);
+    font-size: var(--t-sm);
+  }
+
+  .udl__why summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 600;
+    width: fit-content;
+  }
+
+  .udl__why p {
+    margin-top: var(--s-2);
+    color: var(--text-muted);
+    max-width: var(--measure);
+  }
+
+  @media (max-width: 34rem) {
+    .udl__plan div {
+      grid-template-columns: 1fr;
+    }
+
+    .udl__mod {
+      padding: var(--s-4);
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Shows one student's modifications at a time. A step with nothing left
+   * for that student hides too, so the filtered view is a short list rather
+   * than a run of original-plan boxes with nothing under them.
+   */
+  for (const root of document.querySelectorAll<HTMLElement>('[data-udl-plan]')) {
+    const bar = root.querySelector<HTMLElement>('[data-udl-filter]');
+    if (!bar) continue;
+    const chips = [...bar.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const steps = [...root.querySelectorAll<HTMLElement>('[data-udl-step]')];
+
+    const apply = (who: string) => {
+      for (const c of chips) c.setAttribute('aria-pressed', String(c.dataset.filter === who));
+      for (const step of steps) {
+        let shown = 0;
+        for (const mod of step.querySelectorAll<HTMLElement>('[data-student]')) {
+          const match = who === 'all' || mod.dataset.student === who;
+          mod.hidden = !match;
+          if (match) shown++;
+        }
+        step.hidden = shown === 0;
+      }
+    };
+
+    for (const c of chips) c.addEventListener('click', () => apply(c.dataset.filter ?? 'all'));
+    bar.hidden = false;
+  }
+</script>
