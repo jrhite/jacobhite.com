@@ -78,6 +78,7 @@ export const siteMeta = {
   roles: ['Tutor', 'Coach', 'Mentor', 'Advisor', 'Interview practice', 'AI integrator'],
   domain: 'jacobhite.com',
   github: 'https://github.com/jrhite',
+  linkedin: 'https://www.linkedin.com/in/jrhite',
   repo: 'https://github.com/jrhite/jacobhite.com',
   preply: 'https://preply.com/en/tutor/8033353',
 
