@@ -15,6 +15,7 @@ const { heading, body } = Astro.props;
  * a button that goes nowhere, the CTA degrades to an honest note until one exists.
  */
 const email = siteMeta.email;
+const { timeZone } = siteMeta;
 ---
 
 <section class="section page">
@@ -30,6 +31,11 @@ const email = siteMeta.email;
       />
       <h2>{heading}</h2>
       <p class="muted">{body}</p>
+      <p class="cta__when">
+        Sessions are online, scheduled on {timeZone.name} ({timeZone.abbr}, {timeZone.offset}): the
+        same clock as Bangkok, Ho Chi Minh City and Jakarta. Early mornings here line up with US
+        evenings, and afternoons with the European morning.
+      </p>
     </div>
 
     {
@@ -80,6 +86,12 @@ const email = siteMeta.email;
     margin-bottom: var(--s-4);
     border: 2px solid var(--bg-raised);
     box-shadow: var(--shadow-sm);
+  }
+
+  .cta__when {
+    margin-top: var(--s-3);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
   }
 
   .cta h2 {

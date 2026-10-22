@@ -3,7 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 
-const preplyUrl = 'https://preply.com/en/tutor/8033353';
+import { siteMeta } from '../data/nav';
+
+const preplyUrl = siteMeta.preply;
 
 // Quoted verbatim from the Preply profile's "What my students say" section,
 // ratings included (bestRating is 5).
@@ -48,8 +50,8 @@ const reviews = [
 ---
 
 <BaseLayout
-  title="Reviews"
-  description="What students say about learning, interview preparation, and coaching sessions with Jacob Hite."
+  title="Tutor & Interview Coach Reviews"
+  description="Five-star reviews of Jacob Hite as a programming tutor, interview coach and mentor, quoted verbatim from his Preply tutor profile."
 >
   <PageHeader
     eyebrow="Reviews"

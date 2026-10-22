@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { siteMeta } from '../data/nav';
 import '../styles/global.css';
 
 interface Props {
@@ -9,14 +10,127 @@ interface Props {
   description: string;
   /** Optional OG image path relative to the site root, e.g. /images/og-teaching.jpg */
   ogImage?: string;
+  /** Set on articles, so link previews and search treat them as dated pieces. */
+  article?: { publishedTime: Date; tags?: string[] };
+  /** Keeps a page reachable by link but out of search results, e.g. a placeholder. */
+  noindex?: boolean;
+  /** Page-specific structured data, added alongside the site-wide graph below. */
+  jsonLd?: Record<string, unknown>[];
 }
 
-const { title, description, ogImage = '/images/og-default.jpg' } = Astro.props;
+const { title, description, ogImage = '/images/og-default.jpg', article, noindex = false, jsonLd = [] } =
+  Astro.props;
 
-const siteName = 'Jacob Hite';
+const siteName = siteMeta.name;
 const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogUrl = new URL(ogImage, Astro.site);
+const home = new URL('/', Astro.site).href;
+const { timeZone } = siteMeta;
+
+/**
+ * One graph on every page: who the site is about, and what he offers. Each node
+ * has a stable @id, so a page's own nodes (an article, say) can point at the
+ * person rather than repeat him. Everything here also appears as visible copy
+ * somewhere on the site; structured data that only a crawler sees is ignored
+ * at best.
+ */
+const services = [
+  {
+    name: 'Programming and computer science tutoring',
+    description: 'One-to-one and small-group tutoring in Python, JavaScript and web development, for grades 9–12 and adults.',
+    url: '/teaching',
+  },
+  {
+    name: 'Mock interviews and interview practice',
+    description: 'Coding, system design and behavioral mock interviews, run at real pace, with written feedback.',
+    url: '/coaching#mock-interviews',
+  },
+  {
+    name: 'System design coaching',
+    description: 'System design practice that survives the follow-up questions: capacity, consistency, failure modes and trade-offs.',
+    url: '/coaching#systems-design',
+  },
+  {
+    name: 'Mentoring and career advising for engineers',
+    description: 'Ongoing mentoring and advice for software engineers, tech leads and new engineering managers.',
+    url: '/coaching#mentoring',
+  },
+  {
+    name: 'AI integration',
+    description: 'Hands-on help putting AI tools and agents into real software and workflows, and teaching a team to own the result.',
+    url: '/coaching#ai-integration',
+  },
+];
+
+const graph = [
+  {
+    '@type': 'Person',
+    '@id': `${home}#person`,
+    name: siteName,
+    url: home,
+    image: new URL('/images/og-default.jpg', Astro.site).href,
+    jobTitle: siteMeta.roles,
+    description: siteMeta.tagline,
+    email: siteMeta.email ? `mailto:${siteMeta.email}` : undefined,
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of Colorado Boulder' },
+    knowsAbout: [
+      'Software engineering',
+      'Computer science education',
+      'System design',
+      'Technical interviews',
+      'Engineering management',
+      'AI integration',
+      'Large language models',
+      'Python',
+      'JavaScript',
+    ],
+    homeLocation: { '@type': 'Place', name: 'South East Asia' },
+    sameAs: [siteMeta.github, siteMeta.preply],
+    makesOffer: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: s.name,
+        description: s.description,
+        url: new URL(s.url, Astro.site).href,
+        provider: { '@id': `${home}#person` },
+        availableChannel: {
+          '@type': 'ServiceChannel',
+          name: `Online, scheduled on ${timeZone.name} (${timeZone.abbr}, ${timeZone.offset})`,
+        },
+        areaServed: 'Worldwide',
+      },
+    })),
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${home}#website`,
+    url: home,
+    name: siteName,
+    inLanguage: 'en-US',
+    publisher: { '@id': `${home}#person` },
+  },
+  {
+    '@type': article ? 'BlogPosting' : 'WebPage',
+    '@id': `${canonical.href}#page`,
+    url: canonical.href,
+    name: fullTitle,
+    headline: article ? title : undefined,
+    description,
+    inLanguage: 'en-US',
+    isPartOf: { '@id': `${home}#website` },
+    about: { '@id': `${home}#person` },
+    author: article ? { '@id': `${home}#person` } : undefined,
+    datePublished: article?.publishedTime.toISOString(),
+    keywords: article?.tags?.length ? article.tags.join(', ') : undefined,
+    image: ogUrl.href,
+  },
+  ...jsonLd,
+];
+
+// `</` would let a stray string close the script tag early.
+const ldJson = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -29,14 +143,31 @@ const ogUrl = new URL(ogImage, Astro.site);
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={siteName} />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'}
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${siteName}: ${siteMeta.tagline}`} />
+    {article && <meta property="article:published_time" content={article.publishedTime.toISOString()} />}
+    {article?.tags?.map((tag) => <meta property="article:tag" content={tag} />)}
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    <script type="application/ld+json" set:html={ldJson} />
 
     <Font cssVariable="--font-display" preload />
     <Font cssVariable="--font-body" preload />

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import { careerYears } from '../data/nav';
+import { careerYears, siteMeta } from '../data/nav';
 
 const services = [
   {
@@ -41,17 +41,43 @@ const services = [
       'No slide deck about "radical candor." You practice the sentence until you can say it.',
     ],
   },
+  {
+    id: 'mentoring',
+    kicker: 'Mentoring and advising',
+    title: 'A standing hour with someone who has seen it before',
+    body: 'For engineers, tech leads and engineering managers who want an outside view on a regular cadence, rather than a one-off rehearsal.',
+    detail: [
+      'A design review of something you are shipping this quarter, before it ships.',
+      'Rehearsing a promotion case, or deciding whether the next move is up, sideways or out.',
+      'Unpicking a team problem with no clean answer, with someone who is not in the org chart.',
+      'Weekly while you settle into a new role, then monthly once you no longer need it weekly.',
+    ],
+  },
+  {
+    id: 'ai-integration',
+    kicker: 'AI integration',
+    title: 'AI in the product, and a team that owns it',
+    body: 'For founders, small teams and working engineers who want Claude, ChatGPT or an agent doing real work in their software or their day, not a demo that stalls after the first week.',
+    detail: [
+      'Find the one task where a model actually saves time, before building anything.',
+      'Build it with you: the prompts, the tool calls, the API integration, and the fallback when the model is wrong.',
+      'Tests and evaluation, so "it seems to work" becomes something you can check on every change.',
+      'Hand-over that sticks: your team understands it well enough to change it without me.',
+    ],
+  },
 ];
+
+const { timeZone } = siteMeta;
 ---
 
 <BaseLayout
-  title="Coaching"
-  description="Mock interviews, systems design practice, and senior-engineer role-play for engineers preparing to interview or stepping into leadership."
+  title="Interview Practice, Mentoring & AI Integration"
+  description={`Software engineering coach, mentor and advisor: mock interviews, system design practice, leadership role-play, ongoing mentoring, and hands-on AI integration. Online, on ${timeZone.name} (${timeZone.abbr}, ${timeZone.offset}).`}
 >
   <PageHeader
     eyebrow="Coaching"
     title="Practice, with someone who has been on the other side"
-    lede={`${careerYears} years of writing software, reviewing designs, and interviewing engineers. Below are three ways to borrow that. They mix, they scale up or down, and they bend to whatever you're actually walking into.`}
+    lede={`${careerYears} years of writing software, reviewing designs, and interviewing engineers. Below are five ways to borrow that, as a coach, a mentor, an advisor or a second pair of hands. They mix, they scale up or down, and they bend to whatever you're actually walking into.`}
   />
 
   <section class="section page">
@@ -80,10 +106,8 @@ const services = [
     </div>
 
     <p class="mix prose">
-      None of these is a fixed package, and plenty of what would help is none of them: a design
-      review of something you are shipping this quarter, rehearsing a promotion case, unpicking a
-      team problem with no clean answer, or a standing hour a month while you settle into a new
-      role. Tell me the situation and we'll shape the sessions around it.
+      None of these is a fixed package, and plenty of what would help is none of them. Tell me the
+      situation and we'll shape the sessions around it.
     </p>
   </section>
 
@@ -98,7 +122,7 @@ const services = [
 
   <ContactCTA
     heading="Want to run one?"
-    body="Tell me what's coming up and where you are with it. If it is an interview, the company and the round help, since the preparation differs for each. If it is none of the three above, describe it anyway; most of this started as somebody's odd request."
+    body="Tell me what's coming up and where you are with it. If it is an interview, the company and the round help, since the preparation differs for each. If it is none of the five above, describe it anyway; most of this started as somebody's odd request."
   />
 </BaseLayout>
 
@@ -108,7 +132,7 @@ const services = [
     gap: var(--s-8);
   }
 
-  /* The three services read as a menu, which invites "which one am I?": this
+  /* The five services read as a menu, which invites "which one am I?": this
      answers it directly under the list, before the pull quote changes subject.
      It sits inside the services section rather than in one of its own: as a
      section it collected full padding on both sides, and with the neighbors'

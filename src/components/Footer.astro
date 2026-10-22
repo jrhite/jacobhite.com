@@ -9,6 +9,10 @@ const year = new Date().getFullYear();
     <div class="footer__about">
       <p class="footer__name">{siteMeta.name}</p>
       <p class="muted">{siteMeta.tagline}</p>
+      <p class="muted footer__roles">
+        {siteMeta.roles.join(' · ')}. Online, on {siteMeta.timeZone.name} ({siteMeta.timeZone.abbr},{' '}
+        {siteMeta.timeZone.offset}).
+      </p>
       {
         siteMeta.email && (
           <p class="footer__email">
@@ -60,6 +64,11 @@ const year = new Date().getFullYear();
     font-family: var(--f-display);
     font-weight: 700;
     font-size: var(--t-lg);
+  }
+
+  .footer__roles {
+    margin-top: var(--s-2);
+    font-size: var(--t-xs);
   }
 
   .footer__email {

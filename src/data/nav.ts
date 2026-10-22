@@ -33,7 +33,7 @@ export const navItems: NavItem[] = [
   {
     label: 'Coaching',
     href: '/coaching',
-    blurb: 'Teaching, system design, mock interviews, and mentoring engineers and engineering managers.',
+    blurb: 'Interview practice, system design, mentoring and advising, and AI integration for teams.',
   },
   {
     label: 'Reviews',
@@ -70,9 +70,28 @@ export const navItems: NavItem[] = [
 export const siteMeta = {
   name: 'Jacob Hite',
   tagline: 'Former Amazon and Google software engineer turned software engineering teacher and coach.',
+  /**
+   * The roles the site is found under, most searched first. They feed the
+   * structured data in BaseLayout, so a search engine reads the same list a
+   * visitor does in the hero and the footer.
+   */
+  roles: ['Tutor', 'Coach', 'Mentor', 'Advisor', 'Interview practice', 'AI integrator'],
   domain: 'jacobhite.com',
   github: 'https://github.com/jrhite',
   repo: 'https://github.com/jrhite/jacobhite.com',
+  preply: 'https://preply.com/en/tutor/8033353',
+
+  /**
+   * Every session is online and scheduled on this clock. Spelled out in full
+   * wherever it shows, because people search for the city or the offset, not
+   * for the abbreviation.
+   */
+  timeZone: {
+    iana: 'Asia/Bangkok',
+    abbr: 'ICT',
+    name: 'Indochina Time',
+    offset: 'UTC+7',
+  },
 
   /**
    * Forwarded to a personal inbox by Cloudflare Email Routing. Everything that

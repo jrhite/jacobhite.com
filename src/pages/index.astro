@@ -34,12 +34,20 @@ const offerings = [
     body: 'Mock interviews with real pressure, system design that survives follow-up questions, and mentoring through the jump to leadership. Take one, or mix all three around whatever is actually coming up.',
     href: '/coaching',
   },
+  {
+    kicker: 'For founders and teams',
+    title: 'AI integration',
+    body: 'Claude, ChatGPT or an agent doing real work in your software, with the tests to prove it and a team that understands it well enough to change it without me.',
+    href: '/coaching#ai-integration',
+  },
 ];
+
+const { timeZone } = siteMeta;
 ---
 
 <BaseLayout
-  title="Jacob Hite"
-  description="Former Amazon and Google software engineer turned software engineering teacher and coach. I teach software engineering to grades 9–12 and to professionals, and I mentor engineers and engineering managers through system design, mock interviews, and the jump to leadership."
+  title="Tutor, Coach, Mentor & AI Integrator"
+  description={`Former Amazon and Google software engineer, now a programming tutor, interview coach, mentor, advisor and AI integrator. Online computer science tutoring, mock interviews and system design practice, on ${timeZone.name} (${timeZone.abbr}, ${timeZone.offset}).`}
 >
   <section class="hero">
     <div class="page hero__grid">
@@ -50,8 +58,10 @@ const offerings = [
           Now I teach it, for the <mark>AI</mark> era.
         </h1>
         <p class="lede">
-          Computer science for grades 9–12 and for professionals. Teaching, system design,
-          mock interviews, and mentoring engineers and engineering managers.
+          Tutor, coach, mentor and advisor. Computer science for grades 9–12 and for
+          professionals, interview practice and system design, mentoring for engineers and
+          engineering managers, and AI integration for teams. Online, on {timeZone.name}{' '}
+          ({timeZone.abbr}, {timeZone.offset}).
         </p>
         <div class="hero__byline">
           <Image
@@ -125,7 +135,7 @@ const offerings = [
 
   <section class="section page">
     <p class="eyebrow">What I do</p>
-    <h2 class="section__title">Three rooms, one idea</h2>
+    <h2 class="section__title">Four rooms, one idea</h2>
     <p class="lede prose">
       Whichever room I'm in, the job is the same: get you from "I have no idea how this works" to
       "I built that, and I can tell you why it works." What that takes is different every
@@ -400,8 +410,18 @@ const offerings = [
     gap: var(--s-4);
   }
 
-  .offerings {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  /* Four offerings: two by two, then one row once there is room for all four.
+     An auto-fit grid would leave the fourth stranded under a row of three. */
+  @media (min-width: 40rem) {
+    .offerings {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 72rem) {
+    .offerings {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
   }
 
   /* Seven cards over four columns leaves an orphan row of three. An auto-fit grid
