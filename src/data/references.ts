@@ -183,6 +183,13 @@ export const references: Reference[] = [
     url: 'https://doi.org/10.1007/978-0-387-30424-3_36',
   },
   {
+    id: 'davies-2025',
+    author: 'Davies, R.',
+    date: '2025, August 6',
+    rest: 'Classroom seating arrangements: Pros, cons & how to choose. _Differentiated Teaching._',
+    url: 'https://www.differentiatedteaching.com/classroom-seating-arrangements/',
+  },
+  {
     id: 'd-souza-2024',
     author: 'D\'Souza, F. P., & Padmanabha, C. H.',
     date: '2024',
@@ -202,6 +209,13 @@ export const references: Reference[] = [
     date: '2018, October',
     rest: '_Literacy as an outcome of language development and its impact on children\'s psychosocial and emotional development._ Encyclopedia on Early Childhood Development.',
     url: 'https://www.child-encyclopedia.com/language-development-and-literacy/according-experts/literacy-outcome-language-development-and-its',
+  },
+  {
+    id: 'educational-research-techniques-2022',
+    author: 'Educational Research Techniques.',
+    date: '2022, September 5',
+    rest: '_Classroom management seating arrangements_ [Video]. YouTube.',
+    url: 'https://www.youtube.com/watch?v=WFeUlYEQooY',
   },
   {
     id: 'edutopia-2019',
@@ -522,6 +536,13 @@ export const references: Reference[] = [
     rest: '_How to solve it: A new aspect of mathematical method._ Princeton University Press.',
   },
   {
+    id: 'poorvu-center-nd',
+    author: 'Poorvu Center for Teaching and Learning.',
+    date: 'n.d.',
+    rest: '_Classroom seating arrangements._ Yale University.',
+    url: 'https://poorvucenter.yale.edu/teaching/teaching-resource-library/classroom-seating-arrangements',
+  },
+  {
     id: 'prather-2024',
     author: 'Prather, J., Reeves, B. N., Leinonen, J., MacNeil, S., Randrianasolo, A. S., Becker, B. A., Kimmel, B., Wright, J., & Briggs, B.',
     date: '2024',
@@ -604,6 +625,13 @@ export const references: Reference[] = [
     date: '2025, January',
     rest: '_Evidence-based teaching practices_ [Infographic]. Institute of Education Sciences, U.S. Department of Education.',
     url: 'https://ies.ed.gov/rel-southeast/2025/01/infographic-21',
+  },
+  {
+    id: 'renard-2020',
+    author: 'Renard, L.',
+    date: '2020, December 17',
+    rest: '19 classroom seating arrangements fit for your teaching. _BookWidgets._',
+    url: 'https://www.bookwidgets.com/blog/2019/12/19-classroom-seating-arrangements-fit-for-your-teaching',
   },
   {
     id: 'rhode-island-department-education-nd',
@@ -853,7 +881,11 @@ export const citations: Record<string, string[]> = {
   'intasc-standards': [
     'council-chief-state-school-2011',
     'council-chief-state-school-2013',
+    'davies-2025',
+    'educational-research-techniques-2022',
     'merrill-2002',
+    'poorvu-center-nd',
+    'renard-2020',
   ],
   'clinical-practice': [
     'merrill-2002',

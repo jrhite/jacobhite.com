@@ -202,6 +202,13 @@ const { title, subtitle, status, group, sourcePath, diagram } = entry.data;
     margin-top: var(--s-2);
   }
 
+  /* A list item that runs to a second paragraph, as InTASC 3 does, needs the
+     same break between them that the item gets from its neighbors, or the two
+     read as one block. */
+  .prose :global(li > p + p) {
+    margin-top: var(--s-3);
+  }
+
   /* Some blocks need the page rather than the reading column: a tab rail beside
      its panel, or the five principle cards, which crush to slivers at the
      measure and spill their oversized numerals. So the constraint moves off the
