@@ -5,9 +5,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const matches = (href: string) => path === href || path.startsWith(href + '/');
 
 /**
- * Only the most specific match gets `aria-current`. Clinical Practice lives
- * under `/portfolio`, so without this both it and Portfolio would claim to be
- * the current page — and "current" only means one thing to a screen reader.
+ * Only the most specific match gets `aria-current`, so a nav entry can sit
+ * under another one's path without both claiming to be the current page —
+ * "current" only means one thing to a screen reader.
  */
 const currentHref = navItems
   .map((item) => item.href)

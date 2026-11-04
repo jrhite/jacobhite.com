@@ -29,7 +29,7 @@ const { title, subtitle, status, group, sourcePath, diagram } = entry.data;
   description={subtitle ?? `${title}, from my Moreland University TEACH-NOW e-portfolio.`}
   noindex={status === 'placeholder'}
 >
-  <PageHeader eyebrow={group} title={title} lede={subtitle} />
+  <PageHeader eyebrow={group} parent={{ label: 'Portfolio', href: '/portfolio' }} title={title} lede={subtitle} />
 
   <article class="section page">
     {
