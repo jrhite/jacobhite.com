@@ -1102,6 +1102,7 @@ export const citations: Record<string, string[]> = {
     'resnick-2017',
     'rhode-island-department-education-nd',
     'san-bernardino-city-unified-2018',
+    'shanahan-2008',
     'strobel-2023',
     'thomas-2021',
     'u-s-department-education-2023-school-climates',
