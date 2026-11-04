@@ -1,0 +1,278 @@
+---
+/**
+ * The routines and transitions of the Learning Environment Plan.
+ *
+ * A component rather than Markdown because the source tables hold numbered
+ * steps and a list of supports inside one row, and three columns of that crush
+ * to slivers on a phone. Here each row is one card, with the steps and the
+ * supports side by side when there is room and stacked when there isn't.
+ *
+ * Each card is a `<details>`, because Step 4 alone runs to more than forty of
+ * them: closed, they read as the list a teacher would scan for one moment in
+ * the day. That needs no script. The script only adds the "Open all" button,
+ * and opens everything for printing.
+ */
+import type { Procedure } from '../data/lep';
+
+interface Props {
+  items: Procedure[];
+  /** A small label above the list, when one page has two lists side by side. */
+  heading?: string;
+  stepsLabel?: string;
+  /** Names the column beside the steps. Group-list cards label their own two. */
+  supportsLabel?: string;
+  /** Start with every card open. */
+  open?: boolean;
+  /** Show the "Open all" button. Without JavaScript it stays hidden. */
+  toggle?: boolean;
+}
+
+const { items, heading, stepsLabel = 'Steps', supportsLabel = 'Supports', open = false, toggle = false } = Astro.props;
+
+const number = (title: string) => title.replace(/ \(technology\)$/, '');
+const isTech = (title: string) => title.endsWith('(technology)');
+---
+
+<div class="procs" data-procs>
+  {
+    (heading || toggle) && (
+      <div class="procs__bar">
+        {heading ? <span class="procs__heading">{heading}</span> : <span />}
+        {toggle && (
+          <button type="button" class="procs__toggle" data-procs-toggle hidden>
+            Open all
+          </button>
+        )}
+      </div>
+    )
+  }
+  <ol class="procs__list">
+    {
+      items.map((item) => (
+        <li>
+          <details class="proc" open={open}>
+            <summary class="proc__title">
+              <span>{number(item.title)}</span>
+              {isTech(item.title) && <span class="proc__tag">Technology</span>}
+            </summary>
+            <div class="proc__body">
+              <div>
+                <span class="proc__label">{stepsLabel}</span>
+                <ol>
+                  {item.steps.map((s) => (
+                    <li>{s}</li>
+                  ))}
+                </ol>
+                {item.online && (
+                  <p class="proc__online">
+                    <strong>Online:</strong> {item.online}
+                  </p>
+                )}
+              </div>
+              <div>
+                {item.supports && (
+                  <>
+                    <span class="proc__label">{supportsLabel}</span>
+                    {item.supports.length > 1 ? (
+                      <ul>
+                        {item.supports.map((s) => (
+                          <li>{s}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>{item.supports[0]}</p>
+                    )}
+                  </>
+                )}
+                {item.differences && (
+                  <>
+                    <span class="proc__label">Learning differences</span>
+                    <p>{item.differences}</p>
+                    <span class="proc__label proc__label--next">Language barriers</span>
+                    <p>{item.language}</p>
+                  </>
+                )}
+              </div>
+            </div>
+          </details>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<script>
+  const lists = document.querySelectorAll<HTMLElement>('[data-procs]');
+
+  lists.forEach((list) => {
+    const button = list.querySelector<HTMLButtonElement>('[data-procs-toggle]');
+    if (!button) return;
+    const cards = [...list.querySelectorAll('details')];
+    const label = () => {
+      button.textContent = cards.every((c) => c.open) ? 'Close all' : 'Open all';
+    };
+
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const open = !cards.every((c) => c.open);
+      cards.forEach((c) => (c.open = open));
+      label();
+    });
+    cards.forEach((c) => c.addEventListener('toggle', label));
+  });
+
+  // A closed card prints as its title alone, which would lose the plan.
+  window.addEventListener('beforeprint', () => {
+    document.querySelectorAll<HTMLDetailsElement>('[data-procs] details').forEach((c) => (c.open = true));
+  });
+</script>
+
+<style>
+  .procs {
+    margin-top: var(--s-4);
+  }
+
+  .procs__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin-bottom: var(--s-2);
+  }
+
+  .procs__heading,
+  .proc__label {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .procs__heading {
+    color: var(--accent);
+  }
+
+  .procs__toggle {
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background: var(--bg-raised);
+    color: var(--text-muted);
+    padding: var(--s-1) var(--s-3);
+    font-size: var(--t-xs);
+    cursor: pointer;
+  }
+
+  .procs__toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent-bright);
+  }
+
+  /* The portfolio prose column indents lists and spaces `li + li`; the outer
+     list is a stack of cards, so both come back off. */
+  .procs .procs__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-2);
+    counter-reset: proc;
+  }
+
+  .procs .procs__list > li {
+    margin-top: 0;
+    counter-increment: proc;
+  }
+
+  .proc {
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: var(--bg-raised);
+  }
+
+  .proc[open] {
+    border-color: var(--border-strong);
+  }
+
+  .proc__title {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    font-weight: 600;
+    line-height: 1.3;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .proc__title::-webkit-details-marker {
+    display: none;
+  }
+
+  .proc__title::before {
+    content: counter(proc);
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--r-full);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+  }
+
+  .proc__title::after {
+    content: '+';
+    margin-left: auto;
+    font-family: var(--f-mono);
+    color: var(--text-faint);
+  }
+
+  .proc[open] > .proc__title::after {
+    content: '−';
+  }
+
+  .proc__tag {
+    flex: none;
+    padding: 0.1em 0.6em;
+    border-radius: var(--r-sm);
+    background: var(--accent-2-soft);
+    color: var(--accent-2);
+    font-size: var(--t-xs);
+    font-weight: 600;
+  }
+
+  .proc__body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--s-4) var(--s-6);
+    padding: var(--s-2) var(--s-4) var(--s-4);
+    font-size: var(--t-sm);
+  }
+
+  .proc__label {
+    display: block;
+    margin-bottom: var(--s-2);
+    color: var(--text-faint);
+  }
+
+  .proc__label--next {
+    margin-top: var(--s-3);
+  }
+
+  .proc__body ol,
+  .proc__body ul {
+    margin: 0;
+    padding-left: 1.25em;
+  }
+
+  .proc__online {
+    margin-top: var(--s-3);
+    padding: var(--s-2) var(--s-3);
+    border-radius: var(--r-sm);
+    background: var(--accent-2-soft);
+  }
+</style>

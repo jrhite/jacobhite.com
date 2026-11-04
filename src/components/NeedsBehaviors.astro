@@ -1,0 +1,70 @@
+---
+/**
+ * Step 8 of the Learning Environment Plan: the behaviors a student's unmet need
+ * might show up as, and what I will provide. One card per need, in Maslow's
+ * order, in place of a three-column table that would not survive a phone.
+ */
+import { needsAndBehaviors } from '../data/lep';
+---
+
+<ol class="needs">
+  {
+    needsAndBehaviors.map((n) => (
+      <li class="need">
+        <h5 class="need__name">{n.need}</h5>
+        <div class="need__body">
+          <div>
+            <span class="need__label">What it can look like</span>
+            <p>{n.behaviors}</p>
+          </div>
+          <div>
+            <span class="need__label">How I will support it</span>
+            <p>{n.supports}</p>
+          </div>
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .needs.needs {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-5) 0 0;
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .needs > li.need {
+    margin-top: 0;
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+  }
+
+  .need__name {
+    font-family: var(--f-display);
+    font-size: var(--t-lg);
+  }
+
+  .need__body {
+    margin-top: var(--s-3);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--s-3) var(--s-6);
+    font-size: var(--t-sm);
+  }
+
+  .need__label {
+    display: block;
+    margin-bottom: var(--s-1);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+  }
+</style>

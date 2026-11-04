@@ -1,0 +1,148 @@
+import ProcedureCards from '../ProcedureCards.astro';
+import {
+  routinesInPerson,
+  routinesOnline,
+  privacyProcedures,
+  designedForEveryStudent,
+} from '../../data/lep';
+
+Clear, consistent routines let me manage the room without managing every
+student. I chose the three moments when a computer lab loses the most time, and
+wrote a parallel version of each for the online classroom. Each one lists what I
+will do when a student doesn't follow it.
+
+#### In the room
+
+<ProcedureCards items={routinesInPerson} supportsLabel="When a student doesn’t follow it" open />
+
+#### In the online classroom
+
+<ProcedureCards items={routinesOnline} supportsLabel="When a student doesn’t follow it" open />
+
+#### Computer science methods: personal data, digital identity, and privacy
+
+Routines that help students learn to manage their personal data, procedures and
+expectations for their digital identity, and the procedures I will follow to keep
+student data private.
+
+<ProcedureCards items={privacyProcedures} stepsLabel="Steps, in person and online" supportsLabel="When a student doesn’t follow it" />
+
+**Designed for every student.**
+
+<ul>{designedForEveryStudent.map((line) => <li>{line}</li>)}</ul>
+
+#### How these routines support every learner
+
+**A safe, caring, respectful, and productive environment for students with
+exceptionalities.** My routines are designed so students with exceptionalities,
+including students with disabilities, students with attention or anxiety needs,
+English learners, and advanced learners, know what to do and can succeed without
+being singled out. Each procedure is posted as a short numbered list with icons,
+so students who struggle with working memory or reading in English can check the
+next step on their own instead of waiting for help, and every routine can be
+completed on a school device and account. Safety comes from privacy: the private
+help channel, the “what I tried” checklist, optional cameras online, and private
+corrections let students with anxiety or learning differences ask for help and
+make mistakes without public embarrassment. Respect and care come from looking
+for the reason behind a missed routine before responding, especially when a
+disability or family circumstance affects something like arriving on time (The
+IRIS Center, 2021a). Productivity comes from building supports into the routines
+themselves, such as the 7-minute transition warning, starter templates, shorter
+checklists, and one-on-one walkthroughs, and from following each student’s
+individual support plan (such as an IEP) within every routine. Advanced learners
+extend the same routines by serving as privacy buddies or sign-out checkers.
+
+**How expectations are taught, reinforced, and maintained.** I will teach
+expectations explicitly during the first two weeks. For each routine, I
+introduce the steps, discuss why they matter, model examples and non-examples,
+have students practice before the routine is needed, and review it often (Cox,
+2019; The IRIS Center, 2021a). Students with exceptionalities get extra
+rehearsal, a visual copy of the steps at their desk, and, when helpful, a
+private preview before the class practices. I will reinforce expectations with
+behavior-specific praise tied to the step a student completed (The IRIS Center,
+2021a), and when a step is missed, I will kindly correct it and have the student
+redo only that part (Kardamis, 2016). To maintain expectations, I will respond
+the same way across students and over time (Evertson et al., 2003), reteach a
+routine whenever several students struggle with it or after a long break, and
+review how each routine is working during the year to decide where to add or
+remove structure (Edutopia, 2022).
+
+**Predictability, engagement, and positive interactions.** Every lesson opens
+and closes the same way, the online class follows the same steps, and class
+information lives in one place, so students always know what comes next and
+where to look (Zimny, 2020). Classrooms with predictable procedures have lower
+rates of challenging behavior, and explicitly taught procedures help students
+monitor their own behavior (The IRIS Center, 2021a). This predictability
+especially helps students with autism, ADHD, or anxiety, for whom unexpected
+change can be a barrier to learning. The routines also keep students engaged:
+the Do Now starts learning in the first minute, the help queue keeps students
+coding while they wait, and the exit ticket gives every student a voice at the
+end of class. Finally, they build positive interactions. The greeting at the
+door and the online check-in start each class with personal contact, privacy
+buddies and pair roles give students structured ways to help each other, and
+caring routines carried into the online classroom help every student feel
+welcome and valued (Zimny, 2020).
+
+#### Why these routines and procedures
+
+**Choosing the routines.** The IRIS Center (2021a) advises keeping procedures
+simple and building them for the less structured parts of class, where problems
+are most likely, and suggests asking why, where, what, who, when, and how for
+each one. In a computer lab, those moments are entering, getting help while
+coding, and packing up, when time and devices are most easily lost. The same
+three appear on the Milwaukee Public Schools PBIS (2014) planning form for
+classroom procedures. Edutopia (2022) describes the cycle I will follow:
+identify where a routine is needed, build in time to demonstrate and practice it
+during the first weeks, then assess it over time and decide where to add or
+remove structure.
+
+**Teaching them and responding when students don’t follow them.** I will teach
+each routine by explaining it, practicing it, and reinforcing it until it
+becomes automatic (Cox, 2019), following the IRIS Center’s (2021a) sequence of
+introduce, discuss, model, practice, and review, and posting each one as a
+numbered list. Correction is part of teaching. Kardamis (2016) recommends kindly
+correcting the part done wrong, having students redo just that part, and
+praising them when they get it right, which is the first response in my
+modifications column. I will pair this with behavior-specific praise (The IRIS
+Center, 2021a) and respond the same way every time, since uneven enforcement
+leaves students unsure what is expected (Evertson et al., 2003). When a student
+keeps missing a routine, I will look for the reason first. Andrew Kwok explains
+that lateness and similar behaviors often have causes outside a student’s
+control, and that understanding them makes classroom management more culturally
+responsive (The IRIS Center, 2021a), which matters in an international school
+where students arrive with different expectations about school.
+
+**Online parallels.** The online routines keep the same steps so students do not
+have to relearn them when they move between settings. Zimny (2020) recommends
+using the same few routines repeatedly, keeping information in one place, and
+creating a shared question page that students check before asking. Walton (2020)
+adds that teachers cannot assume students know how to learn online, so routines
+should be modeled and practiced, login details shared privately, and students
+reminded to sign out to protect their privacy. Allowances for different devices,
+connections, and time zones keep the routines fair for every student (Rhode
+Island Department of Education, n.d.).
+
+**Personal data, digital identity, and privacy.** In a computer science class,
+protecting data is both content and routine. The ISTE Standards for Students ask
+students to manage their digital identity and protect their privacy and personal
+data online (International Society for Technology in Education, 2024). The CSTA
+standards ask secondary students to describe tradeoffs between keeping
+information public and private (2-IC-23), explain privacy concerns in automated
+data collection (3A-IC-29), weigh the implications of privacy for safety, law,
+and ethics (3A-IC-30), and recommend and compare security measures (3A-NI-06,
+3A-NI-07; Computer Science Teachers Association, 2017). I will model these
+skills before asking students to practice them. The Monday think-aloud follows
+the same introduce, model, and practice sequence I use for every procedure (The
+IRIS Center, 2021a), the Friday Data Check turns that practice into a weekly
+habit, and the privacy-by-design steps apply the same habits to the programs
+students write. The digital identity expectations build on Common Sense
+Education’s (n.d.) focus on how online actions last and reach unseen audiences.
+My own procedures follow the Privacy Technical Assistance Center’s (2014) advice
+to know which online services are in use, review even free click-through tools
+before adopting them, and be open with families about how student information is
+used. Every routine can be completed on a school device and account, uses
+plain-language materials that can be translated, and leaves students in control
+of what they share. This way, students without home technology, English
+learners, students with disabilities, and students whose families hold different
+expectations about privacy can all take part fully (Rhode Island Department of
+Education, n.d.; Will & Najarro, 2022).

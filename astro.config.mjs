@@ -8,6 +8,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 // the sitemap would ask search engines to crawl pages it then tells them to drop.
 const portfolioDir = new URL('./src/content/portfolio/', import.meta.url);
 const placeholderPaths = readdirSync(portfolioDir)
+  .filter((f) => /\.mdx?$/.test(f))
   .filter((f) => /^status:\s*placeholder\s*$/m.test(readFileSync(new URL(f, portfolioDir), 'utf8')))
   .map((f) => `/portfolio/${f.replace(/\.mdx?$/, '')}`);
 
