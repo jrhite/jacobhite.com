@@ -51,6 +51,8 @@ rather than the site.
 
 ## Assets
 
+Recordings now play from YouTube (unlisted, channel `Jacob Hite Teacher`, `@jacobhiteteacher`) through `VideoEmbed`, using the posters below. A `.mp4` listed here remains the fallback until its recording has a `youtubeId`.
+
 | File | Original size | Where it appeared | Notes |
 | --- | --- | --- | --- |
 | `src/assets/original/office-selfie.png` | 1280×1280 PNG | Home | Group selfie, office/coworking space |

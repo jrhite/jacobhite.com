@@ -294,6 +294,14 @@ const groups = tabs.reduce<Group[]>((acc, tab) => {
         // Roving tabindex: one stop for the whole set, arrows move within it.
         e.tab.tabIndex = on ? 0 : -1;
         e.panel.hidden = !on;
+        // A hidden panel keeps playing. Reloading the frame without autoplay
+        // stops YouTube, which offers no pause from outside its own script.
+        if (!on) {
+          e.panel.querySelectorAll('video').forEach((v) => v.pause());
+          e.panel.querySelectorAll<HTMLIFrameElement>('iframe.video__frame').forEach((f) => {
+            f.src = f.src.replace('autoplay=1', 'autoplay=0');
+          });
+        }
       }
       active = entry;
       if (focus) entry.tab.focus();

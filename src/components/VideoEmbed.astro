@@ -1,15 +1,18 @@
 ---
 /**
- * A self-hosted recording. Self-hosted rather than embedded from YouTube so the
- * page carries no third-party player, no tracking, and no dependency on an
- * account that could take the file down.
+ * A recording hosted on YouTube, in a player that belongs to this site.
  *
- * `preload="metadata"` on purpose: the poster is a real still from the
- * recording, so the browser fetches a few kilobytes of headers instead of
- * megabytes of video nobody asked to play.
+ * The page shows our own poster and play control, and loads YouTube only when
+ * someone presses play: no third-party request or cookie for a reader who
+ * never watches, and no YouTube chrome in the design. It is a plain link until
+ * the script takes over, so it still works with JavaScript off.
+ *
+ * `src` is the self-hosted fallback for a recording not yet on YouTube.
  */
 interface Props {
-  src: string;
+  /** YouTube video id, e.g. "Fi0eiDbVhwc". */
+  youtubeId?: string;
+  src?: string;
   poster?: string;
   /** Accessible name for the player, and the visible caption above it. */
   title: string;
@@ -18,14 +21,14 @@ interface Props {
   /** One line under the player, for context the recording itself doesn't give. */
   caption?: string;
   /**
-   * The recording's own aspect ratio, as `w / h`. Given rather than assumed
-   * because the box is sized before the file loads — get it wrong and the
-   * player letterboxes its own poster.
+   * The player's aspect ratio, as `w / h`. Given rather than assumed because
+   * the box is sized before anything loads.
    */
   aspect: string;
 }
 
-const { src, poster, title, duration, caption, aspect } = Astro.props;
+const { youtubeId, src, poster, title, duration, caption, aspect } = Astro.props;
+const watchUrl = youtubeId && `https://youtu.be/${youtubeId}`;
 ---
 
 <figure class="video">
@@ -34,25 +37,73 @@ const { src, poster, title, duration, caption, aspect } = Astro.props;
     {duration && <span class="video__duration">{duration}</span>}
   </div>
 
-  <video
-    class="video__player"
-    style={`aspect-ratio: ${aspect};`}
-    controls
-    preload="metadata"
-    poster={poster}
-    title={title}
-  >
-    <source src={src} type="video/mp4" />
-    <p>
-      Your browser can’t play this video.
-      <a href={src} download>Download the recording</a> instead.
-    </p>
-  </video>
+  {
+    youtubeId ? (
+      <a
+        class="video__facade"
+        style={`aspect-ratio: ${aspect};`}
+        href={watchUrl}
+        data-youtube-id={youtubeId}
+        data-title={title}
+        aria-label={`Play: ${title}`}
+      >
+        {poster && <img class="video__poster" src={poster} alt="" loading="lazy" decoding="async" />}
+        <span class="video__play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+        </span>
+      </a>
+    ) : (
+      <video
+        class="video__player"
+        style={`aspect-ratio: ${aspect};`}
+        controls
+        preload="metadata"
+        poster={poster}
+        title={title}
+      >
+        <source src={src} type="video/mp4" />
+        <p>
+          Your browser can’t play this video.
+          <a href={src} download>Download the recording</a> instead.
+        </p>
+      </video>
+    )
+  }
 
-  {caption && <figcaption class="video__caption">{caption}</figcaption>}
+  {
+    (caption || watchUrl) && (
+      <figcaption class="video__caption">
+        {caption}
+        {watchUrl && (
+          <>
+            {' '}
+            <a href={watchUrl}>Watch on YouTube</a>
+          </>
+        )}
+      </figcaption>
+    )
+  }
 </figure>
 
-<style>
+<script>
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element).closest<HTMLAnchorElement>('a[data-youtube-id]');
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey) return;
+    event.preventDefault();
+
+    const frame = document.createElement('iframe');
+    frame.className = 'video__frame';
+    frame.src = `https://www.youtube-nocookie.com/embed/${link.dataset.youtubeId}?autoplay=1&rel=0&playsinline=1`;
+    frame.title = link.dataset.title ?? 'Video';
+    frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    frame.allowFullscreen = true;
+    frame.style.aspectRatio = link.style.aspectRatio;
+    link.replaceWith(frame);
+    frame.focus();
+  });
+</script>
+
+<style is:global>
   .video {
     /* The top margin is stated rather than left to `.prose > * + *`: a bare
        `margin: 0` here outranked that rule and sat the player flush against
@@ -85,13 +136,70 @@ const { src, poster, title, duration, caption, aspect } = Astro.props;
   /* The recording is a slide deck: it is legible at the page's full width and
      cramped at the reading measure, so it runs wider than the prose below it.
      `aspect-ratio` is set inline, per recording. */
-  .video__player {
+  .video__player,
+  .video__facade,
+  .video__frame {
     display: block;
     width: 100%;
     background: var(--ink-950);
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
     box-shadow: var(--shadow-md);
+  }
+
+  .video__frame {
+    border: 1px solid var(--border);
+  }
+
+  .video__facade {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video__poster {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .video__facade:hover .video__poster,
+  .video__facade:focus-visible .video__poster {
+    transform: scale(1.015);
+    opacity: 0.88;
+  }
+
+  .video__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    color: var(--text-invert);
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease;
+  }
+
+  .video__facade:hover .video__play,
+  .video__facade:focus-visible .video__play {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .video__facade:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .video__poster,
+    .video__play {
+      transition: none;
+    }
   }
 
   .video__caption {
