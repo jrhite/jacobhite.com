@@ -65,6 +65,12 @@ rather than the site.
 | `public/media/evidence-based-instruction-poster.jpg` | 1280×720 JPEG | Module 3 | Opening slide, used as the video poster. |
 | `public/media/cs-literacy-tools.mp4` | 4:34, 1920×1080 H.264 | Module 3 — **new here**, not on the original | Screen tutorial on the CS toolchain as literacy tooling. Shipped as delivered — already H.264/AAC with the moov atom up front, so no re-encode. |
 | `public/media/cs-literacy-tools-poster.jpg` | 1280×720 JPEG | Module 3 | Title slide, used as the video poster. |
+| `public/media/modifying-classroom-management.mp4` | 3:06, 960×540 H.264 | Module 4 — **new here**, not on the original | Video reflection, Unit 2 Activity 2. Replaces the former YouTube link. Transcoded from a 1280×720 `.mov`; two-pass to stay under Cloudflare Pages' 25 MiB per-file limit. |
+| `public/media/modifying-classroom-management-poster.jpg` | 1280×720 JPEG | Module 4 | Frame from the opening of the recording, used as the video poster. |
+| `public/media/positive-classroom-environments.mp4` | 5:48, 960×540 H.264 | Module 4 — **new here**, not on the original | Recording for Unit 4 Activity 1. Transcoded from a 1280×720 `.mov`; two-pass to stay under Cloudflare Pages' 25 MiB per-file limit. |
+| `public/media/positive-classroom-environments-poster.jpg` | 1280×720 JPEG | Module 4 | Frame from the opening of the recording, used as the video poster. |
+| `public/media/information-intensive-environment.mp4` | 6:11, 960×540 H.264 | Module 4 — **new here**, not on the original | Vlog for Unit 4 Activity 2. Transcoded from a 1280×720 `.mov`; two-pass to stay under Cloudflare Pages' 25 MiB per-file limit. |
+| `public/media/information-intensive-environment-poster.jpg` | 1280×720 JPEG | Module 4 | Frame from the opening of the recording, used as the video poster. |
 | `public/media/problem-solving-process.svg` | 1440×1000 SVG | Module 3 — **new here**, not on the original | The "Stuck? Six Moves." troubleshooting poster, drawn rather than exported so the type stays sharp at any size. Uses the site's own tokens with the declared fallback faces, since a standalone file cannot carry the web fonts. |
 | `public/media/problem-solving-process.png` | 2880×2000 PNG | Module 3 | The same poster rasterized at 2x with sharp. This is the copy the discussion forum wanted, and the copy the page shows. |
 
