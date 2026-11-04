@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import { portfolioArticles } from '../../data/portfolio-articles';
 
 const posts = (await getCollection('writing')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -12,7 +13,7 @@ const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
 
 <BaseLayout
   title="Writing"
-  description="Notes on teaching software engineering when the code is cheap and the judgement is not."
+  description="Notes on teaching software engineering when the code is cheap and the judgment is not."
 >
   <PageHeader
     eyebrow="Writing"
@@ -42,10 +43,45 @@ const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
         ))
       }
     </ul>
+
+    <h2 class="posts__heading">From my portfolio</h2>
+    <p class="muted posts__intro">
+      Pieces from my teacher-certification coursework that stand on their own. Each one opens on the
+      portfolio page where it was submitted.
+    </p>
+    <ul class="posts">
+      {
+        portfolioArticles.map((article) => (
+          <li class="post reveal">
+            <a href={article.href}>
+              <p class="post__meta">
+                <span>{article.source}</span>
+                <span aria-hidden="true">·</span>
+                <span>{article.readingTime} min read</span>
+              </p>
+              <h3>{article.title}</h3>
+              <p class="muted">{article.description}</p>
+              <span class="post__go" aria-hidden="true">
+                Read →
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </BaseLayout>
 
 <style>
+  .posts__heading {
+    margin-top: var(--s-7, 3rem);
+  }
+
+  .posts__intro {
+    max-width: 52rem;
+    margin-bottom: var(--s-5);
+  }
+
   .posts {
     list-style: none;
     padding: 0;
@@ -86,7 +122,8 @@ const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
     margin-bottom: var(--s-3);
   }
 
-  .post h2 {
+  .post h2,
+  .post h3 {
     font-size: var(--t-2xl);
   }
 
