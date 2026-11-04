@@ -322,6 +322,18 @@ hr {
   margin-top: var(--s-4);
 }
 
+.prose th {
+  text-align: left;
+}
+
+.prose :is(th, td) {
+  padding-inline-end: var(--s-6);
+}
+
+.prose :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
 .prose > * + :is(h2, h3) {
   margin-top: var(--s-7);
 }

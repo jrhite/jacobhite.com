@@ -1088,7 +1088,7 @@ export const citations: Record<string, string[]> = {
     'iste-2024-students',
     'just-right-reader-nd',
     'kardamis-2016',
-    'maslow-1943',
+    // 'maslow-1943', cited only in Step 8, which is hidden until Unit 6.
     'milwaukee-public-schools-2014',
     'mometrix-academy-2022',
     'moreland-university-2020',
@@ -1132,7 +1132,7 @@ export const citations: Record<string, string[]> = {
     'iste-2024-students',
     'just-right-reader-nd',
     'kardamis-2016',
-    'maslow-1943',
+    // 'maslow-1943', cited only in Step 8, which is hidden until Unit 6.
     'milwaukee-public-schools-2014',
     'mometrix-academy-2022',
     'national-childrens-book-literacy-alliance-2015',
