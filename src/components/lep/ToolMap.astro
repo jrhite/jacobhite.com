@@ -1,0 +1,197 @@
+---
+/**
+ * Step 6 at a glance: the eleven tools grouped by the management job each one
+ * does, using the jobs the TEACH-NOW activity names (keeping students on track,
+ * collecting and monitoring behavior data, communicating with families) plus
+ * the collaboration InTASC Standard 3 asks for and the real-world learning the
+ * computer science methods requirement asks for.
+ *
+ * Built from elements rather than exported as an image, so it takes the theme
+ * tokens and reflows on a phone. The numbers match the Step 6 tables.
+ */
+type Where = 'both' | 'in person' | 'online';
+interface Tool {
+  n: number;
+  name: string;
+  where: Where;
+}
+interface Job {
+  job: string;
+  why: string;
+  tools: Tool[];
+}
+
+const jobs: Job[] = [
+  {
+    job: 'Keep students on track',
+    why: 'One place to find the work, and clear timing in the room.',
+    tools: [
+      { n: 1, name: 'Google Classroom', where: 'both' },
+      { n: 2, name: 'Classroomscreen', where: 'both' },
+    ],
+  },
+  {
+    job: 'Collect and monitor behavior data',
+    why: 'Spot who is stuck or off task early, and respond lightly.',
+    tools: [
+      { n: 3, name: 'GitHub Classroom', where: 'both' },
+      { n: 5, name: 'SchoolAI', where: 'both' },
+      { n: 6, name: 'Device management', where: 'both' },
+      { n: 8, name: 'Google Forms and Sheets', where: 'both' },
+    ],
+  },
+  {
+    job: 'Collaborate and interact positively',
+    why: 'Clear turns and roles, in the room and in breakout rooms.',
+    tools: [
+      { n: 4, name: 'RallyCoach pairs', where: 'in person' },
+      { n: 4, name: 'Visual Studio Live Share', where: 'online' },
+      { n: 7, name: 'Google Meet and Zoom', where: 'online' },
+    ],
+  },
+  {
+    job: 'Communicate with families',
+    why: 'Regular summaries and specific examples, good and concerning.',
+    tools: [
+      { n: 1, name: 'Google Classroom', where: 'both' },
+      { n: 8, name: 'Google Forms and Sheets', where: 'both' },
+    ],
+  },
+  {
+    job: 'Learn with experts and peers worldwide',
+    why: 'Computer science methods: authentic, real-world work.',
+    tools: [
+      { n: 9, name: 'Pathful Connect', where: 'both' },
+      { n: 10, name: 'Padlet', where: 'both' },
+      { n: 11, name: 'Discord', where: 'both' },
+    ],
+  },
+];
+
+const label: Record<Where, string> = {
+  both: 'In person and online',
+  'in person': 'In person',
+  online: 'Online',
+};
+---
+
+<figure class="toolmap">
+  <ul class="toolmap__jobs">
+    {
+      jobs.map((j) => (
+        <li class="toolmap__job">
+          <h5>{j.job}</h5>
+          <p class="toolmap__why">{j.why}</p>
+          <ul class="toolmap__tools">
+            {j.tools.map((t) => (
+              <li class="toolmap__tool">
+                <span class="toolmap__n" aria-label={`Tool ${t.n}`}>
+                  {t.n}
+                </span>
+                <span class="toolmap__name">{t.name}</span>
+                <span class={`toolmap__where toolmap__where--${t.where.replace(' ', '-')}`}>
+                  {label[t.where]}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+  <figcaption>
+    The eleven Step 6 tools grouped by the management job each one does. Some
+    tools do more than one job. Numbers match the tables below.
+  </figcaption>
+</figure>
+
+<style>
+  .toolmap {
+    margin: var(--s-5) 0 var(--s-6);
+  }
+
+  .toolmap__jobs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-4);
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+
+  .toolmap__job {
+    padding: var(--s-4) var(--s-5) var(--s-5);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    min-width: 0;
+  }
+
+  .toolmap__job:last-child {
+    border-top-color: var(--accent-2);
+  }
+
+  .toolmap__job h5 {
+    font-size: var(--t-base);
+    margin: 0 0 var(--s-1);
+  }
+
+  .toolmap__why {
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+    margin: 0 0 var(--s-3);
+  }
+
+  .toolmap__tools {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .toolmap__tool {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--s-2);
+    align-items: baseline;
+  }
+
+  .toolmap__n {
+    grid-row: span 2;
+    align-self: start;
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: var(--t-xs);
+    font-weight: 700;
+  }
+
+  .toolmap__name {
+    font-weight: 600;
+  }
+
+  .toolmap__where {
+    font-size: var(--t-xs);
+    color: var(--text-faint);
+  }
+
+  .toolmap__where--online {
+    color: var(--accent);
+  }
+
+  .toolmap__where--in-person {
+    color: var(--accent-2);
+  }
+
+  .toolmap figcaption {
+    margin-top: var(--s-3);
+    font-size: var(--t-sm);
+    color: var(--text-muted);
+  }
+</style>
