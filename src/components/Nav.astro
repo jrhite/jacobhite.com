@@ -247,8 +247,9 @@ const currentHref = navItems
     }
   }
 
-  /* One line only while the full row genuinely fits — it measures ~63rem with
-     every label on it. Below that the links drop to their own scrolling row. */
+  /* One line only while the full row genuinely fits — it measures ~66.3rem with
+     every label on it; any narrower and the brand wraps onto two lines. Below
+     that the links drop to their own scrolling row. */
   /* The address is long; below this the icon carries it and `aria-label`
      keeps the accessible name intact. */
   @media (max-width: 34rem) {
@@ -261,7 +262,7 @@ const currentHref = navItems
     }
   }
 
-  @media (max-width: 64rem) {
+  @media (max-width: 67rem) {
     .brand__name {
       font-size: var(--t-base);
       white-space: nowrap;
