@@ -59,7 +59,7 @@ export const navItems: NavItem[] = [
 
 export const siteMeta = {
   name: 'Jacob Hite',
-  tagline: 'Former Amazon and Google software engineer turned software engineering teacher and coach.',
+  tagline: 'Former Amazon and Google software engineer, now teaching AI-assisted software engineering and AI literacy, and coaching engineers.',
   /**
    * The roles the site is found under, most searched first. They feed the
    * structured data in BaseLayout, so a search engine reads the same list a
