@@ -6,6 +6,7 @@ import { navItems, siteMeta, careerYears } from '../data/nav';
 import teaching from '../assets/original/teaching-se-asia.jpg';
 import office from '../assets/office-alchemy-2022.jpg';
 import avatar from '../assets/jacob-hite-avatar.jpg';
+import { projects } from '../data/projects';
 
 const facts = [
   { value: '1999', label: 'BS Computer Science, CU Boulder' },
@@ -39,26 +40,6 @@ const offerings = [
     title: 'AI integration',
     body: 'Claude, ChatGPT or a team of agents doing real work for you, with the tests to prove it and a team that understands it well enough to change it without me.',
     href: '/coaching#ai-integration',
-  },
-];
-
-/**
- * Live work of my own, built with the same AI-assisted loop the method section
- * describes. Links leave the site, so they open in place like any other link
- * and carry rel="noopener".
- */
-const projects = [
-  {
-    kicker: 'App · owlonit.com',
-    title: 'Owlonit',
-    body: 'A to-do app whose list manages itself. You capture tasks in your own words, and an AI engine sorts them into projects, priorities and labels, with every change reviewable and undoable. Built on Supabase.',
-    href: 'https://owlonit.com',
-  },
-  {
-    kicker: 'owlabee.com · Apify Actors',
-    title: 'Data and AI Actors',
-    body: 'More than a dozen published Apify Actors: monitors and scrapers over official public sources (federal court dockets, building permits, grants, product recalls, professional licenses), plus AI tools that turn PDFs and documents into JSON or Markdown for RAG.',
-    href: 'https://owlabee.com/',
   },
 ];
 
@@ -219,10 +200,13 @@ const { timeZone } = siteMeta;
       {
         projects.map((p) => (
           <li class="offering reveal">
-            <a href={p.href} rel="noopener">
-              <p class="offering__kicker">{p.kicker}</p>
-              <h3>{p.title}</h3>
-              <p class="muted">{p.body}</p>
+            <a href={p.url} rel="noopener">
+              <span class="project-head">
+                <Image class="project-logo" src={p.logo} alt="" width={40} height={40} />
+                <span class="offering__kicker">{p.kicker}</span>
+              </span>
+              <h3>{p.cardTitle}</h3>
+              <p class="muted">{p.summary}</p>
             </a>
           </li>
         ))
@@ -513,6 +497,24 @@ const { timeZone } = siteMeta;
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
     border-color: var(--accent-bright);
+  }
+
+  /* Project cards lead with the product's own mark, then the kicker. */
+  .project-head {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-3);
+  }
+
+  .project-head .offering__kicker {
+    margin-bottom: 0;
+  }
+
+  .project-logo {
+    flex: none;
+    width: 40px;
+    height: 40px;
   }
 
   .offering__kicker {

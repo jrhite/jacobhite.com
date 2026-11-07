@@ -2,6 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import { Image } from 'astro:assets';
+import { projects } from '../data/projects';
+
+const [owlonit, owlabee] = projects;
 
 /**
  * Live work of my own. Everything said about each project here is checked
@@ -88,13 +92,17 @@ const owlabeeLinks = [
     lede="I teach AI-assisted engineering because I practice it. Both of these are live, built with the same loop my students use: specify, let AI implement a slice, read it, test it, ship it."
   />
 
-  <section class="section page project" id="owlonit">
-    <p class="eyebrow">App · owlonit.com</p>
-    <h2 class="section__title">Owlonit</h2>
-    <p class="lede prose">
-      A to-do app for people who will never do a weekly review. You capture tasks in your own
-      words, and the AI does the organizing, explaining every change it makes.
-    </p>
+  <section class="section page project" id={owlonit.id}>
+    <div class="project__head">
+      <a href={owlonit.url} rel="noopener" class="project__mark" aria-label={`${owlonit.name} website`}>
+        <Image src={owlonit.logo} alt="" width={72} height={72} />
+      </a>
+      <div>
+        <p class="eyebrow">{owlonit.kicker}</p>
+        <h2 class="section__title">{owlonit.name}</h2>
+      </div>
+    </div>
+    <p class="lede prose">{owlonit.description}</p>
 
     <dl class="facts">
       {
@@ -112,14 +120,17 @@ const owlabeeLinks = [
     </ul>
   </section>
 
-  <section class="section page project" id="owlabee">
-    <p class="eyebrow">Apify Store · Owlabee</p>
-    <h2 class="section__title">Data and AI Actors</h2>
-    <p class="lede prose">
-      Published Apify Actors that turn official public sources into clean JSON, plus AI tools
-      that turn documents into data. Each is also available to AI agents as a tool, through
-      Apify's hosted MCP server.
-    </p>
+  <section class="section page project" id={owlabee.id}>
+    <div class="project__head">
+      <a href={owlabee.url} rel="noopener" class="project__mark" aria-label={`${owlabee.name} website`}>
+        <Image src={owlabee.logo} alt="" width={72} height={72} />
+      </a>
+      <div>
+        <p class="eyebrow">{owlabee.kicker}</p>
+        <h2 class="section__title">{owlabee.cardTitle}</h2>
+      </div>
+    </div>
+    <p class="lede prose">{owlabee.description}</p>
 
     <div class="groups">
       {
@@ -152,6 +163,37 @@ const owlabeeLinks = [
 </BaseLayout>
 
 <style>
+  /* Each product leads with its own mark, from its own brand kit. */
+  .project__head {
+    display: flex;
+    align-items: center;
+    gap: var(--s-5);
+    margin-bottom: var(--s-4);
+  }
+
+  .project__head .section__title {
+    margin: 0;
+  }
+
+  .project__mark {
+    flex: none;
+    display: block;
+    border-radius: var(--r-lg);
+    line-height: 0;
+  }
+
+  .project__mark img {
+    width: 72px;
+    height: 72px;
+  }
+
+  @media (max-width: 30rem) {
+    .project__mark img {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
   .project + .project {
     border-top: 1px solid var(--border);
   }
