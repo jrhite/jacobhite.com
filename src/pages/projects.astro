@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+
+/**
+ * Live work of my own. Everything said about each project here is checked
+ * against the project's own repository and public pages; the Actor groups
+ * follow the three MCP Registry entries in owlabee/owlabee (mcp/README.md).
+ */
+const owlonitFacts = [
+  {
+    term: 'Capture',
+    detail: 'Type tasks however you think. Claude pulls out the tasks, dates and priorities.',
+  },
+  {
+    term: 'Organize',
+    detail: 'An engine creates and merges projects, files tasks, and merges duplicates. Every move is an event with a reason and a confidence score.',
+  },
+  {
+    term: 'Trust',
+    detail: 'Confident changes apply, uncertain ones wait for your review, and every change has one-tap undo. The threshold learns from what you undo.',
+  },
+  {
+    term: 'Stack',
+    detail: 'Next.js and React, Supabase Postgres, a background worker, the Anthropic API, and an MCP connector for using your list from Claude.',
+  },
+];
+
+const owlonitLinks = [
+  { label: 'owlonit.com', href: 'https://owlonit.com' },
+  { label: 'How it works', href: 'https://owlonit.com/how-it-works' },
+  { label: 'Use it from Claude (MCP)', href: 'https://owlonit.com/mcp' },
+];
+
+const actor = (slug: string) => `https://apify.com/owlabee/${slug}`;
+
+const actorGroups = [
+  {
+    title: 'US public records',
+    items: [
+      { label: 'Building permits from 61 open-data portals', href: actor('building-permits-scraper') },
+      { label: 'Accela and EnerGov permit portals', href: actor('accela-energov-permit-scraper') },
+      { label: 'Grants.gov and SAM.gov opportunities', href: actor('grants-gov-api') },
+      { label: 'Grant and RFP fit scorer (AI)', href: actor('gov-opportunity-fit-scorer') },
+      { label: 'PACER federal court docket monitor', href: actor('federal-court-docket-monitor') },
+      { label: 'OSHA and EPA enforcement report', href: actor('osha-epa-enforcement-report') },
+      { label: 'FDA, NHTSA and CPSC product recalls', href: actor('product-recall-feed') },
+      { label: 'Professional license verification', href: actor('us-license-verifier') },
+    ],
+  },
+  {
+    title: 'Web monitoring',
+    items: [
+      { label: 'SPF, DMARC and DKIM checker with WHOIS', href: actor('domain-intelligence') },
+      { label: 'Website change monitor', href: actor('website-change-monitor') },
+      { label: 'Shopify catalog and price tracker', href: actor('shopify-catalog-monitor') },
+      { label: 'Hiring signals from ATS job boards', href: actor('ats-hiring-signals') },
+      { label: 'Bluesky monitor', href: actor('bluesky-monitor') },
+      { label: 'Podcast RSS scraper', href: actor('podcast-rss-scraper') },
+    ],
+  },
+  {
+    title: 'Documents to data',
+    items: [
+      { label: 'PDF to Markdown for RAG', href: actor('pdf-to-markdown') },
+      { label: 'Document to JSON extractor (AI)', href: actor('document-to-json-extractor') },
+      { label: 'Podcast episode summarizer (AI)', href: actor('podcast-episode-summarizer') },
+      { label: 'Drone roof inspection report (AI)', href: actor('drone-roof-inspection-report') },
+    ],
+  },
+];
+
+const owlabeeLinks = [
+  { label: 'Owlabee on Apify Store', href: 'https://apify.com/owlabee' },
+  { label: 'Guides to the data sources', href: 'https://owlabee.com/' },
+  { label: 'Examples on GitHub', href: 'https://github.com/owlabee/owlabee' },
+];
+---
+
+<BaseLayout
+  title="Projects"
+  description="Software Jacob Hite builds and ships with AI: Owlonit, a to-do app whose list manages itself, and the Owlabee data and AI Actors on the Apify Store."
+>
+  <PageHeader
+    eyebrow="Projects"
+    title="Still shipping"
+    lede="I teach AI-assisted engineering because I practice it. Both of these are live, built with the same loop my students use: specify, let AI implement a slice, read it, test it, ship it."
+  />
+
+  <section class="section page project" id="owlonit">
+    <p class="eyebrow">App · owlonit.com</p>
+    <h2 class="section__title">Owlonit</h2>
+    <p class="lede prose">
+      A to-do app for people who will never do a weekly review. You capture tasks in your own
+      words, and the AI does the organizing, explaining every change it makes.
+    </p>
+
+    <dl class="facts">
+      {
+        owlonitFacts.map((f) => (
+          <div class="fact reveal">
+            <dt>{f.term}</dt>
+            <dd class="muted">{f.detail}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <ul class="links">
+      {owlonitLinks.map((l) => <li><a href={l.href} rel="noopener">{l.label} →</a></li>)}
+    </ul>
+  </section>
+
+  <section class="section page project" id="owlabee">
+    <p class="eyebrow">Apify Store · Owlabee</p>
+    <h2 class="section__title">Data and AI Actors</h2>
+    <p class="lede prose">
+      Published Apify Actors that turn official public sources into clean JSON, plus AI tools
+      that turn documents into data. Each is also available to AI agents as a tool, through
+      Apify's hosted MCP server.
+    </p>
+
+    <div class="groups">
+      {
+        actorGroups.map((g) => (
+          <section class="group reveal" aria-labelledby={`group-${g.title}`}>
+            <h3 id={`group-${g.title}`}>{g.title}</h3>
+            <ul>
+              {g.items.map((i) => (
+                <li>
+                  <a href={i.href} rel="noopener">
+                    {i.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <ul class="links">
+      {owlabeeLinks.map((l) => <li><a href={l.href} rel="noopener">{l.label} →</a></li>)}
+    </ul>
+  </section>
+
+  <ContactCTA
+    heading="Want to build something like this?"
+    body="That's what lessons are for. Bring the thing you want to exist, and we'll build it the same way: you make the decisions, AI writes much of the code, and you can explain every line."
+  />
+</BaseLayout>
+
+<style>
+  .project + .project {
+    border-top: 1px solid var(--border);
+  }
+
+  .facts,
+  .groups {
+    display: grid;
+    gap: var(--s-4);
+    margin: var(--s-6) 0 0;
+  }
+
+  @media (min-width: 40rem) {
+    .facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .groups {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .fact,
+  .group {
+    padding: var(--s-5);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .fact dt,
+  .group h3 {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin: 0 0 var(--s-2);
+  }
+
+  .fact dd {
+    margin: 0;
+  }
+
+  .group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-6) 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-5);
+    font-weight: 600;
+  }
+</style>

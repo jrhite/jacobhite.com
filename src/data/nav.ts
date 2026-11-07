@@ -36,6 +36,11 @@ export const navItems: NavItem[] = [
     blurb: 'Interview practice, system design, mentoring and advising, and AI integration for teams.',
   },
   {
+    label: 'Projects',
+    href: '/projects',
+    blurb: 'Owlonit and the Owlabee Actors: live software I build and ship with AI.',
+  },
+  {
     label: 'Reviews',
     href: '/reviews',
     blurb: 'What students say about learning, interview prep, and coaching sessions with me.',
