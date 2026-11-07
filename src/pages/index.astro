@@ -42,6 +42,26 @@ const offerings = [
   },
 ];
 
+/**
+ * Live work of my own, built with the same AI-assisted loop the method section
+ * describes. Links leave the site, so they open in place like any other link
+ * and carry rel="noopener".
+ */
+const projects = [
+  {
+    kicker: 'App · owlonit.com',
+    title: 'Owlonit',
+    body: 'A to-do app whose list manages itself. You capture tasks in your own words, and an AI engine sorts them into projects, priorities and labels, with every change reviewable and undoable. Built on Supabase.',
+    href: 'https://owlonit.com',
+  },
+  {
+    kicker: 'Apify Store · Owlabee',
+    title: 'Data and AI Actors',
+    body: 'More than a dozen published Apify Actors: monitors and scrapers over official public sources (federal court dockets, building permits, grants, product recalls, professional licenses), plus AI tools that turn PDFs and documents into JSON or Markdown for RAG.',
+    href: 'https://apify.com/owlabee',
+  },
+];
+
 const { timeZone } = siteMeta;
 ---
 
@@ -185,6 +205,29 @@ const { timeZone } = siteMeta;
       </p>
       <footer>The through-line, whatever we build</footer>
     </blockquote>
+  </section>
+
+  <section class="section page">
+    <p class="eyebrow">What I build</p>
+    <h2 class="section__title">Still shipping</h2>
+    <p class="lede prose">
+      I teach AI-assisted engineering because I practice it. These are live, built with the same
+      loop as above.
+    </p>
+
+    <ul class="offerings offerings--two">
+      {
+        projects.map((p) => (
+          <li class="offering reveal">
+            <a href={p.href} rel="noopener">
+              <p class="offering__kicker">{p.kicker}</p>
+              <h3>{p.title}</h3>
+              <p class="muted">{p.body}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <section class="section page">
@@ -424,6 +467,11 @@ const { timeZone } = siteMeta;
   @media (min-width: 72rem) {
     .offerings {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    /* Two projects stay two across; four columns would leave half the row empty. */
+    .offerings--two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
