@@ -3,6 +3,7 @@ import { Font } from 'astro:assets';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { siteMeta } from '../data/nav';
+import { projects } from '../data/projects';
 import '../styles/global.css';
 
 interface Props {
@@ -103,6 +104,16 @@ const graph = [
       },
     })),
   },
+  // schema.org has no Person → "founded" property, so the link runs the other
+  // way: each product's Organization names him as `founder` by @id.
+  ...projects.map((p) => ({
+    '@type': 'Organization',
+    '@id': `${home}#${p.id}`,
+    name: p.name,
+    url: p.url,
+    description: p.description,
+    founder: { '@id': `${home}#person` },
+  })),
   {
     '@type': 'WebSite',
     '@id': `${home}#website`,

@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { projects } from '../data/projects';
+---
+
+<BaseLayout
+  title="Projects"
+  description="Products Jacob Hite has built: Owlonit, an AI to-do list that organizes itself, and Owlabee, public records and web data as JSON."
+>
+  <PageHeader
+    eyebrow="Projects"
+    title="Things I have built"
+    lede="Software I designed, wrote and still run, outside the classroom."
+  />
+
+  <section class="section page">
+    <ul class="projects">
+      {
+        projects.map((project) => (
+          <li class="project reveal" id={project.id}>
+            <p class="project__role">{project.role}</p>
+            <h2>{project.name}</h2>
+            <p class="muted">{project.description}</p>
+            <a class="project__link" href={project.url}>
+              {project.linkText} <span aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-5);
+    max-width: 52rem;
+  }
+
+  .project {
+    padding: var(--s-6);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg-raised);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .project__role {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: var(--s-3);
+  }
+
+  .project h2 {
+    font-size: var(--t-2xl);
+    margin-bottom: var(--s-3);
+  }
+
+  .project__link {
+    display: inline-block;
+    margin-top: var(--s-4);
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .project__link span {
+    display: inline-block;
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .project__link:hover span {
+    transform: translateX(4px);
+  }
+</style>

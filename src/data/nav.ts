@@ -46,6 +46,11 @@ export const navItems: NavItem[] = [
     blurb: 'Notes on teaching software engineering in the age of AI.',
   },
   {
+    label: 'Projects',
+    href: '/projects',
+    blurb: 'Products I have built and run: Owlonit and Owlabee.',
+  },
+  {
     label: 'Portfolio',
     href: '/portfolio',
     blurb: 'My Moreland TEACH-NOW teacher-certification e-portfolio.',
