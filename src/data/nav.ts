@@ -101,5 +101,5 @@ export const siteMeta = {
    * web data stream in GA Admin. null renders no analytics at all. See
    * components/Analytics.astro for when it loads and what it may store.
    */
-  gaMeasurementId: null as string | null,
+  gaMeasurementId: 'G-671G0C26MR' as string | null,
 };
