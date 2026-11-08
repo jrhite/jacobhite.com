@@ -127,7 +127,10 @@
   --owlabee-gold: #c29a45;
   --owlabee-link: #7a5b1f;
   --owlabee-tagline: #8c6a26;
-  /* The kit's two avatars: cream with a gold ring, and charcoal with none. */
+  /* The owlabee avatar is always the kit's cream one (avatar-cream-1024), in
+     both of our themes, so these are not overridden for dark mode. */
+  --owlabee-avatar-ground: #faf7f1;
+  --owlabee-avatar-line: #2e2e2e;
   --owlabee-avatar-ring: #c29a45;
   --owlonit-ground: #0c0a09;
   --owlonit-card: #1c1917;
@@ -169,7 +172,6 @@
     --owlabee-rule: #57503f;
     --owlabee-link: #d4b26e;
     --owlabee-tagline: #d4b26e;
-    --owlabee-avatar-ring: transparent;
   }
 }
 
@@ -202,7 +204,6 @@
   --owlabee-rule: #57503f;
   --owlabee-link: #d4b26e;
   --owlabee-tagline: #d4b26e;
-  --owlabee-avatar-ring: transparent;
 }
 
 /* Brand panels: a block that wears a product's own kit. Our tokens are

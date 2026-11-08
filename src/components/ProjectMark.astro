@@ -1,20 +1,18 @@
 ---
 /**
- * A product's own avatar, at a given size. Both are the products' official
- * profile images, redrawn from their brand kits' vector sources so they stay
- * sharp at any size:
+ * A product's own avatar, at a given size, drawn from its brand kit's
+ * vector source so it stays sharp at any size:
  *
- * - owlabee: the kit's avatar (owlabee/owlabee tools/brand/render.mjs,
+ * - owlabee: the kit's cream avatar (owlabee/owlabee tools/brand/render.mjs,
  *   `avatar-cream-1024`): the monocle mark inside a Gold ring on a Cream disc.
- *   Lines take `currentColor` and the disc takes the brand ground, and the
- *   ring token is transparent in dark mode, so in dark mode it becomes the
- *   kit's `avatar-charcoal`: a cream mark on Charcoal with no ring.
- * - owlonit: the app icon (owlonit/owlonit design/branding/src/
- *   owl-icon-square.svg), the full owl with its monocle on the stone tile,
- *   with the corner rounding an app icon gets on a phone.
+ *   Always cream, in both of our themes (the --owlabee-avatar-* tokens are
+ *   not overridden for dark mode): the charcoal variant all but vanished on
+ *   the dark panel.
+ * - owlonit: the circular owl-face badge (owlonit/owlonit
+ *   marketing/branding/avatar.svg), which carries its own dark ground.
  */
 import { Image } from 'astro:assets';
-import owlonitIcon from '../assets/brands/owlonit-icon.svg';
+import owlonitAvatar from '../assets/brands/owlonit.svg';
 
 interface Props {
   id: 'owlonit' | 'owlabee';
@@ -34,29 +32,22 @@ const { id, size } = Astro.props;
       aria-hidden="true"
       focusable="false"
     >
-      <circle cx="50" cy="50" r="49" fill="var(--owlabee-ground)" />
+      <circle cx="50" cy="50" r="49" fill="var(--owlabee-avatar-ground)" />
       <circle cx="50" cy="50" r="43.2" fill="none" stroke="var(--owlabee-avatar-ring)" stroke-width="1.6" />
       <g transform="translate(18.75 18.75) scale(0.625)">
         <g transform="translate(0,2)">
-          <g fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round">
+          <g fill="none" stroke="var(--owlabee-avatar-line)" stroke-width="5" stroke-linejoin="round">
             <polygon points="30.95,24 50,35 50,57 30.95,68 11.9,57 11.9,35" />
             <polygon points="69.05,24 88.1,35 88.1,57 69.05,68 50,57 50,35" />
           </g>
-          <circle cx="30.95" cy="45" r="7.5" fill="currentColor" />
-          <circle cx="69.05" cy="45" r="7.5" fill="currentColor" />
+          <circle cx="30.95" cy="45" r="7.5" fill="var(--owlabee-avatar-line)" />
+          <circle cx="69.05" cy="45" r="7.5" fill="var(--owlabee-avatar-line)" />
           <circle cx="69.05" cy="45" r="13.5" fill="none" stroke="var(--owlabee-gold)" stroke-width="3.4" />
           <polygon points="45,64.5 55,64.5 50,73" fill="var(--owlabee-gold)" />
         </g>
       </g>
     </svg>
   ) : (
-    <Image class="project-mark project-mark--owlonit" src={owlonitIcon} alt="" width={size} height={size} />
+    <Image class="project-mark project-mark--owlonit" src={owlonitAvatar} alt="" width={size} height={size} />
   )
 }
-
-<style>
-  .project-mark--owlonit {
-    border-radius: 22%;
-    box-shadow: var(--shadow-sm);
-  }
-</style>
