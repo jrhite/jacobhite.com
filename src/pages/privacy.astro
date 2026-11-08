@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { siteMeta } from '../data/nav';
+
+/**
+ * What this site collects, kept to what is actually wired up: the theme
+ * preference in localStorage, Google Analytics 4 (components/Analytics.astro,
+ * only when a Measurement ID is set) and Cloudflare as the host. Update it in
+ * the same change as anything that alters those.
+ */
+const analyticsOn = Boolean(siteMeta.gaMeasurementId);
+---
+
+<BaseLayout
+  title="Privacy"
+  description="What jacobhite.com collects: anonymous visit statistics through Google Analytics, a light or dark theme preference in your browser, and nothing else."
+>
+  <PageHeader
+    eyebrow="Privacy"
+    title="What this site collects"
+    lede="Very little. No accounts, no forms, no ads, and nothing sold or shared for advertising."
+  />
+
+  <section class="section page">
+    <div class="prose">
+      <h2>Visit statistics</h2>
+      {
+        analyticsOn ? (
+          <>
+            <p>
+              This site uses Google Analytics 4 to count visits and see which pages are read. It
+              records things like the pages you view, how you arrived (a search, a link, or
+              directly), your approximate location at country or city level, and your device and
+              browser type. Google does not give me your IP address, and I do not use it to
+              identify anyone.
+            </p>
+            <p>
+              Advertising features are turned off. If you visit from the European Economic Area,
+              the UK or Switzerland, Google Analytics runs in a cookieless mode and sets no
+              analytics cookies. Elsewhere it sets first-party cookies (named <code>_ga</code>)
+              to tell new visits from return ones.
+            </p>
+            <p>
+              Google processes this data under its own{' '}
+              <a href="https://policies.google.com/privacy">privacy policy</a>. You can opt out on
+              every site with Google's{' '}
+              <a href="https://tools.google.com/dlpage/gaoptout">opt-out browser add-on</a>, or
+              by blocking cookies or scripts from <code>googletagmanager.com</code>.
+            </p>
+          </>
+        ) : (
+          <p>This site does not currently run any analytics.</p>
+        )
+      }
+
+      <h2>Your theme preference</h2>
+      <p>
+        If you switch between light and dark mode, the choice is saved in your own browser's local
+        storage so the next page opens the same way. It never leaves your device.
+      </p>
+
+      <h2>Hosting</h2>
+      <p>
+        The site is hosted on Cloudflare Pages, and the fonts are served from this site rather
+        than from a third party. Like any web host, Cloudflare handles the requests your browser
+        makes and keeps routine logs to run and protect the service.
+      </p>
+
+      {
+        siteMeta.email && (
+          <>
+            <h2>Email</h2>
+            <p>
+              If you write to <a href={`mailto:${siteMeta.email}`}>{siteMeta.email}</a>, I see your
+              address and message, and use them only to reply. The same address is the place to ask
+              any question about this page.
+            </p>
+          </>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

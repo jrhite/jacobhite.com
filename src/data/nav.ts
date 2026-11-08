@@ -95,4 +95,11 @@ export const siteMeta = {
    * they all degrade to an honest "coming soon" note rather than a dead link.
    */
   email: 'hi@jacobhite.com' as string | null,
+
+  /**
+   * Google Analytics 4 Measurement ID ("G-XXXXXXXXXX"), from the jacobhite.com
+   * web data stream in GA Admin. null renders no analytics at all. See
+   * components/Analytics.astro for when it loads and what it may store.
+   */
+  gaMeasurementId: null as string | null,
 };

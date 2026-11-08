@@ -1,0 +1,51 @@
+---
+/**
+ * Google Analytics 4, through gtag.js.
+ *
+ * - Only on the real site. A local build, `astro preview` or a Cloudflare
+ *   Pages preview deploy would otherwise count as visits, so the tag checks
+ *   the hostname before it loads anything. There is no override.
+ * - Consent Mode v2 defaults. Ad storage and ad signals are denied for
+ *   everyone: this site runs no ads. Analytics storage is granted, except in
+ *   the EEA, the UK and Switzerland, where it is denied and GA sends only
+ *   cookieless pings. That keeps the site out of cookie-banner territory
+ *   there without dropping those visits entirely.
+ * - Disclosed on /privacy, which Google's terms for Analytics require.
+ */
+import { siteMeta } from '../data/nav';
+
+const id = siteMeta.gaMeasurementId;
+const hosts = [siteMeta.domain, `www.${siteMeta.domain}`];
+// EEA (EU 27 + Iceland, Liechtenstein, Norway), the UK and Switzerland.
+const strictRegions = [
+  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE',
+  'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
+  'IS', 'LI', 'NO', 'GB', 'CH',
+];
+---
+
+{
+  id && (
+    <script is:inline define:vars={{ id, hosts, strictRegions }}>
+      if (hosts.includes(location.hostname)) {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+        gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'granted',
+        });
+        gtag('consent', 'default', { analytics_storage: 'denied', region: strictRegions });
+        gtag('js', new Date());
+        gtag('config', id);
+        const tag = document.createElement('script');
+        tag.async = true;
+        tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+        document.head.appendChild(tag);
+      }
+    </script>
+  )
+}

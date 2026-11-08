@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
 import { siteMeta } from '../data/nav';
 import { projects } from '../data/projects';
 import '../styles/global.css';
@@ -190,6 +191,7 @@ const ldJson = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <Font cssVariable="--font-mono" />
     <Font cssVariable="--font-owlabee-sans" />
     <Font cssVariable="--font-owlabee-serif" />
+    <Analytics />
 
     <!-- Set the theme before first paint so there is no flash of the wrong one. -->
     <script is:inline>
