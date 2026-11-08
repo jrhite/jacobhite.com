@@ -11,6 +11,11 @@
  *   cookieless pings. That keeps the site out of cookie-banner territory
  *   there without dropping those visits entirely.
  * - Disclosed on /privacy, which Google's terms for Analytics require.
+ * - Leads: a click on any email link or Preply link sends `generate_lead`
+ *   (GA4's recommended lead event), with `lead_method` ("email" or "preply")
+ *   and `link_location` (nav, hero, contact, footer or page). One delegated
+ *   listener covers every such link, including any added later. Mark
+ *   generate_lead as a key event in GA (Admin > Events) to count it as one.
  */
 import { siteMeta } from '../data/nav';
 
@@ -41,6 +46,34 @@ const strictRegions = [
         gtag('consent', 'default', { analytics_storage: 'denied', region: strictRegions });
         gtag('js', new Date());
         gtag('config', id);
+        document.addEventListener(
+          'click',
+          (event) => {
+            const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+            if (!link) return;
+            const href = link.getAttribute('href') || '';
+            let method = null;
+            if (href.startsWith('mailto:')) method = 'email';
+            else {
+              try {
+                const host = new URL(href, location.href).hostname;
+                if (host === 'preply.com' || host.endsWith('.preply.com')) method = 'preply';
+              } catch (e) {}
+            }
+            if (!method) return;
+            const where = link.closest('header, nav')
+              ? 'nav'
+              : link.closest('footer')
+                ? 'footer'
+                : link.closest('.hero')
+                  ? 'hero'
+                  : link.closest('.cta')
+                    ? 'contact'
+                    : 'page';
+            gtag('event', 'generate_lead', { lead_method: method, link_location: where });
+          },
+          { capture: true },
+        );
         const tag = document.createElement('script');
         tag.async = true;
         tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
