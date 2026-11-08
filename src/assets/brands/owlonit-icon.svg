@@ -1,0 +1,40 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Owlonit app icon">
+  <defs>
+    <linearGradient id="tw" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#292524"/>
+      <stop offset="0.55" stop-color="#1C1917"/>
+      <stop offset="1" stop-color="#0C0A09"/>
+    </linearGradient>
+    <radialGradient id="gl" cx="0.5" cy="0.36" r="0.65">
+      <stop offset="0" stop-color="#57534E" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#57534E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- full-bleed square (OS applies the corner mask) -->
+  <rect x="0" y="0" width="512" height="512" fill="url(#tw)"/>
+  <rect x="0" y="0" width="512" height="512" fill="url(#gl)"/>
+  <circle cx="96" cy="96" r="3" fill="#FBBF24" opacity="0.7"/>
+  <circle cx="420" cy="120" r="2.4" fill="#F5F5F4" opacity="0.6"/>
+  <circle cx="404" cy="392" r="2.6" fill="#FBBF24" opacity="0.55"/>
+  <!-- owl (same mark) -->
+  <path d="M168 214 L150 104 L228 196 Z" fill="#F5F5F4"/>
+  <path d="M344 214 L362 104 L284 196 Z" fill="#F5F5F4"/>
+  <path d="M256 150 C 336 150 398 208 398 292 C 398 380 342 438 256 438 C 170 438 114 380 114 292 C 114 208 176 150 256 150 Z" fill="#F5F5F4"/>
+  <path d="M256 322 C 226 322 206 344 206 372 C 206 404 228 426 256 432 C 284 426 306 404 306 372 C 306 344 286 322 256 322 Z" fill="#E7E5E4" opacity="0.85"/>
+  <path d="M214 430 q-14 14 -6 26 q8 -6 16 -6 q-2 -10 -10 -20 Z" fill="#F59E0B"/>
+  <path d="M298 430 q14 14 6 26 q-8 -6 -16 -6 q2 -10 10 -20 Z" fill="#F59E0B"/>
+  <circle cx="206" cy="256" r="48" fill="#FFFFFF"/>
+  <circle cx="212" cy="250" r="23" fill="#1C1917"/>
+  <circle cx="221" cy="242" r="7" fill="#FFFFFF"/>
+  <path d="M168 206 q40 -22 80 -6" stroke="#1C1917" stroke-width="9" stroke-linecap="round" fill="none"/>
+  <circle cx="306" cy="256" r="48" fill="#FFFFFF"/>
+  <circle cx="300" cy="250" r="23" fill="#1C1917"/>
+  <circle cx="309" cy="242" r="7" fill="#FFFFFF"/>
+  <circle cx="306" cy="256" r="54" fill="#FBBF24" fill-opacity="0.10"/>
+  <circle cx="306" cy="256" r="54" stroke="#FBBF24" stroke-width="9" fill="none"/>
+  <path d="M306 310 C 300 348 288 366 272 378" stroke="#FBBF24" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <circle cx="272" cy="380" r="5.5" fill="#FBBF24"/>
+  <path d="M268 188 q40 -26 84 4" stroke="#1C1917" stroke-width="9" stroke-linecap="round" fill="none"/>
+  <path d="M238 282 L274 282 L256 308 Z" fill="#F59E0B"/>
+  <path d="M256 296 L274 282 L256 282 Z" fill="#D97706"/>
+</svg>

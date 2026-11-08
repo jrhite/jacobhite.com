@@ -203,7 +203,7 @@ const { timeZone } = siteMeta;
           <li class={`offering reveal brand-${p.id}`}>
             <a href={p.url} rel="noopener">
               <span class="project-head">
-                <ProjectMark id={p.id} size={p.id === 'owlabee' ? 44 : 40} />
+                <ProjectMark id={p.id} size={40} />
                 <span class="offering__kicker">{p.kicker}</span>
               </span>
               <h3>{p.cardTitle}</h3>
@@ -519,8 +519,6 @@ const { timeZone } = siteMeta;
   }
 
   .project-head :global(.project-mark--owlabee) {
-    width: 44px;
-    height: 44px;
     color: var(--text);
   }
 
