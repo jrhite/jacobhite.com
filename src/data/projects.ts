@@ -44,7 +44,7 @@ export const projects: Project[] = [
   },
   {
     id: 'owlabee',
-    name: 'Owlabee',
+    name: 'owlabee',
     url: 'https://owlabee.com/',
     ldLogo: 'https://owlabee.com/icon-512.png',
     kicker: 'owlabee.com · Apify Actors',

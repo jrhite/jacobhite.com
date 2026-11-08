@@ -38,7 +38,7 @@ export const navItems: NavItem[] = [
   {
     label: 'Projects',
     href: '/projects',
-    blurb: 'Owlonit and the Owlabee Actors: live software I build and ship with AI.',
+    blurb: 'Owlonit and the owlabee Actors: live software I build and ship with AI.',
   },
   {
     label: 'Reviews',
