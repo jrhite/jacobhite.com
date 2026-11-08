@@ -113,6 +113,27 @@
   --dur-fast: 140ms;
   --dur: 260ms;
   --dur-slow: 520ms;
+
+  /* Product brands. Each product's panel wears its own kit, so these are
+     that brand's colors, not ours: owlabee (owlabee/owlabee brand/README.md:
+     Cream, Charcoal, Gold, Linen, Hairline; Gold Deep for text) and Owlonit
+     (its stone ground and amber accent, dark in both of our themes, as its
+     site is). The panels remap our tokens onto these; see `.brand-*`. */
+  --owlabee-ground: #faf7f1;
+  --owlabee-card: #f4ede2;
+  --owlabee-text: #2e2e2e;
+  --owlabee-muted: #5e5a55;
+  --owlabee-rule: #e2d3b5;
+  --owlabee-gold: #c29a45;
+  --owlabee-link: #7a5b1f;
+  --owlabee-tagline: #8c6a26;
+  --owlonit-ground: #0c0a09;
+  --owlonit-card: #1c1917;
+  --owlonit-border: #292524;
+  --owlonit-text: #f5f5f4;
+  --owlonit-muted: #a8a29e;
+  --owlonit-amber: #f59e0b;
+  --owlonit-link: #fbbf24;
 }
 
 /* Dark: explicit choice wins, system preference is the default path */
@@ -139,6 +160,13 @@
     --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
     --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
     --shadow-lg: 0 20px 44px rgb(0 0 0 / 0.55);
+    --owlabee-ground: #2e2e2e;
+    --owlabee-card: #363533;
+    --owlabee-text: #faf7f1;
+    --owlabee-muted: #c9c1b4;
+    --owlabee-rule: #57503f;
+    --owlabee-link: #d4b26e;
+    --owlabee-tagline: #d4b26e;
   }
 }
 
@@ -164,6 +192,52 @@
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
   --shadow-lg: 0 20px 44px rgb(0 0 0 / 0.55);
+  --owlabee-ground: #2e2e2e;
+  --owlabee-card: #363533;
+  --owlabee-text: #faf7f1;
+  --owlabee-muted: #c9c1b4;
+  --owlabee-rule: #57503f;
+  --owlabee-link: #d4b26e;
+  --owlabee-tagline: #d4b26e;
+}
+
+/* Brand panels: a block that wears a product's own kit. Our tokens are
+   remapped inside it, so every component already built on them (eyebrows,
+   cards, links, headings) takes the product's colors without new rules. */
+.brand-owlabee {
+  --bg: var(--owlabee-ground);
+  --bg-raised: var(--owlabee-card);
+  --text: var(--owlabee-text);
+  --text-muted: var(--owlabee-muted);
+  --text-faint: var(--owlabee-muted);
+  --border: var(--owlabee-rule);
+  --border-strong: var(--owlabee-gold);
+  --accent: var(--owlabee-link);
+  --accent-bright: var(--owlabee-gold);
+  --accent-2: var(--owlabee-link);
+  --f-display: var(--font-owlabee-sans), Futura, 'Century Gothic', system-ui, sans-serif;
+  --f-body: var(--font-owlabee-sans), Futura, 'Century Gothic', system-ui, sans-serif;
+  --f-tagline: var(--font-owlabee-serif), Garamond, Georgia, serif;
+  --shadow-sm: none;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.brand-owlonit {
+  --bg: var(--owlonit-ground);
+  --bg-raised: var(--owlonit-card);
+  --text: var(--owlonit-text);
+  --text-muted: var(--owlonit-muted);
+  --text-faint: var(--owlonit-muted);
+  --border: var(--owlonit-border);
+  --border-strong: var(--owlonit-muted);
+  --accent: var(--owlonit-link);
+  --accent-bright: var(--owlonit-amber);
+  --accent-2: var(--owlonit-link);
+  --f-display: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --f-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* ---------- 2. Reset ---------- */

@@ -50,5 +50,24 @@ export default defineConfig({
       subsets: ['latin'],
       fallbacks: ['ui-monospace', 'monospace'],
     },
+    // owlabee's brand type, used only inside its brand panel. Declared, not
+    // preloaded: a browser fetches a face only when text on the page uses it.
+    {
+      provider: fontProviders.google(),
+      name: 'Jost',
+      cssVariable: '--font-owlabee-sans',
+      weights: [300, 400, 500],
+      subsets: ['latin'],
+      fallbacks: ['Futura', 'system-ui', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Cormorant Garamond',
+      cssVariable: '--font-owlabee-serif',
+      weights: [400, 500],
+      styles: ['italic'],
+      subsets: ['latin'],
+      fallbacks: ['Garamond', 'Georgia', 'serif'],
+    },
   ],
 });

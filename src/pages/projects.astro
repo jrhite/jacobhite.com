@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import { Image } from 'astro:assets';
+import ProjectMark from '../components/ProjectMark.astro';
 import { projects } from '../data/projects';
 
 const [owlonit, owlabee] = projects;
@@ -92,10 +92,10 @@ const owlabeeLinks = [
     lede="I teach AI-assisted engineering because I practice it. Both of these are live, built with the same loop my students use: specify, let AI implement a slice, read it, test it, ship it."
   />
 
-  <section class="section page project" id={owlonit.id}>
+  <section class="section page project brand-owlonit" id={owlonit.id}>
     <div class="project__head">
       <a href={owlonit.url} rel="noopener" class="project__mark" aria-label={`${owlonit.name} website`}>
-        <Image src={owlonit.logo} alt="" width={72} height={72} />
+        <ProjectMark id="owlonit" size={72} />
       </a>
       <div>
         <p class="eyebrow">{owlonit.kicker}</p>
@@ -120,10 +120,10 @@ const owlabeeLinks = [
     </ul>
   </section>
 
-  <section class="section page project" id={owlabee.id}>
+  <section class="section page project brand-owlabee" id={owlabee.id}>
     <div class="project__head">
       <a href={owlabee.url} rel="noopener" class="project__mark" aria-label={`${owlabee.name} website`}>
-        <Image src={owlabee.logo} alt="" width={72} height={72} />
+        <ProjectMark id="owlabee" size={80} />
       </a>
       <div>
         <p class="eyebrow">{owlabee.kicker}</p>
@@ -182,20 +182,64 @@ const owlabeeLinks = [
     line-height: 0;
   }
 
-  .project__mark img {
+  .project__mark :global(.project-mark) {
+    display: block;
     width: 72px;
     height: 72px;
   }
 
+  .project__mark :global(.project-mark--owlabee) {
+    width: 80px;
+    height: 80px;
+    color: var(--text);
+  }
+
   @media (max-width: 30rem) {
-    .project__mark img {
+    .project__mark :global(.project-mark) {
       width: 56px;
       height: 56px;
     }
   }
 
-  .project + .project {
-    border-top: 1px solid var(--border);
+  /* Each product is a panel in its own brand (global.css `.brand-*`). The
+     panel is the section itself, so it keeps the page width and gutters. */
+  .project {
+    border-radius: var(--r-lg);
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+    margin-block: var(--s-6);
+  }
+
+  /* owlabee's type: Jost in spaced capitals for labels, light Jost for the
+     heading, Cormorant Garamond italic for the lede (brand/README.md). */
+  .brand-owlabee .eyebrow,
+  .brand-owlabee .fact dt,
+  .brand-owlabee .group h3 {
+    font-family: var(--f-body);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--text-muted);
+  }
+
+  .brand-owlabee .section__title {
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .brand-owlabee .lede {
+    font-family: var(--f-tagline);
+    font-style: italic;
+    font-size: var(--t-xl);
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .brand-owlabee .group {
+    border-radius: 6px;
+  }
+
+  .brand-owlabee .links {
+    font-family: var(--f-body);
+    font-weight: 500;
   }
 
   .facts,

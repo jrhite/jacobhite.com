@@ -7,6 +7,7 @@ import teaching from '../assets/original/teaching-se-asia.jpg';
 import office from '../assets/office-alchemy-2022.jpg';
 import avatar from '../assets/jacob-hite-avatar.jpg';
 import { projects } from '../data/projects';
+import ProjectMark from '../components/ProjectMark.astro';
 
 const facts = [
   { value: '1999', label: 'BS Computer Science, CU Boulder' },
@@ -199,10 +200,10 @@ const { timeZone } = siteMeta;
     <ul class="offerings offerings--two">
       {
         projects.map((p) => (
-          <li class="offering reveal">
+          <li class={`offering reveal brand-${p.id}`}>
             <a href={p.url} rel="noopener">
               <span class="project-head">
-                <Image class="project-logo" src={p.logo} alt="" width={40} height={40} />
+                <ProjectMark id={p.id} size={p.id === 'owlabee' ? 44 : 40} />
                 <span class="offering__kicker">{p.kicker}</span>
               </span>
               <h3>{p.cardTitle}</h3>
@@ -511,10 +512,35 @@ const { timeZone } = siteMeta;
     margin-bottom: 0;
   }
 
-  .project-logo {
+  .project-head :global(.project-mark) {
     flex: none;
     width: 40px;
     height: 40px;
+  }
+
+  .project-head :global(.project-mark--owlabee) {
+    width: 44px;
+    height: 44px;
+    color: var(--text);
+  }
+
+  /* A brand card carries its product's ground, so the card's own fill and
+     border come from the remapped tokens; the list item is just the frame. */
+  .offering[class*='brand-'] {
+    background: none;
+    border-radius: var(--r-lg);
+  }
+
+  .brand-owlabee h3 {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .brand-owlabee .offering__kicker {
+    font-family: var(--f-body);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--text-muted);
   }
 
   .offering__kicker {
