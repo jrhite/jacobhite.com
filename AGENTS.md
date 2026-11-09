@@ -62,3 +62,21 @@ boundaries, not substrings.
 - **`sourcePath` in portfolio frontmatter quotes the original Google Site**,
   typos included — see `docs/CONTENT-INVENTORY.md`, which calls itself the
   parity contract. `/clincal-practice` is spelled correctly for what it cites.
+
+## owlabee and Apify content
+
+jrhite/owlabee is the authority on owlabee's marketing, brand and styling
+(owner rule, 2026-11-09). Anything on this site about owlabee or its Apify
+Actors follows it, every time:
+
+- **Style.** Colors, type and the mark come from owlabee's `brand/README.md`
+  and `tools/brand/render.mjs`, carried here as the `--owlabee-*` tokens in
+  `src/styles/global.css` and in `src/components/ProjectMark.astro`. When the
+  kit changes, update those in the same pass; never invent an owlabee color,
+  logo or icon here.
+- **Facts.** The Actor list on `src/pages/projects.astro` (slugs, names,
+  coverage numbers) must match the live Apify Store: use each Actor's Store
+  slug (`https://apify.com/owlabee/<slug>`), not its repo directory, and check
+  every link answers 200 before shipping. When an Actor is renamed, added,
+  published or widened in jrhite/mmm, this page is updated in the same pass as
+  owlabee.com, after the Actor is public (never link a private Actor).
