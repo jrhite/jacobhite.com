@@ -65,7 +65,7 @@ boundaries, not substrings.
 
 ## owlabee and Apify content
 
-jrhite/owlabee is the authority on owlabee's marketing, brand and styling
+owlabee/owlabee is the authority on owlabee's marketing, brand and styling
 (owner rule, 2026-11-09). Anything on this site about owlabee or its Apify
 Actors follows it, every time:
 
