@@ -1156,6 +1156,41 @@ export const references: Reference[] = [
     rest: 'Tips for teachers: How to deal with upset parents. _Edutopia._',
     url: 'https://www.edutopia.org/discussion/tips-teachers-how-deal-upset-parents',
   },
+  {
+    id: 'gregory-2025',
+    author: 'Gregory, S.',
+    date: '2025, October 2',
+    rest: '_Increase student learning by teaching replacement behaviors._ Everway.',
+    url: 'https://www.everway.com/blog/teaching-replacement-behaviors/',
+  },
+  {
+    id: 'iris-center-nd-juvenile-corrections',
+    author: 'The IRIS Center.',
+    date: 'n.d.',
+    rest: '_Youth with disabilities in juvenile corrections (Part 1): Improving instruction_ [Module]. Vanderbilt University.',
+    url: 'https://iris.peabody.vanderbilt.edu/module/jj1/cresource/q2/p05/',
+  },
+  {
+    id: 'moreland-university-nd-nancy',
+    author: 'Moreland University.',
+    date: 'n.d.',
+    rest: '_Case study: Nancy_ [Activity resource, Module 4, Unit 6]. TEACH-NOW.',
+    url: 'https://teachnowprogram.com/amazon/getS3File?file=https://platform-user-content.s3.us-west-2.amazonaws.com/activity_resources/M4U6A1_Secondary.png',
+  },
+  {
+    id: 'taylor-2024',
+    author: 'Taylor, A.',
+    date: '2024, June 26',
+    rest: '_Examples of SMART goals and objectives for teachers and students._ Explain Everything.',
+    url: 'https://explaineverything.com/blog/inspiring-educators/examples-of-smart-goals-and-objectives-for-teachers-and-students/',
+  },
+  {
+    id: 'tedx-talks-2014',
+    author: 'TEDx Talks.',
+    date: '2014, October 24',
+    rest: "_Rethinking challenging kids-where there's a skill there's a way | J. Stuart Ablon | TEDxBeaconStreet_ [Video]. YouTube.",
+    url: 'https://www.youtube.com/watch?v=zuoPZkFcLVs',
+  },
 ];
 
 /**
@@ -1259,6 +1294,11 @@ export const citations: Record<string, string[]> = {
     'u-s-department-education-2023',
   ],
   'module-4': [
+    'gregory-2025',
+    'iris-center-nd-juvenile-corrections',
+    'moreland-university-nd-nancy',
+    'taylor-2024',
+    'tedx-talks-2014',
     'american-federation-teachers-2007',
     'nelson-danley-2020',
     'morin-nd',
@@ -1334,6 +1374,11 @@ export const citations: Record<string, string[]> = {
     'zimny-2020',
   ],
   'clinical-practice/learning-environment-plan': [
+    'gregory-2025',
+    'iris-center-nd-juvenile-corrections',
+    'moreland-university-nd-nancy',
+    'taylor-2024',
+    'tedx-talks-2014',
     'american-federation-teachers-2007',
     'nelson-danley-2020',
     'morin-nd',
