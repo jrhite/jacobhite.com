@@ -732,28 +732,28 @@ export const groupTransitionsOnline: Procedure[] = [
 export const needsAndBehaviors: { need: string; behaviors: string; supports: string }[] = [
   {
     "need": "Physiological",
-    "behaviors": "Head down or dozing, especially after long-distance travel or late nights; irritable before lunch; restless after long periods of screen time; frequent requests to leave the room.",
-    "supports": "Allow water bottles and keep a snack basket. Build in screen and movement breaks every 20–25 minutes. Check in privately instead of correcting publicly, and involve the counselor or nurse if a pattern continues."
+    "behaviors": "Head down or dozing, often after a long-haul flight home, a late night, or a long commute; irritable or unfocused before lunch; restless after a long stretch at the screen; frequent requests to leave the room; covering ears or drifting off in a noisy lab. Hunger and tiredness make it harder for students to concentrate and cooperate, and a loud, busy room can overstimulate some students (Hamilton, 2020).",
+    "supports": "Allow water bottles and keep a discreet snack basket. Build in a screen and movement break every 20–25 minutes, and offer a quiet corner or headphones during independent coding. Check in privately instead of correcting publicly, and bring in the nurse, counselor, or learning-support team if a pattern continues, because an underlying medical or learning need can look like misbehavior (Hamilton, 2020). A student who is very hungry struggles to think about anything else (Hopper, 2020), and McLeod (2026) lists food, water, restroom breaks, and movement as the classroom supports for this level."
   },
   {
     "need": "Safety",
-    "behaviors": "Avoids sharing code or screen; does not ask questions; anxious during live coding or presentations; withdrawn after a conflict; worried about privacy online.",
-    "supports": "Predictable routines and a posted agenda; a private help channel; consistent, fair responses to behavior; norms that treat errors as normal; clear digital safety rules, including no recording or sharing others without consent."
+    "behaviors": "Will not share their screen or code; never asks a question; freezes during live coding or presentations; withdraws after a conflict; worries about what happens to their data online. Other students test limits to find out what is allowed, or repeat a behavior because it once got them out of work (Hamilton, 2020).",
+    "supports": "A posted agenda and the same routines every day; a private help channel; clear expectations applied the same way to everyone, so misbehavior never earns a shortened task (Hamilton, 2020); norms that treat errors as a normal part of coding; and clear digital safety rules, including no recording or sharing classmates without consent. Children need safe, predictable surroundings and often react with fear or anxiety without them (Hopper, 2020), and McLeod (2026) names clear expectations, bullying prevention, and consistent, fair treatment as the classroom supports for this level."
   },
   {
     "need": "Love and Belonging",
-    "behaviors": "Works alone or seems isolated; a new student who arrived mid-year struggles to join groups; attention-seeking or clowning; off-task socializing.",
-    "supports": "Greet every student by their preferred name; structured pair programming with rotating partners; a buddy for new arrivals; projects built around interests from the background survey; co-created class norms."
+    "behaviors": "Works alone or seems isolated; a student who arrived mid-year struggles to join a group; clowning or calling out to get attention, even negative attention; off-task chatting; ignores requests from a teacher they have no real connection with (Hamilton, 2020).",
+    "supports": "Greet every student at the door by their preferred name; structured pair programming with rotating partners; a buddy for new arrivals; projects built around interests from the background survey; and co-created class norms. Notice and name positive choices instead of giving airtime to attention-seeking (Hamilton, 2020). Belonging includes being accepted by friends and groups (Cherry, 2026), feeling left out harms well-being (Hopper, 2020), and McLeod (2026) recommends group projects, learning students' names, and valuing diversity."
   },
   {
     "need": "Esteem",
-    "behaviors": "Says \"I'm not a computer person\"; gives up after the first error; copies code without understanding it; avoids challenges; perfectionism.",
-    "supports": "Specific praise for effort and strategies; showcase student work; give students expert roles; track growth through project portfolios; offer scaffolded challenge levels."
+    "behaviors": "Says \"I'm not a computer person\"; gives up after the first error message; copies code without understanding it; hides confusion by disrupting when work is too hard; lashes out instead of asking for help; refuses directions or tries to take over a group to gain control (Hamilton, 2020); perfectionism.",
+    "supports": "Specific praise for effort and debugging strategies; showcase student work; give students expert roles and real choices so they gain influence in a positive way; teach the words for asking for help and joining a group; track growth in project portfolios; and offer scaffolded challenge levels. Students whose esteem needs go unmet can develop feelings of inferiority (Cherry, 2026), and McLeod (2026) recommends recognizing strengths, displaying work, and praising effort."
   },
   {
     "need": "Self-Actualization",
-    "behaviors": "Finishes early and asks for more; bored by basic tasks; builds personal coding projects outside class; wants to lead or mentor others.",
-    "supports": "Choice-based extension projects; open-ended challenges and competitions; peer-mentor and tech-lead roles; projects that solve real problems in the school or community; independent study options."
+    "behaviors": "Finishes early and asks for more; bored and restless when tasks are too easy (Hamilton, 2020); builds personal coding projects outside class; wants to lead or mentor others.",
+    "supports": "Choice-based extension projects; open-ended challenges and competitions; peer-mentor and tech-lead roles; projects that solve real problems in the school or community; and independent study. Self-actualization means growing toward one's full potential, and it looks different for each person (Cherry, 2026; Hopper, 2020), so these options stay open-ended. McLeod (2026) suggests passion projects, goal-setting, and enrichment for this level."
   }
 ];
 
