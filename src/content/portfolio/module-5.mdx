@@ -1,0 +1,190 @@
+---
+title: Module 5 (ED 505)
+navLabel: Module 5
+subtitle: Student Assessments
+group: Modules
+order: 25
+status: complete
+sourcePath: /module/module-5-ed-505
+---
+
+import ActivityTabs from '../../components/ActivityTabs.astro';
+import References from '../../components/References.astro';
+
+export const TABS = [
+  { id: 'u1a1', group: 'Unit 1 · Understanding, Designing, and Administering Assessments', label: 'Activity 1: Understanding formative assessments' },
+  { id: 'u1a2', group: 'Unit 1 · Understanding, Designing, and Administering Assessments', label: 'Activity 2: Formal and informal literacy assessments' },
+  { id: 'references', label: 'References' },
+];
+
+Module 5 is about student assessment: checking for understanding as a lesson
+unfolds, and choosing, giving and acting on formal and informal measures.
+
+<ActivityTabs tabs={TABS}>
+
+<Fragment slot="u1a1">
+
+### Unit 1, Activity 1: Understanding formative assessments
+
+A reflection on how a recorded secondary lesson checks for understanding, and
+how I would make those checks accessible, record them, and use the data.
+
+I watched the Secondary (Online) lesson video, an asynchronous high school lesson in which Mr. Stewart teaches how laws are made in the United States (Moreland University, 2021). I chose it because it is the closest match to my grade band and subject, Computer Science 7–12. A great deal of computer science is learned online and at the student's own pace, so the assessment problems of an asynchronous lesson are the ones I expect to face.
+
+#### What information or ideas were evaluated during the assessment?
+
+The lesson checks four kinds of understanding:
+
+- **Prior knowledge.** It opens with a pre-assessment: which branch of government has the power to make laws?
+- **Key vocabulary.** Students define the lesson's terms (such as *bill* and *public policy*) with a dictionary before the lecture starts.
+- **The process of how a bill becomes a law.** Mid-lesson, students recall the sequence from memory: an idea, a bill introduced in either the House or the Senate, committee work, a floor vote, the other chamber, then the president's signature or veto. They also check who can repeal a law (only Congress; the Supreme Court can rule a law unconstitutional, but that is not a repeal).
+- **Application.** In an online simulation, students apply what they learned about districts, constituents and demographics to steer a bill through to a vote.
+
+#### What activity or technology did students use to demonstrate their knowledge or skills?
+
+The whole lesson is a recorded screen-share with pause points, plus readings and a primer video on the class learning platform. Inside that, students show what they know in five ways:
+
+1. **Pause-and-answer questions** for the pre-assessment and vocabulary.
+2. **An oral retrieval check.** Mr. Stewart asks students to look away from the screen and recall each step of the process, then pauses before confirming the answer.
+3. **A teach-back.** Students explain the process to a family member, or aloud to themselves, using sentence frames on the slide.
+4. **A bill-to-law simulation game.** Students pick a district, study its demographics, survey constituents and introduce a bill. They submit two screenshots: the final results (whether the bill passed, constituent support, re-election chances) and a certificate showing the date, district, bill, correct survey predictions and time spent.
+5. **Reflection questions and a two-question exit ticket**, one of which asks what the lesson left out.
+
+One thing stood out: most of these checks are self-checks. The only evidence that actually reaches the teacher is the two game screenshots, the reflection and the exit ticket. The pre-assessment and the oral recall check give students feedback, but they give the teacher no data.
+
+#### How might you make this accessible to students with language barriers and those with special needs?
+
+I would assume at least one English language learner (ELL) and one student with an IEP in the class. Most of the supports below are **accommodations**: they change *how* a student learns and shows learning, not *what* they are expected to learn. A **modification** changes the expectation itself, so I would use one only when a student's IEP calls for it (Belsky, 2025).
+
+**For an ELL student** (for example, a grade 9 student at an intermediate English level):
+
+- Edit the video's auto-generated captions and post a clean transcript. The automatic captions contain errors that would confuse a language learner.
+- Give a short bilingual glossary of the key terms, with an icon or diagram for each, and allow a home-language dictionary during the vocabulary step.
+- Add a word bank to the sentence frames that are already in the lesson.
+- Provide the bill-to-law process as a flowchart. In my computer science classes, flowcharts are already a familiar way to show a process.
+- Let the student pair with a peer for the game, and turn on the browser's text-to-speech for game text.
+- Accept the exit ticket as a short audio recording, or written first in the home language and then in English.
+
+**For a student with special needs** (for example, a student with ADHD and a reading disability):
+
+- Split the 16-minute video into short segments, each ending with one quick check, so attention is reset often.
+- Offer text-to-speech for the readings and the game, and extended time for the game.
+- Give a checklist of exactly what to submit (two screenshots), since missing one means replaying the game.
+- Let the student answer the reflection questions orally.
+- Only if the IEP requires a modification: a shorter process to sequence (for example, four steps instead of seven) or a reduced vocabulary list (Belsky, 2025).
+
+#### How might you gather and record data from this assessment?
+
+I would turn the self-checks into data I can see:
+
+- **Pre-assessment and exit ticket** as a short, auto-graded Google Forms quiz, so each answer lands in a spreadsheet by student and by question.
+- **Game results** copied from each certificate into the same sheet: bill passed (yes or no), constituent support (%), survey predictions correct, and time spent.
+- **Teach-back and reflection** scored with a simple three-point rubric on the accuracy and order of the bill-to-law steps. Students could record the teach-back as a short audio clip.
+- Each question **tagged to a learning objective**, so the sheet shows mastery per objective, not only a total score.
+- Columns noting **which accommodations** each student used, so I can see whether the supports are working.
+
+Using several sources (quiz answers, game results, rubric scores and my own notes) gives a fuller picture of each student than any one score (Holloman, 2022).
+
+#### How might you use the data to inform instruction?
+
+- **Compare the baseline with the exit ticket.** The pre-assessment is my baseline; the exit ticket shows growth against it (Holloman, 2022).
+- **Reteach by item.** If many students miss the question on who can repeal a law, the next lesson opens with a five-minute contrast of "repealed by Congress" versus "ruled unconstitutional by the Supreme Court."
+- **Group by need.** Students who missed the sequence get a card-sort of the steps in a small group; students who mastered it trace a real bill's path through Congress as an extension.
+- **Read the game data closely.** A student with very little time spent and few correct predictions probably clicked through the game. That calls for a quick conference, not a grade.
+- **Use students' feedback.** The exit ticket question about what the lesson left out tells me what to add next time.
+- **Monitor progress over time for students who need it.** For a student receiving extra support, I would graph at least six to eight data points before deciding whether the support is working. If the four most recent points all fall below the goal line, I change the instruction (The IRIS Center, n.d.).
+
+In my own computer science classes, the same pattern works for a lesson on algorithms: a one-question pre-assessment, a flowchart of the process, an auto-graded exit ticket, and a coding simulation whose results students submit as evidence.
+
+
+</Fragment>
+
+<Fragment slot="u1a2">
+
+### Unit 1, Activity 2: Formal and informal literacy assessments
+
+Literacy carries every subject, computer science included. For each of the six
+literacy areas I list three formal and three informal assessments suited to
+secondary students. The two I am giving to a small group are marked ★.
+
+| Literacy area | Formal assessments | Informal assessments |
+| --- | --- | --- |
+| **Comprehension** | ★ easyCBM Proficient Reading: an online multiple-choice comprehension measure for grades 3–8, included in the free Lite edition (easyCBM, n.d.)<br/>Gates-MacGinitie Reading Tests (GMRT-4), Comprehension subtest: norm-referenced, grades K–adult (MacGinitie et al., 2000)<br/>NWEA MAP Growth Reading: computer-adaptive test widely used in international schools, with comprehension strands (NWEA, n.d.) | Retell or written summary of a domain-specific text (e.g., a Python documentation page), scored with a short rubric (Reading Rockets, n.d.)<br/>Teacher-made explicit and implied questions on a passage, as in an informal reading inventory (Reading Rockets, n.d.)<br/>Think-aloud while reading code comments or a technical article, noted on a checklist |
+| **Fluency** | DIBELS 8th Edition Oral Reading Fluency: timed one-minute passages with words correct per minute (WCPM) and accuracy, grades K–8 (University of Oregon, 2020)<br/>Gray Oral Reading Tests (GORT-5): rate, accuracy, fluency and comprehension, ages 6–23 (Wiederholt & Bryant, 2012)<br/>TOWRE-2 Sight Word Efficiency: timed word-reading fluency, ages 6–24 (Torgesen et al., 2012) | ★ One-minute oral reading probe on a computer science passage, compared with oral reading fluency norms (Hasbrouck & Tindal, 2017)<br/>Prosody rating with the Multidimensional Fluency Scale (expression, phrasing, smoothness, pace) (Zutell & Rasinski, 1991)<br/>Running record or miscue analysis of oral reading accuracy (Reading Rockets, n.d.) |
+| **Oral Language** | WIDA ACCESS for ELLs, Speaking and Listening domains: English language proficiency test used by many international schools (WIDA, n.d.)<br/>CELF-5 (Clinical Evaluation of Language Fundamentals): receptive and expressive language, ages 5–21, usually given by a speech-language pathologist (Wiig et al., 2013)<br/>PPVT-5 (Peabody Picture Vocabulary Test): receptive oral vocabulary, ages 2–90+ (Dunn, 2019) | “Explain your code” oral walkthrough during pair programming, scored with a speaking rubric<br/>Observation checklist for academic talk in structured discussions (uses terms, builds on peers, supports claims)<br/>Recorded oral retell of a lesson concept, revisited over time to show growth (Cloney & Picker, 2021) |
+| **Phonemic Awareness** | CTOPP-2 (Comprehensive Test of Phonological Processing): phonological awareness, memory and rapid naming, ages 4–24 (Wagner et al., 2013)<br/>easyCBM Phoneme Segmenting: timed measure for grades K–1, mainly useful as a below-level screen (easyCBM, n.d.)<br/>DIBELS 8th Edition Phonemic Segmentation Fluency, grades K–1 (University of Oregon, 2020) | Phonological Awareness Screening Test (PAST): quick oral screener of syllable and phoneme manipulation (Kilpatrick, 2015)<br/>Yopp-Singer Test of Phoneme Segmentation (Yopp, 1995)<br/>Oral segmenting and blending of multisyllabic technical terms (al-go-rithm, var-i-a-ble) during vocabulary introduction (Reading Rockets, n.d.) |
+| **Phonics** | Woodcock-Johnson IV Tests of Achievement, Word Attack (nonsense-word decoding) (Schrank et al., 2014)<br/>TOWRE-2 Phonemic Decoding Efficiency: timed decoding of pseudowords, ages 6–24 (Torgesen et al., 2012)<br/>WIAT-4 Pseudoword Decoding (Breaux, 2020) | CORE Phonics Survey (Consortium on Reaching Excellence in Education [CORE], 2008)<br/>Informal Decoding Inventory, including the multisyllabic word section suited to older readers (Walpole et al., 2011)<br/>Words Their Way Upper-Level Spelling Inventory (Bear et al., 2020) |
+| **Vocabulary** | PPVT-5 (Dunn, 2019)<br/>Gates-MacGinitie Reading Tests (GMRT-4), Vocabulary subtest (MacGinitie et al., 2000)<br/>easyCBM Vocabulary, grades 2–8 (Deluxe and District editions) (easyCBM, n.d.) | Vocabulary knowledge rating scale: students rate each unit term from “never seen it” to “can explain and use it,” before and after the unit<br/>Frayer model for a key term (definition, characteristics, examples, non-examples) (Frayer et al., 1969)<br/>Concept map or card sort of unit terms (e.g., variable, loop, function, parameter) |
+
+#### The assessments I chose
+
+**Formal:** easyCBM Proficient Reading (grade 8 form, Lite edition), taken
+online, for a comprehension score and an item-level report (easyCBM, n.d.).
+
+**Informal:** a one-minute oral reading fluency probe on an original computer
+science passage about loops, scored for words correct per minute and accuracy,
+rated for prosody with the Multidimensional Fluency Scale, and followed by a
+one-minute retell (Zutell & Rasinski, 1991; Hasbrouck & Tindal, 2017).
+
+I paired them on purpose. The formal measure tells me how well each student
+comprehends; the informal probe on a domain-specific text helps explain why, by
+showing whether choppy or slow reading of technical text is getting in the way.
+A single probe is one data point, so I treat it as a starting point and gather
+six to eight before deciding anything about one student (The IRIS Center,
+n.d.). Oral reading probes are most useful alongside comprehension questions,
+which is why the two go together here (UNESCO Institute for Statistics, 2016).
+
+#### Results
+
+*Results will be added once I have given both assessments to my small group.*
+
+#### Plan: fluency for comprehension in computer science texts
+
+**Practice:** repeated reading of a short computer science text, followed by summarizing. Repeated reading builds automaticity and phrasing, which frees attention for meaning (Rasinski, 2012); summarizing is a comprehension strategy recommended for adolescent readers (Kamil et al., 2008).
+
+**Text:** a 150-word paragraph from the documentation for a Python feature we are about to use (e.g., the for statement), the kind of domain-specific text students must read on their own as programmers (Shanahan & Shanahan, 2008).
+
+**Steps (three 15-minute small-group sessions in one week):**
+
+1. Pre-teach five technical terms (e.g., iterate, sequence, element, range, indentation). Students say each term aloud, clap its syllables and add it to a Frayer model.
+
+2. I model a fluent reading of the paragraph, showing how to phrase code inside a sentence (for example, reading `for i in range(5)` as one unit).
+
+3. Choral reading, then partner repeated reading, three times each session. Partners mark phrase breaks with slashes and give one piece of feedback with the Multidimensional Fluency Scale.
+
+4. Each student writes a one-sentence summary (“This paragraph explains… so that…”) and then runs the code example to check that the summary matches what the code actually does.
+
+5. Extended discussion: students compare summaries and settle on the most accurate one, justifying it with words from the text and the program's output.
+
+**Measuring progress:** a one-minute WCPM probe and a retell on a new, similar passage at the end of each week, graphed against a goal line. After six to eight data points I will raise the goal, keep going, or change the approach, using the four-point method (The IRIS Center, n.d.). Comprehension is judged by the accuracy of each student's summary.
+
+#### Technology in the assessments (Secondary Computer Science methods)
+
+- **Informal assessments that technology accomplishes or enriches:** retells
+  and summaries recorded or typed into a Google Form; auto-scored question sets
+  in Google Forms or Kahoot!; fluency probes recorded as audio so they can be
+  re-scored and tracked over time; "explain your code" walkthroughs recorded
+  with Loom or Screencastify; vocabulary rating scales as a Google Forms grid;
+  Frayer models, concept maps and card sorts in Google Slides, Miro or FigJam.
+  Phonemic awareness and phonics screeners stay face to face.
+- **Collecting data:** audio recordings of each probe (a phone voice memo or
+  Vocaroo), and speech-to-text for a rough transcript.
+- **Analyzing data:** easyCBM's item reports and progress graphs, plus a Google
+  Sheet with one row per student, one column per probe date and a goal line.
+  Students can analyze their own reading data with a short Python script.
+- **Timely feedback:** instant Google Forms scores, same-day comments in Docs
+  or Classroom, short audio comments that English learners can replay, and code
+  review in GitHub Classroom or Replit that checks a summary against what the
+  code actually does.
+
+</Fragment>
+
+<Fragment slot="references">
+
+### References
+
+<References page="module-5" />
+
+</Fragment>
+
+</ActivityTabs>
